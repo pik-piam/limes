@@ -1,0 +1,30 @@
+Package: limes
+Type: Package
+Title: The liMES R package
+Version: 0.34.1
+Date: 2019-08-09
+Author: Sebastian Osorio
+Maintainer: Sebastian Osorio <sebastian.osorio@pik-potsdam.de>
+Description: Contains the LIMES-specific routines for data and model output manipulation.
+Depends:
+    gdx(>= 1.29),
+    magclass(>= 3.37)
+Imports:
+    abind,
+    dplyr,
+    lucode,
+    luplot,
+    luscale,
+    lusweave,
+    mip,
+    quitte,
+    reshape2,
+    tidyr,
+    rlang,
+    utils,
+    gdxrrw
+Suggests: testthat
+License: LGPL-3
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+ValidationKey: 6177897
