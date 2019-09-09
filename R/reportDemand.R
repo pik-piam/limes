@@ -16,7 +16,6 @@
 #' @export
 #' 
 reportDemand <- function(gdx) {
-  #gross demand
   
   #Loading parameters from convGDX2MIF parent function 
   p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
@@ -35,6 +34,9 @@ reportDemand <- function(gdx) {
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
     p_eldemand <- v_exdemand[,,"seel"]
+    if(c_LIMESversion >= 2.33) {
+      p_hedemand <- v_exdemand[,,"sehe"]
+    }
   } else {
     p_eldemand <- v_exdemand
   }
@@ -55,7 +57,8 @@ reportDemand <- function(gdx) {
   #single countries
   tmp4 <- NULL
   #tmp4 <- mbind(tmp4,setNames(dimSums(tmp1/c_demandscale,dim=3),"Net demand|Electricity (TWh)"))
-  tmp4 <- mbind(tmp4,setNames(dimSums(tmp1/c_demandscale,dim=3),"Final Energy|Electricity (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Final Energy|Heating (TWh/yr)"))
   
   #
   tmp5 <- NULL
