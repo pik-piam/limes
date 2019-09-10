@@ -44,7 +44,6 @@ reportElectricityPrices <- function(gdx) {
   v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")[,,tau]
   m_restarget <- readGDX(gdx,name="q_restarget",field="m",format="first_found")
   
-  
   # create MagPie object of m_elecprices with iso3 regions
   m_elecprices <- limesMapping(m_elecprices) #[Geur/GWh]
   m_fullelecprices <- limesMapping(m_fullelecprices) #[Geur/GWh]
@@ -54,10 +53,19 @@ reportElectricityPrices <- function(gdx) {
   v_storein <- limesMapping(v_storein) #[GWh]
   m_restarget <- limesMapping(m_restarget)
   
+  #Initialize heating price
+  m_fullhecprices <- NULL
+  
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     p_eldemand <- v_exdemand[,,"seel"]
-    m_fullelecprices <- m_fullelecprices[,,"seel"]
+    if(c_heating == 1) {
+      m_fullelecprices <- m_fullelecprices[,,"seel"]
+      m_fullhecprices <- m_fullelecprices[,,"sehe"]
+      } else {
+        m_fullelecprices <- m_fullelecprices
+    }
     
     m_restargetrelativegross_tech <- readGDX(gdx,name="q_restargetrelativegross_tech",field="m",format="first_found")
     m_restargetrelativedem_tech <- readGDX(gdx,name="q_restargetrelativedem_tech",field="m",format="first_found")
@@ -75,6 +83,7 @@ reportElectricityPrices <- function(gdx) {
   # calculate marginal value per tau
   m_elecprices = m_elecprices/p_taulength
   m_fullelecprices = m_fullelecprices/p_taulength
+  #m_fullhecprices = m_fullhecprices/p_taulength
   
   #Need to add zeros to the 2010 and 2015 (equation does not apply to these years)
   o_fullelecprices <- m_elecprices*0
