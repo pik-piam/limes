@@ -61,11 +61,13 @@ reportElectricityPrices <- function(gdx) {
   if(c_LIMESversion >= 2.28) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     p_eldemand <- v_exdemand[,,"seel"]
-    m_fullelecprices <- m_robuststrategy2[,,"seel"]
+    
     if(c_heating == 1) {
-      
+      m_fullelecprices <- m_robuststrategy2[,,"seel"]
       m_fullhecprices <- m_robuststrategy2[,,"sehe"]
-      } 
+    } else {
+      m_fullelecprices <- m_robuststrategy2
+      }
     
     m_restargetrelativegross_tech <- readGDX(gdx,name="q_restargetrelativegross_tech",field="m",format="first_found")
     m_restargetrelativedem_tech <- readGDX(gdx,name="q_restargetrelativedem_tech",field="m",format="first_found")
