@@ -64,8 +64,13 @@ reportAdequacyContribution <- function(gdx) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
-    m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
     p_eldemand <- v_exdemand[,,"seel"]
+    
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    if(c_heating == 1) {
+      m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
+    }
+    
   } else {
     p_eldemand <- v_exdemand
   }

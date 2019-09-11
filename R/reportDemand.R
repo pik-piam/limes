@@ -30,15 +30,19 @@ reportDemand <- function(gdx) {
   
   # create MagPie object of demand with iso3 regions
   v_exdemand <- limesMapping(v_exdemand)
+  p_hedemand <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tau,
+                           fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
     p_eldemand <- v_exdemand[,,"seel"]
-    if(c_LIMESversion >= 2.33) {
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    if(c_heating == 1) {
       p_hedemand <- v_exdemand[,,"sehe"]
     }
   } else {
     p_eldemand <- v_exdemand
+    
   }
   
   #single countries
