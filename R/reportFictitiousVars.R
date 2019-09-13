@@ -18,70 +18,20 @@
 #' 
 reportFictitiousVars <- function(gdx) {
   
+  # read sets and parameters
+  t <- readGDX(gdx,name="t")
+  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
+  
   # read a variable with the minimum needed subindexes (t,regi)
   v_costfu <- readGDX(gdx,name="v_costfu",field="l",format="first_found")
+  #c_emicapcum_regi <- readGDX(gdx,name="c_emicapcum_regi",field="l",format="first_found")
   
   # create MagPie object of v_costfu with iso3 regions
   v_costfu <- limesMapping(v_costfu)
+  #c_emicapcum_regi <- limesMapping(c_emicapcum_regi)
   
-  o_fictitious <- v_costfu*0
-  
-  ##create fictitious variables of those that only exist for an aggregated region, e.g., the EU ETS
-  #v_bankemi <- v_costfu*0
-  #p_emicappath_EUETS <- v_costfu*0
-  #p_withholdEUA <- v_costfu*0
-  #p_backloadEUA <- v_costfu*0
-  #p_cancelEUA <- v_costfu*0
-  #p_MSR <- v_costfu*0
-  #p_extraintakeMSR <- v_costfu*0
-  #p_auction_EUETS <- v_costfu*0
-  #p_freealloc_EUETS <- v_costfu*0
-  #p_aviation_cap <- v_costfu*0
-  #p_aviation_emi <- v_costfu*0
-  #
-  ##report the fictitious variables 
-  ## !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  ##(DO NOT FORGET TO INCLUDE THESE VARIABLES IN mappingvars and aggvars EXCEL FILES) 
-  #tmp1 <- NULL
-  #
-  #tmp2 <- NULL
-  ##Check the version so one can check if the industry is already included
-  #c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
-  #if(c_LIMESversion <= 2.26) {
-  #  tmp2 <- mbind(tmp2,setNames(v_bankemi[,,],"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,],"EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
-  #} else {
-  #  c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
-  #  if(c_industry_ETS == 0) {
-  #    tmp2 <- mbind(tmp2,setNames(v_bankemi[,,],"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
-  #    tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,],"EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
-  #  } else {
-  #    tmp2 <- mbind(tmp2,setNames(v_bankemi[,,],"Emissions level in ETS|CO2 (Mt CO2)"))
-  #  }
-  #  if (c_LIMESversion >= 2.28) {
-  #    c_aviation <- readGDX(gdx,name="c_aviation",field="l",format="first_found")
-  #    if(c_aviation == 1){
-  #      tmp2 <- mbind(tmp2,setNames(p_aviation_cap,"Emissions|CO2|Cap|Aviation (Mt CO2/yr)"))
-  #      tmp2 <- mbind(tmp2,setNames(p_aviation_emi,"Emissions|CO2|Aviation (Mt CO2/yr)"))
-  #      tmp2 <- mbind(tmp2,setNames(p_aviation_emi,"Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"))
-  #    }
-  #  }
-  #  
-  #  #in any case, create the variables for the MSR
-  #  tmp2 <- mbind(tmp2,setNames(p_auction_EUETS,"Emissions|CO2|Certificates auctioned ETS (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_freealloc_EUETS,"Emissions|CO2|Free-allocated certificates ETS (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_withholdEUA,"Emissions|CO2|Intake to MSR (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_backloadEUA,"Emissions|CO2|Outtake from MSR (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_cancelEUA,"Emissions|CO2|Cancellation from MSR (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_extraintakeMSR,"Emissions|CO2|Additional intake to the MSR (Mt CO2)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_MSR,"Emissions|CO2|MSR level (Mt CO2)"))
-  #  
-  #  tmp2 <- mbind(tmp2,setNames(p_MSR,"Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_MSR,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-  #  tmp2 <- mbind(tmp2,setNames(p_MSR,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))
-  #  
-  #  
-  #} 
+  o_fictitious <- new.magpie(cells_and_regions = getRegions(v_costfu), years = t, names = NULL,
+                             fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   
   tmp1 <- NULL
   
@@ -90,6 +40,14 @@ reportFictitiousVars <- function(gdx) {
   AggVarfile <- read.csv(AggVarPath,sep=";")
   #  write the *.mif or give back the magpie opject output
   AggVars <- paste0(as.vector(AggVarfile$LIMES)," (",as.vector(AggVarfile$UnitLIMES) , ")")
+  
+  #Check the version: When there is endogenous heating, related emissions should not appear here (to avoid duplicates)
+  if(c_LIMESversion >= 2.28) {
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    if(c_heating == 1) {
+      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))]
+    }
+  } 
   
   for (name_var in AggVars) {
     tmp1 <- mbind(tmp1,setNames(o_fictitious,name_var))

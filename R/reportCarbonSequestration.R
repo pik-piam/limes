@@ -37,14 +37,12 @@ reportCarbonSequestration <- function(gdx) {
   
   #annual sequestration with some level of aggregation
   tmp2 <- NULL
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi[,,c("pegas","pelig","pecoal","peoil","peothers","pewaste")]*s_c2co2*1000,3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
   
   # add global values
   tmp3 <- mbind(tmp1,tmp2)
   
   #annual emissions per country
   tmp4 <- NULL
-  tmp4 <- mbind(tmp4,setNames(dimSums(v_emi*s_c2co2*1000,dim=3),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
   
   tmp <- mbind(tmp3,tmp4)
 
