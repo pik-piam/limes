@@ -50,7 +50,7 @@ reportEmissions <- function(gdx) {
   #take only the co2 and convert from GtC to MtCO2
   v_emi_ccs <- v_emi[,,"cco2"]*s_c2co2*1000
   v_emi <- v_emi[,,"co2"]*s_c2co2*1000
-  v_emi_el <- v_emi[,,"seel"]
+  v_emi_el <- v_emi
   
   #Read and transform the v_emifloor; read v_bankemi
   #v_emifloor <- readGDX(gdx,name="v_emifloor",field="l",format="first_found")
@@ -58,10 +58,13 @@ reportEmissions <- function(gdx) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
+    
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       v_emi_he <- v_emi[,,"sehe"]
+      v_emi_el <- v_emi[,,"seel"]
     }
+    v_emi_el <- v_emi
   } 
   
   #annual emissions per primary energy type
