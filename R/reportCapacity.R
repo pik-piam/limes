@@ -37,8 +37,8 @@ reportCapacity <- function(gdx) {
   testore <- readGDX(gdx,name="testore")
   teothers <- readGDX(gdx,name="teothers")
   tereserve <- readGDX(gdx,name="tereserve")
-  tegas_el <- setdiff(tegas,"ngcc_heat")
-  tengcc_el <- setdiff(tengcc,"ngcc_heat")
+  tegas_el <- setdiff(tegas,tehe)
+  tengcc_el <- setdiff(tengcc,tehe)
   
   # Read parameters
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")

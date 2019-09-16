@@ -117,7 +117,8 @@ reportPrimaryEnergy <- function(gdx) {
   #combining all the primary sources
   tmp5 <- NULL
   #tmp5 <- setNames(dimSums(v_pedem_el[,,]*p_taulength/1000,3)+dimSums(v_seprod[,,c("spv","csp","windon","windoff","hydro","ror","hs")]*p_taulength/1000,3),paste("Primary Energy|Electricity (TWh/yr)"))
-  #when there is exogenous heating
+  
+  #when there is endogenous heating
   if(c_LIMESversion >= 2.33) {
     
     if(c_heating == 1) {

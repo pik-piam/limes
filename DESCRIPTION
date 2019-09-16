@@ -1,8 +1,8 @@
 Package: limes
 Type: Package
 Title: The liMES R package
-Version: 0.35.7
-Date: 2019-09-13
+Version: 0.36.0
+Date: 2019-09-16
 Author: Sebastian Osorio
 Maintainer: Sebastian Osorio <sebastian.osorio@pik-potsdam.de>
 Description: Contains the LIMES-specific routines for data and model output manipulation.
@@ -27,4 +27,4 @@ Suggests: testthat
 License: LGPL-3
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-ValidationKey: 6480264
+ValidationKey: 6535800
