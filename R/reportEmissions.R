@@ -58,13 +58,12 @@ reportEmissions <- function(gdx) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
-    
+    v_emi_el <- v_emi
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       v_emi_he <- v_emi[,,"sehe"]
       v_emi_el <- v_emi[,,"seel"]
     }
-    v_emi_el <- v_emi
   } 
   
   #annual emissions per primary energy type
