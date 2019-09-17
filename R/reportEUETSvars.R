@@ -91,7 +91,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
       regeuets_iso2 <- readGDX(gdx,name="regeuets")
       regeuets_iso3 <- mappingregi[match(regeuets_iso2,mappingregi[,1]),2]
       regeuets <- regeuets_iso3 #Better to take it directly from the GDX file
-      o_emi_elec_ind <- dimSums(output[regeuets,,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1) 
+      o_emi_elec_ind <- NULL
+      if(length(which(getNames(output) == "Emissions|CO2|Electricity and Industry (Mt CO2/yr)")) > 0) {
+        o_emi_elec_ind <- dimSums(output[regeuets,,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1)
+      }
       
       #Load share from heating
       p_shareheating_EUETS <- readGDX(gdx,name="p_shareheating_EUETS",field="l",format="first_found")
@@ -113,7 +116,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
             o_exoemiheat <- o_prelcap*p_shareheating_EUETS
             o_exoemiheat[,c(2010,2015),] <- c(317,272)  #include historical heating emisions from 2010 and 2015
             tmp2 <- mbind(tmp2,setNames(o_exoemiheat,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
+            if(!is.null(o_emi_elec_ind)) {
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
+            }
+            
             
           } else {
             tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
@@ -121,7 +127,9 @@ reportEUETSvars <- function(gdx,output=NULL) {
             p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
             p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
             tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + o_aviation_demandEUA + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
+            if(!is.null(o_emi_elec_ind)) {
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + o_aviation_demandEUA + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
+            }
             #Previous version did not have endogenous heating 
             #-> with endogenous this variable will be calculated from the region-based heating
             tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))

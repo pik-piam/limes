@@ -632,16 +632,42 @@ Secondary Energy|Electricity and Heating|Fossil;Secondary Energy|Electricity and
 Secondary Energy|Electricity and Heating|Renewable;Secondary Energy|Electricity and Heating|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity and Heating|Non-renewable;Secondary Energy|Electricity and Heating|Non-renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity and Heating|Waste;Secondary Energy|Electricity and Heating|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating;Secondary Energy|Electricity and Heating;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Biomass;Secondary Energy|Electricity and Heating|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Coal;Secondary Energy|Electricity and Heating|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Gas CC;Secondary Energy|Electricity and Heating|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Gas OC;Secondary Energy|Electricity and Heating|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Gas;Secondary Energy|Electricity and Heating|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Hard Coal;Secondary Energy|Electricity and Heating|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Lignite;Secondary Energy|Electricity and Heating|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Oil;Secondary Energy|Electricity and Heating|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Other;Secondary Energy|Electricity and Heating|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Fossil;Secondary Energy|Electricity and Heating|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Renewable;Secondary Energy|Electricity and Heating|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity and Heating|Non-renewable;Secondary Energy|Electricity and Heating|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Heating;Secondary Energy|Heating;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Biomass;Secondary Energy|Heating|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Coal;Secondary Energy|Heating|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Gas CC;Secondary Energy|Heating|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Gas OC;Secondary Energy|Heating|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Gas;Secondary Energy|Heating|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Hard Coal;Secondary Energy|Heating|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Lignite;Secondary Energy|Heating|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Oil;Secondary Energy|Heating|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Other;Secondary Energy|Heating|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Fossil;Secondary Energy|Heating|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Renewable;Secondary Energy|Heating|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Heating|Non-renewable;Secondary Energy|Heating|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP;Secondary Energy|Electricity|CHP;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Biomass;Secondary Energy|Electricity|CHP|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Coal;Secondary Energy|Electricity|CHP|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Gas CC;Secondary Energy|Electricity|CHP|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Gas OC;Secondary Energy|Electricity|CHP|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Gas;Secondary Energy|Electricity|CHP|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Hard Coal;Secondary Energy|Electricity|CHP|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Lignite;Secondary Energy|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Oil;Secondary Energy|Electricity|CHP|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Other;Secondary Energy|Electricity|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Fossil;Secondary Energy|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Renewable;Secondary Energy|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Non-renewable;Secondary Energy|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only;Secondary Energy|Electricity|Electricity-only;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Biomass;Secondary Energy|Electricity|Electricity-only|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Coal;Secondary Energy|Electricity|Electricity-only|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Gas CC;Secondary Energy|Electricity|Electricity-only|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Gas OC;Secondary Energy|Electricity|Electricity-only|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Gas;Secondary Energy|Electricity|Electricity-only|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Hard Coal;Secondary Energy|Electricity|Electricity-only|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Lignite;Secondary Energy|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Oil;Secondary Energy|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Other;Secondary Energy|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Fossil;Secondary Energy|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Renewable;Secondary Energy|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Non-renewable;Secondary Energy|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1
