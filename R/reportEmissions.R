@@ -147,7 +147,8 @@ reportEmissions <- function(gdx) {
   
   #Carbon sequestration
   tmp6 <- NULL
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,c("pegas","pelig","pecoal","peoil","peothers","pewaste")],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],3),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,3),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
   
   # concatenate data

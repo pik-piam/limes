@@ -441,6 +441,8 @@ Emissions|CO2|Free-allocated certificates ETS|Industry;Emissions|CO2|Free-alloca
 Price|Secondary Energy|Electricity|Other fees;Price|Secondary Energy|Electricity|Other fees;Eur2010/MWh;Eur2015/MWh;1
 Price|Secondary Energy|Electricity|Other fees|RES subsidy;Price|Secondary Energy|Electricity|Other fees|RES subsidy;Eur2010/MWh;Eur2015/MWh;1
 Carbon Sequestration|CCS|Electricity;Carbon Sequestration|CCS|Electricity;Mt CO2/yr;Mt CO2/yr;1
+Carbon Sequestration|CCS|Electricity|Biomass;Carbon Sequestration|CCS|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1
+Carbon Sequestration|CCS|Electricity|Fossil;Carbon Sequestration|CCS|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Electricity|CHP;Capacity|Electricity|CHP;GW;GW;1
 Capacity|Electricity|CHP|Coal;Capacity|Electricity|CHP|Coal;GW;GW;1
 Capacity|Electricity|CHP|Hard Coal;Capacity|Electricity|CHP|Hard Coal;GW;GW;1
