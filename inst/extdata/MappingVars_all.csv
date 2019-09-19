@@ -402,6 +402,7 @@ Load Factor|Electricity|Solar|PV;Load Factor|Electricity|Solar|PV;--;--;1
 Load Factor|Electricity|Solar|CSP;Load Factor|Electricity|Solar|CSP;--;--;1
 Load Factor|Electricity|Biomass;Load Factor|Electricity|Biomass;--;--;1
 Load Factor|Electricity|Biomass|w/o CCS;Load Factor|Electricity|Biomass|w/o CCS;--;--;1
+Load Factor|Electricity|Biomass|w/ CCS;Load Factor|Electricity|Biomass|w/ CCS;--;--;1
 Load Factor|Electricity|Hydro;Load Factor|Electricity|Hydro;--;--;1
 Load Factor|Electricity|Waste;Load Factor|Electricity|Waste;--;--;1
 Load Factor|Electricity|Hydrogen;Load Factor|Electricity|Hydrogen;--;--;1

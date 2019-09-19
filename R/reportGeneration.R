@@ -24,8 +24,6 @@ reportGeneration <- function(gdx,output=NULL) {
   }
   
   # read sets
-  te <- readGDX(gdx,name="te") 
-  teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
   teel <- readGDX(gdx,name="teel") #set of electricity generation technologies (non-storage)
   ter <- readGDX(gdx,name="ter") #set of variable renewable electricity generation technologies
@@ -43,7 +41,6 @@ reportGeneration <- function(gdx,output=NULL) {
   teoil <- readGDX(gdx,name="teoil")
   techp <- readGDX(gdx,name="techp")
   teccs <- readGDX(gdx,name="teccs")
-  testore <- readGDX(gdx,name="testore")
   teothers <- readGDX(gdx,name="teothers")
   tau <- readGDX(gdx,name="tau") #set of time slices
   pety <- readGDX(gdx,name="pety") #set of primary energies
@@ -51,7 +48,7 @@ reportGeneration <- function(gdx,output=NULL) {
   tengcc_el <- setdiff(tengcc,tehe)
   
   # read parameters and sets
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found")[,,tau] #number of hours/year per tau
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found") #parameter per technology
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
@@ -61,12 +58,8 @@ reportGeneration <- function(gdx,output=NULL) {
   v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")[,,tau]
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found")[,,tau] #demand
   
-  #Make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
-  #v_seprod <- v_seprod[,,tau]
+  #Make sure only the sets -> to reduce the size of the variables
   v_seprod <- v_seprod[,,pety]
-  #v_seprod <- v_seprod[,,"seel"]
-  #p_taulength <- p_taulength[,,tau]
-  #v_exdemand <- v_exdemand[,,tau]
   p_autocons <- p_tedata[,,"autocons"]
 
   # create MagPie object of variables with iso3 regions

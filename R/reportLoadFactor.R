@@ -32,12 +32,26 @@ reportLoadFactor <- function(gdx) {
   telig <- readGDX(gdx,name="telig") #set of lignite generation technologies
   tecoal <- readGDX(gdx,name="tecoal") #set of hard coal generation technologies
   tengcc <- readGDX(gdx,name="tengcc") #set of NGCC generation technologies
+  te <- readGDX(gdx,name="te") 
+  teel <- readGDX(gdx,name="teel")
+  tehydro <- readGDX(gdx,name="tehydro") #set of hydropower generation technologies
+  tehgen <- readGDX(gdx,name="tehgen")
+  tehydro <- readGDX(gdx,name="tehydro")
+  tebio <- readGDX(gdx,name="tebio")
+  teoil <- readGDX(gdx,name="teoil")
+  techp <- readGDX(gdx,name="techp")
+  teccs <- readGDX(gdx,name="teccs")
+  testore <- readGDX(gdx,name="testore")
+  teothers <- readGDX(gdx,name="teothers")
+  tehe <- readGDX(gdx,name="tehe")
+  tegas_el <- setdiff(tegas,tehe)
+  tengcc_el <- setdiff(tengcc,tehe)
 
   # read variables
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
   v_seprod <- v_seprod[,,pety]
-  v_seprod <- v_seprod[,,"seel"]
   v_cap <- readGDX(gdx,name="v_cap",field="l",format="first_found")
+  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
 
   # create MagPie object of v_cap and v_seprod with iso3 regions
   v_seprod <- limesMapping(v_seprod)
@@ -45,6 +59,21 @@ reportLoadFactor <- function(gdx) {
   
   #take only the years in t to make it compatible with v_seprod
   v_cap <- v_cap[,as.numeric(t),]
+  
+  #Check the version so to choose the electricity-related variables
+  if(c_LIMESversion >= 2.28) {
+    v_seprod_el <- v_seprod[,,"seel"]
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    if(c_heating == 1) {
+      v_seprod_he <- v_seprod[,,"sehe"]
+      #v_seprod_el <- v_seprod[,,"seel"]
+    } else {
+      #v_seprod_el <- v_seprod
+    }
+    
+  } else {
+    v_seprod_el <- v_seprod
+  }
 
   #load factor per technology ('teel') per country
   tmp1 <- NULL
@@ -55,41 +84,42 @@ reportLoadFactor <- function(gdx) {
   
   #load factor for aggregate technologies
   tmp2 <- NULL
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("tnr")]*p_taulength,dim=3)/dimSums((v_cap[,,c("tnr")])*8760,dim=3),"Load Factor|Electricity|Nuclear (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(telig,tecoal)]*p_taulength,dim=3)/dimSums(v_cap[,,c(telig,tecoal)]*8760,dim=3),"Load Factor|Electricity|Coal (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(setdiff(telig,"lpcc"),setdiff(tecoal,"pcc"))]*p_taulength,dim=3)/dimSums(v_cap[,,c(setdiff(telig,"lpcc"),setdiff(tecoal,"pcc"))]*8760,dim=3),"Load Factor|Electricity|Coal|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("pcc","lpcc")]*p_taulength,3)/dimSums(v_cap[,,c("pcc","lpcc")]*8760,dim=3),"Load Factor|Electricity|Coal|w/ CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(telig)]*p_taulength,dim=3)/dimSums(v_cap[,,c(telig)]*8760,dim=3),"Load Factor|Electricity|Lignite (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(setdiff(telig,"lpcc"))]*p_taulength,dim=3)/dimSums(v_cap[,,c(setdiff(telig,"lpcc"))]*8760,dim=3),"Load Factor|Electricity|Lignite|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("lpcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("lpcc")]*8760,dim=3),"Load Factor|Electricity|Lignite|w/ CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(tecoal)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tecoal)]*8760,dim=3),"Load Factor|Electricity|Hard Coal (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(setdiff(tecoal,"pcc"))]*p_taulength,dim=3)/dimSums(v_cap[,,c(setdiff(tecoal,"pcc"))]*8760,dim=3),"Load Factor|Electricity|Hard Coal|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("pcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("pcc")]*8760,dim=3),"Load Factor|Electricity|Hard Coal|w/ CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(tegas)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tegas)]*8760,dim=3),"Load Factor|Electricity|Gas (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(setdiff(tegas,"ngccc"))]*p_taulength,dim=3)/dimSums(v_cap[,,c(setdiff(tegas,"ngccc"))]*8760,dim=3),"Load Factor|Electricity|Gas|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(setdiff(tengcc,"ngccc"))]*p_taulength,dim=3)/dimSums(v_cap[,,c(setdiff(tengcc,"ngccc"))]*8760,dim=3),"Load Factor|Electricity|Gas CC|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c(tengcc)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tengcc)]*8760,dim=3),"Load Factor|Electricity|Gas CC (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("ngccc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("ngccc")]*8760,dim=3),"Load Factor|Electricity|Gas|w/ CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("ngccc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("ngccc")]*8760,dim=3),"Load Factor|Electricity|Gas CC|w/ CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("ngt")]*p_taulength,dim=3)/dimSums(v_cap[,,c("ngt")]*8760,dim=3),"Load Factor|Electricity|Gas OC|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("ngt")]*p_taulength,dim=3)/dimSums(v_cap[,,c("ngt")]*8760,dim=3),"Load Factor|Electricity|Gas OC (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("oil")]*p_taulength,dim=3)/dimSums(v_cap[,,c("oil")]*8760,dim=3),"Load Factor|Electricity|Oil (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("oil")]*p_taulength,dim=3)/dimSums(v_cap[,,c("oil")]*8760,dim=3),"Load Factor|Electricity|Oil|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("windon","windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon","windoff")]*8760,dim=3),"Load Factor|Electricity|Wind (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("windon")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon")]*8760,dim=3),"Load Factor|Electricity|Wind|Onshore (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windoff")]*8760,dim=3),"Load Factor|Electricity|Wind|Offshore (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("spv","csp")]*p_taulength,dim=3)/dimSums(v_cap[,,c("spv","csp")]*8760,dim=3),"Load Factor|Electricity|Solar (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("spv")]*p_taulength,dim=3)/dimSums(v_cap[,,c("spv")]*8760,dim=3),"Load Factor|Electricity|Solar|PV (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("csp")]*p_taulength,dim=3)/dimSums(v_cap[,,c("csp")]*8760,dim=3),"Load Factor|Electricity|Solar|CSP (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("biolcigcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("biolcigcc")]*8760,dim=3),"Load Factor|Electricity|Biomass (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("biolcigcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("biolcigcc")]*8760,dim=3),"Load Factor|Electricity|Biomass|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("hydro","ror","hs")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hydro","ror","hs")]*8760,dim=3),"Load Factor|Electricity|Hydro (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("waste")]*p_taulength,dim=3)/dimSums(v_cap[,,c("waste")]*8760,dim=3),"Load Factor|Electricity|Waste (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("hcc","hct","hfc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hcc","hct","hfc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("others")]*p_taulength,dim=3)/dimSums(v_cap[,,c("others")]*8760,dim=3),"Load Factor|Electricity|Other (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("hfc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hfc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen FC (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("hct")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hct")]*8760,dim=3),"Load Factor|Electricity|Hydrogen OC (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod[,,c("hcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hcc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen CC (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("tnr")]*p_taulength,dim=3)/dimSums((v_cap[,,c("tnr")])*8760,dim=3),"Load Factor|Electricity|Nuclear (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(telig,tecoal)]*p_taulength,dim=3)/dimSums(v_cap[,,c(telig,tecoal)]*8760,dim=3),"Load Factor|Electricity|Coal (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(c(telig,tecoal),teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(c(telig,tecoal),teccs)]*8760,dim=3),"Load Factor|Electricity|Coal|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(c(telig,tecoal),teccs)]*p_taulength,3)/dimSums(v_cap[,,intersect(c(telig,tecoal),teccs)]*8760,dim=3),"Load Factor|Electricity|Coal|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(telig)]*p_taulength,dim=3)/dimSums(v_cap[,,c(telig)]*8760,dim=3),"Load Factor|Electricity|Lignite (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(telig,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(telig,teccs)]*8760,dim=3),"Load Factor|Electricity|Lignite|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(telig,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(telig,teccs)]*8760,dim=3),"Load Factor|Electricity|Lignite|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tecoal)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tecoal)]*8760,dim=3),"Load Factor|Electricity|Hard Coal (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tecoal,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tecoal,teccs)]*8760,dim=3),"Load Factor|Electricity|Hard Coal|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tecoal,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(tecoal,teccs)]*8760,dim=3),"Load Factor|Electricity|Hard Coal|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tegas_el)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tegas_el)]*8760,dim=3),"Load Factor|Electricity|Gas (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tegas_el,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tegas_el,teccs)]*8760,dim=3),"Load Factor|Electricity|Gas|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tengcc_el,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tengcc_el,teccs)]*8760,dim=3),"Load Factor|Electricity|Gas CC|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tengcc_el)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tengcc)]*8760,dim=3),"Load Factor|Electricity|Gas CC (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tegas_el,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(tegas_el,teccs)]*8760,dim=3),"Load Factor|Electricity|Gas|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tengcc_el,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(tengcc_el,teccs)]*8760,dim=3),"Load Factor|Electricity|Gas CC|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(setdiff(tegas,tengcc),teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(setdiff(tegas,tengcc),teccs)]*8760,dim=3),"Load Factor|Electricity|Gas OC|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tegas_el,tengcc_el)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tegas_el,tengcc_el)]*8760,dim=3),"Load Factor|Electricity|Gas OC (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(teoil)]*p_taulength,dim=3)/dimSums(v_cap[,,c(teoil)]*8760,dim=3),"Load Factor|Electricity|Oil (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(teoil,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(teoil,teccs)]*8760,dim=3),"Load Factor|Electricity|Oil|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windon","windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon","windoff")]*8760,dim=3),"Load Factor|Electricity|Wind (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windon")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon")]*8760,dim=3),"Load Factor|Electricity|Wind|Onshore (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windoff")]*8760,dim=3),"Load Factor|Electricity|Wind|Offshore (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("spv","csp")]*p_taulength,dim=3)/dimSums(v_cap[,,c("spv","csp")]*8760,dim=3),"Load Factor|Electricity|Solar (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("spv")]*p_taulength,dim=3)/dimSums(v_cap[,,c("spv")]*8760,dim=3),"Load Factor|Electricity|Solar|PV (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("csp")]*p_taulength,dim=3)/dimSums(v_cap[,,c("csp")]*8760,dim=3),"Load Factor|Electricity|Solar|CSP (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tebio)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tebio)]*8760,dim=3),"Load Factor|Electricity|Biomass (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tebio,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tebio,teccs)]*8760,dim=3),"Load Factor|Electricity|Biomass|w/o CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tebio,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(tebio,teccs)]*8760,dim=3),"Load Factor|Electricity|Biomass|w/ CCS (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tehydro)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tehydro)]*8760,dim=3),"Load Factor|Electricity|Hydro (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("waste")]*p_taulength,dim=3)/dimSums(v_cap[,,c("waste")]*8760,dim=3),"Load Factor|Electricity|Waste (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tehgen)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tehgen)]*8760,dim=3),"Load Factor|Electricity|Hydrogen (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(teothers)]*p_taulength,dim=3)/dimSums(v_cap[,,c(teothers)]*8760,dim=3),"Load Factor|Electricity|Other (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hfc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hfc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen FC (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hct")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hct")]*8760,dim=3),"Load Factor|Electricity|Hydrogen OC (--)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hcc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen CC (--)"))
   
   # add global values
   tmp <- mbind(tmp1,tmp2)
