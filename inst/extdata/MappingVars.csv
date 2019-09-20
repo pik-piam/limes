@@ -62,6 +62,7 @@ Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2015/GJ;1
 Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
 Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heating;Price Full|Secondary Energy|Heating;Eur2010/MWh;Eur2015/MWh;1
 Price|Carbon|Net|Electricity;Price|Carbon|Net|Electricity;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|National Climate Target|Power Sector;Price|Carbon|National Climate Target|Power Sector;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|ETS;Price|Carbon|ETS;Eur2010/t CO2;Eur2015/t CO2;1

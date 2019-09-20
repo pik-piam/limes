@@ -39,7 +39,6 @@ reportElectricityPrices <- function(gdx) {
   m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found")[,,tau]
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
   v_seprod <- v_seprod[,,pety]
-  v_seprod <- v_seprod[,,"seel"]
   v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found")[,,tau]
   v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")[,,tau]
   m_restarget <- readGDX(gdx,name="q_restarget",field="m",format="first_found")
@@ -54,19 +53,25 @@ reportElectricityPrices <- function(gdx) {
   m_restarget <- limesMapping(m_restarget)
   
   #Initialize heating price
-  m_fullhecprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
+  m_fullheprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
                                               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+  p_hedemand <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tau,
+                               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
+    v_seprod_el <- v_seprod[,,"seel"]
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    p_eldemand <- v_exdemand[,,"seel"]
     
     if(c_heating == 1) {
+      p_eldemand <- v_exdemand[,,"seel"]
+      p_hedemand <- v_exdemand[,,"sehe"]
+      v_seprod_he <- v_seprod[,,"sehe"]
       m_fullelecprices <- m_robuststrategy2[,,"seel"]
-      m_fullhecprices <- m_robuststrategy2[,,"sehe"]
+      m_fullheprices <- m_robuststrategy2[,,"sehe"]
     } else {
       m_fullelecprices <- m_robuststrategy2
+      p_eldemand <- v_exdemand
       }
     
     m_restargetrelativegross_tech <- readGDX(gdx,name="q_restargetrelativegross_tech",field="m",format="first_found")
@@ -74,6 +79,7 @@ reportElectricityPrices <- function(gdx) {
     m_restargetrelativegross_tech <- limesMapping(m_restargetrelativegross_tech) #[Geur/GWh]
     m_restargetrelativedem_tech <- limesMapping(m_restargetrelativedem_tech) #[Geur/GWh]
   } else {
+    v_seprod_el <- v_seprod
     p_eldemand <- v_exdemand
     m_fullelecprices <- m_robuststrategy2
     
@@ -86,14 +92,18 @@ reportElectricityPrices <- function(gdx) {
   # calculate marginal value per tau
   m_elecprices = m_elecprices/p_taulength
   m_fullelecprices = m_fullelecprices/p_taulength
-  m_fullhecprices = m_fullhecprices/p_taulength
+  m_fullheprices = m_fullheprices/p_taulength
   
   #Need to add zeros to the 2010 and 2015 (equation does not apply to these years)
   o_fullelecprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
+                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  o_fullheprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
                                  fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+  
   #Assume same spot prices for 2010 and 2015
   for (t2 in getYears(m_fullelecprices)) {
     o_fullelecprices[,t2,] <- m_fullelecprices[,t2,]
+    o_fullheprices[,t2,] <- m_fullheprices[,t2,]
   }
   
   #compute factor to discount average marginal values
@@ -109,10 +119,12 @@ reportElectricityPrices <- function(gdx) {
   o_restargetrelative_DE_disc <- NULL #Only until version 2.26
   o_restargetrelative_disc <- NULL #Only until version 2.26
   o_restarget_disc <- NULL
+  o_fullheprices_disc <- NULL
   for (t2 in 1:length(t)) {
     o_elecprices_disc <- mbind(o_elecprices_disc,m_elecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     o_fullelecprices_disc <- mbind(o_fullelecprices_disc,o_fullelecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     o_restarget_disc <- mbind(o_restarget_disc,m_restarget[,t2,]/f_npv[t2]) #[Geur 2010/GWh-RES]
+    o_fullheprices_disc <- mbind(o_fullheprices_disc,o_fullheprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     #Estimation for variables that changed in some versions
     if(c_LIMESversion >= 2.28) {
       o_restargetrelativegross_tech_disc <- mbind(o_restargetrelativegross_tech_disc,m_restargetrelativegross_tech[,t2,]/f_npv[t2]) #[Geur 2010/GWh-RES]
@@ -137,12 +149,13 @@ reportElectricityPrices <- function(gdx) {
   tmp1 <- NULL
   tmp1 <- mbind(tmp1,setNames(1e6*dimSums(o_elecprices_disc*p_taulength*p_eldemand,dim=3)/dimSums(p_taulength*p_eldemand,3),"Price|Secondary Energy|Electricity (Eur2010/MWh)"))
   tmp1 <- mbind(tmp1,setNames(0*1e6*dimSums((o_fullelecprices_disc - o_elecprices_disc)*p_taulength*p_eldemand,dim=3)/dimSums(p_taulength*p_eldemand,3),"Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
-  tmp1 <- mbind(tmp1,setNames(o_subsidRES_disc*dimSums(v_seprod[,,c(ter,ternofluc)]*p_taulength,dim=3)/(dimSums(p_taulength*p_eldemand,3)/as.numeric(c_demandscale)),"Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)"))
+  tmp1 <- mbind(tmp1,setNames(o_subsidRES_disc*dimSums(v_seprod_el[,,c(ter,ternofluc)]*p_taulength,dim=3)/(dimSums(p_taulength*p_eldemand,3)/as.numeric(c_demandscale)),"Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)"))
   
   #weighted average marginal values per country (spot+capacity adequacy)
   #conversion from Geur/GWh -> eur/MWh
   tmp2 <- NULL
   tmp2 <- mbind(tmp2,setNames(1e6*dimSums(o_fullelecprices_disc*p_taulength*p_eldemand,dim=3)/dimSums(p_taulength*p_eldemand,3),"Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
+  tmp2 <- mbind(tmp2,setNames(1e6*dimSums(o_fullheprices_disc*p_taulength*p_hedemand,dim=3)/dimSums(p_taulength*p_hedemand,3),"Price Full|Secondary Energy|Heating (Eur2010/MWh)"))
   
   
   # add global values
@@ -150,25 +163,25 @@ reportElectricityPrices <- function(gdx) {
   
   #CONSUMER AND PRODUCER SURPLUS CALCULATIONS
   #Consumer
-  o_fullelecpricesyear_disc <- setNames(tmp2,NULL) #[Eur 2010/MWh]
+  o_fullelecpricesyear_disc <- setNames(tmp2[,,"Price Full|Secondary Energy|Electricity (Eur2010/MWh)"],NULL) #[Eur 2010/MWh]
   tmp4 <- NULL
   #Consumer costs: electricity price + subsidy
   tmp4 <- mbind(tmp4,setNames((o_fullelecpricesyear_disc*dimSums(p_taulength*p_eldemand,dim=3))/1e6,"Consumer costs|Secondary Energy|Electricity (billion eur2010/yr)"))
   
   #Producer
   #Initializing tau-dependent variables
-  v_seprod_tau<-p_eldemand*0
+  v_seprod_el_tau<-p_eldemand*0
   v_storeout_tau<-p_eldemand*0
   v_storein_tau<-p_eldemand*0
   #Sum for each tau
   for (tau2 in tau) {
-    v_seprod_tau[,,tau2] <- dimSums(v_seprod[,,tau2],3)
+    v_seprod_el_tau[,,tau2] <- dimSums(v_seprod_el[,,tau2],3)
     v_storeout_tau[,,tau2] <- dimSums(v_storeout[,,tau2],3)
     v_storein_tau[,,tau2] <- dimSums(v_storein[,,tau2],3)
   }
   
-  tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_seprod_tau+v_storeout_tau-v_storein_tau)*p_taulength,dim=3)/1e6,"Producer revenues|Secondary Energy|Electricity (billion eur2010/yr)"))
-  tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_seprod_tau)*p_taulength,dim=3)/1e6,"Producer revenues|Secondary Energy|Electricity|Generation (billion eur2010/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_seprod_el_tau+v_storeout_tau-v_storein_tau)*p_taulength,dim=3)/1e6,"Producer revenues|Secondary Energy|Electricity (billion eur2010/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_seprod_el_tau)*p_taulength,dim=3)/1e6,"Producer revenues|Secondary Energy|Electricity|Generation (billion eur2010/yr)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_storeout_tau)*p_taulength,dim=3),"Producer revenues|Secondary Energy|Electricity|Storage (billion eur2010/yr)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(o_fullelecprices_disc*(v_storein_tau)*p_taulength,dim=3),"Energy costs|Secondary Energy|Electricity|Storage (billion eur2010/yr)"))
   

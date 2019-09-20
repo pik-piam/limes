@@ -6,6 +6,7 @@ Price|Primary Energy|Gas;Primary Energy|Electricity|Gas
 Price|Primary Energy|Oil;Primary Energy|Electricity|Oil
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
+Price Full|Secondary Energy|Heating;Final Energy|Heating
 Price|Carbon|ETS;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity

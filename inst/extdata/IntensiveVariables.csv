@@ -6,6 +6,7 @@ Price|Primary Energy|Gas;Eur2010/GJ
 Price|Primary Energy|Oil;Eur2010/GJ
 Price|Secondary Energy|Electricity;Eur2010/MWh
 Price Full|Secondary Energy|Electricity;Eur2010/MWh
+Price Full|Secondary Energy|Heating;Eur2010/MWh
 Price|Carbon|ETS;Eur2010/t CO2
 Price|Carbon|Net|Electricity;Eur2010/t CO2
 Price|Carbon|National Climate Target|Power Sector;Eur2010/t CO2

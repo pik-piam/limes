@@ -79,6 +79,7 @@ Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2015/GJ;1
 Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
 Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heating;Price Full|Secondary Energy|Heating;Eur2010/MWh;Eur2015/MWh;1
 Primary Energy|Electricity;Primary Energy|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity [exhaustible resources];Primary Energy|Electricity [exhaustible resources];TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity|Biomass;Primary Energy|Electricity|Biomass;TWh/yr;PJ/yr;3.6
