@@ -282,6 +282,17 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   AggVars_tmp <- paste0(as.vector(AggVarfile$LIMES)," (",as.vector(AggVarfile$UnitLIMES) , ")")
   AggVars <- intersect(AggVars_tmp,getNames(output))
   
+  # read sets and parameters
+  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
+  
+  #Check the version: When there is endogenous heating, related emissions should not appear here (to avoid duplicates)
+  if(c_LIMESversion >= 2.28) {
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    if(c_heating == 1) {
+      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))]
+    }
+  }
+  
   #Adding the corresponding values for the EU ETS
   output_EUETSvars <- reportEUETSvars(gdx,output)[,time,]
   output["EUETS",,intersect(AggVars,getNames(output_EUETSvars))] <- output_EUETSvars[,,intersect(AggVars,getNames(output_EUETSvars))]
