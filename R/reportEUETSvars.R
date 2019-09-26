@@ -120,7 +120,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
               tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
             }
             
-          } else {
+          } else {#c_heating == 0 and c_LIMESversion > 2.30
             tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
             p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found") #exogenous emissions from heating (share of cap)
             p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
@@ -135,8 +135,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
             
           }
           
-        } else {
+        } else {#c_heating == 1
           tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+          p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
+          tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
           
           #EU ETS emissions when there is endogenous heating
           o_emi_heat <- NULL
@@ -145,7 +147,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
             o_emi_heat[,c(2010,2015),] <- c(317,272)  #include historical heating emisions from 2010 and 2015
           }
           if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat)) {
-            p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
             tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + (o_aviation_demandEUA + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
           }
           
