@@ -200,6 +200,7 @@ reportGeneration <- function(gdx,output=NULL) {
       tmp2 <- mbind(tmp2,setNames((dimSums(v_seprod[,,union(teel,tehe)]*p_taulength,dim=3)+dimSums(v_storeout*p_taulength,dim=3))/1000,"Secondary Energy|Electricity and Heating (TWh/yr)"))
       
       #ELECTRICITY FROM CHP AND ELECTRICITY-ONLY PLANTS
+      #CHP
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(techp)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(techp,c(telig,tecoal))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP|Coal (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(techp,telig)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP|Lignite (TWh/yr)"))
@@ -213,7 +214,7 @@ reportGeneration <- function(gdx,output=NULL) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(techp,tefossil)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP|Fossil (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(techp,c(ter,ternofluc))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP|Renewable (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(techp,tenr)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|CHP|Non-renewable (TWh/yr)")) 
-      
+      #Electricity-only
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(setdiff(teel,techp))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),c(telig,tecoal))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Coal (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),telig)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Lignite (TWh/yr)"))

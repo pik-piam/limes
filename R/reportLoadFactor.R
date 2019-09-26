@@ -112,7 +112,6 @@ reportLoadFactor <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("csp")]*p_taulength,dim=3)/dimSums(v_cap[,,c("csp")]*8760,dim=3),"Load Factor|Electricity|Solar|CSP (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tebio)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tebio)]*8760,dim=3),"Load Factor|Electricity|Biomass (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tebio,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tebio,teccs)]*8760,dim=3),"Load Factor|Electricity|Biomass|w/o CCS (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tebio,teccs)]*as.numeric(p_taulength),dim=3)/dimSums(v_cap[,,intersect(tebio,teccs)]*8760,dim=3),"Load Factor|Electricity|Biomass|w/ CCS (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tehydro)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tehydro)]*8760,dim=3),"Load Factor|Electricity|Hydro (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("waste")]*p_taulength,dim=3)/dimSums(v_cap[,,c("waste")]*8760,dim=3),"Load Factor|Electricity|Waste (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tehgen)]*p_taulength,dim=3)/dimSums(v_cap[,,c(tehgen)]*8760,dim=3),"Load Factor|Electricity|Hydrogen (--)"))
@@ -121,6 +120,11 @@ reportLoadFactor <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hct")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hct")]*8760,dim=3),"Load Factor|Electricity|Hydrogen OC (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hcc")]*p_taulength,dim=3)/dimSums(v_cap[,,c("hcc")]*8760,dim=3),"Load Factor|Electricity|Hydrogen CC (--)"))
   
+  #Check the version so to choose the electricity-related variables
+  if(c_LIMESversion >= 2.33) {
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(tebio,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,intersect(tebio,teccs)]*8760,dim=3),"Load Factor|Electricity|Biomass|w/ CCS (--)"))
+  }
+    
   # add global values
   tmp <- mbind(tmp1,tmp2)
 

@@ -70,11 +70,10 @@ reportCapacity <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(telig)],dim=3),"Capacity|Electricity|Lignite (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(tegas_el)],dim=3),"Capacity|Electricity|Gas (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(tebio)],dim=3),"Capacity|Electricity|Biomass (GW)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tebio,"bio_ccs")],dim=3),"Capacity|Electricity|Biomass|w/o CCS (GW)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,teccs)],dim=3),"Capacity|Electricity|Biomass|w/ CCS (GW)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tebio,teccs)],dim=3),"Capacity|Electricity|Biomass|w/o CCS (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(testore)],dim=3),"Capacity|Electricity|Storage (GW)")) 
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(teoil)],dim=3),"Capacity|Electricity|Oil (GW)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teoil,"oil_ccs")],dim=3),"Capacity|Electricity|Oil|w/o CCS (GW)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teoil,teccs)],dim=3),"Capacity|Electricity|Oil|w/o CCS (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(teothers)],dim=3),"Capacity|Electricity|Other (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(teoil,teothers,"waste")],dim=3),"Capacity|Electricity|Other Fossil (GW)"))
   
@@ -89,22 +88,25 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(telig,techp)],dim=3),"Capacity|Electricity|CHP|Lignite (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tegas,techp)],dim=3),"Capacity|Electricity|CHP|Gas (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tengcc,techp)],dim=3),"Capacity|Electricity|CHP|Gas CC (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("ngt_chp")],dim=3),"Capacity|Electricity|CHP|Gas OC (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(techp,setdiff(tegas,tengcc))],dim=3),"Capacity|Electricity|CHP|Gas OC (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|CHP|Biomass (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|CHP|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,techp)],dim=3),"Capacity|Electricity|CHP|Other (GW)"))
       #Electricity-only
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teel,techp)],dim=3),"Capacity|Electricity|Electricity-only (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(setdiff(tecoal,"pc_chp"),setdiff(telig,"lpc_chp"))],dim=3),"Capacity|Electricity|Electricity-only|Coal (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tecoal,"pc_chp")],dim=3),"Capacity|Electricity|Electricity-only|Hard Coal (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(telig,"lpc_chp")],dim=3),"Capacity|Electricity|Electricity-only|Lignite (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tegas_el,c("ngcc_chp","ngt_chp"))],dim=3),"Capacity|Electricity|Electricity-only|Gas (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tengcc_el,techp)],dim=3),"Capacity|Electricity|Electricity-only|Gas CC (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("ngt")],dim=3),"Capacity|Electricity|Electricity-only|Gas OC (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(tebio,"bio_chp")],dim=3),"Capacity|Electricity|Electricity-only|Biomass (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teoil,"oil_chp")],dim=3),"Capacity|Electricity|Electricity-only|Oil (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teothers,"others")],dim=3),"Capacity|Electricity|Electricity-only|Other (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),c(telig,tecoal))],dim=3),"Capacity|Electricity|Electricity-only|Coal (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tecoal)],dim=3),"Capacity|Electricity|Electricity-only|Hard Coal (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),telig)],dim=3),"Capacity|Electricity|Electricity-only|Lignite (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tegas)],dim=3),"Capacity|Electricity|Electricity-only|Gas (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tengcc)],dim=3),"Capacity|Electricity|Electricity-only|Gas CC (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),setdiff(tegas,tengcc))],dim=3),"Capacity|Electricity|Electricity-only|Gas OC (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tebio)],dim=3),"Capacity|Electricity|Electricity-only|Biomass (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teoil)],dim=3),"Capacity|Electricity|Electricity-only|Oil (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teothers)],dim=3),"Capacity|Electricity|Electricity-only|Other (GW)"))
     }
+    
+    #Biomass w/ CCS
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,teccs)],dim=3),"Capacity|Electricity|Biomass|w/ CCS (GW)"))
   }
   
   #aggregated coal
