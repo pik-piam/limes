@@ -62,7 +62,7 @@ reportDemand <- function(gdx) {
   tmp4 <- NULL
   #tmp4 <- mbind(tmp4,setNames(dimSums(tmp1/c_demandscale,dim=3),"Net demand|Electricity (TWh)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
-  tmp4 <- mbind(tmp4,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Final Energy|Heating (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Final Energy|Heat (TWh/yr)"))
   
   #
   tmp5 <- NULL

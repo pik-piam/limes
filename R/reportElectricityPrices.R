@@ -155,7 +155,7 @@ reportElectricityPrices <- function(gdx) {
   #conversion from Geur/GWh -> eur/MWh
   tmp2 <- NULL
   tmp2 <- mbind(tmp2,setNames(1e6*dimSums(o_fullelecprices_disc*p_taulength*p_eldemand,dim=3)/dimSums(p_taulength*p_eldemand,3),"Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
-  tmp2 <- mbind(tmp2,setNames(1e6*dimSums(o_fullheprices_disc*p_taulength*p_hedemand,dim=3)/dimSums(p_taulength*p_hedemand,3),"Price Full|Secondary Energy|Heating (Eur2010/MWh)"))
+  tmp2 <- mbind(tmp2,setNames(1e6*dimSums(o_fullheprices_disc*p_taulength*p_hedemand,dim=3)/dimSums(p_taulength*p_hedemand,3),"Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
   
   
   # add global values

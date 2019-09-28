@@ -102,38 +102,40 @@ reportEmissions <- function(gdx) {
   #If activate this, remember to activate the code in convGDX2MIF to erase the values for the countries for which this variable does not exist
   tmp4 <- NULL
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_emifloor[,,]*s_c2co2*1000,3),"Emissions withdrawn ETS|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
-  if(c_LIMESversion >= 2.28) {
+  if(c_LIMESversion >= 2.33) {
+    tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
     if(c_heating == 1) {
       #Heat
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,],3),"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(tecoal,telig),tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tecoal,tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Hard Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(telig,tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Lignite (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teoil,tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Oil (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tegas,tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Gas (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teothers,tehe)],3),"Emissions|CO2|Energy|Supply|Heating|Other (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,],3),"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(tecoal,telig),tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Coal (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tecoal,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Hard Coal (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(telig,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Lignite (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teoil,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Oil (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tegas,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Gas (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teothers,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Other (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tewaste,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Waste (Mt CO2/yr)"))
       
       
-      #Electricity and Heating
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,],3),"Emissions|CO2|Energy|Supply|Electricity and Heating (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig,tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs),setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Coal|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(c(tecoal,telig),teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Coal|w/ CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Hard Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Hard Coal|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tecoal,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Hard Coal|w/ CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Lignite (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Lignite|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(telig,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Lignite|w/ CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Oil (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tegas)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Gas (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Gas|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Gas|w/ CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Gas CC|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,c(tengcc,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Gas OC|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c("pewaste")],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Waste (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Other (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers,"waste",teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Other Fossil (Mt CO2/yr)"))
+      #Electricity and Heat
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,],3),"Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig,tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs),setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(c(tecoal,telig),teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/ CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tecoal,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/ CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(telig,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/ CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Oil (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tegas)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/ CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas CC|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,c(tengcc,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas OC|w/o CCS (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tewaste)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Waste (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers,tewaste,teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil (Mt CO2/yr)"))
       
     }
   } 

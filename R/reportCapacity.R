@@ -37,6 +37,10 @@ reportCapacity <- function(gdx) {
   testore <- readGDX(gdx,name="testore")
   teothers <- readGDX(gdx,name="teothers")
   tereserve <- readGDX(gdx,name="tereserve")
+  tefossil <- readGDX(gdx,name="tefossil")
+  ter <- readGDX(gdx,name="ter")
+  ternofluc <- readGDX(gdx,name="ternofluc")
+  tenr <- readGDX(gdx,name="tenr")
   tegas_el <- setdiff(tegas,tehe)
   tengcc_el <- setdiff(tengcc,tehe)
   
@@ -79,6 +83,9 @@ reportCapacity <- function(gdx) {
   
   #when there is exogenous heating
   if(c_LIMESversion >= 2.33) {
+    tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
+    tedh <- readGDX(gdx,name="tedh") #set of District Heating generation technologies
+    tedhelec <- readGDX(gdx,name="tedhelec") #set of electric District Heating generation technologies
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       #CHP
@@ -92,6 +99,7 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|CHP|Biomass (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|CHP|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,techp)],dim=3),"Capacity|Electricity|CHP|Other (GW)"))
+      
       #Electricity-only
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teel,techp)],dim=3),"Capacity|Electricity|Electricity-only (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),c(telig,tecoal))],dim=3),"Capacity|Electricity|Electricity-only|Coal (GW)"))
@@ -103,6 +111,25 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tebio)],dim=3),"Capacity|Electricity|Electricity-only|Biomass (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teoil)],dim=3),"Capacity|Electricity|Electricity-only|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teothers)],dim=3),"Capacity|Electricity|Electricity-only|Other (GW)"))
+      
+      #District Heating
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(tedh)],dim=3),"Capacity|Heat|District Heating (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(tecoal,telig),tedh)],dim=3),"Capacity|Heat|District Heating|Coal (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tecoal,tedh)],dim=3),"Capacity|Heat|District Heating|Hard Coal (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(telig,tedh)],dim=3),"Capacity|Heat|District Heating|Lignite (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tegas,tedh)],dim=3),"Capacity|Heat|District Heating|Gas (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,tedh)],dim=3),"Capacity|Heat|District Heating|Biomass (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,tedh)],dim=3),"Capacity|Heat|District Heating|Oil (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,tedh)],dim=3),"Capacity|Heat|District Heating|Other (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tewaste,tedh)],dim=3),"Capacity|Heat|District Heating|Waste (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("sol_heat",tedh)],dim=3),"Capacity|Heat|District Heating|Solar (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("geo_heat",tedh)],dim=3),"Capacity|Heat|District Heating|Geothermal (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tedhelec,tedh)],dim=3),"Capacity|Heat|District Heating|Electricity (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("hpump",tedh)],dim=3),"Capacity|Heat|District Heating|Electricity|Heat Pump (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("elboil",tedh)],dim=3),"Capacity|Heat|District Heating|Electricity|Electric Boiler (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tefossil,tedh)],dim=3),"Capacity|Heat|District Heating|Fossil (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tenr,tedh)],dim=3),"Capacity|Heat|District Heating|Non-renewable (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(ter,ternofluc),tedh)],dim=3),"Capacity|Heat|District Heating|Renewable (GW)"))
     }
     
     #Biomass w/ CCS
