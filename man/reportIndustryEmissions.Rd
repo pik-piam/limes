@@ -20,7 +20,7 @@ for the reporting
 }
 \examples{
 
-\dontrun{reportEmissions(gdx)}
+\dontrun{reportIndustryEmissions(gdx,output=NULL)}
 
 }
 \seealso{

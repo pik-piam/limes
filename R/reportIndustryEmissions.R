@@ -11,7 +11,7 @@
 #' @seealso \code{\link{convGDX2MIF}}
 #' @examples
 #' 
-#' \dontrun{reportEmissions(gdx)}
+#' \dontrun{reportIndustryEmissions(gdx,output=NULL)}
 #'
 #' @importFrom gdx readGDX
 #' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie

@@ -90,9 +90,11 @@ reportElectricityPrices <- function(gdx) {
   }
   
   # calculate marginal value per tau
-  m_elecprices = m_elecprices/p_taulength
-  m_fullelecprices = m_fullelecprices/p_taulength
-  m_fullheprices = m_fullheprices/p_taulength
+  m_elecprices <- m_elecprices/p_taulength
+  m_fullelecprices <- collapseNames(m_fullelecprices)
+  m_fullelecprices <- m_fullelecprices/p_taulength
+  m_fullheprices <- collapseNames(m_fullheprices)
+  m_fullheprices <- m_fullheprices/p_taulength
   
   #Need to add zeros to the 2010 and 2015 (equation does not apply to these years)
   o_fullelecprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,

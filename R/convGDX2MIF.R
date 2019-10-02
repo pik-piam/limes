@@ -53,7 +53,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
   
   #adding electrical efficiency to report output
-  output <- mbind(output,reportElectricalEfficiency(gdx)[,time,])
+  #output <- mbind(output,reportElectricalEfficiency(gdx)[,time,])
   
   #adding annual availability factors to report output
   #output <- mbind(output,reportAnnualAvFactor(gdx)[,time,])

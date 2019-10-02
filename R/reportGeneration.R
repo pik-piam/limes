@@ -24,6 +24,7 @@ reportGeneration <- function(gdx,output=NULL) {
   }
   
   # read sets
+  time <- readGDX(gdx,name="t")
   tehe <- readGDX(gdx,name="tehe")
   teel <- readGDX(gdx,name="teel") #set of electricity generation technologies (non-storage)
   ter <- readGDX(gdx,name="ter") #set of variable renewable electricity generation technologies
@@ -79,6 +80,7 @@ reportGeneration <- function(gdx,output=NULL) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       v_seprod_he <- v_seprod[,,"sehe"]
+      v_seprod_he <- collapseNames(v_seprod_he)
       #v_seprod_el <- v_seprod[,,"seel"]
     } else {
       #v_seprod_el <- v_seprod
@@ -88,6 +90,9 @@ reportGeneration <- function(gdx,output=NULL) {
     p_eldemand <- v_exdemand
     v_seprod_el <- v_seprod
   }
+  #Collapse names to avoid some problems
+  p_eldemand <- collapseNames(p_eldemand)
+  v_seprod_el <- collapseNames(v_seprod_el)
   
   
   #generation per technology ('te') per country
@@ -291,19 +296,20 @@ reportGeneration <- function(gdx,output=NULL) {
   tmp4 <- mbind(tmp4,setNames(dimSums(v_storein[,,"psp"]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Consumption|Pump Hydro (TWh/yr)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(v_storein[,,"batteries"]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Consumption|Stat Batteries (TWh/yr)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(v_storein[,,"helec"]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis (TWh/yr)"))
-  tmp4 <- mbind(tmp4,setNames(dimSums((v_storein-v_storeout)*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(collapseNames(v_storein-v_storeout)*collapseNames(p_taulength)/1000,dim=3),"Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
   
   tmp5 <- mbind(tmp3,tmp4)
   
   #Gross demand
   tmp6 <- NULL
-  #Need to create a variable with t,regi,te for gross production (v_capreserve has these indexes)
-  p_grossprod <- v_seprod*0
+  #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
+  p_grossprod <- new.magpie(cells_and_regions = getRegions(v_seprod), years = getYears(v_seprod), names = getNames(v_seprod),
+                                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #p_grossprod <- limesMapping(p_grossprod)
-  for (teel2 in teel) {
-    p_grossprod[,,teel2] <- v_seprod_el[,,teel2]*(1+p_autocons[,,teel2])
-    tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,teel2]*p_taulength/1000,dim=3),paste("Gross Production|Electricity|",teel2,"(TWh/yr)")))
-  } 
+  #for (teel2 in teel) {
+  #  p_grossprod[,,teel2] <- v_seprod_el[,,teel2]*(1+p_autocons[,,teel2])
+  #  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,teel2]*p_taulength/1000,dim=3),paste("Gross Production|Electricity|",teel2,"(TWh/yr)")))
+  #} 
   tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(telig)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Lignite (TWh/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(tecoal)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Coal (TWh/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(tegas)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Gas (TWh/yr)"))
@@ -313,7 +319,7 @@ reportGeneration <- function(gdx,output=NULL) {
   #Net imports
   p_netimpots <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(p_eldemand), names = tau,
                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  p_netimpots <- dimSums(p_eldemand*p_taulength/1000,dim=3) - dimSums(v_seprod_el*p_taulength/1000,dim=3) + dimSums((v_storein-v_storeout)*p_taulength/1000,dim=3)
+  p_netimpots <- dimSums(p_eldemand*p_taulength/1000,dim=3) - dimSums(v_seprod_el*p_taulength/1000,dim=3) + tmp4[,,"Secondary Energy|Electricity|Storage Losses (TWh/yr)"]
   
   #Gross demand (gross electricity production + net imports), following official german statistics procedure
   p_grossdem <- dimSums(p_grossprod*p_taulength/1000,dim=3) + p_netimpots
