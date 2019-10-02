@@ -105,7 +105,7 @@ reportEmissions <- function(gdx) {
   if(c_LIMESversion >= 2.33) {
     tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
     if(c_heating == 1) {
-      #Heat
+      #Heat 
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,],3),"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(tecoal,telig),tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Coal (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tecoal,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Hard Coal (Mt CO2/yr)"))
@@ -114,6 +114,7 @@ reportEmissions <- function(gdx) {
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tegas,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Gas (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teothers,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Other (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tewaste,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Waste (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(teothers,tewaste,teoil),tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Other Fossil (Mt CO2/yr)"))
       
       
       #Electricity and Heat
@@ -152,8 +153,8 @@ reportEmissions <- function(gdx) {
   if(c_LIMESversion >= 2.33) {
     tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)"))
     tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS (Mt CO2/yr)"))
-    tmp6 <- mbind(tmp6,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Biomass (Mt CO2/yr)"))
-    tmp6 <- mbind(tmp6,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heating|Biomass w/ CCS (Mt CO2/yr)"))
+    tmp6 <- mbind(tmp6,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"))
+    tmp6 <- mbind(tmp6,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass w/ CCS (Mt CO2/yr)"))
     tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
     tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],3),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
     

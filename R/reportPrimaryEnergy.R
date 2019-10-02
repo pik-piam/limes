@@ -120,7 +120,7 @@ reportPrimaryEnergy <- function(gdx) {
   
   #when there is endogenous heating
   if(c_LIMESversion >= 2.33) {
-    
+    tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
     if(c_heating == 1) {
       #Heat
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem_he[,,]*p_taulength/1000,3),"Primary Energy|Heat (TWh/yr)"))
@@ -133,6 +133,7 @@ reportPrimaryEnergy <- function(gdx) {
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem_he[,,intersect(tegas,tehe)]*p_taulength/1000,3),"Primary Energy|Heat|Gas (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem_he[,,intersect(tefossil,tehe)]*p_taulength/1000,3),"Primary Energy|Heat|Fossil (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem_he[,,intersect(teothers,tehe)]*p_taulength/1000,3),"Primary Energy|Heat|Other (TWh/yr)"))
+      tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem_he[,,intersect(tewaste,tehe)]*p_taulength/1000,3),"Primary Energy|Heat|Waste (TWh/yr)"))
       
       #Electricity and Heat
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,]*p_taulength/1000,3),"Primary Energy|Electricity and Heat [exhaustible resources] (TWh/yr)"))
@@ -148,7 +149,7 @@ reportPrimaryEnergy <- function(gdx) {
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,c(tegas)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Gas (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,setdiff(tegas_el,teccs)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Gas w/o CCS (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,intersect(tegas_el,teccs)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Gas w/ CCS (TWh/yr)"))
-      tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,c("pewaste")]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Waste (TWh/yr)"))
+      tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,c(tewaste)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Waste (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,c(tefossil)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Fossil (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(((dimSums(v_pedem[,,c(tefossil)]*p_taulength,3)-dimSums(v_pedem[,,c(teccs)]*p_taulength,3))/1000),"Primary Energy|Electricity and Heat|Fossil w/o CCS (TWh/yr)"))
       tmp5 <- mbind(tmp5,setNames(dimSums(v_pedem[,,c(teccs)]*p_taulength/1000,3),"Primary Energy|Electricity and Heat|Fossil w/ CCS (TWh/yr)"))

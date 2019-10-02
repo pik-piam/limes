@@ -572,6 +572,7 @@ Primary Energy|Heat|Oil;Primary Energy|Heat|Oil;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat|Other;Primary Energy|Heat|Other;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat|Lignite;Primary Energy|Heat|Lignite;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat|Hard Coal;Primary Energy|Heat|Hard Coal;TWh/yr;PJ/yr;3.6
+Primary Energy|Heat|Waste;Primary Energy|Heat|Waste;TWh/yr;PJ/yr;3.6
 Emissions|CO2|Energy|Supply|Electricity|Biomass;Emissions|CO2|Energy|Supply|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat;Emissions|CO2|Energy|Supply|Electricity and Heat;Mt CO2/yr;Mt CO2/yr;1
@@ -725,3 +726,4 @@ Capacity|Heat|District Heating|Electricity|Electric Boiler;Capacity|Heat|Distric
 Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;GW;1
 Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
 Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
+Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
