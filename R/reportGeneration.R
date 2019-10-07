@@ -106,7 +106,7 @@ reportGeneration <- function(gdx,output=NULL) {
   tmp2 <- NULL
   #Conventional
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("tnr")]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Nuclear (TWh/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(telig,tecoal)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Coal (TWh/yr)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(teel,c(telig,tecoal))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Coal (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(setdiff(telig,teccs),setdiff(tecoal,teccs))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Coal|w/o CCS (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(c(telig,tecoal),teccs)]*p_taulength/1000,3),"Secondary Energy|Electricity|Coal|w/ CCS (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(telig)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Lignite (TWh/yr)"))
@@ -303,18 +303,25 @@ reportGeneration <- function(gdx,output=NULL) {
   #Gross demand
   tmp6 <- NULL
   #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
-  p_grossprod <- new.magpie(cells_and_regions = getRegions(v_seprod), years = getYears(v_seprod), names = getNames(v_seprod),
+  p_grossprod <- new.magpie(cells_and_regions = getRegions(v_seprod_el), years = getYears(v_seprod_el), names = getNames(v_seprod_el[,,teel]),
                                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  #p_grossprod <- limesMapping(p_grossprod)
+  
+  #p_grossprod[,,] <- v_seprod_el[,,]*(1+p_autocons[,,teel])
+  #
   #for (teel2 in teel) {
   #  p_grossprod[,,teel2] <- v_seprod_el[,,teel2]*(1+p_autocons[,,teel2])
-  #  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,teel2]*p_taulength/1000,dim=3),paste("Gross Production|Electricity|",teel2,"(TWh/yr)")))
+  #  #tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,teel2]*p_taulength/1000,dim=3),paste("Gross Production|Electricity|",teel2,"(TWh/yr)")))
   #} 
-  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(telig)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Lignite (TWh/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(tecoal)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Coal (TWh/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(tegas)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Gas (TWh/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c(tefossil)]*p_taulength/1000,dim=3),"Gross Production|Electricity|Fossil (TWh/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,c("tnr")]*p_taulength/1000,dim=3),"Gross Production|Electricity|Nuclear (TWh/yr)"))
+  #
+  for (regi2 in getRegions(v_seprod_el)) {
+    p_grossprod[regi2,,] <- collapseNames(v_seprod_el[regi2,,teel]*(1+p_autocons[regi2,,teel]))
+    #tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,teel2]*p_taulength/1000,dim=3),paste("Gross Production|Electricity|",teel2,"(TWh/yr)")))
+  }
+  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,intersect(teel,c(telig))]*p_taulength/1000,dim=3),"Gross Production|Electricity|Lignite (TWh/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,intersect(teel,c(tecoal))]*p_taulength/1000,dim=3),"Gross Production|Electricity|Coal (TWh/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,intersect(teel,c(tegas))]*p_taulength/1000,dim=3),"Gross Production|Electricity|Gas (TWh/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,intersect(teel,c(tefossil))]*p_taulength/1000,dim=3),"Gross Production|Electricity|Fossil (TWh/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(p_grossprod[,,intersect(teel,c("tnr"))]*p_taulength/1000,dim=3),"Gross Production|Electricity|Nuclear (TWh/yr)"))
   
   #Net imports
   p_netimpots <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(p_eldemand), names = tau,
@@ -327,7 +334,7 @@ reportGeneration <- function(gdx,output=NULL) {
   
   #Shares
   tmp7 <- NULL
-  tmp7 <- mbind(tmp7,setNames(dimSums(p_grossprod[,,c(ter,ternofluc)]*p_taulength/1000,dim=3)/p_grossdem,"Secondary Energy|Electricity|Share of renewables in gross demand (--)"))
+  tmp7 <- mbind(tmp7,setNames(dimSums(p_grossprod[,,intersect(teel,c(ter,ternofluc))]*p_taulength/1000,dim=3)/p_grossdem,"Secondary Energy|Electricity|Share of renewables in gross demand (--)"))
   
   tmp8 <- mbind(tmp6,tmp7)
   
