@@ -21,6 +21,7 @@ reportPrimaryEnergy <- function(gdx) {
   # read sets
   t <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te")
+  teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
   ter <- readGDX(gdx,name="ter")
   tecoal <- readGDX(gdx,name="tecoal") 
@@ -33,8 +34,8 @@ reportPrimaryEnergy <- function(gdx) {
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
   teoil <- readGDX(gdx,name="teoil") #set of oil generation technologies
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
-  tegas_el <- setdiff(tegas,"ngcc_heat")
-  tengcc_el <- setdiff(tengcc,"ngcc_heat")
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
   petyex <- readGDX(gdx,name="petyex")
   pety <- readGDX(gdx,name="pety") #set of primary energies
   petyren <- readGDX(gdx,name="petyren") #set of primary energies
@@ -46,10 +47,10 @@ reportPrimaryEnergy <- function(gdx) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found")[,,tau]
   v_pedem <- readGDX(gdx,name="v_pedem",field="l",format="first_found")[,,tau]
-  #v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
+  v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
   
   #Make sure only the "right" sets are taken -> to avoid info from gdx that might be stuck in the file
-  #v_seprod <- v_seprod[,,c(pe2se)]
+  v_seprod <- v_seprod[,,c(pe2se)]
   #v_seprod <- v_seprod[,,c(petyren)]
   #v_seprod <- v_seprod[,,c(ter,"hydro","ror","hs")]
   #v_seprod <- v_seprod[,,"seel"]
@@ -57,7 +58,7 @@ reportPrimaryEnergy <- function(gdx) {
   
   # create MagPie object of v_pedem with iso3 regions
   v_pedem <- limesMapping(v_pedem)
-  #v_seprod <- limesMapping(v_seprod)
+  v_seprod <- limesMapping(v_seprod)
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
@@ -110,7 +111,7 @@ reportPrimaryEnergy <- function(gdx) {
   
   #THIS IS NOW IN GENERATION
   ##For these technologies, primary energy variable does not exist in LIMES, so it is calculated based on their generation
-  #tmp4 <- mbind(tmp4,setNames(dimSums(v_seprod[,,c("spv","csp")]*p_taulength/1000,3),"Primary Energy|Electricity|Solar (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums(v_seprod[,,c("spv","csp")]*p_taulength/1000,3),"Primary Energy|Electricity|Solar (TWh/yr)"))
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_seprod[,,c("windon","windoff")]*p_taulength/1000,3),"Primary Energy|Electricity|Wind (TWh/yr)"))
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_seprod[,,c("hydro","ror","hs")]*p_taulength/1000,3),"Primary Energy|Electricity|Hydro (TWh/yr)"))
   

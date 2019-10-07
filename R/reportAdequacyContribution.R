@@ -38,8 +38,8 @@ reportAdequacyContribution <- function(gdx) {
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
   teoil <- readGDX(gdx,name="teoil") #set of biomass generation technologies
   teothers <- readGDX(gdx,name="teothers") #set of biomass generation technologies
-  tegas_el <- setdiff(tegas,"ngcc_heat")
-  tengcc_el <- setdiff(tengcc,"ngcc_heat")
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
   
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")

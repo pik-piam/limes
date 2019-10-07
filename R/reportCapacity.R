@@ -41,8 +41,8 @@ reportCapacity <- function(gdx) {
   ter <- readGDX(gdx,name="ter")
   ternofluc <- readGDX(gdx,name="ternofluc")
   tenr <- readGDX(gdx,name="tenr")
-  tegas_el <- setdiff(tegas,tehe)
-  tengcc_el <- setdiff(tengcc,tehe)
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
   
   # Read parameters
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")

@@ -21,6 +21,7 @@ reportEmissions <- function(gdx) {
   # read sets
   t <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te")
+  teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
   ter <- readGDX(gdx,name="ter")
   tecoal <- readGDX(gdx,name="tecoal") 
@@ -33,8 +34,8 @@ reportEmissions <- function(gdx) {
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
   teoil <- readGDX(gdx,name="teoil") #set of oil generation technologies
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
-  tegas_el <- setdiff(tegas,"ngcc_heat")
-  tengcc_el <- setdiff(tengcc,"ngcc_heat")
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
   
   # read parameters
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #conversion factor C -> CO2

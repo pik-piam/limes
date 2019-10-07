@@ -33,10 +33,8 @@ reportLoadFactor <- function(gdx) {
   tecoal <- readGDX(gdx,name="tecoal") #set of hard coal generation technologies
   tengcc <- readGDX(gdx,name="tengcc") #set of NGCC generation technologies
   te <- readGDX(gdx,name="te") 
-  teel <- readGDX(gdx,name="teel")
   tehydro <- readGDX(gdx,name="tehydro") #set of hydropower generation technologies
   tehgen <- readGDX(gdx,name="tehgen")
-  tehydro <- readGDX(gdx,name="tehydro")
   tebio <- readGDX(gdx,name="tebio")
   teoil <- readGDX(gdx,name="teoil")
   techp <- readGDX(gdx,name="techp")
@@ -44,8 +42,8 @@ reportLoadFactor <- function(gdx) {
   testore <- readGDX(gdx,name="testore")
   teothers <- readGDX(gdx,name="teothers")
   tehe <- readGDX(gdx,name="tehe")
-  tegas_el <- setdiff(tegas,tehe)
-  tengcc_el <- setdiff(tengcc,tehe)
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
 
   # read variables
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]

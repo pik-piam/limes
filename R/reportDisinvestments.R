@@ -41,8 +41,8 @@ reportDisinvestments <- function(gdx) {
   testore <- readGDX(gdx,name="testore")
   teothers <- readGDX(gdx,name="teothers")
   tereserve <- readGDX(gdx,name="tereserve")
-  tegas_el <- setdiff(tegas,tehe)
-  tengcc_el <- setdiff(tengcc,tehe)
+  tegas_el <- intersect(tegas,teel)
+  tengcc_el <- intersect(tengcc,teel)
 
   # read variables
   v_disinvest <- readGDX(gdx,name="v_disinvest",field="l",format="first_found")
