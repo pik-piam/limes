@@ -34,14 +34,14 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #adding primary energy to report output
   output <- mbind(output,reportPrimaryEnergy(gdx)[,time,])
   
-  #adding demand info to report output
-  output <- mbind(output,reportDemand(gdx)[,time,])
-  
   #adding electricity prices info to report output
   output <- mbind(output,reportElectricityPrices(gdx)[,time,])
   
   #adding electricity generation info to report output
   output <- mbind(output,reportGeneration(gdx,output)[,time,]) #dependent on primary energy
+  
+  #adding demand info to report output
+  output <- mbind(output,reportDemand(gdx,output)[,time,]) #dependent on generation
   
   #adding availability factors to report output
   #output <- mbind(output,reportNuren(gdx)[,time,])

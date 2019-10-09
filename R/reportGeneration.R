@@ -238,6 +238,7 @@ reportGeneration <- function(gdx,output=NULL) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),teoil)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Oil (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),tebio)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Biomass (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),teothers)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Other (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),tewaste)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Waste (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),tefossil)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Fossil (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),c(ter,ternofluc))]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Renewable (TWh/yr)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,intersect(setdiff(teel,techp),tenr)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Electricity-only|Non-renewable (TWh/yr)")) 

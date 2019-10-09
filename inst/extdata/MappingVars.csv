@@ -70,6 +70,8 @@ Price|Carbon|Net|Industry;Price|Carbon|Net|Industry;Eur2010/t CO2;Eur2015/t CO2;
 Price|Carbon|National Climate Target|Industry;Price|Carbon|National Climate Target|Industry;Eur2010/t CO2;Eur2015/t CO2;1
 Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1
 Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1
+Gross Energy|Electricity|w/ Storage and DisHeat;Gross Energy|Electricity|w/ Storage and DisHeat;TWh/yr;TWh/yr;1
+Gross Energy|Heat;Gross Energy|Heat;TWh/yr;TWh/yr;1
 Primary Energy|Electricity;Primary Energy|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity [exhaustible resources];Primary Energy|Electricity [exhaustible resources];TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity|Biomass;Primary Energy|Electricity|Biomass;TWh/yr;PJ/yr;3.6
@@ -165,122 +167,6 @@ Capacity Additions|Electricity|Gas|w/ CCS;Capacity Additions|Electricity|Gas|w/ 
 Capacity Additions|Electricity|Gas|w/o CCS;Capacity Additions|Electricity|Gas|w/o CCS;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Storage|Intra-day;Capacity Additions|Electricity|Storage|Intra-day;GW/yr;GW/yr;1
-Exports to FIN|Electricity;Exports to FIN|Electricity;TWh/yr;TWh/yr;1
-Exports to NOR|Electricity;Exports to NOR|Electricity;TWh/yr;TWh/yr;1
-Exports to SWE|Electricity;Exports to SWE|Electricity;TWh/yr;TWh/yr;1
-Exports to EST|Electricity;Exports to EST|Electricity;TWh/yr;TWh/yr;1
-Exports to LVA|Electricity;Exports to LVA|Electricity;TWh/yr;TWh/yr;1
-Exports to LTU|Electricity;Exports to LTU|Electricity;TWh/yr;TWh/yr;1
-Exports to DNK|Electricity;Exports to DNK|Electricity;TWh/yr;TWh/yr;1
-Exports to GBR|Electricity;Exports to GBR|Electricity;TWh/yr;TWh/yr;1
-Exports to IRL|Electricity;Exports to IRL|Electricity;TWh/yr;TWh/yr;1
-Exports to NLD|Electricity;Exports to NLD|Electricity;TWh/yr;TWh/yr;1
-Exports to POL|Electricity;Exports to POL|Electricity;TWh/yr;TWh/yr;1
-Exports to DEU|Electricity;Exports to DEU|Electricity;TWh/yr;TWh/yr;1
-Exports to BEL|Electricity;Exports to BEL|Electricity;TWh/yr;TWh/yr;1
-Exports to LUX|Electricity;Exports to LUX|Electricity;TWh/yr;TWh/yr;1
-Exports to CZE|Electricity;Exports to CZE|Electricity;TWh/yr;TWh/yr;1
-Exports to SVK|Electricity;Exports to SVK|Electricity;TWh/yr;TWh/yr;1
-Exports to AUT|Electricity;Exports to AUT|Electricity;TWh/yr;TWh/yr;1
-Exports to CHE|Electricity;Exports to CHE|Electricity;TWh/yr;TWh/yr;1
-Exports to HUN|Electricity;Exports to HUN|Electricity;TWh/yr;TWh/yr;1
-Exports to ROM|Electricity;Exports to ROM|Electricity;TWh/yr;TWh/yr;1
-Exports to SVN|Electricity;Exports to SVN|Electricity;TWh/yr;TWh/yr;1
-Exports to FRA|Electricity;Exports to FRA|Electricity;TWh/yr;TWh/yr;1
-Exports to HRV|Electricity;Exports to HRV|Electricity;TWh/yr;TWh/yr;1
-Exports to BAL|Electricity;Exports to BAL|Electricity;TWh/yr;TWh/yr;1
-Exports to BGR|Electricity;Exports to BGR|Electricity;TWh/yr;TWh/yr;1
-Exports to ITA|Electricity;Exports to ITA|Electricity;TWh/yr;TWh/yr;1
-Exports to ESP|Electricity;Exports to ESP|Electricity;TWh/yr;TWh/yr;1
-Exports to PRT|Electricity;Exports to PRT|Electricity;TWh/yr;TWh/yr;1
-Exports to GRC|Electricity;Exports to GRC|Electricity;TWh/yr;TWh/yr;1
-Imports from FIN|Electricity;Imports from FIN|Electricity;TWh/yr;TWh/yr;1
-Imports from NOR|Electricity;Imports from NOR|Electricity;TWh/yr;TWh/yr;1
-Imports from SWE|Electricity;Imports from SWE|Electricity;TWh/yr;TWh/yr;1
-Imports from EST|Electricity;Imports from EST|Electricity;TWh/yr;TWh/yr;1
-Imports from LVA|Electricity;Imports from LVA|Electricity;TWh/yr;TWh/yr;1
-Imports from LTU|Electricity;Imports from LTU|Electricity;TWh/yr;TWh/yr;1
-Imports from DNK|Electricity;Imports from DNK|Electricity;TWh/yr;TWh/yr;1
-Imports from GBR|Electricity;Imports from GBR|Electricity;TWh/yr;TWh/yr;1
-Imports from IRL|Electricity;Imports from IRL|Electricity;TWh/yr;TWh/yr;1
-Imports from NLD|Electricity;Imports from NLD|Electricity;TWh/yr;TWh/yr;1
-Imports from POL|Electricity;Imports from POL|Electricity;TWh/yr;TWh/yr;1
-Imports from DEU|Electricity;Imports from DEU|Electricity;TWh/yr;TWh/yr;1
-Imports from BEL|Electricity;Imports from BEL|Electricity;TWh/yr;TWh/yr;1
-Imports from LUX|Electricity;Imports from LUX|Electricity;TWh/yr;TWh/yr;1
-Imports from CZE|Electricity;Imports from CZE|Electricity;TWh/yr;TWh/yr;1
-Imports from SVK|Electricity;Imports from SVK|Electricity;TWh/yr;TWh/yr;1
-Imports from AUT|Electricity;Imports from AUT|Electricity;TWh/yr;TWh/yr;1
-Imports from CHE|Electricity;Imports from CHE|Electricity;TWh/yr;TWh/yr;1
-Imports from HUN|Electricity;Imports from HUN|Electricity;TWh/yr;TWh/yr;1
-Imports from ROM|Electricity;Imports from ROM|Electricity;TWh/yr;TWh/yr;1
-Imports from SVN|Electricity;Imports from SVN|Electricity;TWh/yr;TWh/yr;1
-Imports from FRA|Electricity;Imports from FRA|Electricity;TWh/yr;TWh/yr;1
-Imports from HRV|Electricity;Imports from HRV|Electricity;TWh/yr;TWh/yr;1
-Imports from BAL|Electricity;Imports from BAL|Electricity;TWh/yr;TWh/yr;1
-Imports from BGR|Electricity;Imports from BGR|Electricity;TWh/yr;TWh/yr;1
-Imports from ITA|Electricity;Imports from ITA|Electricity;TWh/yr;TWh/yr;1
-Imports from ESP|Electricity;Imports from ESP|Electricity;TWh/yr;TWh/yr;1
-Imports from PRT|Electricity;Imports from PRT|Electricity;TWh/yr;TWh/yr;1
-Imports from GRC|Electricity;Imports from GRC|Electricity;TWh/yr;TWh/yr;1
-Net exports to FIN|Electricity;Net exports to FIN|Electricity;TWh/yr;TWh/yr;1
-Net exports to NOR|Electricity;Net exports to NOR|Electricity;TWh/yr;TWh/yr;1
-Net exports to SWE|Electricity;Net exports to SWE|Electricity;TWh/yr;TWh/yr;1
-Net exports to EST|Electricity;Net exports to EST|Electricity;TWh/yr;TWh/yr;1
-Net exports to LVA|Electricity;Net exports to LVA|Electricity;TWh/yr;TWh/yr;1
-Net exports to LTU|Electricity;Net exports to LTU|Electricity;TWh/yr;TWh/yr;1
-Net exports to DNK|Electricity;Net exports to DNK|Electricity;TWh/yr;TWh/yr;1
-Net exports to GBR|Electricity;Net exports to GBR|Electricity;TWh/yr;TWh/yr;1
-Net exports to IRL|Electricity;Net exports to IRL|Electricity;TWh/yr;TWh/yr;1
-Net exports to NLD|Electricity;Net exports to NLD|Electricity;TWh/yr;TWh/yr;1
-Net exports to POL|Electricity;Net exports to POL|Electricity;TWh/yr;TWh/yr;1
-Net exports to DEU|Electricity;Net exports to DEU|Electricity;TWh/yr;TWh/yr;1
-Net exports to BEL|Electricity;Net exports to BEL|Electricity;TWh/yr;TWh/yr;1
-Net exports to LUX|Electricity;Net exports to LUX|Electricity;TWh/yr;TWh/yr;1
-Net exports to CZE|Electricity;Net exports to CZE|Electricity;TWh/yr;TWh/yr;1
-Net exports to SVK|Electricity;Net exports to SVK|Electricity;TWh/yr;TWh/yr;1
-Net exports to AUT|Electricity;Net exports to AUT|Electricity;TWh/yr;TWh/yr;1
-Net exports to CHE|Electricity;Net exports to CHE|Electricity;TWh/yr;TWh/yr;1
-Net exports to HUN|Electricity;Net exports to HUN|Electricity;TWh/yr;TWh/yr;1
-Net exports to ROM|Electricity;Net exports to ROM|Electricity;TWh/yr;TWh/yr;1
-Net exports to SVN|Electricity;Net exports to SVN|Electricity;TWh/yr;TWh/yr;1
-Net exports to FRA|Electricity;Net exports to FRA|Electricity;TWh/yr;TWh/yr;1
-Net exports to HRV|Electricity;Net exports to HRV|Electricity;TWh/yr;TWh/yr;1
-Net exports to BAL|Electricity;Net exports to BAL|Electricity;TWh/yr;TWh/yr;1
-Net exports to BGR|Electricity;Net exports to BGR|Electricity;TWh/yr;TWh/yr;1
-Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1
-Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1
-Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1
-Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1
-Transmission capacity with FIN|Electricity;Transmission capacity with FIN|Electricity;GW;GW;1
-Transmission capacity with NOR|Electricity;Transmission capacity with NOR|Electricity;GW;GW;1
-Transmission capacity with SWE|Electricity;Transmission capacity with SWE|Electricity;GW;GW;1
-Transmission capacity with EST|Electricity;Transmission capacity with EST|Electricity;GW;GW;1
-Transmission capacity with LVA|Electricity;Transmission capacity with LVA|Electricity;GW;GW;1
-Transmission capacity with LTU|Electricity;Transmission capacity with LTU|Electricity;GW;GW;1
-Transmission capacity with DNK|Electricity;Transmission capacity with DNK|Electricity;GW;GW;1
-Transmission capacity with GBR|Electricity;Transmission capacity with GBR|Electricity;GW;GW;1
-Transmission capacity with IRL|Electricity;Transmission capacity with IRL|Electricity;GW;GW;1
-Transmission capacity with NLD|Electricity;Transmission capacity with NLD|Electricity;GW;GW;1
-Transmission capacity with POL|Electricity;Transmission capacity with POL|Electricity;GW;GW;1
-Transmission capacity with DEU|Electricity;Transmission capacity with DEU|Electricity;GW;GW;1
-Transmission capacity with BEL|Electricity;Transmission capacity with BEL|Electricity;GW;GW;1
-Transmission capacity with LUX|Electricity;Transmission capacity with LUX|Electricity;GW;GW;1
-Transmission capacity with CZE|Electricity;Transmission capacity with CZE|Electricity;GW;GW;1
-Transmission capacity with SVK|Electricity;Transmission capacity with SVK|Electricity;GW;GW;1
-Transmission capacity with AUT|Electricity;Transmission capacity with AUT|Electricity;GW;GW;1
-Transmission capacity with CHE|Electricity;Transmission capacity with CHE|Electricity;GW;GW;1
-Transmission capacity with HUN|Electricity;Transmission capacity with HUN|Electricity;GW;GW;1
-Transmission capacity with ROM|Electricity;Transmission capacity with ROM|Electricity;GW;GW;1
-Transmission capacity with SVN|Electricity;Transmission capacity with SVN|Electricity;GW;GW;1
-Transmission capacity with FRA|Electricity;Transmission capacity with FRA|Electricity;GW;GW;1
-Transmission capacity with HRV|Electricity;Transmission capacity with HRV|Electricity;GW;GW;1
-Transmission capacity with BAL|Electricity;Transmission capacity with BAL|Electricity;GW;GW;1
-Transmission capacity with BGR|Electricity;Transmission capacity with BGR|Electricity;GW;GW;1
-Transmission capacity with ITA|Electricity;Transmission capacity with ITA|Electricity;GW;GW;1
-Transmission capacity with ESP|Electricity;Transmission capacity with ESP|Electricity;GW;GW;1
-Transmission capacity with PRT|Electricity;Transmission capacity with PRT|Electricity;GW;GW;1
-Transmission capacity with GRC|Electricity;Transmission capacity with GRC|Electricity;GW;GW;1
 Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1
 Capacity Additions|Electricity|Variable renewable;Capacity Additions|Electricity|Variable renewable;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Non-variable renewable;Capacity Additions|Electricity|Non-variable renewable;GW/yr;GW/yr;1
@@ -490,19 +376,12 @@ Primary Energy|Electricity and Heat;Primary Energy|Electricity and Heat;TWh/yr;P
 Primary Energy|Electricity and Heat [exhaustible resources];Primary Energy|Electricity and Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Biomass;Primary Energy|Electricity and Heat|Biomass;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Coal;Primary Energy|Electricity and Heat|Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Fossil w/ CCS;Primary Energy|Electricity and Heat|Fossil w/ CCS;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Fossil w/o CCS;Primary Energy|Electricity and Heat|Fossil w/o CCS;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Fossil;Primary Energy|Electricity and Heat|Fossil;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Gas;Primary Energy|Electricity and Heat|Gas;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Nuclear;Primary Energy|Electricity and Heat|Nuclear;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Oil;Primary Energy|Electricity and Heat|Oil;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Other;Primary Energy|Electricity and Heat|Other;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Waste;Primary Energy|Electricity and Heat|Waste;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Biomass w/o CCS;Primary Energy|Electricity and Heat|Biomass w/o CCS;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Coal w/ CCS;Primary Energy|Electricity and Heat|Coal w/ CCS;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Coal w/o CCS;Primary Energy|Electricity and Heat|Coal w/o CCS;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Gas w/ CCS;Primary Energy|Electricity and Heat|Gas w/ CCS;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Gas w/o CCS;Primary Energy|Electricity and Heat|Gas w/o CCS;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Lignite;Primary Energy|Electricity and Heat|Lignite;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity and Heat|Hard Coal;Primary Energy|Electricity and Heat|Hard Coal;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat [exhaustible resources];Primary Energy|Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
@@ -582,6 +461,7 @@ Secondary Energy|Electricity|Electricity-only|Hard Coal;Secondary Energy|Electri
 Secondary Energy|Electricity|Electricity-only|Lignite;Secondary Energy|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Oil;Secondary Energy|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Other;Secondary Energy|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Waste;Secondary Energy|Electricity|Electricity-only|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Fossil;Secondary Energy|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Renewable;Secondary Energy|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Non-renewable;Secondary Energy|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1
@@ -598,7 +478,7 @@ Secondary Energy|Heat|CHP|Other;Secondary Energy|Heat|CHP|Other;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Fossil;Secondary Energy|Heat|CHP|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Renewable;Secondary Energy|Heat|CHP|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Non-renewable;Secondary Energy|Heat|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|;Secondary Energy|Heat|District Heating|;TWh/yr;TWh/yr;1
+Secondary Energy|Heat|District Heating;Secondary Energy|Heat|District Heating;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Biomass;Secondary Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Coal;Secondary Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Gas;Secondary Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1

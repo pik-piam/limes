@@ -77,6 +77,8 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   int <- int_tmp2
   ext <- ext_tmp2
   
+  tmp_RegAgg_ie2 <-NULL
+  
   if(length(int) > 0) {
     
     for(region in names(regionSubsetList)){
@@ -87,7 +89,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
                                   getRegions(result) <- region
                                   return(result)
                                 })
-      )
+                                )
       tmp_RegAgg[region,,int] <- tmp_RegAgg_ie2[region,,int]
     }
     

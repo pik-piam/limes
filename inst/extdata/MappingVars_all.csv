@@ -72,6 +72,8 @@ Secondary Energy|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen O
 Secondary Energy|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1
 Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1
 Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1
+Gross Energy|Electricity|w/ Storage and DisHeat;Gross Energy|Electricity|w/ Storage and DisHeat;TWh/yr;TWh/yr;1
+Gross Energy|Heat;Gross Energy|Heat;TWh/yr;TWh/yr;1
 Price|Primary Energy|Biomass;Price|Primary Energy|Biomass;Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Hard Coal;Price|Primary Energy|Hard Coal;Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Lignite;Price|Primary Energy|Lignite;Eur2010/GJ;Eur2015/GJ;1
@@ -671,6 +673,7 @@ Secondary Energy|Electricity|Electricity-only|Hard Coal;Secondary Energy|Electri
 Secondary Energy|Electricity|Electricity-only|Lignite;Secondary Energy|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Oil;Secondary Energy|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Other;Secondary Energy|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Electricity-only|Waste;Secondary Energy|Electricity|Electricity-only|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Fossil;Secondary Energy|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Renewable;Secondary Energy|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Non-renewable;Secondary Energy|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1
@@ -691,7 +694,7 @@ Secondary Energy|Heat|CHP|Other;Secondary Energy|Heat|CHP|Other;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Fossil;Secondary Energy|Heat|CHP|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Renewable;Secondary Energy|Heat|CHP|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|CHP|Non-renewable;Secondary Energy|Heat|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|;Secondary Energy|Heat|District Heating|;TWh/yr;TWh/yr;1
+Secondary Energy|Heat|District Heating;Secondary Energy|Heat|District Heating;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Biomass;Secondary Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Coal;Secondary Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
 Secondary Energy|Heat|District Heating|Gas;Secondary Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
