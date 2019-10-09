@@ -79,9 +79,9 @@ reportDemand <- function(gdx,output=NULL) {
   
   #single countries
   tmp1 <- NULL
-  tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity  (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_elecheat + o_storecons,"Gross Energy|Electricity|w/ Storage and DisHeat (TWh/yr)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Gross Energy|Heat  (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Gross Energy|Heat (TWh/yr)"))
   
   #
   tmp2 <- NULL
@@ -94,7 +94,6 @@ reportDemand <- function(gdx,output=NULL) {
   
   #single countries
   tmp4 <- NULL
-  #tmp4 <- mbind(tmp4,setNames(dimSums(tmp1/c_demandscale,dim=3),"Net demand|Electricity (TWh)"))
   tmp4 <- mbind(tmp4,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
   tmp4 <- mbind(tmp4,setNames((dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final Energy|Heat (TWh/yr)"))
   
