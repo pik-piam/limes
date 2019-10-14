@@ -83,7 +83,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportEmissions(gdx)[,time,])
   
   #adding industry emissions to report output
-  output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,])
+  output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
   
   #adding peak demand to report output
   output <- mbind(output,reportPeakDemand(gdx)[,time,])
@@ -289,7 +289,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   if(c_LIMESversion >= 2.28) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
-      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heating (Mt CO2/yr)"))]
+      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))]
     }
   }
   

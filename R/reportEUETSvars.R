@@ -144,7 +144,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
           o_emi_heat <- NULL
           if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)")) > 0) {
             o_emi_heat <- dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"], dim=1)
-            o_emi_heat[,c(2010,2015),] <- c(317,272)  #include historical heating emisions from 2010 and 2015
           }
           if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat)) {
             tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
