@@ -514,3 +514,32 @@ Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;G
 Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
 Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
 Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Transmission capacity with FIN|Electricity;Transmission capacity with FIN|Electricity;GW;GW;1
+Transmission capacity with NOR|Electricity;Transmission capacity with NOR|Electricity;GW;GW;1
+Transmission capacity with SWE|Electricity;Transmission capacity with SWE|Electricity;GW;GW;1
+Transmission capacity with EST|Electricity;Transmission capacity with EST|Electricity;GW;GW;1
+Transmission capacity with LVA|Electricity;Transmission capacity with LVA|Electricity;GW;GW;1
+Transmission capacity with LTU|Electricity;Transmission capacity with LTU|Electricity;GW;GW;1
+Transmission capacity with DNK|Electricity;Transmission capacity with DNK|Electricity;GW;GW;1
+Transmission capacity with GBR|Electricity;Transmission capacity with GBR|Electricity;GW;GW;1
+Transmission capacity with IRL|Electricity;Transmission capacity with IRL|Electricity;GW;GW;1
+Transmission capacity with NLD|Electricity;Transmission capacity with NLD|Electricity;GW;GW;1
+Transmission capacity with POL|Electricity;Transmission capacity with POL|Electricity;GW;GW;1
+Transmission capacity with DEU|Electricity;Transmission capacity with DEU|Electricity;GW;GW;1
+Transmission capacity with BEL|Electricity;Transmission capacity with BEL|Electricity;GW;GW;1
+Transmission capacity with LUX|Electricity;Transmission capacity with LUX|Electricity;GW;GW;1
+Transmission capacity with CZE|Electricity;Transmission capacity with CZE|Electricity;GW;GW;1
+Transmission capacity with SVK|Electricity;Transmission capacity with SVK|Electricity;GW;GW;1
+Transmission capacity with AUT|Electricity;Transmission capacity with AUT|Electricity;GW;GW;1
+Transmission capacity with CHE|Electricity;Transmission capacity with CHE|Electricity;GW;GW;1
+Transmission capacity with HUN|Electricity;Transmission capacity with HUN|Electricity;GW;GW;1
+Transmission capacity with ROM|Electricity;Transmission capacity with ROM|Electricity;GW;GW;1
+Transmission capacity with SVN|Electricity;Transmission capacity with SVN|Electricity;GW;GW;1
+Transmission capacity with FRA|Electricity;Transmission capacity with FRA|Electricity;GW;GW;1
+Transmission capacity with HRV|Electricity;Transmission capacity with HRV|Electricity;GW;GW;1
+Transmission capacity with BAL|Electricity;Transmission capacity with BAL|Electricity;GW;GW;1
+Transmission capacity with BGR|Electricity;Transmission capacity with BGR|Electricity;GW;GW;1
+Transmission capacity with ITA|Electricity;Transmission capacity with ITA|Electricity;GW;GW;1
+Transmission capacity with ESP|Electricity;Transmission capacity with ESP|Electricity;GW;GW;1
+Transmission capacity with PRT|Electricity;Transmission capacity with PRT|Electricity;GW;GW;1
+Transmission capacity with GRC|Electricity;Transmission capacity with GRC|Electricity;GW;GW;1
