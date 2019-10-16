@@ -51,7 +51,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   posext_tmp <- posext_tmp[pos_tmp]
   #Concatenate the names of the intensive and extensive variables
   int_tmp <- paste0(mapping_vars$LIMES[posint_tmp]," (",mapping_vars$UnitLIMES[posint_tmp],")")
-  ext_tmp <- paste0(mapping_vars$LIMES[pos_tmp]," (",mapping_vars$UnitLIMES[pos_tmp],")")
+  ext_tmp <- paste0(mapping_vars$LIMES[posext_tmp]," (",mapping_vars$UnitLIMES[posext_tmp],")")
   
   #Check if the variables (intensive and corresponding extensive) were previously calculated (output)
   pos_int <- match(int_tmp, var_names)

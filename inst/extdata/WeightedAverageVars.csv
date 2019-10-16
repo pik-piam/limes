@@ -47,7 +47,7 @@ Load Factor|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC
 Load Factor|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC
 Load Factor|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC
 Load Factor|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC
-Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity
+Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Renewable
 Price|Secondary Energy|Electricity|Other fees;Secondary Energy|Electricity
 Price|Secondary Energy|Electricity|Other fees|RES subsidy;Secondary Energy|Electricity
 Capacity|Electricity|Transmission Grid;0
