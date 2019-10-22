@@ -129,6 +129,7 @@ reportGeneration <- function(gdx,output=NULL) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tebio,teccs)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Biomass|w/o CCS (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("waste")]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Waste (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(tehgen)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Hydrogen (TWh/yr)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums((v_seprod_el[,,c(tehgen)])*p_taulength/1000,dim=3)+dimSums((v_storeout[,,"helec"])*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Hydrogen|w/ storage (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(teothers)]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Other (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hfc")]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Hydrogen FC (TWh/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("hct")]*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Hydrogen OC (TWh/yr)"))

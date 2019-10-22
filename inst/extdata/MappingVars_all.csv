@@ -67,6 +67,7 @@ Capacity|Electricity|Reserve Plants|Gas OC;Capacity|Electricity|Reserve Plants|G
 Capacity|Electricity|Reserve Plants|Biomass;Capacity|Electricity|Reserve Plants|Biomass;GW;GW;1
 Capacity|Electricity|Reserve Plants|Oil;Capacity|Electricity|Reserve Plants|Oil;GW;GW;1
 Secondary Energy|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Hydrogen|w/ storage;Secondary Energy|Electricity|Hydrogen|w/ storage;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1

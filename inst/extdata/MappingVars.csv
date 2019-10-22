@@ -110,6 +110,7 @@ Secondary Energy|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Off
 Secondary Energy|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Storage Losses;Secondary Energy|Electricity|Storage Losses;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Hydrogen|w/ storage;Secondary Energy|Electricity|Hydrogen|w/ storage;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1
@@ -543,3 +544,90 @@ Transmission capacity with ITA|Electricity;Transmission capacity with ITA|Electr
 Transmission capacity with ESP|Electricity;Transmission capacity with ESP|Electricity;GW;GW;1
 Transmission capacity with PRT|Electricity;Transmission capacity with PRT|Electricity;GW;GW;1
 Transmission capacity with GRC|Electricity;Transmission capacity with GRC|Electricity;GW;GW;1
+Exports to FIN|Electricity;Exports to FIN|Electricity;TWh/yr;TWh/yr;1
+Exports to NOR|Electricity;Exports to NOR|Electricity;TWh/yr;TWh/yr;1
+Exports to SWE|Electricity;Exports to SWE|Electricity;TWh/yr;TWh/yr;1
+Exports to EST|Electricity;Exports to EST|Electricity;TWh/yr;TWh/yr;1
+Exports to LVA|Electricity;Exports to LVA|Electricity;TWh/yr;TWh/yr;1
+Exports to LTU|Electricity;Exports to LTU|Electricity;TWh/yr;TWh/yr;1
+Exports to DNK|Electricity;Exports to DNK|Electricity;TWh/yr;TWh/yr;1
+Exports to GBR|Electricity;Exports to GBR|Electricity;TWh/yr;TWh/yr;1
+Exports to IRL|Electricity;Exports to IRL|Electricity;TWh/yr;TWh/yr;1
+Exports to NLD|Electricity;Exports to NLD|Electricity;TWh/yr;TWh/yr;1
+Exports to POL|Electricity;Exports to POL|Electricity;TWh/yr;TWh/yr;1
+Exports to DEU|Electricity;Exports to DEU|Electricity;TWh/yr;TWh/yr;1
+Exports to BEL|Electricity;Exports to BEL|Electricity;TWh/yr;TWh/yr;1
+Exports to LUX|Electricity;Exports to LUX|Electricity;TWh/yr;TWh/yr;1
+Exports to CZE|Electricity;Exports to CZE|Electricity;TWh/yr;TWh/yr;1
+Exports to SVK|Electricity;Exports to SVK|Electricity;TWh/yr;TWh/yr;1
+Exports to AUT|Electricity;Exports to AUT|Electricity;TWh/yr;TWh/yr;1
+Exports to CHE|Electricity;Exports to CHE|Electricity;TWh/yr;TWh/yr;1
+Exports to HUN|Electricity;Exports to HUN|Electricity;TWh/yr;TWh/yr;1
+Exports to ROM|Electricity;Exports to ROM|Electricity;TWh/yr;TWh/yr;1
+Exports to SVN|Electricity;Exports to SVN|Electricity;TWh/yr;TWh/yr;1
+Exports to FRA|Electricity;Exports to FRA|Electricity;TWh/yr;TWh/yr;1
+Exports to HRV|Electricity;Exports to HRV|Electricity;TWh/yr;TWh/yr;1
+Exports to BAL|Electricity;Exports to BAL|Electricity;TWh/yr;TWh/yr;1
+Exports to BGR|Electricity;Exports to BGR|Electricity;TWh/yr;TWh/yr;1
+Exports to ITA|Electricity;Exports to ITA|Electricity;TWh/yr;TWh/yr;1
+Exports to ESP|Electricity;Exports to ESP|Electricity;TWh/yr;TWh/yr;1
+Exports to PRT|Electricity;Exports to PRT|Electricity;TWh/yr;TWh/yr;1
+Exports to GRC|Electricity;Exports to GRC|Electricity;TWh/yr;TWh/yr;1
+Imports from FIN|Electricity;Imports from FIN|Electricity;TWh/yr;TWh/yr;1
+Imports from NOR|Electricity;Imports from NOR|Electricity;TWh/yr;TWh/yr;1
+Imports from SWE|Electricity;Imports from SWE|Electricity;TWh/yr;TWh/yr;1
+Imports from EST|Electricity;Imports from EST|Electricity;TWh/yr;TWh/yr;1
+Imports from LVA|Electricity;Imports from LVA|Electricity;TWh/yr;TWh/yr;1
+Imports from LTU|Electricity;Imports from LTU|Electricity;TWh/yr;TWh/yr;1
+Imports from DNK|Electricity;Imports from DNK|Electricity;TWh/yr;TWh/yr;1
+Imports from GBR|Electricity;Imports from GBR|Electricity;TWh/yr;TWh/yr;1
+Imports from IRL|Electricity;Imports from IRL|Electricity;TWh/yr;TWh/yr;1
+Imports from NLD|Electricity;Imports from NLD|Electricity;TWh/yr;TWh/yr;1
+Imports from POL|Electricity;Imports from POL|Electricity;TWh/yr;TWh/yr;1
+Imports from DEU|Electricity;Imports from DEU|Electricity;TWh/yr;TWh/yr;1
+Imports from BEL|Electricity;Imports from BEL|Electricity;TWh/yr;TWh/yr;1
+Imports from LUX|Electricity;Imports from LUX|Electricity;TWh/yr;TWh/yr;1
+Imports from CZE|Electricity;Imports from CZE|Electricity;TWh/yr;TWh/yr;1
+Imports from SVK|Electricity;Imports from SVK|Electricity;TWh/yr;TWh/yr;1
+Imports from AUT|Electricity;Imports from AUT|Electricity;TWh/yr;TWh/yr;1
+Imports from CHE|Electricity;Imports from CHE|Electricity;TWh/yr;TWh/yr;1
+Imports from HUN|Electricity;Imports from HUN|Electricity;TWh/yr;TWh/yr;1
+Imports from ROM|Electricity;Imports from ROM|Electricity;TWh/yr;TWh/yr;1
+Imports from SVN|Electricity;Imports from SVN|Electricity;TWh/yr;TWh/yr;1
+Imports from FRA|Electricity;Imports from FRA|Electricity;TWh/yr;TWh/yr;1
+Imports from HRV|Electricity;Imports from HRV|Electricity;TWh/yr;TWh/yr;1
+Imports from BAL|Electricity;Imports from BAL|Electricity;TWh/yr;TWh/yr;1
+Imports from BGR|Electricity;Imports from BGR|Electricity;TWh/yr;TWh/yr;1
+Imports from ITA|Electricity;Imports from ITA|Electricity;TWh/yr;TWh/yr;1
+Imports from ESP|Electricity;Imports from ESP|Electricity;TWh/yr;TWh/yr;1
+Imports from PRT|Electricity;Imports from PRT|Electricity;TWh/yr;TWh/yr;1
+Imports from GRC|Electricity;Imports from GRC|Electricity;TWh/yr;TWh/yr;1
+Net exports to FIN|Electricity;Net exports to FIN|Electricity;TWh/yr;TWh/yr;1
+Net exports to NOR|Electricity;Net exports to NOR|Electricity;TWh/yr;TWh/yr;1
+Net exports to SWE|Electricity;Net exports to SWE|Electricity;TWh/yr;TWh/yr;1
+Net exports to EST|Electricity;Net exports to EST|Electricity;TWh/yr;TWh/yr;1
+Net exports to LVA|Electricity;Net exports to LVA|Electricity;TWh/yr;TWh/yr;1
+Net exports to LTU|Electricity;Net exports to LTU|Electricity;TWh/yr;TWh/yr;1
+Net exports to DNK|Electricity;Net exports to DNK|Electricity;TWh/yr;TWh/yr;1
+Net exports to GBR|Electricity;Net exports to GBR|Electricity;TWh/yr;TWh/yr;1
+Net exports to IRL|Electricity;Net exports to IRL|Electricity;TWh/yr;TWh/yr;1
+Net exports to NLD|Electricity;Net exports to NLD|Electricity;TWh/yr;TWh/yr;1
+Net exports to POL|Electricity;Net exports to POL|Electricity;TWh/yr;TWh/yr;1
+Net exports to DEU|Electricity;Net exports to DEU|Electricity;TWh/yr;TWh/yr;1
+Net exports to BEL|Electricity;Net exports to BEL|Electricity;TWh/yr;TWh/yr;1
+Net exports to LUX|Electricity;Net exports to LUX|Electricity;TWh/yr;TWh/yr;1
+Net exports to CZE|Electricity;Net exports to CZE|Electricity;TWh/yr;TWh/yr;1
+Net exports to SVK|Electricity;Net exports to SVK|Electricity;TWh/yr;TWh/yr;1
+Net exports to AUT|Electricity;Net exports to AUT|Electricity;TWh/yr;TWh/yr;1
+Net exports to CHE|Electricity;Net exports to CHE|Electricity;TWh/yr;TWh/yr;1
+Net exports to HUN|Electricity;Net exports to HUN|Electricity;TWh/yr;TWh/yr;1
+Net exports to ROM|Electricity;Net exports to ROM|Electricity;TWh/yr;TWh/yr;1
+Net exports to SVN|Electricity;Net exports to SVN|Electricity;TWh/yr;TWh/yr;1
+Net exports to FRA|Electricity;Net exports to FRA|Electricity;TWh/yr;TWh/yr;1
+Net exports to HRV|Electricity;Net exports to HRV|Electricity;TWh/yr;TWh/yr;1
+Net exports to BAL|Electricity;Net exports to BAL|Electricity;TWh/yr;TWh/yr;1
+Net exports to BGR|Electricity;Net exports to BGR|Electricity;TWh/yr;TWh/yr;1
+Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1
+Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1
+Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1
+Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1

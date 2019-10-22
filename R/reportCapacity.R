@@ -75,7 +75,7 @@ reportCapacity <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,c(tegas_el))],dim=3),"Capacity|Electricity|Gas (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,c(tebio))],dim=3),"Capacity|Electricity|Biomass (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,setdiff(tebio,teccs))],dim=3),"Capacity|Electricity|Biomass|w/o CCS (GW)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,c(testore))],dim=3),"Capacity|Electricity|Storage (GW)")) 
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(testore)],dim=3),"Capacity|Electricity|Storage (GW)")) 
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,c(teoil))],dim=3),"Capacity|Electricity|Oil (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,setdiff(teoil,teccs))],dim=3),"Capacity|Electricity|Oil|w/o CCS (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teel,c(teothers))],dim=3),"Capacity|Electricity|Other (GW)"))
