@@ -180,6 +180,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   #load regions that implemented a top-up minimum CO2 price
   minP <- readGDX(gdx,name="regi_minP")
+  #output_aggminP <- NULL
   #convert these regions to iso3
   if(length(minP) > 0) {
     minP_iso3 <- mappingregi[match(minP,mappingregi[,1]),2]
@@ -205,7 +206,8 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #totals concerning the KdW
   output <- mbind(output,output_EUETS_nonDE,output_KdW,output_nonKdW,output_KdW_EU,output_KdW_nonEU,output_nonKdW_EU,output_nonKdW_nonEU)
   #totals concerning countries implementing min CO2 price is done above
-
+  
+  
   #Renaming global variable (not possible so far)
   #getRegions(output["GLO",,])<-"EUR"
   
@@ -240,6 +242,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   IntVars_noweight <- paste0(mappingvars$LIMES[pos_intnoweight]," (",mappingvars$UnitLIMES[pos_intnoweight],")")
   #Make sure this variable was indeed calculated
   IntVars_noweight <- intersect(finalvars,IntVars_noweight)
+  IntVars_noweight <- setdiff(IntVars_noweight,"Capacity|Electricity|Transmission Grid (GW)")
   #
   #
   ## settings mapping path
@@ -270,6 +273,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
       output["EUETS_non_minP",,intersect(getNames(output),IntVars)] <- NA
     }
   }
+  
+  #Transmission capacity aggregated (special case)
+  output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
   
   
   #ADDING VARIABLES THAT ONLY EXIST FOR AN AGGREGATED REGION, e.g., the EU ETS cap

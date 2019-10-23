@@ -118,6 +118,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
             tmp2 <- mbind(tmp2,setNames(o_exoemiheat,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))
             if(!is.null(o_emi_elec_ind)) {
               tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
             }
             
           } else {#c_heating == 0 and c_LIMESversion > 2.30
@@ -128,6 +129,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
             tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
             if(!is.null(o_emi_elec_ind)) {
               tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
             }
             #Previous version did not have endogenous heating 
             #-> with endogenous this variable will be calculated from the region-based heating
@@ -146,7 +148,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
             o_emi_heat <- dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"], dim=1)
           }
           if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat)) {
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)"))
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include stationary certificates for aviation
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes stationary certificates for aviation
           }
           
         }
