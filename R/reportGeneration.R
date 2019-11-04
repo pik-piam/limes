@@ -371,4 +371,3 @@ reportGeneration <- function(gdx,output=NULL) {
 
   return(tmp)
 }
-  

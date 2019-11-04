@@ -237,4 +237,3 @@ reportCapacity <- function(gdx) {
 
   return(tmp)
 }
-  

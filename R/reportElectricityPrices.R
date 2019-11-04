@@ -193,4 +193,3 @@ reportElectricityPrices <- function(gdx) {
 
   return(tmp)
 }
-  
