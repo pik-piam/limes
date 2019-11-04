@@ -36,6 +36,7 @@ reportExchange <- function(gdx) {
 
   #define the losses
   p_losses <- p_tedataconn[,,"loss"]
+  p_length <- p_tedataconn[,,"length"]
   
   #ELECTRICITY PRICES (needed for computing import and export prices)
   # read variables
@@ -274,6 +275,7 @@ reportExchange <- function(gdx) {
   capimports <- NULL
   valueimports <- NULL
   impo_regi <- NULL
+  capimports_km <- NULL
   
   #estimate aggregated (total) imports from each country
   for (regi2 in regi) {
@@ -283,6 +285,7 @@ reportExchange <- function(gdx) {
     cap1 <- 0
     value1 <- 0
     impo1 <- NULL
+    cap1_km <- 0
     
     #aggregate the positive flows
     conns1 <- trans[which(trans$reg == regi2),]$conn
@@ -309,6 +312,7 @@ reportExchange <- function(gdx) {
         
       }
         cap1 <- cap1 + setNames(v_captrans[,,conns_tmp],NULL)
+        cap1_km <- cap1_km + setNames(v_captrans[,,conns_tmp]*p_length[,,conns_tmp],NULL)
         
         #imports from every country (positive flows)
         flow_regi <- setNames(flow_regi1,NULL)
@@ -323,6 +327,7 @@ reportExchange <- function(gdx) {
     cap2 <- 0
     value2 <- 0
     impo2 <- NULL
+    cap2_km <- 0
     
     #aggreate negative flows
     conns2 <- trans[which(trans$regi == regi2),]$conn
@@ -348,6 +353,7 @@ reportExchange <- function(gdx) {
         value2 <- value2 + value_tmp2
       }
         cap2 <- cap2 + setNames(v_captrans[,,conns_tmp],NULL)
+        cap2_km <- cap2_km + setNames(v_captrans[,,conns_tmp]*p_length[,,conns_tmp],NULL)
         
         #imports from every country (negative flows)
         flow_regi <- setNames(flow_regi2,NULL)
@@ -377,19 +383,23 @@ reportExchange <- function(gdx) {
     #sum positive and negative flows 
     partMagPie<-partMagPie1+partMagPie2
     cap <- cap1 + cap2
+    cap_km <- cap1_km + cap2_km
     value <- value1 + value2
     #add country to the names
     getNames(partMagPie)<-regi2
     getNames(cap)<-regi2
+    getNames(cap_km)<-regi2
     #concatenate data from different countries (regi)
     imports <- mbind(imports,partMagPie)
     capimports <- mbind(capimports,cap)
+    capimports_km <- mbind(capimports_km,cap_km)
     valueimports <- mbind(valueimports,value)
   }
   
   # create MagPie object of imports volume and transmission capacity with iso3 regions
-  imports<-limesMapping(imports) 
-  capimports<-limesMapping(capimports) 
+  imports <- limesMapping(imports) 
+  capimports <- limesMapping(capimports)
+  capimports_km <- limesMapping(capimports_km)
   #MagPie object of value of imports was already created
   
   
@@ -427,6 +437,7 @@ reportExchange <- function(gdx) {
   #transmission capacity (under current configuration, export and import capacity are the same)
   tmp10 <- NULL
   tmp10 <- setNames(tmp7,"Capacity|Electricity|Transmission Grid (GW)")
+  tmp10 <- mbind(tmp10, setNames(capimports_km[,as.numeric(t),],"Capacity|Electricity|Transmission Grid-km (GWkm)"))
   
   #concatenate
   tmp11 <- mbind(tmp9,tmp10)

@@ -242,7 +242,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   IntVars_noweight <- paste0(mappingvars$LIMES[pos_intnoweight]," (",mappingvars$UnitLIMES[pos_intnoweight],")")
   #Make sure this variable was indeed calculated
   IntVars_noweight <- intersect(finalvars,IntVars_noweight)
-  IntVars_noweight <- setdiff(IntVars_noweight,"Capacity|Electricity|Transmission Grid (GW)")
+  IntVars_noweight <- setdiff(IntVars_noweight,c("Capacity|Electricity|Transmission Grid (GW)","Capacity|Electricity|Transmission Grid-km (GWkm)"))
   #
   #
   ## settings mapping path
@@ -276,6 +276,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   #Transmission capacity aggregated (special case)
   output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
+  output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
   
   
   #ADDING VARIABLES THAT ONLY EXIST FOR AN AGGREGATED REGION, e.g., the EU ETS cap

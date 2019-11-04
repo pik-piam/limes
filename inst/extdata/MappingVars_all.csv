@@ -741,3 +741,4 @@ Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage R
 Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1
 Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1
 Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1
+Capacity|Electricity|Transmission Grid-km;Capacity|Electricity|Transmission Grid-km;GWkm;GWkm;1
