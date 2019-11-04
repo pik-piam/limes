@@ -285,6 +285,18 @@ reportGeneration <- function(gdx,output=NULL) {
     }
   }
   
+  #Hydrogen (from electrolysis) used in hydrogen-based generation plants
+  if(c_LIMESversion >= 2.34) {
+    v_p2xse <- readGDX(gdx,name="v_p2xse",field="l",format="first_found")[,,"pehgen.seel"]
+    v_p2xse <- v_p2xse[,,tehgen]
+    v_p2xse <- limesMapping(v_p2xse[,,tau])
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_p2xse[,,]*p_taulength/1000,dim=3),"Secondary Energy|Hydrogen|Electricity (TWh/yr)"))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_p2xse[,,"hfc"]*p_taulength/1000,dim=3),"Secondary Energy|Hydrogen|Hydrogen FC (TWh/yr)"))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_p2xse[,,"hct"]*p_taulength/1000,dim=3),"Secondary Energy|Hydrogen|Hydrogen OC (TWh/yr)"))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_p2xse[,,"hcc"]*p_taulength/1000,dim=3),"Secondary Energy|Hydrogen|Hydrogen CC (TWh/yr)"))
+  }
+  
+  
   # add global values
   tmp3 <- mbind(tmp1,tmp2)
   

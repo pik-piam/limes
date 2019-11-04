@@ -732,3 +732,12 @@ Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;G
 Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
 Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
 Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen FC;Secondary Energy|Hydrogen|Hydrogen FC;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen OC;Secondary Energy|Hydrogen|Hydrogen OC;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen CC;Secondary Energy|Hydrogen|Hydrogen CC;TWh/yr;TWh/yr;1
+Capacity|Electricity|Storage Reservoir;Capacity|Electricity|Storage Reservoir;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage Reservoir|Pump Hydro;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1

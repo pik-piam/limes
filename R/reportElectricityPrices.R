@@ -98,7 +98,7 @@ reportElectricityPrices <- function(gdx) {
   
   #Need to add zeros to the 2010 and 2015 (equation does not apply to these years)
   o_fullelecprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
-                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                 fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   o_fullheprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
                                  fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   

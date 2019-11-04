@@ -632,3 +632,12 @@ Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1
 Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1
 Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1
 Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen FC;Secondary Energy|Hydrogen|Hydrogen FC;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen OC;Secondary Energy|Hydrogen|Hydrogen OC;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Hydrogen CC;Secondary Energy|Hydrogen|Hydrogen CC;TWh/yr;TWh/yr;1
+Capacity|Electricity|Storage Reservoir;Capacity|Electricity|Storage Reservoir;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage Reservoir|Pump Hydro;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1
+Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1

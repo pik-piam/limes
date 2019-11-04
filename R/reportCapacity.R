@@ -218,8 +218,22 @@ reportCapacity <- function(gdx) {
     }
   }
   
+  tmp7 <- mbind(tmp5[,as.numeric(c(t)),],tmp6)
+  
+  #Energy storage (reservoir) capacity
+  tmp8 <- NULL
+  if(c_LIMESversion >= 2.34) {
+    v_storecap <- readGDX(gdx,name="v_storecap",field="l",format="first_found")[,,testore]
+    v_storecap <- limesMapping(v_storecap)
+    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,],dim=3),"Capacity|Electricity|Storage Reservoir (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp")],dim=3),"Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("helec")],dim=3),"Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp","batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"))
+  }
+  
   #combine aggregated capacity with brake-down of technologies
-  tmp <- mbind(tmp5[,as.numeric(c(t)),],tmp6)
+  tmp <- mbind(tmp7,tmp8[,as.numeric(c(t)),])
 
   return(tmp)
 }
