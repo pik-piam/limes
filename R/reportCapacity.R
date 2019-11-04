@@ -220,16 +220,22 @@ reportCapacity <- function(gdx) {
   
   tmp7 <- mbind(tmp5[,as.numeric(c(t)),],tmp6)
   
-  #Energy storage (reservoir) capacity
+  #Energy storage (reservoir) capacity and ratios
   tmp8 <- NULL
   if(c_LIMESversion >= 2.34) {
     v_storecap <- readGDX(gdx,name="v_storecap",field="l",format="first_found")[,,testore]
     v_storecap <- limesMapping(v_storecap)
     tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,],dim=3),"Capacity|Electricity|Storage Reservoir (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp")],dim=3),"Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("helec")],dim=3),"Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"))
     tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp","batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("psp")],"Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("batteries")],"Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"))
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("helec")],"Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"))
+    
+    
+    #Number of storing hours
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("psp")]/v_cap[,,c("psp")],"Discharge duration|Pump Hydro (h)"))
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("batteries")]/v_cap[,,c("batteries")],"Discharge duration|Stat Batteries (h)"))
+    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("helec")]/v_cap[,,c("helec")],"Discharge duration|Hydrogen electrolysis (h)"))
   }
   
   #combine aggregated capacity with brake-down of technologies

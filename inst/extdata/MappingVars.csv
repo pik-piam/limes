@@ -642,3 +642,6 @@ Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Stora
 Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1
 Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1
 Capacity|Electricity|Transmission Grid-km;Capacity|Electricity|Transmission Grid-km;GWkm;GWkm;1
+Discharge duration|Pump Hydro;Discharge duration|Pump Hydro;h;h;1
+Discharge duration|Stat Batteries;Discharge duration|Stat Batteries;h;h;1
+Discharge duration|Hydrogen electrolysis;Discharge duration|Hydrogen electrolysis;h;h;1

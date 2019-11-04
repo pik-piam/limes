@@ -52,3 +52,6 @@ Price|Secondary Energy|Electricity|Other fees;Secondary Energy|Electricity
 Price|Secondary Energy|Electricity|Other fees|RES subsidy;Secondary Energy|Electricity
 Capacity|Electricity|Transmission Grid;0
 Capacity|Electricity|Transmission Grid-km;0
+Discharge duration|Pump Hydro;0
+Discharge duration|Stat Batteries;0
+Discharge duration|Hydrogen electrolysis;0
