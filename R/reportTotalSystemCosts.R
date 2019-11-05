@@ -18,6 +18,7 @@
 #' @export
 #' 
 reportTotalSystemCosts <- function(gdx,output=NULL) {
+  
   if(is.null(output)){
     stop("please provide a file containing all needed information")
   }
@@ -51,9 +52,6 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   v_deltacap <- limesMapping(v_deltacap)
   p_incoall <- limesMapping(p_incoall)
   
-  #compute factor to discount total costs
-  f_npv <- exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
-  
   #FUEL COSTS
   tmp1 <- NULL
   tmp1 <- mbind(tmp1,setNames(v_costfu,"Total Energy System Cost|Power Sector|Fuel Costs (billion eur2010/yr)"))
@@ -69,9 +67,10 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   
   #Specific calculation for RES
   t_all <- getYears(v_deltacap)
-  costin_tech <- v_deltacap[,c((length(t_all)-length(t)+1):length(t_all)),]*0
-  for (t2 in 1:length(t)) {
-    costin_tech[,t2,] <- v_deltacap[,length(t_all)-length(t)+t2,]*p_incoall[,t2,]
+  costin_tech <- new.magpie(cells_and_regions = getRegions(v_deltacap), years = t, names = getNames(v_deltacap),
+                fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  for (t2 in t) {
+    costin_tech[,as.numeric(t2),] <- v_deltacap[,as.numeric(t2),]*p_incoall[,as.numeric(t2),]
   }
   tmp1 <- mbind(tmp1,setNames(dimSums(costin_tech[,,c(ter,ternofluc)],dim=3),"Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable (billion eur2010/yr)"))
   
@@ -120,6 +119,7 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans,"Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs (billion eur2010/yr)"))
   tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costtrade,"Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs (billion eur2010/yr)"))
   tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costtrade + o_costco2,"Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs (billion eur2010/yr)"))
+  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costco2,"Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs (billion eur2010/yr)"))
   
   
   # concatenating costs
