@@ -77,35 +77,23 @@ reportDemand <- function(gdx,output=NULL) {
   
   #o_grosselec <- dimSums(p_eldemand*p_taulength,dim=3)/1000
   
-  #single countries
+  #electricity-related
   tmp1 <- NULL
   tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_elecheat + o_storecons,"Gross Energy|Electricity|w/ Storage and DisHeat (TWh/yr)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Gross Energy|Heat (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
   
-  #
+  #heating-related
   tmp2 <- NULL
-  
-  #concatenating gross demand data
-  tmp3 <- NULL
-  tmp3 <- mbind(tmp1,tmp2)
-  
-  #net demand 
-  
-  #single countries
-  tmp4 <- NULL
-  tmp4 <- mbind(tmp4,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
-  tmp4 <- mbind(tmp4,setNames((dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final Energy|Heat (TWh/yr)"))
-  
-  #
-  tmp5 <- NULL
-  
-  #concatenating net demand data
-  tmp6 <- NULL
-  tmp6 <- mbind(tmp4,tmp5)
+  if(c_LIMESversion >= 2.28) {
+    if(c_heating == 1) {
+      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_elecheat + o_storecons,"Gross Energy|Electricity|w/ Storage and DisHeat (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Gross Energy|Heat (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames((dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final Energy|Heat (TWh/yr)"))
+    }
+  }
   
   #concatenating net and gross demand data
-  tmp <- mbind(tmp3,tmp6)
+  tmp <- mbind(tmp1,tmp2)
 
   return(tmp)
 }
