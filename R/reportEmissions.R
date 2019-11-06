@@ -95,6 +95,7 @@ reportEmissions <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c("pewaste")],3),"Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers,"waste",teoil)],3),"Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(tefossil)],3),"Emissions|CO2|Energy|Supply|Electricity|Fossil (Mt CO2/yr)"))
   
   # concatenate vars
   tmp3 <- mbind(tmp1,tmp2)

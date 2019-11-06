@@ -27,9 +27,7 @@ Load Factor|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCS
 Load Factor|Electricity|Gas CC|w/o CCS;Secondary Energy|Electricity|Gas CC|w/o CCS
 Load Factor|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCS
 Load Factor|Electricity|Gas CC|w/ CCS;Secondary Energy|Electricity|Gas CC|w/ CCS
-Load Factor|Electricity|Gas OC|w/o CCS;Secondary Energy|Electricity|Gas OC|w/o CCS
 Load Factor|Electricity|Oil;Secondary Energy|Electricity|Oil
-Load Factor|Electricity|Oil|w/o CCS;Secondary Energy|Electricity|Oil|w/o CCS
 Load Factor|Electricity|Wind;Secondary Energy|Electricity|Wind
 Load Factor|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore
 Load Factor|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Offshore
@@ -38,6 +36,7 @@ Load Factor|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PV
 Load Factor|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSP
 Load Factor|Electricity|Biomass;Secondary Energy|Electricity|Biomass
 Load Factor|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS
+Load Factor|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS
 Load Factor|Electricity|Hydro;Secondary Energy|Electricity|Hydro
 Load Factor|Electricity|Waste;Secondary Energy|Electricity|Waste
 Load Factor|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen

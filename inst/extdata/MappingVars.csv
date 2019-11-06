@@ -8,6 +8,7 @@ Emissions|CO2|Energy|Supply|Electricity|Gas;Emissions|CO2|Energy|Supply|Electric
 Emissions|CO2|Energy|Supply|Electricity|Waste;Emissions|CO2|Energy|Supply|Electricity|Waste;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity|Other;Emissions|CO2|Energy|Supply|Electricity|Other;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Fossil;Emissions|CO2|Energy|Supply|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Electricity;Capacity|Electricity;GW;GW;1
 Capacity|Electricity|Biomass;Capacity|Electricity|Biomass;GW;GW;1
 Capacity|Electricity|Coal;Capacity|Electricity|Coal;GW;GW;1
