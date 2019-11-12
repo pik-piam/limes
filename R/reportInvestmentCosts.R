@@ -30,8 +30,7 @@ reportInvestmentCosts <- function(gdx) {
   
   #adding the name of the variable and the technology
   #and convert Geur/GW to eur/kW
-  for (te2 in te) { 
-    if(te2 != "hvacline") #ignoring the transmission data
+  for (te2 in setdiff(te,"hvacline")) { #ignoring the transmission data
     tmp1 <- mbind(tmp1,setNames(p_incoall[,,te2]*1000,paste0("Investment costs|",te2,"(eur/kW)")))
     }
   

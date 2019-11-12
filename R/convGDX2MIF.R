@@ -76,6 +76,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #adding Fixed O&M to report output
   #output <- mbind(output,reportOMF(gdx)[,time,])
   
+  #Adding all the input parameters (except for fuel costs)
+  #output <- mbind(output,reportInput(gdx)[,time,])
+  
   #adding CO2 price to report output
   output <- mbind(output,reportCO2Price(gdx)[,time,])
   
