@@ -44,37 +44,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportDemand(gdx,output)[,time,]) #dependent on generation
   
   #adding availability factors to report output
-  #output <- mbind(output,reportNuren(gdx)[,time,])
-  
-  #adding availability factors to report output
   output <- mbind(output,reportLoadFactor(gdx)[,time,])
   
   #adding fuel costs to report output
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
-  
-  #adding electrical efficiency to report output
-  #output <- mbind(output,reportElectricalEfficiency(gdx)[,time,])
-  
-  #adding annual availability factors to report output
-  #output <- mbind(output,reportAnnualAvFactor(gdx)[,time,])
-  
-  #adding max availability factors per hour to report output
-  #output <- mbind(output,reportHourAvFactor(gdx)[,time,])
-  
-  #adding lifetime to report output
-  #output <- mbind(output,reportLifetime(gdx)[,time,])
-  
-  #adding buildtime to report output
-  #output <- mbind(output,reportBuildtime(gdx)[,time,])
-  
-  #adding Variable O&M to report output
-  #output <- mbind(output,reportOMV(gdx)[,time,])
-  
-  #adding investment costs to report output
-  #output <- mbind(output,reportInvestmentCosts(gdx)[,time,])
-  
-  #adding Fixed O&M to report output
-  #output <- mbind(output,reportOMF(gdx)[,time,])
   
   #Adding all the input parameters (except for fuel costs)
   #output <- mbind(output,reportInput(gdx)[,time,])
@@ -332,6 +305,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   }
   output_f <- tmp
   #output<-tmp
+  #output_f<-output
   
   
   #MAPPING THE VARIABLES TO THOSE OF A SPECIFIC PROJECT

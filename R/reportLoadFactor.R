@@ -101,7 +101,6 @@ reportLoadFactor <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(setdiff(tegas,tengcc),teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(setdiff(tegas,tengcc),teccs)]*8760,dim=3),"Load Factor|Electricity|Gas OC|w/o CCS (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(tegas_el,tengcc_el)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(tegas_el,tengcc_el)]*8760,dim=3),"Load Factor|Electricity|Gas OC (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c(teoil)]*p_taulength,dim=3)/dimSums(v_cap[,,c(teoil)]*8760,dim=3),"Load Factor|Electricity|Oil (--)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,setdiff(teoil,teccs)]*p_taulength,dim=3)/dimSums(v_cap[,,setdiff(teoil,teccs)]*8760,dim=3),"Load Factor|Electricity|Oil|w/o CCS (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windon","windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon","windoff")]*8760,dim=3),"Load Factor|Electricity|Wind (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windon")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windon")]*8760,dim=3),"Load Factor|Electricity|Wind|Onshore (--)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_seprod_el[,,c("windoff")]*p_taulength,dim=3)/dimSums(v_cap[,,c("windoff")]*8760,dim=3),"Load Factor|Electricity|Wind|Offshore (--)"))

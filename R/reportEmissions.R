@@ -90,8 +90,6 @@ reportEmissions <- function(gdx) {
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(tegas_el)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,setdiff(tegas_el,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas|w/o CCS (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,intersect(tengcc_el,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas|w/ CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,setdiff(tengcc_el,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas CC|w/o CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,setdiff(tegas_el,c(tengcc,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity|Gas OC|w/o CCS (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c("pewaste")],3),"Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers,"waste",teoil)],3),"Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"))
@@ -109,8 +107,7 @@ reportEmissions <- function(gdx) {
     
     #Biomass related variables (because there are new biomass technologies from v2.33)
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS (Mt CO2/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],3),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
     
     
@@ -130,25 +127,14 @@ reportEmissions <- function(gdx) {
       #Electricity and Heat
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,],3),"Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig,tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs),setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(c(tecoal,telig),teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/ CCS (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tecoal,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/ CCS (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(setdiff(telig,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(telig,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/ CCS (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Oil (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tegas)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/ CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tengcc,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas CC|w/o CCS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,setdiff(tegas,c(tengcc,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas OC|w/o CCS (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tewaste)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Waste (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers,tewaste,teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil (Mt CO2/yr)"))
       tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass w/ CCS (Mt CO2/yr)"))
       
     }
   } 
@@ -159,6 +145,10 @@ reportEmissions <- function(gdx) {
   #Carbon sequestration
   tmp6 <- NULL
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,3),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],3),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],3),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],3),"Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
   
   # concatenate data
   tmp <- mbind(tmp5,tmp6)

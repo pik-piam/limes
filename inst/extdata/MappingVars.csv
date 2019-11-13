@@ -1,661 +1,1 @@
-LIMES;Enavi;UnitLIMES;UnitEnavi;ConvFactor
-Emissions|CO2|Energy|Supply|Electricity;Emissions|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Coal;Emissions|CO2|Energy|Supply|Electricity|Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Hard Coal;Emissions|CO2|Energy|Supply|Electricity|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Lignite;Emissions|CO2|Energy|Supply|Electricity|Lignite;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Oil;Emissions|CO2|Energy|Supply|Electricity|Oil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Gas;Emissions|CO2|Energy|Supply|Electricity|Gas;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Waste;Emissions|CO2|Energy|Supply|Electricity|Waste;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Other;Emissions|CO2|Energy|Supply|Electricity|Other;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Fossil;Emissions|CO2|Energy|Supply|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1
-Capacity|Electricity;Capacity|Electricity;GW;GW;1
-Capacity|Electricity|Biomass;Capacity|Electricity|Biomass;GW;GW;1
-Capacity|Electricity|Coal;Capacity|Electricity|Coal;GW;GW;1
-Capacity|Electricity|Gas;Capacity|Electricity|Gas;GW;GW;1
-Capacity|Electricity|Gas CC;Capacity|Electricity|Gas CC;GW;GW;1
-Capacity|Electricity|Gas OC;Capacity|Electricity|Gas OC;GW;GW;1
-Capacity|Electricity|Hard Coal;Capacity|Electricity|Hard Coal;GW;GW;1
-Capacity|Electricity|Hydro;Capacity|Electricity|Hydro;GW;GW;1
-Capacity|Electricity|Hydrogen;Capacity|Electricity|Hydrogen;GW;GW;1
-Capacity|Electricity|Hydrogen FC;Capacity|Electricity|Hydrogen FC;GW;GW;1
-Capacity|Electricity|Hydrogen OC;Capacity|Electricity|Hydrogen OC;GW;GW;1
-Capacity|Electricity|Hydrogen CC;Capacity|Electricity|Hydrogen CC;GW;GW;1
-Capacity|Electricity|Lignite;Capacity|Electricity|Lignite;GW;GW;1
-Capacity|Electricity|Nuclear;Capacity|Electricity|Nuclear;GW;GW;1
-Capacity|Electricity|Oil;Capacity|Electricity|Oil;GW;GW;1
-Capacity|Electricity|Other;Capacity|Electricity|Other;GW;GW;1
-Capacity|Electricity|Other Fossil;Capacity|Electricity|Other Fossil;GW;GW;1
-Capacity|Electricity|Peak Demand;Capacity|Electricity|Peak Demand;GW;GW;1
-Capacity|Electricity|Solar;Capacity|Electricity|Solar;GW;GW;1
-Capacity|Electricity|Solar|CSP;Capacity|Electricity|Solar|CSP;GW;GW;1
-Capacity|Electricity|Solar|PV;Capacity|Electricity|Solar|PV;GW;GW;1
-Capacity|Electricity|Storage;Capacity|Electricity|Storage;GW;GW;1
-Capacity|Electricity|Transmission Grid;Capacity|Electricity|Transmission Grid;GW;GW;1
-Capacity|Electricity|Wind;Capacity|Electricity|Wind;GW;GW;1
-Capacity|Electricity|Wind|Offshore;Capacity|Electricity|Wind|Offshore;GW;GW;1
-Capacity|Electricity|Wind|Onshore;Capacity|Electricity|Wind|Onshore;GW;GW;1
-Capacity|Electricity|Reserve Plants;Capacity|Electricity|Reserve Plants;GW;GW;1
-Capacity|Electricity|Reserve Plants|Hard Coal;Capacity|Electricity|Reserve Plants|Hard Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|Lignite;Capacity|Electricity|Reserve Plants|Lignite;GW;GW;1
-Capacity|Electricity|Reserve Plants|Coal;Capacity|Electricity|Reserve Plants|Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|Gas;Capacity|Electricity|Reserve Plants|Gas;GW;GW;1
-Capacity|Electricity|Reserve Plants|Gas CC;Capacity|Electricity|Reserve Plants|Gas CC;GW;GW;1
-Capacity|Electricity|Reserve Plants|Gas OC;Capacity|Electricity|Reserve Plants|Gas OC;GW;GW;1
-Capacity|Electricity|Reserve Plants|Biomass;Capacity|Electricity|Reserve Plants|Biomass;GW;GW;1
-Capacity|Electricity|Reserve Plants|Oil;Capacity|Electricity|Reserve Plants|Oil;GW;GW;1
-Capacity|Electricity|Coal|w/ CCS;Capacity|Electricity|Coal|w/ CCS;GW;GW;1
-Capacity|Electricity|Coal|w/o CCS;Capacity|Electricity|Coal|w/o CCS;GW;GW;1
-Capacity|Electricity|Gas|w/ CCS;Capacity|Electricity|Gas|w/ CCS;GW;GW;1
-Capacity|Electricity|Gas|w/o CCS;Capacity|Electricity|Gas|w/o CCS;GW;GW;1
-Capacity|Electricity|Hard Coal|w/ CCS;Capacity|Electricity|Hard Coal|w/ CCS;GW;GW;1
-Capacity|Electricity|Hard Coal|w/o CCS;Capacity|Electricity|Hard Coal|w/o CCS;GW;GW;1
-Capacity|Electricity|Lignite|w/ CCS;Capacity|Electricity|Lignite|w/ CCS;GW;GW;1
-Capacity|Electricity|Lignite|w/o CCS;Capacity|Electricity|Lignite|w/o CCS;GW;GW;1
-Capacity|Electricity|Storage|Pump Hydro;Capacity|Electricity|Storage|Pump Hydro;GW;GW;1
-Capacity|Electricity|Storage|Stat Batteries;Capacity|Electricity|Storage|Stat Batteries;GW;GW;1
-Capacity|Electricity|Storage|Hydrogen electrolysis;Capacity|Electricity|Storage|Hydrogen electrolysis;GW;GW;1
-Capacity|Electricity|Storage|Intra-day;Capacity|Electricity|Storage|Intra-day;GW;GW;1
-Price|Primary Energy|Biomass;Price|Primary Energy|Biomass;Eur2010/GJ;Eur2015/GJ;1
-Price|Primary Energy|Hard Coal;Price|Primary Energy|Hard Coal;Eur2010/GJ;Eur2015/GJ;1
-Price|Primary Energy|Lignite;Price|Primary Energy|Lignite;Eur2010/GJ;Eur2015/GJ;1
-Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2015/GJ;1
-Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2015/GJ;1
-Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
-Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
-Price Full|Secondary Energy|Heat;Price Full|Secondary Energy|Heat;Eur2010/MWh;Eur2015/MWh;1
-Price|Carbon|Net|Electricity;Price|Carbon|Net|Electricity;Eur2010/t CO2;Eur2015/t CO2;1
-Price|Carbon|National Climate Target|Power Sector;Price|Carbon|National Climate Target|Power Sector;Eur2010/t CO2;Eur2015/t CO2;1
-Price|Carbon|ETS;Price|Carbon|ETS;Eur2010/t CO2;Eur2015/t CO2;1
-Price|Carbon|Net|Industry;Price|Carbon|Net|Industry;Eur2010/t CO2;Eur2015/t CO2;1
-Price|Carbon|National Climate Target|Industry;Price|Carbon|National Climate Target|Industry;Eur2010/t CO2;Eur2015/t CO2;1
-Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1
-Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1
-Gross Energy|Electricity|w/ Storage and DisHeat;Gross Energy|Electricity|w/ Storage and DisHeat;TWh/yr;TWh/yr;1
-Gross Energy|Heat;Gross Energy|Heat;TWh/yr;TWh/yr;1
-Primary Energy|Electricity;Primary Energy|Electricity;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity [exhaustible resources];Primary Energy|Electricity [exhaustible resources];TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Biomass;Primary Energy|Electricity|Biomass;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Coal;Primary Energy|Electricity|Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Fossil;Primary Energy|Electricity|Fossil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Gas;Primary Energy|Electricity|Gas;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydro;Primary Energy|Electricity|Hydro;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Nuclear;Primary Energy|Electricity|Nuclear;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Oil;Primary Energy|Electricity|Oil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Other;Primary Energy|Electricity|Other;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Waste;Primary Energy|Electricity|Waste;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Lignite;Primary Energy|Electricity|Lignite;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hard Coal;Primary Energy|Electricity|Hard Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Solar;Primary Energy|Electricity|Solar;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Wind;Primary Energy|Electricity|Wind;TWh/yr;PJ/yr;3.6
-Secondary Energy|Electricity;Secondary Energy|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Biomass;Secondary Energy|Electricity|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Coal;Secondary Energy|Electricity|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Curtailment;Secondary Energy|Electricity|Curtailment;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Gas;Secondary Energy|Electricity|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydro;Secondary Energy|Electricity|Hydro;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hard Coal;Secondary Energy|Electricity|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Lignite;Secondary Energy|Electricity|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Net Exports;Secondary Energy|Electricity|Net Exports;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Nuclear;Secondary Energy|Electricity|Nuclear;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Oil;Secondary Energy|Electricity|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Other;Secondary Energy|Electricity|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Other Fossil;Secondary Energy|Electricity|Other Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Solar;Secondary Energy|Electricity|Solar;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSP;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PV;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Wind;Secondary Energy|Electricity|Wind;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Offshore;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage Losses;Secondary Energy|Electricity|Storage Losses;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydrogen|w/ storage;Secondary Energy|Electricity|Hydrogen|w/ storage;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Coal|w/ CCS;Secondary Energy|Electricity|Coal|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Coal|w/o CCS;Secondary Energy|Electricity|Coal|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hard Coal|w/ CCS;Secondary Energy|Electricity|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Hard Coal|w/o CCS;Secondary Energy|Electricity|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS;TWh/yr;TWh/yr;1
-Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs;Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Fuel Costs;Total Energy System Cost|Power Sector|Fuel Costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Investment Costs;Total Energy System Cost|Power Sector|Investment Costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Generation Investment Costs;Total Energy System Cost|Power Sector|Generation Investment Costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable;Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Transmission Investment Costs;Total Energy System Cost|Power Sector|Transmission Investment Costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|O&M Costs;Total Energy System Cost|Power Sector|O&M Costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|CO2 costs;Total Energy System Cost|Power Sector|CO2 costs;billion eur2010/yr;billion Eur2015/yr;1
-Total Energy System Cost|Power Sector|Trade Costs;Total Energy System Cost|Power Sector|Trade Costs;billion eur2010/yr;billion Eur2015/yr;1
-Capacity Additions|Electricity|Biomass;Capacity Additions|Electricity|Biomass;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Coal;Capacity Additions|Electricity|Coal;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Gas;Capacity Additions|Electricity|Gas;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Gas CC;Capacity Additions|Electricity|Gas CC;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Gas OC;Capacity Additions|Electricity|Gas OC;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hydro;Capacity Additions|Electricity|Hydro;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hydrogen;Capacity Additions|Electricity|Hydrogen;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hydrogen FC;Capacity Additions|Electricity|Hydrogen FC;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hydrogen OC;Capacity Additions|Electricity|Hydrogen OC;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hydrogen CC;Capacity Additions|Electricity|Hydrogen CC;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Nuclear;Capacity Additions|Electricity|Nuclear;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Oil;Capacity Additions|Electricity|Oil;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Other;Capacity Additions|Electricity|Other;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Solar;Capacity Additions|Electricity|Solar;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Solar|CSP;Capacity Additions|Electricity|Solar|CSP;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Solar|PV;Capacity Additions|Electricity|Solar|PV;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage;Capacity Additions|Electricity|Storage;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Wind;Capacity Additions|Electricity|Wind;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Wind|Offshore;Capacity Additions|Electricity|Wind|Offshore;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Wind|Onshore;Capacity Additions|Electricity|Wind|Onshore;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage|Stat Batteries;GW/yr;GW/yr;1
-Capacity Additions|Electricity;Capacity Additions|Electricity;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Lignite;Capacity Additions|Electricity|Lignite;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hard Coal;Capacity Additions|Electricity|Hard Coal;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Lignite|w/ CCS;Capacity Additions|Electricity|Lignite|w/ CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Lignite|w/o CCS;Capacity Additions|Electricity|Lignite|w/o CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hard Coal|w/ CCS;Capacity Additions|Electricity|Hard Coal|w/ CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Hard Coal|w/o CCS;Capacity Additions|Electricity|Hard Coal|w/o CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Coal|w/ CCS;Capacity Additions|Electricity|Coal|w/ CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Coal|w/o CCS;Capacity Additions|Electricity|Coal|w/o CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Gas|w/ CCS;Capacity Additions|Electricity|Gas|w/ CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Gas|w/o CCS;Capacity Additions|Electricity|Gas|w/o CCS;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage|Intra-day;Capacity Additions|Electricity|Storage|Intra-day;GW/yr;GW/yr;1
-Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1
-Capacity Additions|Electricity|Variable renewable;Capacity Additions|Electricity|Variable renewable;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Non-variable renewable;Capacity Additions|Electricity|Non-variable renewable;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Renewable;Capacity Additions|Electricity|Renewable;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Fossil;Capacity Additions|Electricity|Fossil;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Non-renewable;Capacity Additions|Electricity|Non-renewable;GW/yr;GW/yr;1
-Secondary Energy|Electricity|Fossil;Secondary Energy|Electricity|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage;Secondary Energy|Electricity|Storage;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage|Pump Hydro;Secondary Energy|Electricity|Storage|Pump Hydro;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage|Stat Batteries;Secondary Energy|Electricity|Storage|Stat Batteries;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage|Hydrogen electrolysis;Secondary Energy|Electricity|Storage|Hydrogen electrolysis;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Variable renewable;Secondary Energy|Electricity|Variable renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Non-variable renewable;Secondary Energy|Electricity|Non-variable renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Renewable;Secondary Energy|Electricity|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Non-renewable;Secondary Energy|Electricity|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|w/o losses;Secondary Energy|Electricity|w/o losses;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage Consumption;Secondary Energy|Electricity|Storage Consumption;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage Consumption|Pump Hydro;Secondary Energy|Electricity|Storage Consumption|Pump Hydro;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage Consumption|Stat Batteries;Secondary Energy|Electricity|Storage Consumption|Stat Batteries;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis;Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Net Imports;Secondary Energy|Electricity|Net Imports;TWh/yr;TWh/yr;1
-Capacity Adequacy|Most Challenging|Contribution|Nuclear;Capacity Adequacy|Most Challenging|Contribution|Nuclear;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Hydro;Capacity Adequacy|Most Challenging|Contribution|Hydro;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Coal;Capacity Adequacy|Most Challenging|Contribution|Coal;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Hard Coal;Capacity Adequacy|Most Challenging|Contribution|Hard Coal;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Lignite;Capacity Adequacy|Most Challenging|Contribution|Lignite;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Gas;Capacity Adequacy|Most Challenging|Contribution|Gas;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Biomass;Capacity Adequacy|Most Challenging|Contribution|Biomass;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Storage;Capacity Adequacy|Most Challenging|Contribution|Storage;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Oil;Capacity Adequacy|Most Challenging|Contribution|Oil;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Waste;Capacity Adequacy|Most Challenging|Contribution|Waste;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Hydrogen;Capacity Adequacy|Most Challenging|Contribution|Hydrogen;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Other;Capacity Adequacy|Most Challenging|Contribution|Other;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Solar;Capacity Adequacy|Most Challenging|Contribution|Solar;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Wind;Capacity Adequacy|Most Challenging|Contribution|Wind;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Imports;Capacity Adequacy|Most Challenging|Contribution|Imports;GW;GW;1
-Capacity Adequacy|Most Challenging|Demand;Capacity Adequacy|Most Challenging|Demand;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Nuclear;Capacity Adequacy|Peak Demand|Contribution|Nuclear;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Hydro;Capacity Adequacy|Peak Demand|Contribution|Hydro;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Coal;Capacity Adequacy|Peak Demand|Contribution|Coal;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Hard Coal;Capacity Adequacy|Peak Demand|Contribution|Hard Coal;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Lignite;Capacity Adequacy|Peak Demand|Contribution|Lignite;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Gas;Capacity Adequacy|Peak Demand|Contribution|Gas;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Biomass;Capacity Adequacy|Peak Demand|Contribution|Biomass;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Storage;Capacity Adequacy|Peak Demand|Contribution|Storage;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Oil;Capacity Adequacy|Peak Demand|Contribution|Oil;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Waste;Capacity Adequacy|Peak Demand|Contribution|Waste;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Hydrogen;Capacity Adequacy|Peak Demand|Contribution|Hydrogen;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Other;Capacity Adequacy|Peak Demand|Contribution|Other;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Solar;Capacity Adequacy|Peak Demand|Contribution|Solar;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Wind;Capacity Adequacy|Peak Demand|Contribution|Wind;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Imports;Capacity Adequacy|Peak Demand|Contribution|Imports;GW;GW;1
-Capacity Adequacy|Peak Demand|Demand;Capacity Adequacy|Peak Demand|Demand;GW;GW;1
-Capacity|Electricity|Waste;Capacity|Electricity|Waste;GW;GW;1
-Capacity Additions|Electricity|Waste;Capacity Additions|Electricity|Waste;GW/yr;GW/yr;1
-Secondary Energy|Electricity|Waste;Secondary Energy|Electricity|Waste;TWh/yr;TWh/yr;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants;GW;GW;1
-Load Factor|Electricity|Nuclear;Load Factor|Electricity|Nuclear;--;--;1
-Load Factor|Electricity|Coal;Load Factor|Electricity|Coal;--;--;1
-Load Factor|Electricity|Lignite;Load Factor|Electricity|Lignite;--;--;1
-Load Factor|Electricity|Hard Coal;Load Factor|Electricity|Hard Coal;--;--;1
-Load Factor|Electricity|Gas;Load Factor|Electricity|Gas;--;--;1
-Load Factor|Electricity|Gas CC;Load Factor|Electricity|Gas CC;--;--;1
-Load Factor|Electricity|Gas OC;Load Factor|Electricity|Gas OC;--;--;1
-Load Factor|Electricity|Oil;Load Factor|Electricity|Oil;--;--;1
-Load Factor|Electricity|Wind;Load Factor|Electricity|Wind;--;--;1
-Load Factor|Electricity|Wind|Onshore;Load Factor|Electricity|Wind|Onshore;--;--;1
-Load Factor|Electricity|Wind|Offshore;Load Factor|Electricity|Wind|Offshore;--;--;1
-Load Factor|Electricity|Solar;Load Factor|Electricity|Solar;--;--;1
-Load Factor|Electricity|Solar|PV;Load Factor|Electricity|Solar|PV;--;--;1
-Load Factor|Electricity|Solar|CSP;Load Factor|Electricity|Solar|CSP;--;--;1
-Load Factor|Electricity|Biomass;Load Factor|Electricity|Biomass;--;--;1
-Load Factor|Electricity|Biomass|w/o CCS;Load Factor|Electricity|Biomass|w/o CCS;--;--;1
-Load Factor|Electricity|Biomass|w/ CCS;Load Factor|Electricity|Biomass|w/ CCS;--;--;1
-Load Factor|Electricity|Hydro;Load Factor|Electricity|Hydro;--;--;1
-Load Factor|Electricity|Waste;Load Factor|Electricity|Waste;--;--;1
-Load Factor|Electricity|Hydrogen;Load Factor|Electricity|Hydrogen;--;--;1
-Load Factor|Electricity|Other;Load Factor|Electricity|Other;--;--;1
-Load Factor|Electricity|Hydrogen FC;Load Factor|Electricity|Hydrogen FC;--;--;1
-Load Factor|Electricity|Hydrogen OC;Load Factor|Electricity|Hydrogen OC;--;--;1
-Load Factor|Electricity|Hydrogen CC;Load Factor|Electricity|Hydrogen CC;--;--;1
-Emissions level in ETS|CO2|Energy|Supply|Electricity;Emissions level in ETS|CO2|Energy|Supply|Electricity;Mt CO2;Mt CO2;1
-EU ETS cap|CO2|Energy|Supply|Electricity;EU ETS cap|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass;GW;GW;1
-Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil;GW;GW;1
-Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil;GW;GW;1
-Disinvestment|Electricity|Nuclear;Disinvestment|Electricity|Nuclear;GW/yr;GW/yr;1
-Disinvestment|Electricity|Solar;Disinvestment|Electricity|Solar;GW/yr;GW/yr;1
-Disinvestment|Electricity|Wind;Disinvestment|Electricity|Wind;GW/yr;GW/yr;1
-Disinvestment|Electricity|Hydro;Disinvestment|Electricity|Hydro;GW/yr;GW/yr;1
-Disinvestment|Electricity|Coal;Disinvestment|Electricity|Coal;GW/yr;GW/yr;1
-Disinvestment|Electricity|Hard Coal;Disinvestment|Electricity|Hard Coal;GW/yr;GW/yr;1
-Disinvestment|Electricity|Lignite;Disinvestment|Electricity|Lignite;GW/yr;GW/yr;1
-Disinvestment|Electricity|Gas;Disinvestment|Electricity|Gas;GW/yr;GW/yr;1
-Disinvestment|Electricity|Biomass;Disinvestment|Electricity|Biomass;GW/yr;GW/yr;1
-Disinvestment|Electricity|Waste;Disinvestment|Electricity|Waste;GW/yr;GW/yr;1
-Disinvestment|Electricity|Hydrogen;Disinvestment|Electricity|Hydrogen;GW/yr;GW/yr;1
-Disinvestment|Electricity|Oil;Disinvestment|Electricity|Oil;GW/yr;GW/yr;1
-Disinvestment|Electricity|Other;Disinvestment|Electricity|Other;GW/yr;GW/yr;1
-Disinvestment|Electricity|Gas CC;Disinvestment|Electricity|Gas CC;GW/yr;GW/yr;1
-Disinvestment|Electricity|Gas OC;Disinvestment|Electricity|Gas OC;GW/yr;GW/yr;1
-Disinvestment|Electricity|Hydrogen FC;Disinvestment|Electricity|Hydrogen FC;GW/yr;GW/yr;1
-Disinvestment|Electricity|Hydrogen OC;Disinvestment|Electricity|Hydrogen OC;GW/yr;GW/yr;1
-Disinvestment|Electricity|Solar|PV;Disinvestment|Electricity|Solar|PV;GW/yr;GW/yr;1
-Disinvestment|Electricity|Solar|CSP;Disinvestment|Electricity|Solar|CSP;GW/yr;GW/yr;1
-Disinvestment|Electricity|Wind|Offshore;Disinvestment|Electricity|Wind|Offshore;GW/yr;GW/yr;1
-Disinvestment|Electricity|Wind|Onshore;Disinvestment|Electricity|Wind|Onshore;GW/yr;GW/yr;1
-Disinvestment|Electricity|Storage;Disinvestment|Electricity|Storage;GW/yr;GW/yr;1
-Disinvestment|Electricity|Storage|Pump Hydro;Disinvestment|Electricity|Storage|Pump Hydro;GW/yr;GW/yr;1
-Disinvestment|Electricity|Storage|Stat Batteries;Disinvestment|Electricity|Storage|Stat Batteries;GW/yr;GW/yr;1
-Disinvestment|Electricity|Storage|Hydrogen electrolysis;Disinvestment|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1
-Disinvestment|Electricity;Disinvestment|Electricity;GW/yr;GW/yr;1
-EU ETS cap|CO2;EU ETS cap|CO2;Mt CO2/yr;Mt CO2/yr;1
-Emissions level in ETS|CO2;Emissions level in ETS|CO2;Mt CO2;Mt CO2;1
-Emissions|CO2|Industry;Emissions|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1
-Emissions abated|CO2|Industry;Emissions abated|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Certificates auctioned ETS;Emissions|CO2|Certificates auctioned ETS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Certificates for auction - before unilateral cancellation;Emissions|CO2|Certificates for auction - before unilateral cancellation;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Free-allocated certificates ETS;Emissions|CO2|Free-allocated certificates ETS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Intake to MSR;Emissions|CO2|Intake to MSR;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Outtake from MSR;Emissions|CO2|Outtake from MSR;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Cancellation from MSR;Emissions|CO2|Cancellation from MSR;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Additional intake to the MSR;Emissions|CO2|Additional intake to the MSR;Mt CO2;Mt CO2;1
-Emissions|CO2|MSR level;Emissions|CO2|MSR level;Mt CO2;Mt CO2;1
-Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Share of renewables in gross demand;--;--;1
-Secondary Energy|Electricity|Gross Demand;Secondary Energy|Electricity|Gross Demand;TWh/yr;TWh/yr;1
-Emissions|CO2|Cap|Aviation;Emissions|CO2|Cap|Aviation;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Aviation;Emissions|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Certificates from Stationary|Aviation;Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Cap|Stationary|Electricity and Industry;Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Cap|Stationary;Emissions|CO2|Cap|Stationary;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat;Emissions|CO2|Energy|Supply|Heat;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Electricity and Industry;Emissions|CO2|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Preliminary auction ETS;Emissions|CO2|Preliminary auction ETS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Additional sectors in EU ETS;Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|EU ETS;Emissions|CO2|EU ETS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|EU ETS|w/ aviation;Emissions|CO2|EU ETS|w/ aviation;Mt CO2/yr;Mt CO2/yr;1
-Revenues EUA auction;Revenues EUA auction;billion eur2010/yr;billion eur2010/yr;1
-Emissions|CO2|Unilateral EUA cancellation;Emissions|CO2|Unilateral EUA cancellation;Mt CO2/yr;Mt CO2/yr;1
-Consumer costs|Secondary Energy|Electricity;Consumer costs|Secondary Energy|Electricity;billion eur2010/yr;billion eur2010/yr;1
-Total Cost|Industry|CO2 costs;Total Cost|Industry|CO2 costs;billion eur2010/yr;billion eur2010/yr;1
-Total Cost|Industry|Abatement;Total Cost|Industry|Abatement;billion eur2010/yr;billion eur2010/yr;1
-Producer revenues|Secondary Energy|Electricity;Producer revenues|Secondary Energy|Electricity;billion eur2010/yr;billion eur2010/yr;1
-Producer revenues|Secondary Energy|Electricity|Generation;Producer revenues|Secondary Energy|Electricity|Generation;billion eur2010/yr;billion eur2010/yr;1
-Producer revenues|Secondary Energy|Electricity|Storage;Producer revenues|Secondary Energy|Electricity|Storage;billion eur2010/yr;billion eur2010/yr;1
-Energy costs|Secondary Energy|Electricity|Storage;Energy costs|Secondary Energy|Electricity|Storage;billion eur2010/yr;billion eur2010/yr;1
-Emissions|CO2|Free-allocated certificates ETS|Industry;Emissions|CO2|Free-allocated certificates ETS|Industry;Mt CO2/yr;Mt CO2/yr;1
-Price|Secondary Energy|Electricity|Other fees;Price|Secondary Energy|Electricity|Other fees;Eur2010/MWh;Eur2015/MWh;1
-Price|Secondary Energy|Electricity|Other fees|RES subsidy;Price|Secondary Energy|Electricity|Other fees|RES subsidy;Eur2010/MWh;Eur2015/MWh;1
-Carbon Sequestration|CCS|Electricity;Carbon Sequestration|CCS|Electricity;Mt CO2/yr;Mt CO2/yr;1
-Carbon Sequestration|CCS|Electricity|Biomass;Carbon Sequestration|CCS|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1
-Carbon Sequestration|CCS|Electricity|Fossil;Carbon Sequestration|CCS|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1
-Capacity|Electricity|CHP;Capacity|Electricity|CHP;GW;GW;1
-Capacity|Electricity|CHP|Coal;Capacity|Electricity|CHP|Coal;GW;GW;1
-Capacity|Electricity|CHP|Hard Coal;Capacity|Electricity|CHP|Hard Coal;GW;GW;1
-Capacity|Electricity|CHP|Lignite;Capacity|Electricity|CHP|Lignite;GW;GW;1
-Capacity|Electricity|CHP|Gas;Capacity|Electricity|CHP|Gas;GW;GW;1
-Capacity|Electricity|CHP|Biomass;Capacity|Electricity|CHP|Biomass;GW;GW;1
-Capacity|Electricity|CHP|Oil;Capacity|Electricity|CHP|Oil;GW;GW;1
-Capacity|Electricity|CHP|Other;Capacity|Electricity|CHP|Other;GW;GW;1
-Capacity|Electricity|Electricity-only;Capacity|Electricity|Electricity-only;GW;GW;1
-Capacity|Electricity|Electricity-only|Coal;Capacity|Electricity|Electricity-only|Coal;GW;GW;1
-Capacity|Electricity|Electricity-only|Hard Coal;Capacity|Electricity|Electricity-only|Hard Coal;GW;GW;1
-Capacity|Electricity|Electricity-only|Lignite;Capacity|Electricity|Electricity-only|Lignite;GW;GW;1
-Capacity|Electricity|Electricity-only|Gas;Capacity|Electricity|Electricity-only|Gas;GW;GW;1
-Capacity|Electricity|Electricity-only|Biomass;Capacity|Electricity|Electricity-only|Biomass;GW;GW;1
-Capacity|Electricity|Electricity-only|Oil;Capacity|Electricity|Electricity-only|Oil;GW;GW;1
-Capacity|Electricity|Electricity-only|Other;Capacity|Electricity|Electricity-only|Other;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP;Capacity|Electricity|Reserve Plants|CHP;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Coal;Capacity|Electricity|Reserve Plants|CHP|Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Hard Coal;Capacity|Electricity|Reserve Plants|CHP|Hard Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Lignite;Capacity|Electricity|Reserve Plants|CHP|Lignite;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Gas;Capacity|Electricity|Reserve Plants|CHP|Gas;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Gas CC;Capacity|Electricity|Reserve Plants|CHP|Gas CC;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Gas OC;Capacity|Electricity|Reserve Plants|CHP|Gas OC;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Biomass;Capacity|Electricity|Reserve Plants|CHP|Biomass;GW;GW;1
-Capacity|Electricity|Reserve Plants|CHP|Oil;Capacity|Electricity|Reserve Plants|CHP|Oil;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only;Capacity|Electricity|Reserve Plants|Electricity-only;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Coal;Capacity|Electricity|Reserve Plants|Electricity-only|Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal;Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Lignite;Capacity|Electricity|Reserve Plants|Electricity-only|Lignite;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Gas;Capacity|Electricity|Reserve Plants|Electricity-only|Gas;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC;Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;GW;GW;1
-Capacity|Electricity|Reserve Plants|Electricity-only|Oil;Capacity|Electricity|Reserve Plants|Electricity-only|Oil;GW;GW;1
-Final Energy|Heat;Final Energy|Heat;TWh/yr;TWh/yr;1
-Capacity|Electricity|CHP|Gas CC;Capacity|Electricity|CHP|Gas CC;GW;GW;1
-Capacity|Electricity|CHP|Gas OC;Capacity|Electricity|CHP|Gas OC;GW;GW;1
-Capacity|Electricity|Biomass|w/ CCS;Capacity|Electricity|Biomass|w/ CCS;GW;GW;1
-Capacity|Electricity|Electricity-only|Gas CC;Capacity|Electricity|Electricity-only|Gas CC;GW;GW;1
-Capacity|Electricity|Electricity-only|Gas OC;Capacity|Electricity|Electricity-only|Gas OC;GW;GW;1
-Primary Energy|Electricity and Heat;Primary Energy|Electricity and Heat;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat [exhaustible resources];Primary Energy|Electricity and Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Biomass;Primary Energy|Electricity and Heat|Biomass;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Coal;Primary Energy|Electricity and Heat|Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Fossil;Primary Energy|Electricity and Heat|Fossil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Gas;Primary Energy|Electricity and Heat|Gas;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Nuclear;Primary Energy|Electricity and Heat|Nuclear;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Oil;Primary Energy|Electricity and Heat|Oil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Other;Primary Energy|Electricity and Heat|Other;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Waste;Primary Energy|Electricity and Heat|Waste;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Lignite;Primary Energy|Electricity and Heat|Lignite;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Hard Coal;Primary Energy|Electricity and Heat|Hard Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat [exhaustible resources];Primary Energy|Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Biomass;Primary Energy|Heat|Biomass;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Coal;Primary Energy|Heat|Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Fossil;Primary Energy|Heat|Fossil;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Gas;Primary Energy|Heat|Gas;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Oil;Primary Energy|Heat|Oil;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Other;Primary Energy|Heat|Other;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Lignite;Primary Energy|Heat|Lignite;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Hard Coal;Primary Energy|Heat|Hard Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Heat|Waste;Primary Energy|Heat|Waste;TWh/yr;PJ/yr;3.6
-Emissions|CO2|Energy|Supply|Electricity|Biomass;Emissions|CO2|Energy|Supply|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Biomass w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat;Emissions|CO2|Energy|Supply|Electricity and Heat;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite;Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/ CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Oil;Emissions|CO2|Energy|Supply|Electricity and Heat|Oil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Gas;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/ CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Gas CC|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas CC|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Gas OC|w/o CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas OC|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass w/ CCS;Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass w/ CCS;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Coal;Emissions|CO2|Energy|Supply|Heat|Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Hard Coal;Emissions|CO2|Energy|Supply|Heat|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Lignite;Emissions|CO2|Energy|Supply|Heat|Lignite;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Oil;Emissions|CO2|Energy|Supply|Heat|Oil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Gas;Emissions|CO2|Energy|Supply|Heat|Gas;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Other;Emissions|CO2|Energy|Supply|Heat|Other;Mt CO2/yr;Mt CO2/yr;1
-Secondary Energy|Heat;Secondary Energy|Heat;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Biomass;Secondary Energy|Heat|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Coal;Secondary Energy|Heat|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Gas;Secondary Energy|Heat|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Hard Coal;Secondary Energy|Heat|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Lignite;Secondary Energy|Heat|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Oil;Secondary Energy|Heat|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Other;Secondary Energy|Heat|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Waste;Secondary Energy|Heat|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Solar;Secondary Energy|Heat|Solar;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Geothermal;Secondary Energy|Heat|Geothermal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Electricity;Secondary Energy|Heat|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Fossil;Secondary Energy|Heat|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Renewable;Secondary Energy|Heat|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Non-renewable;Secondary Energy|Heat|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP;Secondary Energy|Electricity|CHP;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Biomass;Secondary Energy|Electricity|CHP|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Coal;Secondary Energy|Electricity|CHP|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Gas CC;Secondary Energy|Electricity|CHP|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Gas OC;Secondary Energy|Electricity|CHP|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Gas;Secondary Energy|Electricity|CHP|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Hard Coal;Secondary Energy|Electricity|CHP|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Lignite;Secondary Energy|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Oil;Secondary Energy|Electricity|CHP|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Other;Secondary Energy|Electricity|CHP|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Fossil;Secondary Energy|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Renewable;Secondary Energy|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|CHP|Non-renewable;Secondary Energy|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only;Secondary Energy|Electricity|Electricity-only;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Biomass;Secondary Energy|Electricity|Electricity-only|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Coal;Secondary Energy|Electricity|Electricity-only|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Gas CC;Secondary Energy|Electricity|Electricity-only|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Gas OC;Secondary Energy|Electricity|Electricity-only|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Gas;Secondary Energy|Electricity|Electricity-only|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Hard Coal;Secondary Energy|Electricity|Electricity-only|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Lignite;Secondary Energy|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Oil;Secondary Energy|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Other;Secondary Energy|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Waste;Secondary Energy|Electricity|Electricity-only|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Fossil;Secondary Energy|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Renewable;Secondary Energy|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Non-renewable;Secondary Energy|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Biomass|w/o CCS;Secondary Energy|Electricity|Electricity-only|Biomass|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Biomass|w/ CCS;Secondary Energy|Electricity|Electricity-only|Biomass|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Coal|w/o CCS;Secondary Energy|Electricity|Electricity-only|Coal|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Coal|w/ CCS;Secondary Energy|Electricity|Electricity-only|Coal|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Lignite|w/o CCS;Secondary Energy|Electricity|Electricity-only|Lignite|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Lignite|w/ CCS;Secondary Energy|Electricity|Electricity-only|Lignite|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Hard Coal|w/o CCS;Secondary Energy|Electricity|Electricity-only|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;;;
-Secondary Energy|Heat|CHP;Secondary Energy|Heat|CHP;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Biomass;Secondary Energy|Heat|CHP|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Coal;Secondary Energy|Heat|CHP|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas CC;Secondary Energy|Heat|CHP|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas OC;Secondary Energy|Heat|CHP|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas;Secondary Energy|Heat|CHP|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Hard Coal;Secondary Energy|Heat|CHP|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Lignite;Secondary Energy|Heat|CHP|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Oil;Secondary Energy|Heat|CHP|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Other;Secondary Energy|Heat|CHP|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Fossil;Secondary Energy|Heat|CHP|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Renewable;Secondary Energy|Heat|CHP|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Non-renewable;Secondary Energy|Heat|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating;Secondary Energy|Heat|District Heating;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Biomass;Secondary Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Coal;Secondary Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Gas;Secondary Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Hard Coal;Secondary Energy|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Lignite;Secondary Energy|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Oil;Secondary Energy|Heat|District Heating|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Other;Secondary Energy|Heat|District Heating|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Fossil;Secondary Energy|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Renewable;Secondary Energy|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Non-renewable;Secondary Energy|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Waste;Secondary Energy|Heat|District Heating|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Solar;Secondary Energy|Heat|District Heating|Solar;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Geothermal;Secondary Energy|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity;Secondary Energy|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity|Heat Pump;Secondary Energy|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
-Emissions|CO2|Energy|Supply|Heat|Waste;Emissions|CO2|Energy|Supply|Heat|Waste;Mt CO2/yr;Mt CO2/yr;1
-Capacity|Heat|District Heating;Capacity|Heat|District Heating;GW;GW;1
-Capacity|Heat|District Heating|Coal;Capacity|Heat|District Heating|Coal;GW;GW;1
-Capacity|Heat|District Heating|Hard Coal;Capacity|Heat|District Heating|Hard Coal;GW;GW;1
-Capacity|Heat|District Heating|Lignite;Capacity|Heat|District Heating|Lignite;GW;GW;1
-Capacity|Heat|District Heating|Gas;Capacity|Heat|District Heating|Gas;GW;GW;1
-Capacity|Heat|District Heating|Biomass;Capacity|Heat|District Heating|Biomass;GW;GW;1
-Capacity|Heat|District Heating|Oil;Capacity|Heat|District Heating|Oil;GW;GW;1
-Capacity|Heat|District Heating|Other;Capacity|Heat|District Heating|Other;GW;GW;1
-Capacity|Heat|District Heating|Waste;Capacity|Heat|District Heating|Waste;GW;GW;1
-Capacity|Heat|District Heating|Solar;Capacity|Heat|District Heating|Solar;GW;GW;1
-Capacity|Heat|District Heating|Geothermal;Capacity|Heat|District Heating|Geothermal;GW;GW;1
-Capacity|Heat|District Heating|Electricity;Capacity|Heat|District Heating|Electricity;GW;GW;1
-Capacity|Heat|District Heating|Electricity|Heat Pump;Capacity|Heat|District Heating|Electricity|Heat Pump;GW;GW;1
-Capacity|Heat|District Heating|Electricity|Electric Boiler;Capacity|Heat|District Heating|Electricity|Electric Boiler;GW;GW;1
-Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;GW;1
-Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
-Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
-Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
-Transmission capacity with FIN|Electricity;Transmission capacity with FIN|Electricity;GW;GW;1
-Transmission capacity with NOR|Electricity;Transmission capacity with NOR|Electricity;GW;GW;1
-Transmission capacity with SWE|Electricity;Transmission capacity with SWE|Electricity;GW;GW;1
-Transmission capacity with EST|Electricity;Transmission capacity with EST|Electricity;GW;GW;1
-Transmission capacity with LVA|Electricity;Transmission capacity with LVA|Electricity;GW;GW;1
-Transmission capacity with LTU|Electricity;Transmission capacity with LTU|Electricity;GW;GW;1
-Transmission capacity with DNK|Electricity;Transmission capacity with DNK|Electricity;GW;GW;1
-Transmission capacity with GBR|Electricity;Transmission capacity with GBR|Electricity;GW;GW;1
-Transmission capacity with IRL|Electricity;Transmission capacity with IRL|Electricity;GW;GW;1
-Transmission capacity with NLD|Electricity;Transmission capacity with NLD|Electricity;GW;GW;1
-Transmission capacity with POL|Electricity;Transmission capacity with POL|Electricity;GW;GW;1
-Transmission capacity with DEU|Electricity;Transmission capacity with DEU|Electricity;GW;GW;1
-Transmission capacity with BEL|Electricity;Transmission capacity with BEL|Electricity;GW;GW;1
-Transmission capacity with LUX|Electricity;Transmission capacity with LUX|Electricity;GW;GW;1
-Transmission capacity with CZE|Electricity;Transmission capacity with CZE|Electricity;GW;GW;1
-Transmission capacity with SVK|Electricity;Transmission capacity with SVK|Electricity;GW;GW;1
-Transmission capacity with AUT|Electricity;Transmission capacity with AUT|Electricity;GW;GW;1
-Transmission capacity with CHE|Electricity;Transmission capacity with CHE|Electricity;GW;GW;1
-Transmission capacity with HUN|Electricity;Transmission capacity with HUN|Electricity;GW;GW;1
-Transmission capacity with ROM|Electricity;Transmission capacity with ROM|Electricity;GW;GW;1
-Transmission capacity with SVN|Electricity;Transmission capacity with SVN|Electricity;GW;GW;1
-Transmission capacity with FRA|Electricity;Transmission capacity with FRA|Electricity;GW;GW;1
-Transmission capacity with HRV|Electricity;Transmission capacity with HRV|Electricity;GW;GW;1
-Transmission capacity with BAL|Electricity;Transmission capacity with BAL|Electricity;GW;GW;1
-Transmission capacity with BGR|Electricity;Transmission capacity with BGR|Electricity;GW;GW;1
-Transmission capacity with ITA|Electricity;Transmission capacity with ITA|Electricity;GW;GW;1
-Transmission capacity with ESP|Electricity;Transmission capacity with ESP|Electricity;GW;GW;1
-Transmission capacity with PRT|Electricity;Transmission capacity with PRT|Electricity;GW;GW;1
-Transmission capacity with GRC|Electricity;Transmission capacity with GRC|Electricity;GW;GW;1
-Exports to FIN|Electricity;Exports to FIN|Electricity;TWh/yr;TWh/yr;1
-Exports to NOR|Electricity;Exports to NOR|Electricity;TWh/yr;TWh/yr;1
-Exports to SWE|Electricity;Exports to SWE|Electricity;TWh/yr;TWh/yr;1
-Exports to EST|Electricity;Exports to EST|Electricity;TWh/yr;TWh/yr;1
-Exports to LVA|Electricity;Exports to LVA|Electricity;TWh/yr;TWh/yr;1
-Exports to LTU|Electricity;Exports to LTU|Electricity;TWh/yr;TWh/yr;1
-Exports to DNK|Electricity;Exports to DNK|Electricity;TWh/yr;TWh/yr;1
-Exports to GBR|Electricity;Exports to GBR|Electricity;TWh/yr;TWh/yr;1
-Exports to IRL|Electricity;Exports to IRL|Electricity;TWh/yr;TWh/yr;1
-Exports to NLD|Electricity;Exports to NLD|Electricity;TWh/yr;TWh/yr;1
-Exports to POL|Electricity;Exports to POL|Electricity;TWh/yr;TWh/yr;1
-Exports to DEU|Electricity;Exports to DEU|Electricity;TWh/yr;TWh/yr;1
-Exports to BEL|Electricity;Exports to BEL|Electricity;TWh/yr;TWh/yr;1
-Exports to LUX|Electricity;Exports to LUX|Electricity;TWh/yr;TWh/yr;1
-Exports to CZE|Electricity;Exports to CZE|Electricity;TWh/yr;TWh/yr;1
-Exports to SVK|Electricity;Exports to SVK|Electricity;TWh/yr;TWh/yr;1
-Exports to AUT|Electricity;Exports to AUT|Electricity;TWh/yr;TWh/yr;1
-Exports to CHE|Electricity;Exports to CHE|Electricity;TWh/yr;TWh/yr;1
-Exports to HUN|Electricity;Exports to HUN|Electricity;TWh/yr;TWh/yr;1
-Exports to ROM|Electricity;Exports to ROM|Electricity;TWh/yr;TWh/yr;1
-Exports to SVN|Electricity;Exports to SVN|Electricity;TWh/yr;TWh/yr;1
-Exports to FRA|Electricity;Exports to FRA|Electricity;TWh/yr;TWh/yr;1
-Exports to HRV|Electricity;Exports to HRV|Electricity;TWh/yr;TWh/yr;1
-Exports to BAL|Electricity;Exports to BAL|Electricity;TWh/yr;TWh/yr;1
-Exports to BGR|Electricity;Exports to BGR|Electricity;TWh/yr;TWh/yr;1
-Exports to ITA|Electricity;Exports to ITA|Electricity;TWh/yr;TWh/yr;1
-Exports to ESP|Electricity;Exports to ESP|Electricity;TWh/yr;TWh/yr;1
-Exports to PRT|Electricity;Exports to PRT|Electricity;TWh/yr;TWh/yr;1
-Exports to GRC|Electricity;Exports to GRC|Electricity;TWh/yr;TWh/yr;1
-Imports from FIN|Electricity;Imports from FIN|Electricity;TWh/yr;TWh/yr;1
-Imports from NOR|Electricity;Imports from NOR|Electricity;TWh/yr;TWh/yr;1
-Imports from SWE|Electricity;Imports from SWE|Electricity;TWh/yr;TWh/yr;1
-Imports from EST|Electricity;Imports from EST|Electricity;TWh/yr;TWh/yr;1
-Imports from LVA|Electricity;Imports from LVA|Electricity;TWh/yr;TWh/yr;1
-Imports from LTU|Electricity;Imports from LTU|Electricity;TWh/yr;TWh/yr;1
-Imports from DNK|Electricity;Imports from DNK|Electricity;TWh/yr;TWh/yr;1
-Imports from GBR|Electricity;Imports from GBR|Electricity;TWh/yr;TWh/yr;1
-Imports from IRL|Electricity;Imports from IRL|Electricity;TWh/yr;TWh/yr;1
-Imports from NLD|Electricity;Imports from NLD|Electricity;TWh/yr;TWh/yr;1
-Imports from POL|Electricity;Imports from POL|Electricity;TWh/yr;TWh/yr;1
-Imports from DEU|Electricity;Imports from DEU|Electricity;TWh/yr;TWh/yr;1
-Imports from BEL|Electricity;Imports from BEL|Electricity;TWh/yr;TWh/yr;1
-Imports from LUX|Electricity;Imports from LUX|Electricity;TWh/yr;TWh/yr;1
-Imports from CZE|Electricity;Imports from CZE|Electricity;TWh/yr;TWh/yr;1
-Imports from SVK|Electricity;Imports from SVK|Electricity;TWh/yr;TWh/yr;1
-Imports from AUT|Electricity;Imports from AUT|Electricity;TWh/yr;TWh/yr;1
-Imports from CHE|Electricity;Imports from CHE|Electricity;TWh/yr;TWh/yr;1
-Imports from HUN|Electricity;Imports from HUN|Electricity;TWh/yr;TWh/yr;1
-Imports from ROM|Electricity;Imports from ROM|Electricity;TWh/yr;TWh/yr;1
-Imports from SVN|Electricity;Imports from SVN|Electricity;TWh/yr;TWh/yr;1
-Imports from FRA|Electricity;Imports from FRA|Electricity;TWh/yr;TWh/yr;1
-Imports from HRV|Electricity;Imports from HRV|Electricity;TWh/yr;TWh/yr;1
-Imports from BAL|Electricity;Imports from BAL|Electricity;TWh/yr;TWh/yr;1
-Imports from BGR|Electricity;Imports from BGR|Electricity;TWh/yr;TWh/yr;1
-Imports from ITA|Electricity;Imports from ITA|Electricity;TWh/yr;TWh/yr;1
-Imports from ESP|Electricity;Imports from ESP|Electricity;TWh/yr;TWh/yr;1
-Imports from PRT|Electricity;Imports from PRT|Electricity;TWh/yr;TWh/yr;1
-Imports from GRC|Electricity;Imports from GRC|Electricity;TWh/yr;TWh/yr;1
-Net exports to FIN|Electricity;Net exports to FIN|Electricity;TWh/yr;TWh/yr;1
-Net exports to NOR|Electricity;Net exports to NOR|Electricity;TWh/yr;TWh/yr;1
-Net exports to SWE|Electricity;Net exports to SWE|Electricity;TWh/yr;TWh/yr;1
-Net exports to EST|Electricity;Net exports to EST|Electricity;TWh/yr;TWh/yr;1
-Net exports to LVA|Electricity;Net exports to LVA|Electricity;TWh/yr;TWh/yr;1
-Net exports to LTU|Electricity;Net exports to LTU|Electricity;TWh/yr;TWh/yr;1
-Net exports to DNK|Electricity;Net exports to DNK|Electricity;TWh/yr;TWh/yr;1
-Net exports to GBR|Electricity;Net exports to GBR|Electricity;TWh/yr;TWh/yr;1
-Net exports to IRL|Electricity;Net exports to IRL|Electricity;TWh/yr;TWh/yr;1
-Net exports to NLD|Electricity;Net exports to NLD|Electricity;TWh/yr;TWh/yr;1
-Net exports to POL|Electricity;Net exports to POL|Electricity;TWh/yr;TWh/yr;1
-Net exports to DEU|Electricity;Net exports to DEU|Electricity;TWh/yr;TWh/yr;1
-Net exports to BEL|Electricity;Net exports to BEL|Electricity;TWh/yr;TWh/yr;1
-Net exports to LUX|Electricity;Net exports to LUX|Electricity;TWh/yr;TWh/yr;1
-Net exports to CZE|Electricity;Net exports to CZE|Electricity;TWh/yr;TWh/yr;1
-Net exports to SVK|Electricity;Net exports to SVK|Electricity;TWh/yr;TWh/yr;1
-Net exports to AUT|Electricity;Net exports to AUT|Electricity;TWh/yr;TWh/yr;1
-Net exports to CHE|Electricity;Net exports to CHE|Electricity;TWh/yr;TWh/yr;1
-Net exports to HUN|Electricity;Net exports to HUN|Electricity;TWh/yr;TWh/yr;1
-Net exports to ROM|Electricity;Net exports to ROM|Electricity;TWh/yr;TWh/yr;1
-Net exports to SVN|Electricity;Net exports to SVN|Electricity;TWh/yr;TWh/yr;1
-Net exports to FRA|Electricity;Net exports to FRA|Electricity;TWh/yr;TWh/yr;1
-Net exports to HRV|Electricity;Net exports to HRV|Electricity;TWh/yr;TWh/yr;1
-Net exports to BAL|Electricity;Net exports to BAL|Electricity;TWh/yr;TWh/yr;1
-Net exports to BGR|Electricity;Net exports to BGR|Electricity;TWh/yr;TWh/yr;1
-Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1
-Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1
-Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1
-Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen FC;Secondary Energy|Hydrogen|Hydrogen FC;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen OC;Secondary Energy|Hydrogen|Hydrogen OC;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen CC;Secondary Energy|Hydrogen|Hydrogen CC;TWh/yr;TWh/yr;1
-Capacity|Electricity|Storage Reservoir;Capacity|Electricity|Storage Reservoir;GWh;GWh;1
-Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage Reservoir|Pump Hydro;GWh;GWh;1
-Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1
-Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1
-Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1
-Capacity|Electricity|Transmission Grid-km;Capacity|Electricity|Transmission Grid-km;GWkm;GWkm;1
-Discharge duration|Pump Hydro;Discharge duration|Pump Hydro;h;h;1
-Discharge duration|Stat Batteries;Discharge duration|Stat Batteries;h;h;1
-Discharge duration|Hydrogen electrolysis;Discharge duration|Hydrogen electrolysis;h;h;1
+LIMES;Enavi;UnitLIMES;UnitEnavi;ConvFactorEmissions|CO2|Energy|Supply|Electricity;Emissions|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Coal;Emissions|CO2|Energy|Supply|Electricity|Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Hard Coal;Emissions|CO2|Energy|Supply|Electricity|Hard Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Lignite;Emissions|CO2|Energy|Supply|Electricity|Lignite;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Oil;Emissions|CO2|Energy|Supply|Electricity|Oil;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Gas;Emissions|CO2|Energy|Supply|Electricity|Gas;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Waste;Emissions|CO2|Energy|Supply|Electricity|Waste;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Other;Emissions|CO2|Energy|Supply|Electricity|Other;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Emissions|CO2|Energy|Supply|Electricity|Other Fossil;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Fossil;Emissions|CO2|Energy|Supply|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1Capacity|Electricity;Capacity|Electricity;GW;GW;1Capacity|Electricity|Biomass;Capacity|Electricity|Biomass;GW;GW;1Capacity|Electricity|Coal;Capacity|Electricity|Coal;GW;GW;1Capacity|Electricity|Gas;Capacity|Electricity|Gas;GW;GW;1Capacity|Electricity|Gas CC;Capacity|Electricity|Gas CC;GW;GW;1Capacity|Electricity|Gas OC;Capacity|Electricity|Gas OC;GW;GW;1Capacity|Electricity|Hard Coal;Capacity|Electricity|Hard Coal;GW;GW;1Capacity|Electricity|Hydro;Capacity|Electricity|Hydro;GW;GW;1Capacity|Electricity|Hydrogen;Capacity|Electricity|Hydrogen;GW;GW;1Capacity|Electricity|Hydrogen FC;Capacity|Electricity|Hydrogen FC;GW;GW;1Capacity|Electricity|Hydrogen OC;Capacity|Electricity|Hydrogen OC;GW;GW;1Capacity|Electricity|Hydrogen CC;Capacity|Electricity|Hydrogen CC;GW;GW;1Capacity|Electricity|Lignite;Capacity|Electricity|Lignite;GW;GW;1Capacity|Electricity|Nuclear;Capacity|Electricity|Nuclear;GW;GW;1Capacity|Electricity|Oil;Capacity|Electricity|Oil;GW;GW;1Capacity|Electricity|Other;Capacity|Electricity|Other;GW;GW;1Capacity|Electricity|Other Fossil;Capacity|Electricity|Other Fossil;GW;GW;1Capacity|Electricity|Peak Demand;Capacity|Electricity|Peak Demand;GW;GW;1Capacity|Electricity|Solar;Capacity|Electricity|Solar;GW;GW;1Capacity|Electricity|Solar|CSP;Capacity|Electricity|Solar|CSP;GW;GW;1Capacity|Electricity|Solar|PV;Capacity|Electricity|Solar|PV;GW;GW;1Capacity|Electricity|Storage;Capacity|Electricity|Storage;GW;GW;1Capacity|Electricity|Transmission Grid;Capacity|Electricity|Transmission Grid;GW;GW;1Capacity|Electricity|Wind;Capacity|Electricity|Wind;GW;GW;1Capacity|Electricity|Wind|Offshore;Capacity|Electricity|Wind|Offshore;GW;GW;1Capacity|Electricity|Wind|Onshore;Capacity|Electricity|Wind|Onshore;GW;GW;1Capacity|Electricity|Reserve Plants;Capacity|Electricity|Reserve Plants;GW;GW;1Capacity|Electricity|Reserve Plants|Hard Coal;Capacity|Electricity|Reserve Plants|Hard Coal;GW;GW;1Capacity|Electricity|Reserve Plants|Lignite;Capacity|Electricity|Reserve Plants|Lignite;GW;GW;1Capacity|Electricity|Reserve Plants|Coal;Capacity|Electricity|Reserve Plants|Coal;GW;GW;1Capacity|Electricity|Reserve Plants|Gas;Capacity|Electricity|Reserve Plants|Gas;GW;GW;1Capacity|Electricity|Reserve Plants|Gas CC;Capacity|Electricity|Reserve Plants|Gas CC;GW;GW;1Capacity|Electricity|Reserve Plants|Gas OC;Capacity|Electricity|Reserve Plants|Gas OC;GW;GW;1Capacity|Electricity|Reserve Plants|Biomass;Capacity|Electricity|Reserve Plants|Biomass;GW;GW;1Capacity|Electricity|Reserve Plants|Oil;Capacity|Electricity|Reserve Plants|Oil;GW;GW;1Capacity|Electricity|Coal|w/ CCS;Capacity|Electricity|Coal|w/ CCS;GW;GW;1Capacity|Electricity|Coal|w/o CCS;Capacity|Electricity|Coal|w/o CCS;GW;GW;1Capacity|Electricity|Gas|w/ CCS;Capacity|Electricity|Gas|w/ CCS;GW;GW;1Capacity|Electricity|Gas|w/o CCS;Capacity|Electricity|Gas|w/o CCS;GW;GW;1Capacity|Electricity|Hard Coal|w/ CCS;Capacity|Electricity|Hard Coal|w/ CCS;GW;GW;1Capacity|Electricity|Hard Coal|w/o CCS;Capacity|Electricity|Hard Coal|w/o CCS;GW;GW;1Capacity|Electricity|Lignite|w/ CCS;Capacity|Electricity|Lignite|w/ CCS;GW;GW;1Capacity|Electricity|Lignite|w/o CCS;Capacity|Electricity|Lignite|w/o CCS;GW;GW;1Capacity|Electricity|Storage|Pump Hydro;Capacity|Electricity|Storage|Pump Hydro;GW;GW;1Capacity|Electricity|Storage|Stat Batteries;Capacity|Electricity|Storage|Stat Batteries;GW;GW;1Capacity|Electricity|Storage|Hydrogen electrolysis;Capacity|Electricity|Storage|Hydrogen electrolysis;GW;GW;1Capacity|Electricity|Storage|Intra-day;Capacity|Electricity|Storage|Intra-day;GW;GW;1Price|Primary Energy|Biomass;Price|Primary Energy|Biomass;Eur2010/GJ;Eur2015/GJ;1Price|Primary Energy|Hard Coal;Price|Primary Energy|Hard Coal;Eur2010/GJ;Eur2015/GJ;1Price|Primary Energy|Lignite;Price|Primary Energy|Lignite;Eur2010/GJ;Eur2015/GJ;1Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2015/GJ;1Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2015/GJ;1Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1Price Full|Secondary Energy|Heat;Price Full|Secondary Energy|Heat;Eur2010/MWh;Eur2015/MWh;1Price|Carbon|Net|Electricity;Price|Carbon|Net|Electricity;Eur2010/t CO2;Eur2015/t CO2;1Price|Carbon|National Climate Target|Power Sector;Price|Carbon|National Climate Target|Power Sector;Eur2010/t CO2;Eur2015/t CO2;1Price|Carbon|ETS;Price|Carbon|ETS;Eur2010/t CO2;Eur2015/t CO2;1Price|Carbon|Net|Industry;Price|Carbon|Net|Industry;Eur2010/t CO2;Eur2015/t CO2;1Price|Carbon|National Climate Target|Industry;Price|Carbon|National Climate Target|Industry;Eur2010/t CO2;Eur2015/t CO2;1Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1Gross Energy|Electricity|w/ Storage and DisHeat;Gross Energy|Electricity|w/ Storage and DisHeat;TWh/yr;TWh/yr;1Gross Energy|Heat;Gross Energy|Heat;TWh/yr;TWh/yr;1Primary Energy|Electricity;Primary Energy|Electricity;TWh/yr;PJ/yr;3.6Primary Energy|Electricity [exhaustible resources];Primary Energy|Electricity [exhaustible resources];TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Biomass;Primary Energy|Electricity|Biomass;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Coal;Primary Energy|Electricity|Coal;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Fossil;Primary Energy|Electricity|Fossil;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Gas;Primary Energy|Electricity|Gas;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Hydro;Primary Energy|Electricity|Hydro;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Nuclear;Primary Energy|Electricity|Nuclear;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Oil;Primary Energy|Electricity|Oil;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Other;Primary Energy|Electricity|Other;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Waste;Primary Energy|Electricity|Waste;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Lignite;Primary Energy|Electricity|Lignite;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Hard Coal;Primary Energy|Electricity|Hard Coal;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Solar;Primary Energy|Electricity|Solar;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Wind;Primary Energy|Electricity|Wind;TWh/yr;PJ/yr;3.6Secondary Energy|Electricity;Secondary Energy|Electricity;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Biomass;Secondary Energy|Electricity|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Coal;Secondary Energy|Electricity|Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Curtailment;Secondary Energy|Electricity|Curtailment;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Gas;Secondary Energy|Electricity|Gas;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydro;Secondary Energy|Electricity|Hydro;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hard Coal;Secondary Energy|Electricity|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Lignite;Secondary Energy|Electricity|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Net Exports;Secondary Energy|Electricity|Net Exports;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Nuclear;Secondary Energy|Electricity|Nuclear;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Oil;Secondary Energy|Electricity|Oil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Other;Secondary Energy|Electricity|Other;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Other Fossil;Secondary Energy|Electricity|Other Fossil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Solar;Secondary Energy|Electricity|Solar;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSP;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PV;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Wind;Secondary Energy|Electricity|Wind;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Offshore;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage Losses;Secondary Energy|Electricity|Storage Losses;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydrogen|w/ storage;Secondary Energy|Electricity|Hydrogen|w/ storage;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Coal|w/ CCS;Secondary Energy|Electricity|Coal|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Coal|w/o CCS;Secondary Energy|Electricity|Coal|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hard Coal|w/ CCS;Secondary Energy|Electricity|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Hard Coal|w/o CCS;Secondary Energy|Electricity|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS;TWh/yr;TWh/yr;1Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs;Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Fuel Costs;Total Energy System Cost|Power Sector|Fuel Costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Investment Costs;Total Energy System Cost|Power Sector|Investment Costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Generation Investment Costs;Total Energy System Cost|Power Sector|Generation Investment Costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable;Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Transmission Investment Costs;Total Energy System Cost|Power Sector|Transmission Investment Costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|O&M Costs;Total Energy System Cost|Power Sector|O&M Costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|CO2 costs;Total Energy System Cost|Power Sector|CO2 costs;billion eur2010/yr;billion Eur2015/yr;1Total Energy System Cost|Power Sector|Trade Costs;Total Energy System Cost|Power Sector|Trade Costs;billion eur2010/yr;billion Eur2015/yr;1Capacity Additions|Electricity|Biomass;Capacity Additions|Electricity|Biomass;GW/yr;GW/yr;1Capacity Additions|Electricity|Coal;Capacity Additions|Electricity|Coal;GW/yr;GW/yr;1Capacity Additions|Electricity|Gas;Capacity Additions|Electricity|Gas;GW/yr;GW/yr;1Capacity Additions|Electricity|Gas CC;Capacity Additions|Electricity|Gas CC;GW/yr;GW/yr;1Capacity Additions|Electricity|Gas OC;Capacity Additions|Electricity|Gas OC;GW/yr;GW/yr;1Capacity Additions|Electricity|Hydro;Capacity Additions|Electricity|Hydro;GW/yr;GW/yr;1Capacity Additions|Electricity|Hydrogen;Capacity Additions|Electricity|Hydrogen;GW/yr;GW/yr;1Capacity Additions|Electricity|Hydrogen FC;Capacity Additions|Electricity|Hydrogen FC;GW/yr;GW/yr;1Capacity Additions|Electricity|Hydrogen OC;Capacity Additions|Electricity|Hydrogen OC;GW/yr;GW/yr;1Capacity Additions|Electricity|Hydrogen CC;Capacity Additions|Electricity|Hydrogen CC;GW/yr;GW/yr;1Capacity Additions|Electricity|Nuclear;Capacity Additions|Electricity|Nuclear;GW/yr;GW/yr;1Capacity Additions|Electricity|Oil;Capacity Additions|Electricity|Oil;GW/yr;GW/yr;1Capacity Additions|Electricity|Other;Capacity Additions|Electricity|Other;GW/yr;GW/yr;1Capacity Additions|Electricity|Solar;Capacity Additions|Electricity|Solar;GW/yr;GW/yr;1Capacity Additions|Electricity|Solar|CSP;Capacity Additions|Electricity|Solar|CSP;GW/yr;GW/yr;1Capacity Additions|Electricity|Solar|PV;Capacity Additions|Electricity|Solar|PV;GW/yr;GW/yr;1Capacity Additions|Electricity|Storage;Capacity Additions|Electricity|Storage;GW/yr;GW/yr;1Capacity Additions|Electricity|Wind;Capacity Additions|Electricity|Wind;GW/yr;GW/yr;1Capacity Additions|Electricity|Wind|Offshore;Capacity Additions|Electricity|Wind|Offshore;GW/yr;GW/yr;1Capacity Additions|Electricity|Wind|Onshore;Capacity Additions|Electricity|Wind|Onshore;GW/yr;GW/yr;1Capacity Additions|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro;GW/yr;GW/yr;1Capacity Additions|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage|Stat Batteries;GW/yr;GW/yr;1Capacity Additions|Electricity;Capacity Additions|Electricity;GW/yr;GW/yr;1Capacity Additions|Electricity|Lignite;Capacity Additions|Electricity|Lignite;GW/yr;GW/yr;1Capacity Additions|Electricity|Hard Coal;Capacity Additions|Electricity|Hard Coal;GW/yr;GW/yr;1Capacity Additions|Electricity|Lignite|w/ CCS;Capacity Additions|Electricity|Lignite|w/ CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Lignite|w/o CCS;Capacity Additions|Electricity|Lignite|w/o CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Hard Coal|w/ CCS;Capacity Additions|Electricity|Hard Coal|w/ CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Hard Coal|w/o CCS;Capacity Additions|Electricity|Hard Coal|w/o CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Coal|w/ CCS;Capacity Additions|Electricity|Coal|w/ CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Coal|w/o CCS;Capacity Additions|Electricity|Coal|w/o CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Gas|w/ CCS;Capacity Additions|Electricity|Gas|w/ CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Gas|w/o CCS;Capacity Additions|Electricity|Gas|w/o CCS;GW/yr;GW/yr;1Capacity Additions|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1Capacity Additions|Electricity|Storage|Intra-day;Capacity Additions|Electricity|Storage|Intra-day;GW/yr;GW/yr;1Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1Capacity Additions|Electricity|Variable renewable;Capacity Additions|Electricity|Variable renewable;GW/yr;GW/yr;1Capacity Additions|Electricity|Non-variable renewable;Capacity Additions|Electricity|Non-variable renewable;GW/yr;GW/yr;1Capacity Additions|Electricity|Renewable;Capacity Additions|Electricity|Renewable;GW/yr;GW/yr;1Capacity Additions|Electricity|Fossil;Capacity Additions|Electricity|Fossil;GW/yr;GW/yr;1Capacity Additions|Electricity|Non-renewable;Capacity Additions|Electricity|Non-renewable;GW/yr;GW/yr;1Secondary Energy|Electricity|Fossil;Secondary Energy|Electricity|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage;Secondary Energy|Electricity|Storage;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage|Pump Hydro;Secondary Energy|Electricity|Storage|Pump Hydro;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage|Stat Batteries;Secondary Energy|Electricity|Storage|Stat Batteries;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage|Hydrogen electrolysis;Secondary Energy|Electricity|Storage|Hydrogen electrolysis;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Variable renewable;Secondary Energy|Electricity|Variable renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Non-variable renewable;Secondary Energy|Electricity|Non-variable renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Renewable;Secondary Energy|Electricity|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Non-renewable;Secondary Energy|Electricity|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|w/o losses;Secondary Energy|Electricity|w/o losses;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage Consumption;Secondary Energy|Electricity|Storage Consumption;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage Consumption|Pump Hydro;Secondary Energy|Electricity|Storage Consumption|Pump Hydro;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage Consumption|Stat Batteries;Secondary Energy|Electricity|Storage Consumption|Stat Batteries;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis;Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Net Imports;Secondary Energy|Electricity|Net Imports;TWh/yr;TWh/yr;1Capacity Adequacy|Most Challenging|Contribution|Nuclear;Capacity Adequacy|Most Challenging|Contribution|Nuclear;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Hydro;Capacity Adequacy|Most Challenging|Contribution|Hydro;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Coal;Capacity Adequacy|Most Challenging|Contribution|Coal;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Hard Coal;Capacity Adequacy|Most Challenging|Contribution|Hard Coal;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Lignite;Capacity Adequacy|Most Challenging|Contribution|Lignite;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Gas;Capacity Adequacy|Most Challenging|Contribution|Gas;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Biomass;Capacity Adequacy|Most Challenging|Contribution|Biomass;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Storage;Capacity Adequacy|Most Challenging|Contribution|Storage;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Oil;Capacity Adequacy|Most Challenging|Contribution|Oil;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Waste;Capacity Adequacy|Most Challenging|Contribution|Waste;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Hydrogen;Capacity Adequacy|Most Challenging|Contribution|Hydrogen;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Other;Capacity Adequacy|Most Challenging|Contribution|Other;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Solar;Capacity Adequacy|Most Challenging|Contribution|Solar;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Wind;Capacity Adequacy|Most Challenging|Contribution|Wind;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Imports;Capacity Adequacy|Most Challenging|Contribution|Imports;GW;GW;1Capacity Adequacy|Most Challenging|Demand;Capacity Adequacy|Most Challenging|Demand;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Nuclear;Capacity Adequacy|Peak Demand|Contribution|Nuclear;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Hydro;Capacity Adequacy|Peak Demand|Contribution|Hydro;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Coal;Capacity Adequacy|Peak Demand|Contribution|Coal;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Hard Coal;Capacity Adequacy|Peak Demand|Contribution|Hard Coal;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Lignite;Capacity Adequacy|Peak Demand|Contribution|Lignite;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Gas;Capacity Adequacy|Peak Demand|Contribution|Gas;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Biomass;Capacity Adequacy|Peak Demand|Contribution|Biomass;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Storage;Capacity Adequacy|Peak Demand|Contribution|Storage;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Oil;Capacity Adequacy|Peak Demand|Contribution|Oil;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Waste;Capacity Adequacy|Peak Demand|Contribution|Waste;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Hydrogen;Capacity Adequacy|Peak Demand|Contribution|Hydrogen;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Other;Capacity Adequacy|Peak Demand|Contribution|Other;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Solar;Capacity Adequacy|Peak Demand|Contribution|Solar;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Wind;Capacity Adequacy|Peak Demand|Contribution|Wind;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Imports;Capacity Adequacy|Peak Demand|Contribution|Imports;GW;GW;1Capacity Adequacy|Peak Demand|Demand;Capacity Adequacy|Peak Demand|Demand;GW;GW;1Capacity|Electricity|Waste;Capacity|Electricity|Waste;GW;GW;1Capacity Additions|Electricity|Waste;Capacity Additions|Electricity|Waste;GW/yr;GW/yr;1Secondary Energy|Electricity|Waste;Secondary Energy|Electricity|Waste;TWh/yr;TWh/yr;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants;GW;GW;1Load Factor|Electricity|Nuclear;Load Factor|Electricity|Nuclear;--;--;1Load Factor|Electricity|Coal;Load Factor|Electricity|Coal;--;--;1Load Factor|Electricity|Lignite;Load Factor|Electricity|Lignite;--;--;1Load Factor|Electricity|Hard Coal;Load Factor|Electricity|Hard Coal;--;--;1Load Factor|Electricity|Gas;Load Factor|Electricity|Gas;--;--;1Load Factor|Electricity|Gas CC;Load Factor|Electricity|Gas CC;--;--;1Load Factor|Electricity|Gas OC;Load Factor|Electricity|Gas OC;--;--;1Load Factor|Electricity|Oil;Load Factor|Electricity|Oil;--;--;1Load Factor|Electricity|Wind;Load Factor|Electricity|Wind;--;--;1Load Factor|Electricity|Wind|Onshore;Load Factor|Electricity|Wind|Onshore;--;--;1Load Factor|Electricity|Wind|Offshore;Load Factor|Electricity|Wind|Offshore;--;--;1Load Factor|Electricity|Solar;Load Factor|Electricity|Solar;--;--;1Load Factor|Electricity|Solar|PV;Load Factor|Electricity|Solar|PV;--;--;1Load Factor|Electricity|Solar|CSP;Load Factor|Electricity|Solar|CSP;--;--;1Load Factor|Electricity|Biomass;Load Factor|Electricity|Biomass;--;--;1Load Factor|Electricity|Biomass|w/o CCS;Load Factor|Electricity|Biomass|w/o CCS;--;--;1Load Factor|Electricity|Biomass|w/ CCS;Load Factor|Electricity|Biomass|w/ CCS;--;--;1Load Factor|Electricity|Hydro;Load Factor|Electricity|Hydro;--;--;1Load Factor|Electricity|Waste;Load Factor|Electricity|Waste;--;--;1Load Factor|Electricity|Hydrogen;Load Factor|Electricity|Hydrogen;--;--;1Load Factor|Electricity|Other;Load Factor|Electricity|Other;--;--;1Load Factor|Electricity|Hydrogen FC;Load Factor|Electricity|Hydrogen FC;--;--;1Load Factor|Electricity|Hydrogen OC;Load Factor|Electricity|Hydrogen OC;--;--;1Load Factor|Electricity|Hydrogen CC;Load Factor|Electricity|Hydrogen CC;--;--;1Emissions level in ETS|CO2|Energy|Supply|Electricity;Emissions level in ETS|CO2|Energy|Supply|Electricity;Mt CO2;Mt CO2;1EU ETS cap|CO2|Energy|Supply|Electricity;EU ETS cap|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass;GW;GW;1Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil;Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil;GW;GW;1Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil;Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil;GW;GW;1Disinvestment|Electricity|Nuclear;Disinvestment|Electricity|Nuclear;GW/yr;GW/yr;1Disinvestment|Electricity|Solar;Disinvestment|Electricity|Solar;GW/yr;GW/yr;1Disinvestment|Electricity|Wind;Disinvestment|Electricity|Wind;GW/yr;GW/yr;1Disinvestment|Electricity|Hydro;Disinvestment|Electricity|Hydro;GW/yr;GW/yr;1Disinvestment|Electricity|Coal;Disinvestment|Electricity|Coal;GW/yr;GW/yr;1Disinvestment|Electricity|Hard Coal;Disinvestment|Electricity|Hard Coal;GW/yr;GW/yr;1Disinvestment|Electricity|Lignite;Disinvestment|Electricity|Lignite;GW/yr;GW/yr;1Disinvestment|Electricity|Gas;Disinvestment|Electricity|Gas;GW/yr;GW/yr;1Disinvestment|Electricity|Biomass;Disinvestment|Electricity|Biomass;GW/yr;GW/yr;1Disinvestment|Electricity|Waste;Disinvestment|Electricity|Waste;GW/yr;GW/yr;1Disinvestment|Electricity|Hydrogen;Disinvestment|Electricity|Hydrogen;GW/yr;GW/yr;1Disinvestment|Electricity|Oil;Disinvestment|Electricity|Oil;GW/yr;GW/yr;1Disinvestment|Electricity|Other;Disinvestment|Electricity|Other;GW/yr;GW/yr;1Disinvestment|Electricity|Gas CC;Disinvestment|Electricity|Gas CC;GW/yr;GW/yr;1Disinvestment|Electricity|Gas OC;Disinvestment|Electricity|Gas OC;GW/yr;GW/yr;1Disinvestment|Electricity|Hydrogen FC;Disinvestment|Electricity|Hydrogen FC;GW/yr;GW/yr;1Disinvestment|Electricity|Hydrogen OC;Disinvestment|Electricity|Hydrogen OC;GW/yr;GW/yr;1Disinvestment|Electricity|Solar|PV;Disinvestment|Electricity|Solar|PV;GW/yr;GW/yr;1Disinvestment|Electricity|Solar|CSP;Disinvestment|Electricity|Solar|CSP;GW/yr;GW/yr;1Disinvestment|Electricity|Wind|Offshore;Disinvestment|Electricity|Wind|Offshore;GW/yr;GW/yr;1Disinvestment|Electricity|Wind|Onshore;Disinvestment|Electricity|Wind|Onshore;GW/yr;GW/yr;1Disinvestment|Electricity|Storage;Disinvestment|Electricity|Storage;GW/yr;GW/yr;1Disinvestment|Electricity|Storage|Pump Hydro;Disinvestment|Electricity|Storage|Pump Hydro;GW/yr;GW/yr;1Disinvestment|Electricity|Storage|Stat Batteries;Disinvestment|Electricity|Storage|Stat Batteries;GW/yr;GW/yr;1Disinvestment|Electricity|Storage|Hydrogen electrolysis;Disinvestment|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1Disinvestment|Electricity;Disinvestment|Electricity;GW/yr;GW/yr;1EU ETS cap|CO2;EU ETS cap|CO2;Mt CO2/yr;Mt CO2/yr;1Emissions level in ETS|CO2;Emissions level in ETS|CO2;Mt CO2;Mt CO2;1Emissions|CO2|Industry;Emissions|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1Emissions abated|CO2|Industry;Emissions abated|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Certificates auctioned ETS;Emissions|CO2|Certificates auctioned ETS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Certificates for auction - before unilateral cancellation;Emissions|CO2|Certificates for auction - before unilateral cancellation;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Free-allocated certificates ETS;Emissions|CO2|Free-allocated certificates ETS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Intake to MSR;Emissions|CO2|Intake to MSR;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Outtake from MSR;Emissions|CO2|Outtake from MSR;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Cancellation from MSR;Emissions|CO2|Cancellation from MSR;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Additional intake to the MSR;Emissions|CO2|Additional intake to the MSR;Mt CO2;Mt CO2;1Emissions|CO2|MSR level;Emissions|CO2|MSR level;Mt CO2;Mt CO2;1Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Share of renewables in gross demand;--;--;1Secondary Energy|Electricity|Gross Demand;Secondary Energy|Electricity|Gross Demand;TWh/yr;TWh/yr;1Emissions|CO2|Cap|Aviation;Emissions|CO2|Cap|Aviation;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Aviation;Emissions|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Certificates from Stationary|Aviation;Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Cap|Stationary|Electricity and Industry;Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Cap|Stationary;Emissions|CO2|Cap|Stationary;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat;Emissions|CO2|Energy|Supply|Heat;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Electricity and Industry;Emissions|CO2|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Preliminary auction ETS;Emissions|CO2|Preliminary auction ETS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Additional sectors in EU ETS;Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|EU ETS;Emissions|CO2|EU ETS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|EU ETS|w/ aviation;Emissions|CO2|EU ETS|w/ aviation;Mt CO2/yr;Mt CO2/yr;1Revenues EUA auction;Revenues EUA auction;billion eur2010/yr;billion eur2010/yr;1Emissions|CO2|Unilateral EUA cancellation;Emissions|CO2|Unilateral EUA cancellation;Mt CO2/yr;Mt CO2/yr;1Consumer costs|Secondary Energy|Electricity;Consumer costs|Secondary Energy|Electricity;billion eur2010/yr;billion eur2010/yr;1Total Cost|Industry|CO2 costs;Total Cost|Industry|CO2 costs;billion eur2010/yr;billion eur2010/yr;1Total Cost|Industry|Abatement;Total Cost|Industry|Abatement;billion eur2010/yr;billion eur2010/yr;1Producer revenues|Secondary Energy|Electricity;Producer revenues|Secondary Energy|Electricity;billion eur2010/yr;billion eur2010/yr;1Producer revenues|Secondary Energy|Electricity|Generation;Producer revenues|Secondary Energy|Electricity|Generation;billion eur2010/yr;billion eur2010/yr;1Producer revenues|Secondary Energy|Electricity|Storage;Producer revenues|Secondary Energy|Electricity|Storage;billion eur2010/yr;billion eur2010/yr;1Energy costs|Secondary Energy|Electricity|Storage;Energy costs|Secondary Energy|Electricity|Storage;billion eur2010/yr;billion eur2010/yr;1Emissions|CO2|Free-allocated certificates ETS|Industry;Emissions|CO2|Free-allocated certificates ETS|Industry;Mt CO2/yr;Mt CO2/yr;1Price|Secondary Energy|Electricity|Other fees;Price|Secondary Energy|Electricity|Other fees;Eur2010/MWh;Eur2015/MWh;1Price|Secondary Energy|Electricity|Other fees|RES subsidy;Price|Secondary Energy|Electricity|Other fees|RES subsidy;Eur2010/MWh;Eur2015/MWh;1Carbon Sequestration|CCS|Electricity;Carbon Sequestration|CCS|Electricity;Mt CO2/yr;Mt CO2/yr;1Carbon Sequestration|CCS|Electricity|Biomass;Carbon Sequestration|CCS|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1Carbon Sequestration|CCS|Electricity|Fossil;Carbon Sequestration|CCS|Electricity|Fossil;Mt CO2/yr;Mt CO2/yr;1Capacity|Electricity|CHP;Capacity|Electricity|CHP;GW;GW;1Capacity|Electricity|CHP|Coal;Capacity|Electricity|CHP|Coal;GW;GW;1Capacity|Electricity|CHP|Hard Coal;Capacity|Electricity|CHP|Hard Coal;GW;GW;1Capacity|Electricity|CHP|Lignite;Capacity|Electricity|CHP|Lignite;GW;GW;1Capacity|Electricity|CHP|Gas;Capacity|Electricity|CHP|Gas;GW;GW;1Capacity|Electricity|CHP|Biomass;Capacity|Electricity|CHP|Biomass;GW;GW;1Capacity|Electricity|CHP|Oil;Capacity|Electricity|CHP|Oil;GW;GW;1Capacity|Electricity|CHP|Other;Capacity|Electricity|CHP|Other;GW;GW;1Capacity|Electricity|Electricity-only;Capacity|Electricity|Electricity-only;GW;GW;1Capacity|Electricity|Electricity-only|Coal;Capacity|Electricity|Electricity-only|Coal;GW;GW;1Capacity|Electricity|Electricity-only|Hard Coal;Capacity|Electricity|Electricity-only|Hard Coal;GW;GW;1Capacity|Electricity|Electricity-only|Lignite;Capacity|Electricity|Electricity-only|Lignite;GW;GW;1Capacity|Electricity|Electricity-only|Gas;Capacity|Electricity|Electricity-only|Gas;GW;GW;1Capacity|Electricity|Electricity-only|Biomass;Capacity|Electricity|Electricity-only|Biomass;GW;GW;1Capacity|Electricity|Electricity-only|Oil;Capacity|Electricity|Electricity-only|Oil;GW;GW;1Capacity|Electricity|Electricity-only|Other;Capacity|Electricity|Electricity-only|Other;GW;GW;1Capacity|Electricity|Reserve Plants|CHP;Capacity|Electricity|Reserve Plants|CHP;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Coal;Capacity|Electricity|Reserve Plants|CHP|Coal;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Hard Coal;Capacity|Electricity|Reserve Plants|CHP|Hard Coal;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Lignite;Capacity|Electricity|Reserve Plants|CHP|Lignite;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Gas;Capacity|Electricity|Reserve Plants|CHP|Gas;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Gas CC;Capacity|Electricity|Reserve Plants|CHP|Gas CC;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Gas OC;Capacity|Electricity|Reserve Plants|CHP|Gas OC;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Biomass;Capacity|Electricity|Reserve Plants|CHP|Biomass;GW;GW;1Capacity|Electricity|Reserve Plants|CHP|Oil;Capacity|Electricity|Reserve Plants|CHP|Oil;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only;Capacity|Electricity|Reserve Plants|Electricity-only;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Coal;Capacity|Electricity|Reserve Plants|Electricity-only|Coal;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal;Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Lignite;Capacity|Electricity|Reserve Plants|Electricity-only|Lignite;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Gas;Capacity|Electricity|Reserve Plants|Electricity-only|Gas;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC;Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;GW;GW;1Capacity|Electricity|Reserve Plants|Electricity-only|Oil;Capacity|Electricity|Reserve Plants|Electricity-only|Oil;GW;GW;1Final Energy|Heat;Final Energy|Heat;TWh/yr;TWh/yr;1Capacity|Electricity|CHP|Gas CC;Capacity|Electricity|CHP|Gas CC;GW;GW;1Capacity|Electricity|CHP|Gas OC;Capacity|Electricity|CHP|Gas OC;GW;GW;1Capacity|Electricity|Biomass|w/ CCS;Capacity|Electricity|Biomass|w/ CCS;GW;GW;1Capacity|Electricity|Electricity-only|Gas CC;Capacity|Electricity|Electricity-only|Gas CC;GW;GW;1Capacity|Electricity|Electricity-only|Gas OC;Capacity|Electricity|Electricity-only|Gas OC;GW;GW;1Primary Energy|Electricity and Heat;Primary Energy|Electricity and Heat;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat [exhaustible resources];Primary Energy|Electricity and Heat [exhaustible resources];TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Biomass;Primary Energy|Electricity and Heat|Biomass;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Coal;Primary Energy|Electricity and Heat|Coal;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Fossil;Primary Energy|Electricity and Heat|Fossil;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Gas;Primary Energy|Electricity and Heat|Gas;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Nuclear;Primary Energy|Electricity and Heat|Nuclear;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Oil;Primary Energy|Electricity and Heat|Oil;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Other;Primary Energy|Electricity and Heat|Other;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Waste;Primary Energy|Electricity and Heat|Waste;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Lignite;Primary Energy|Electricity and Heat|Lignite;TWh/yr;PJ/yr;3.6Primary Energy|Electricity and Heat|Hard Coal;Primary Energy|Electricity and Heat|Hard Coal;TWh/yr;PJ/yr;3.6Primary Energy|Heat [exhaustible resources];Primary Energy|Heat [exhaustible resources];TWh/yr;PJ/yr;3.6Primary Energy|Heat|Biomass;Primary Energy|Heat|Biomass;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Coal;Primary Energy|Heat|Coal;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Fossil;Primary Energy|Heat|Fossil;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Gas;Primary Energy|Heat|Gas;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Oil;Primary Energy|Heat|Oil;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Other;Primary Energy|Heat|Other;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Lignite;Primary Energy|Heat|Lignite;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Hard Coal;Primary Energy|Heat|Hard Coal;TWh/yr;PJ/yr;3.6Primary Energy|Heat|Waste;Primary Energy|Heat|Waste;TWh/yr;PJ/yr;3.6Emissions|CO2|Energy|Supply|Electricity|Biomass;Emissions|CO2|Energy|Supply|Electricity|Biomass;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat;Emissions|CO2|Energy|Supply|Electricity and Heat;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite;Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Oil;Emissions|CO2|Energy|Supply|Electricity and Heat|Oil;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Gas;Emissions|CO2|Energy|Supply|Electricity and Heat|Gas;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Coal;Emissions|CO2|Energy|Supply|Heat|Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Hard Coal;Emissions|CO2|Energy|Supply|Heat|Hard Coal;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Lignite;Emissions|CO2|Energy|Supply|Heat|Lignite;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Oil;Emissions|CO2|Energy|Supply|Heat|Oil;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Gas;Emissions|CO2|Energy|Supply|Heat|Gas;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Heat|Other;Emissions|CO2|Energy|Supply|Heat|Other;Mt CO2/yr;Mt CO2/yr;1Secondary Energy|Heat;Secondary Energy|Heat;TWh/yr;TWh/yr;1Secondary Energy|Heat|Biomass;Secondary Energy|Heat|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Heat|Coal;Secondary Energy|Heat|Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|Gas;Secondary Energy|Heat|Gas;TWh/yr;TWh/yr;1Secondary Energy|Heat|Hard Coal;Secondary Energy|Heat|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|Lignite;Secondary Energy|Heat|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Heat|Oil;Secondary Energy|Heat|Oil;TWh/yr;TWh/yr;1Secondary Energy|Heat|Other;Secondary Energy|Heat|Other;TWh/yr;TWh/yr;1Secondary Energy|Heat|Waste;Secondary Energy|Heat|Waste;TWh/yr;TWh/yr;1Secondary Energy|Heat|Solar;Secondary Energy|Heat|Solar;TWh/yr;TWh/yr;1Secondary Energy|Heat|Geothermal;Secondary Energy|Heat|Geothermal;TWh/yr;TWh/yr;1Secondary Energy|Heat|Electricity;Secondary Energy|Heat|Electricity;TWh/yr;TWh/yr;1Secondary Energy|Heat|Fossil;Secondary Energy|Heat|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Heat|Renewable;Secondary Energy|Heat|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Heat|Non-renewable;Secondary Energy|Heat|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP;Secondary Energy|Electricity|CHP;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Biomass;Secondary Energy|Electricity|CHP|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Coal;Secondary Energy|Electricity|CHP|Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Gas CC;Secondary Energy|Electricity|CHP|Gas CC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Gas OC;Secondary Energy|Electricity|CHP|Gas OC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Gas;Secondary Energy|Electricity|CHP|Gas;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Hard Coal;Secondary Energy|Electricity|CHP|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Lignite;Secondary Energy|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Oil;Secondary Energy|Electricity|CHP|Oil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Other;Secondary Energy|Electricity|CHP|Other;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Fossil;Secondary Energy|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Renewable;Secondary Energy|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|CHP|Non-renewable;Secondary Energy|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only;Secondary Energy|Electricity|Electricity-only;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Biomass;Secondary Energy|Electricity|Electricity-only|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Coal;Secondary Energy|Electricity|Electricity-only|Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Gas CC;Secondary Energy|Electricity|Electricity-only|Gas CC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Gas OC;Secondary Energy|Electricity|Electricity-only|Gas OC;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Gas;Secondary Energy|Electricity|Electricity-only|Gas;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Hard Coal;Secondary Energy|Electricity|Electricity-only|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Lignite;Secondary Energy|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Oil;Secondary Energy|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Other;Secondary Energy|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Waste;Secondary Energy|Electricity|Electricity-only|Waste;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Fossil;Secondary Energy|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Renewable;Secondary Energy|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Non-renewable;Secondary Energy|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Biomass|w/o CCS;Secondary Energy|Electricity|Electricity-only|Biomass|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Biomass|w/ CCS;Secondary Energy|Electricity|Electricity-only|Biomass|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Coal|w/o CCS;Secondary Energy|Electricity|Electricity-only|Coal|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Coal|w/ CCS;Secondary Energy|Electricity|Electricity-only|Coal|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Lignite|w/o CCS;Secondary Energy|Electricity|Electricity-only|Lignite|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Lignite|w/ CCS;Secondary Energy|Electricity|Electricity-only|Lignite|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Hard Coal|w/o CCS;Secondary Energy|Electricity|Electricity-only|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;TWh/yr;TWh/yr;1Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP;Secondary Energy|Heat|CHP;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Biomass;Secondary Energy|Heat|CHP|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Coal;Secondary Energy|Heat|CHP|Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Gas CC;Secondary Energy|Heat|CHP|Gas CC;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Gas OC;Secondary Energy|Heat|CHP|Gas OC;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Gas;Secondary Energy|Heat|CHP|Gas;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Hard Coal;Secondary Energy|Heat|CHP|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Lignite;Secondary Energy|Heat|CHP|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Oil;Secondary Energy|Heat|CHP|Oil;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Other;Secondary Energy|Heat|CHP|Other;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Fossil;Secondary Energy|Heat|CHP|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Renewable;Secondary Energy|Heat|CHP|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Heat|CHP|Non-renewable;Secondary Energy|Heat|CHP|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating;Secondary Energy|Heat|District Heating;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Biomass;Secondary Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Coal;Secondary Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Gas;Secondary Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Hard Coal;Secondary Energy|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Lignite;Secondary Energy|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Oil;Secondary Energy|Heat|District Heating|Oil;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Other;Secondary Energy|Heat|District Heating|Other;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Fossil;Secondary Energy|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Renewable;Secondary Energy|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Non-renewable;Secondary Energy|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Waste;Secondary Energy|Heat|District Heating|Waste;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Solar;Secondary Energy|Heat|District Heating|Solar;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Geothermal;Secondary Energy|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Electricity;Secondary Energy|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Electricity|Heat Pump;Secondary Energy|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1Emissions|CO2|Energy|Supply|Heat|Waste;Emissions|CO2|Energy|Supply|Heat|Waste;Mt CO2/yr;Mt CO2/yr;1Capacity|Heat|District Heating;Capacity|Heat|District Heating;GW;GW;1Capacity|Heat|District Heating|Coal;Capacity|Heat|District Heating|Coal;GW;GW;1Capacity|Heat|District Heating|Hard Coal;Capacity|Heat|District Heating|Hard Coal;GW;GW;1Capacity|Heat|District Heating|Lignite;Capacity|Heat|District Heating|Lignite;GW;GW;1Capacity|Heat|District Heating|Gas;Capacity|Heat|District Heating|Gas;GW;GW;1Capacity|Heat|District Heating|Biomass;Capacity|Heat|District Heating|Biomass;GW;GW;1Capacity|Heat|District Heating|Oil;Capacity|Heat|District Heating|Oil;GW;GW;1Capacity|Heat|District Heating|Other;Capacity|Heat|District Heating|Other;GW;GW;1Capacity|Heat|District Heating|Waste;Capacity|Heat|District Heating|Waste;GW;GW;1Capacity|Heat|District Heating|Solar;Capacity|Heat|District Heating|Solar;GW;GW;1Capacity|Heat|District Heating|Geothermal;Capacity|Heat|District Heating|Geothermal;GW;GW;1Capacity|Heat|District Heating|Electricity;Capacity|Heat|District Heating|Electricity;GW;GW;1Capacity|Heat|District Heating|Electricity|Heat Pump;Capacity|Heat|District Heating|Electricity|Heat Pump;GW;GW;1Capacity|Heat|District Heating|Electricity|Electric Boiler;Capacity|Heat|District Heating|Electricity|Electric Boiler;GW;GW;1Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;GW;1Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1Transmission capacity with FIN|Electricity;Transmission capacity with FIN|Electricity;GW;GW;1Transmission capacity with NOR|Electricity;Transmission capacity with NOR|Electricity;GW;GW;1Transmission capacity with SWE|Electricity;Transmission capacity with SWE|Electricity;GW;GW;1Transmission capacity with EST|Electricity;Transmission capacity with EST|Electricity;GW;GW;1Transmission capacity with LVA|Electricity;Transmission capacity with LVA|Electricity;GW;GW;1Transmission capacity with LTU|Electricity;Transmission capacity with LTU|Electricity;GW;GW;1Transmission capacity with DNK|Electricity;Transmission capacity with DNK|Electricity;GW;GW;1Transmission capacity with GBR|Electricity;Transmission capacity with GBR|Electricity;GW;GW;1Transmission capacity with IRL|Electricity;Transmission capacity with IRL|Electricity;GW;GW;1Transmission capacity with NLD|Electricity;Transmission capacity with NLD|Electricity;GW;GW;1Transmission capacity with POL|Electricity;Transmission capacity with POL|Electricity;GW;GW;1Transmission capacity with DEU|Electricity;Transmission capacity with DEU|Electricity;GW;GW;1Transmission capacity with BEL|Electricity;Transmission capacity with BEL|Electricity;GW;GW;1Transmission capacity with LUX|Electricity;Transmission capacity with LUX|Electricity;GW;GW;1Transmission capacity with CZE|Electricity;Transmission capacity with CZE|Electricity;GW;GW;1Transmission capacity with SVK|Electricity;Transmission capacity with SVK|Electricity;GW;GW;1Transmission capacity with AUT|Electricity;Transmission capacity with AUT|Electricity;GW;GW;1Transmission capacity with CHE|Electricity;Transmission capacity with CHE|Electricity;GW;GW;1Transmission capacity with HUN|Electricity;Transmission capacity with HUN|Electricity;GW;GW;1Transmission capacity with ROM|Electricity;Transmission capacity with ROM|Electricity;GW;GW;1Transmission capacity with SVN|Electricity;Transmission capacity with SVN|Electricity;GW;GW;1Transmission capacity with FRA|Electricity;Transmission capacity with FRA|Electricity;GW;GW;1Transmission capacity with HRV|Electricity;Transmission capacity with HRV|Electricity;GW;GW;1Transmission capacity with BAL|Electricity;Transmission capacity with BAL|Electricity;GW;GW;1Transmission capacity with BGR|Electricity;Transmission capacity with BGR|Electricity;GW;GW;1Transmission capacity with ITA|Electricity;Transmission capacity with ITA|Electricity;GW;GW;1Transmission capacity with ESP|Electricity;Transmission capacity with ESP|Electricity;GW;GW;1Transmission capacity with PRT|Electricity;Transmission capacity with PRT|Electricity;GW;GW;1Transmission capacity with GRC|Electricity;Transmission capacity with GRC|Electricity;GW;GW;1Exports to FIN|Electricity;Exports to FIN|Electricity;TWh/yr;TWh/yr;1Exports to NOR|Electricity;Exports to NOR|Electricity;TWh/yr;TWh/yr;1Exports to SWE|Electricity;Exports to SWE|Electricity;TWh/yr;TWh/yr;1Exports to EST|Electricity;Exports to EST|Electricity;TWh/yr;TWh/yr;1Exports to LVA|Electricity;Exports to LVA|Electricity;TWh/yr;TWh/yr;1Exports to LTU|Electricity;Exports to LTU|Electricity;TWh/yr;TWh/yr;1Exports to DNK|Electricity;Exports to DNK|Electricity;TWh/yr;TWh/yr;1Exports to GBR|Electricity;Exports to GBR|Electricity;TWh/yr;TWh/yr;1Exports to IRL|Electricity;Exports to IRL|Electricity;TWh/yr;TWh/yr;1Exports to NLD|Electricity;Exports to NLD|Electricity;TWh/yr;TWh/yr;1Exports to POL|Electricity;Exports to POL|Electricity;TWh/yr;TWh/yr;1Exports to DEU|Electricity;Exports to DEU|Electricity;TWh/yr;TWh/yr;1Exports to BEL|Electricity;Exports to BEL|Electricity;TWh/yr;TWh/yr;1Exports to LUX|Electricity;Exports to LUX|Electricity;TWh/yr;TWh/yr;1Exports to CZE|Electricity;Exports to CZE|Electricity;TWh/yr;TWh/yr;1Exports to SVK|Electricity;Exports to SVK|Electricity;TWh/yr;TWh/yr;1Exports to AUT|Electricity;Exports to AUT|Electricity;TWh/yr;TWh/yr;1Exports to CHE|Electricity;Exports to CHE|Electricity;TWh/yr;TWh/yr;1Exports to HUN|Electricity;Exports to HUN|Electricity;TWh/yr;TWh/yr;1Exports to ROM|Electricity;Exports to ROM|Electricity;TWh/yr;TWh/yr;1Exports to SVN|Electricity;Exports to SVN|Electricity;TWh/yr;TWh/yr;1Exports to FRA|Electricity;Exports to FRA|Electricity;TWh/yr;TWh/yr;1Exports to HRV|Electricity;Exports to HRV|Electricity;TWh/yr;TWh/yr;1Exports to BAL|Electricity;Exports to BAL|Electricity;TWh/yr;TWh/yr;1Exports to BGR|Electricity;Exports to BGR|Electricity;TWh/yr;TWh/yr;1Exports to ITA|Electricity;Exports to ITA|Electricity;TWh/yr;TWh/yr;1Exports to ESP|Electricity;Exports to ESP|Electricity;TWh/yr;TWh/yr;1Exports to PRT|Electricity;Exports to PRT|Electricity;TWh/yr;TWh/yr;1Exports to GRC|Electricity;Exports to GRC|Electricity;TWh/yr;TWh/yr;1Imports from FIN|Electricity;Imports from FIN|Electricity;TWh/yr;TWh/yr;1Imports from NOR|Electricity;Imports from NOR|Electricity;TWh/yr;TWh/yr;1Imports from SWE|Electricity;Imports from SWE|Electricity;TWh/yr;TWh/yr;1Imports from EST|Electricity;Imports from EST|Electricity;TWh/yr;TWh/yr;1Imports from LVA|Electricity;Imports from LVA|Electricity;TWh/yr;TWh/yr;1Imports from LTU|Electricity;Imports from LTU|Electricity;TWh/yr;TWh/yr;1Imports from DNK|Electricity;Imports from DNK|Electricity;TWh/yr;TWh/yr;1Imports from GBR|Electricity;Imports from GBR|Electricity;TWh/yr;TWh/yr;1Imports from IRL|Electricity;Imports from IRL|Electricity;TWh/yr;TWh/yr;1Imports from NLD|Electricity;Imports from NLD|Electricity;TWh/yr;TWh/yr;1Imports from POL|Electricity;Imports from POL|Electricity;TWh/yr;TWh/yr;1Imports from DEU|Electricity;Imports from DEU|Electricity;TWh/yr;TWh/yr;1Imports from BEL|Electricity;Imports from BEL|Electricity;TWh/yr;TWh/yr;1Imports from LUX|Electricity;Imports from LUX|Electricity;TWh/yr;TWh/yr;1Imports from CZE|Electricity;Imports from CZE|Electricity;TWh/yr;TWh/yr;1Imports from SVK|Electricity;Imports from SVK|Electricity;TWh/yr;TWh/yr;1Imports from AUT|Electricity;Imports from AUT|Electricity;TWh/yr;TWh/yr;1Imports from CHE|Electricity;Imports from CHE|Electricity;TWh/yr;TWh/yr;1Imports from HUN|Electricity;Imports from HUN|Electricity;TWh/yr;TWh/yr;1Imports from ROM|Electricity;Imports from ROM|Electricity;TWh/yr;TWh/yr;1Imports from SVN|Electricity;Imports from SVN|Electricity;TWh/yr;TWh/yr;1Imports from FRA|Electricity;Imports from FRA|Electricity;TWh/yr;TWh/yr;1Imports from HRV|Electricity;Imports from HRV|Electricity;TWh/yr;TWh/yr;1Imports from BAL|Electricity;Imports from BAL|Electricity;TWh/yr;TWh/yr;1Imports from BGR|Electricity;Imports from BGR|Electricity;TWh/yr;TWh/yr;1Imports from ITA|Electricity;Imports from ITA|Electricity;TWh/yr;TWh/yr;1Imports from ESP|Electricity;Imports from ESP|Electricity;TWh/yr;TWh/yr;1Imports from PRT|Electricity;Imports from PRT|Electricity;TWh/yr;TWh/yr;1Imports from GRC|Electricity;Imports from GRC|Electricity;TWh/yr;TWh/yr;1Net exports to FIN|Electricity;Net exports to FIN|Electricity;TWh/yr;TWh/yr;1Net exports to NOR|Electricity;Net exports to NOR|Electricity;TWh/yr;TWh/yr;1Net exports to SWE|Electricity;Net exports to SWE|Electricity;TWh/yr;TWh/yr;1Net exports to EST|Electricity;Net exports to EST|Electricity;TWh/yr;TWh/yr;1Net exports to LVA|Electricity;Net exports to LVA|Electricity;TWh/yr;TWh/yr;1Net exports to LTU|Electricity;Net exports to LTU|Electricity;TWh/yr;TWh/yr;1Net exports to DNK|Electricity;Net exports to DNK|Electricity;TWh/yr;TWh/yr;1Net exports to GBR|Electricity;Net exports to GBR|Electricity;TWh/yr;TWh/yr;1Net exports to IRL|Electricity;Net exports to IRL|Electricity;TWh/yr;TWh/yr;1Net exports to NLD|Electricity;Net exports to NLD|Electricity;TWh/yr;TWh/yr;1Net exports to POL|Electricity;Net exports to POL|Electricity;TWh/yr;TWh/yr;1Net exports to DEU|Electricity;Net exports to DEU|Electricity;TWh/yr;TWh/yr;1Net exports to BEL|Electricity;Net exports to BEL|Electricity;TWh/yr;TWh/yr;1Net exports to LUX|Electricity;Net exports to LUX|Electricity;TWh/yr;TWh/yr;1Net exports to CZE|Electricity;Net exports to CZE|Electricity;TWh/yr;TWh/yr;1Net exports to SVK|Electricity;Net exports to SVK|Electricity;TWh/yr;TWh/yr;1Net exports to AUT|Electricity;Net exports to AUT|Electricity;TWh/yr;TWh/yr;1Net exports to CHE|Electricity;Net exports to CHE|Electricity;TWh/yr;TWh/yr;1Net exports to HUN|Electricity;Net exports to HUN|Electricity;TWh/yr;TWh/yr;1Net exports to ROM|Electricity;Net exports to ROM|Electricity;TWh/yr;TWh/yr;1Net exports to SVN|Electricity;Net exports to SVN|Electricity;TWh/yr;TWh/yr;1Net exports to FRA|Electricity;Net exports to FRA|Electricity;TWh/yr;TWh/yr;1Net exports to HRV|Electricity;Net exports to HRV|Electricity;TWh/yr;TWh/yr;1Net exports to BAL|Electricity;Net exports to BAL|Electricity;TWh/yr;TWh/yr;1Net exports to BGR|Electricity;Net exports to BGR|Electricity;TWh/yr;TWh/yr;1Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1Secondary Energy|Hydrogen|Hydrogen FC;Secondary Energy|Hydrogen|Hydrogen FC;TWh/yr;TWh/yr;1Secondary Energy|Hydrogen|Hydrogen OC;Secondary Energy|Hydrogen|Hydrogen OC;TWh/yr;TWh/yr;1Secondary Energy|Hydrogen|Hydrogen CC;Secondary Energy|Hydrogen|Hydrogen CC;TWh/yr;TWh/yr;1Capacity|Electricity|Storage Reservoir;Capacity|Electricity|Storage Reservoir;GWh;GWh;1Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage Reservoir|Pump Hydro;GWh;GWh;1Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh;GWh;1Capacity|Electricity|Storage Reservoir|Intra-day;Capacity|Electricity|Storage Reservoir|Intra-day;GWh;GWh;1Capacity|Electricity|Transmission Grid-km;Capacity|Electricity|Transmission Grid-km;GWkm;GWkm;1Discharge duration|Pump Hydro;Discharge duration|Pump Hydro;h;h;1Discharge duration|Stat Batteries;Discharge duration|Stat Batteries;h;h;1Discharge duration|Hydrogen electrolysis;Discharge duration|Hydrogen electrolysis;h;h;1Capacity|Electricity|Variable renewable;Capacity|Electricity|Variable renewable;GW;GW;1Capacity|Electricity|Electricity-only|Biomass|w/ CCS;Capacity|Electricity|Electricity-only|Biomass|w/ CCS;GW;GW;1Capacity|Electricity|Electricity-only|Biomass|w/o CCS;Capacity|Electricity|Electricity-only|Biomass|w/o CCS;GW;GW;1Primary Energy|Electricity|Biomass|w/ CCS;Primary Energy|Electricity|Biomass|w/ CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Biomass|w/o CCS;Primary Energy|Electricity|Biomass|w/o CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Coal|w/ CCS;Primary Energy|Electricity|Coal|w/ CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Coal|w/o CCS;Primary Energy|Electricity|Coal|w/o CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Gas|w/ CCS;Primary Energy|Electricity|Gas|w/ CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Gas|w/o CCS;Primary Energy|Electricity|Gas|w/o CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Lignite|w/ CCS;Primary Energy|Electricity|Lignite|w/ CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Lignite|w/o CCS;Primary Energy|Electricity|Lignite|w/o CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Hard Coal|w/ CCS;Primary Energy|Electricity|Hard Coal|w/ CCS;TWh/yr;PJ/yr;3.6Primary Energy|Electricity|Hard Coal|w/o CCS;Primary Energy|Electricity|Hard Coal|w/o CCS;TWh/yr;PJ/yr;3.6Emissions|CO2|Energy|Supply|Electricity|Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Lignite|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Lignite|w/o CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Lignite|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Lignite|w/ CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Gas|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Gas|w/o CCS;Mt CO2/yr;Mt CO2/yr;1Emissions|CO2|Energy|Supply|Electricity|Gas|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Gas|w/ CCS;Mt CO2/yr;Mt CO2/yr;1Capacity|Electricity|Electricity-only|Coal|w/o CCS;Capacity|Electricity|Electricity-only|Coal|w/o CCS;GW;GW;1Capacity|Electricity|Electricity-only|Coal|w/ CCS;Capacity|Electricity|Electricity-only|Coal|w/ CCS;GW;GW;1Capacity|Electricity|Electricity-only|Lignite|w/o CCS;Capacity|Electricity|Electricity-only|Lignite|w/o CCS;GW;GW;1Capacity|Electricity|Electricity-only|Lignite|w/ CCS;Capacity|Electricity|Electricity-only|Lignite|w/ CCS;GW;GW;1Capacity|Electricity|Electricity-only|Hard Coal|w/o CCS;Capacity|Electricity|Electricity-only|Hard Coal|w/o CCS;GW;GW;1Capacity|Electricity|Electricity-only|Hard Coal|w/ CCS;Capacity|Electricity|Electricity-only|Hard Coal|w/ CCS;GW;GW;1Capacity|Electricity|Electricity-only|Gas|w/o CCS;Capacity|Electricity|Electricity-only|Gas|w/o CCS;GW;GW;1Capacity|Electricity|Electricity-only|Gas|w/ CCS;Capacity|Electricity|Electricity-only|Gas|w/ CCS;GW;GW;1Capacity|Electricity|Biomass|w/o CCS;Capacity|Electricity|Biomass|w/o CCS;GW;GW;1Carbon Sequestration|CCS|Electricity|Coal;Carbon Sequestration|CCS|Electricity|Coal;Mt CO2/yr;Mt CO2/yr;1Carbon Sequestration|CCS|Electricity|Hard Coal;Carbon Sequestration|CCS|Electricity|Hard Coal;Mt CO2/yr;Mt CO2/yr;1Carbon Sequestration|CCS|Electricity|Lignite;Carbon Sequestration|CCS|Electricity|Lignite;Mt CO2/yr;Mt CO2/yr;1Load Factor|Electricity|Coal|w/o CCS;Load Factor|Electricity|Coal|w/o CCS;--;--;1Load Factor|Electricity|Coal|w/ CCS;Load Factor|Electricity|Coal|w/ CCS;--;--;1Load Factor|Electricity|Lignite|w/o CCS;Load Factor|Electricity|Lignite|w/o CCS;--;--;1Load Factor|Electricity|Lignite|w/ CCS;Load Factor|Electricity|Lignite|w/ CCS;--;--;1Load Factor|Electricity|Hard Coal|w/o CCS;Load Factor|Electricity|Hard Coal|w/o CCS;--;--;1Load Factor|Electricity|Hard Coal|w/ CCS;Load Factor|Electricity|Hard Coal|w/ CCS;--;--;1Load Factor|Electricity|Gas|w/o CCS;Load Factor|Electricity|Gas|w/o CCS;--;--;1Load Factor|Electricity|Gas|w/ CCS;Load Factor|Electricity|Gas|w/ CCS;--;--;1
