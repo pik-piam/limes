@@ -152,7 +152,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
             p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")
             tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
             p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")
-            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+            tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
           }
           
           p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
