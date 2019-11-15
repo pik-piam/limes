@@ -4,8 +4,13 @@
 \alias{convGDX2MIF}
 \title{Read in GDX and write *.mif reporting}
 \usage{
-convGDX2MIF(gdx, gdx_ref = NULL, file = NULL, scenario = "default",
-  time = as.numeric(readGDX(gdx, name = "t")))
+convGDX2MIF(
+  gdx,
+  gdx_ref = NULL,
+  file = NULL,
+  scenario = "default",
+  time = as.numeric(readGDX(gdx, name = "t"))
+)
 }
 \arguments{
 \item{gdx}{a GDX as created by readGDX, or the file name of a gdx}

@@ -320,4 +320,86 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   if(!is.null(file)) write.report(output_f,model=paste0("LIMES_EU_v",c_LIMESversion),scenario=scenario,file=file,ndigit=7)
   #if(!is.null(file)) write.reportProject(paste0("LIMES_generic_",scenario,".mif"),mappingvars,model="LIMES_EU",scenario=scenario,file=file,ndigit=7)
   else return(output_f)  
+  
+  
+  
+  #################################################################
+  #ONLY FOR THE REPORT OF INPUTS (run manually)
+  #################################################################
+  
+  ##Always keep this in 0!!!!
+  #c_reportinput <- 0
+  #
+  #if(c_reportinput != 0) {
+  #  time=as.numeric(readGDX(gdx,name="t"))
+  #    
+  #  #Files-related variables
+  #  #outputdir <- "C:/Users/osorio/ownCloud/PIK/Data for LIMES/CSV files/output"     # path to the output folder
+  #  #limes_reporting_file <- path(outputdir,paste0("LIMES_inputparam.mif"))
+  #  file=limes_reporting_file
+  #  #lastDir <- splitPath[[1]][length(splitPath[[1]])]
+  #  #scenario <- lastDir
+  #  
+  #  #initialize report variable
+  #  output <- NULL
+  #  
+  #  #adding fuel costs to report output
+  #  output <- mbind(output,reportFuelCosts(gdx)[,time,])
+  #  
+  #  #Adding all the input parameters (except for fuel costs) -> turn on switch (c_reportheating) if heat-related input is to be reported
+  #  output <- mbind(output,reportInput(gdx)[,time,])
+  #  
+  #  #Clean the output
+  #  output_glo <- NULL
+  #  var_dup <- NULL
+  #  n_regi <- length(unique(getRegions(output)))
+  #  n_years <- length(getYears(output))
+  #  for (var_name in getNames(output)) {
+  #    #Create array to save whether the number is duplicated for all REGI in one YEAR
+  #    dup_year <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
+  #                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #    #Create array to save duplicated values in just one ("GLO") array
+  #    #output_tmp <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
+  #    #                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #    
+  #    for (tt in getYears(output)) {
+  #      #Check if the value is duplicated for all REGI in one YEAR
+  #      if(sum(duplicated(output[,tt,var_name])) == n_regi-1) {
+  #        dup_year[,tt,] <- 1
+  #      }
+  #    }
+  #    
+  #    #Check if duplicates occur over all YEARS
+  #    #output_tmp <- NULL
+  #    if(dimSums(dup_year[,,],dim=2)==n_years) {
+  #      #Allocate DEU values to the unique "GLO" variable
+  #      output_tmp <- output["DEU",,var_name]
+  #      var_dup <- c(var_dup,var_name)
+  #    } else {
+  #      output_tmp <- 0*output["DEU",,var_name]
+  #    }
+  #    getRegions(output_tmp) <- "GLO"
+  #    
+  #    #Concatenate all "GLO" variables
+  #    output_glo <- mbind(output_glo,output_tmp)
+  #  }
+  #  
+  #  #Concatenate "GLO" variables with (surviving) region-dependent parameters
+  #  output_f <- mbind(output_glo,output)
+  #  
+  #  #Clean the file
+  #  #Erase region-dependent data for variables with duplicates
+  #  output_f[setdiff(getRegions(output_f),"GLO"),,var_dup] <- NA
+  #  #Erase "GLO" data for variables without duplicates
+  #  output_f["GLO",,setdiff(getNames(output_f),var_dup)] <- NA
+  #  
+  #  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found") #model version
+  #  if(!is.null(file)) write.report(output_f,model=paste0("LIMES_EU_v",c_LIMESversion),scenario=scenario,file=file,ndigit=7)
+  #}
+  
+  
+  
 }
+
+
+

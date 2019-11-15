@@ -5,7 +5,7 @@
 #' 
 #' 
 #' @param gdx a GDX object as created by readGDX, or the path to a gdx
-#' @param mappingPath path to mapping file
+#' @param mappingPath path to mapping file 
 #' @return MAgPIE object - contains the availability factors
 #' @author Sebastian Osorio, Renato Rodrigues
 #' @seealso \code{\link{convGDX2MIF}}
@@ -29,6 +29,8 @@ reportInput <- function(gdx,mappingPath=NULL) {
   # reading mapping file
   mapping_tech <- read.csv(mappingPath,sep=";")
   
+  c_reportheating <- 0
+  
   
   #1) Availability and expansion potential technologies per grade
   # read parameters and sets
@@ -37,7 +39,7 @@ reportInput <- function(gdx,mappingPath=NULL) {
   f_capmax <- readGDX(gdx,name="f_capmax",field="l",format="first_found") #capacity potential (per grade)
   ter <- readGDX(gdx,name="ter") #set of variable renewable generation technologies
   grade <- readGDX(gdx,name="grade") #set of grades (quality of RES potential)
-  #p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
   #p_nuren_adj <- readGDX(gdx,name="p_nuren_adj",field="l",format="first_found") #availability factor for RES
   #tau <- readGDX(gdx,name="tau") #set of time slices
   
@@ -70,14 +72,18 @@ reportInput <- function(gdx,mappingPath=NULL) {
     }
   }
   
-  #2) Investment costs 
+  #2) Technologies' parameters 
   
   # read sets
   te <- readGDX(gdx,name="te") #set of technologies
   tehe <- readGDX(gdx,name="tehe") #set of technologies
   testore <- readGDX(gdx,name="testore") #set of technologies
   #Do not report some technologies for the moment
-  tech_out <- c("ror","hs","hvacline",tehe)
+  tech_out <- c("ror","hs","hvacline")
+  #Do not include heating technologies if switch is off
+  if(c_reportheating == 0) {
+    tech_out <- c(tech_out,tehe)
+  }
   te <- setdiff(te,tech_out)
   
   # read parameters
@@ -117,10 +123,10 @@ reportInput <- function(gdx,mappingPath=NULL) {
     tmp2 <- mbind(tmp2,setNames(p_incoall[,,te2]*1000,paste0("Investment costs|",tech_name," (eur/kW)")))
     tmp2 <- mbind(tmp2,setNames(p_incoall[,,te2]*1000*p_tedata[,,paste0("omf.",te2)],paste0("Fixed O&M costs|",tech_name," (eur/kW-yr)")))
     tmp2 <- mbind(tmp2,setNames(o_omv[,,te2]*1e6,paste0("Variable O&M costs|",tech_name," (eur/MWh)")))
-    tmp2 <- mbind(tmp2,setNames(o_eta[,,te2]*1e6,paste0("Electrical efficiency|",tech_name," (--)")))
-    tmp2 <- mbind(tmp2,setNames(o_lifetime[,,te2]*1e6,paste0("Lifetime|",tech_name," (yr)")))
-    tmp2 <- mbind(tmp2,setNames(o_buildtime[,,te2]*1e6,paste0("Buildtime|",tech_name," (yr)")))
-    tmp2 <- mbind(tmp2,setNames(o_autocons[,,te2]*1e6,paste0("Autoconsumption|",tech_name," (--)")))
+    tmp2 <- mbind(tmp2,setNames(o_eta[,,te2],paste0("Electrical efficiency|",tech_name," (--)")))
+    tmp2 <- mbind(tmp2,setNames(o_lifetime[,,te2],paste0("Lifetime|",tech_name," (yr)")))
+    tmp2 <- mbind(tmp2,setNames(o_buildtime[,,te2],paste0("Buildtime|",tech_name," (yr)")))
+    tmp2 <- mbind(tmp2,setNames(o_autocons[,,te2],paste0("Autoconsumption|",tech_name," (--)")))
     
     if(te2 %in% ter) {
       tmp2 <- mbind(tmp2,setNames(p_nurenannual_adj2[,,te2],as.character(paste0("Annual availability factor|Electricity|",tech_name," (--)"))))
@@ -138,10 +144,32 @@ reportInput <- function(gdx,mappingPath=NULL) {
     
   }
   
+  #3) Demand
   
+  # read parameters
+  p_exdemand <- readGDX(gdx,name="p_exdemand",field="l",format="first_found") #electricity and heat demand
+  c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found") #factor for scaling electricity demand
+  p_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found")
+  
+  # create MagPie object of demand with iso3 regions
+  p_exdemand <- limesMapping(p_exdemand)
+  p_losses_heat <- limesMapping(p_losses_heat)
+  
+  #Split electricity and heat demand
+  o_eldemand <- p_exdemand[,,"seel"]
+  o_hedemand <- p_exdemand[,,"sehe"]
+  
+  tmp3 <- NULL
+  tmp3 <- mbind(tmp3,setNames((dimSums(o_eldemand*p_taulength,dim=3)/(c_demandscale))/1000,"Final energy|Electricity [exogenous] (TWh)"))
+  tmp3 <- mbind(tmp3,setNames((dimSums(o_eldemand*p_taulength,dim=3))/1000,"Final energy|Electricity|w/ losses [exogenous] (TWh)"))
+  
+  if(c_reportheating == 1) {
+    tmp3 <- mbind(tmp3,setNames((dimSums(o_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final energy|Heat [exogenous] (TWh)"))
+    tmp3 <- mbind(tmp3,setNames((dimSums(o_hedemand*p_taulength,dim=3))/1000,"Final energy|Heat|w/ losses [exogenous] (TWh)"))
+  }#
   
   # add global values
-  tmp <- mbind(tmp1,tmp2)
+  tmp <- mbind(tmp1,tmp2,tmp3)
 
   return(tmp)
 }
