@@ -122,7 +122,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
             }
             
           } else {#c_heating == 0 and c_LIMESversion > 2.30
-            tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
             p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found") #exogenous emissions from heating (share of cap)
             p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
             p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
@@ -135,10 +134,27 @@ reportEUETSvars <- function(gdx,output=NULL) {
             #-> with endogenous this variable will be calculated from the region-based heating
             tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))
             
+            if(c_LIMESversion <= 2.33) {
+              tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+            } else {
+              p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")
+              tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+              p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")
+              tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+            }
+            
           }
           
         } else {#c_heating == 1
-          tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+          if(c_LIMESversion <= 2.33) {
+            tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+          } else {
+            p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")
+            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+            p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")
+            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+          }
+          
           p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
           tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
           
