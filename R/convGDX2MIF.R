@@ -21,14 +21,14 @@
 
 
 convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.numeric(readGDX(gdx,name="t"))) {
-  #time=c(seq(2010,lastyear,5))
+  #time=as.numeric(readGDX(gdx,name="t"))
   # generate the report
   
   #initialize report variable
   output <- NULL
   
   #adding capacity info to report output
-  output <- mbind(output,reportCapacity(gdx)[,time,])
+  output <- mbind(output,reportCapacity(gdx)[,c(time),])
   #output <- mbind(output,limes:::reportCapacity(gdx)[,time,]) # run this line when doign just some test
   
   #adding primary energy to report output
@@ -44,7 +44,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportDemand(gdx,output)[,time,]) #dependent on generation
   
   #adding availability factors to report output
-  output <- mbind(output,reportLoadFactor(gdx)[,time,])
+  output <- mbind(output,reportLoadFactor(gdx,output)[,time,])
   
   #adding fuel costs to report output
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
@@ -65,7 +65,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportPeakDemand(gdx)[,time,])
   
   #adding curtailment to report output
-  output <- mbind(output,reportCurtailment(gdx)[,time,])
+  #output <- mbind(output,reportCurtailment(gdx)[,time,]) #now on generation
   
   #adding carbon sequestration to report output
   #output <- mbind(output,reportCarbonSequestration(gdx)[,time,]) #Now on emissions
@@ -320,7 +320,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   if(!is.null(file)) write.report(output_f,model=paste0("LIMES_EU_v",c_LIMESversion),scenario=scenario,file=file,ndigit=7)
   #if(!is.null(file)) write.reportProject(paste0("LIMES_generic_",scenario,".mif"),mappingvars,model="LIMES_EU",scenario=scenario,file=file,ndigit=7)
   else return(output_f)  
-  
   
   
   #################################################################

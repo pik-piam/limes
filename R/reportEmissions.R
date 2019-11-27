@@ -43,14 +43,14 @@ reportEmissions <- function(gdx) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
   # read variables
-  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found")
+  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
   
   # create MagPie object of v_emi with iso3 regions
   v_emi <- limesMapping(v_emi)
   
   #take only the co2 and convert from GtC to MtCO2
-  v_emi_ccs <- v_emi[,,"cco2"]*s_c2co2*1000
-  v_emi <- v_emi[,,"co2"]*s_c2co2*1000
+  v_emi_ccs <- v_emi[,,"cco2"]*as.numeric(s_c2co2)*1000
+  v_emi <- v_emi[,,"co2"]*as.numeric(s_c2co2)*1000
   v_emi_el <- v_emi
   
   #Read and transform the v_emifloor; read v_bankemi

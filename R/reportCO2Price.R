@@ -29,21 +29,17 @@ reportCO2Price <- function(gdx) {
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #time step
   c_emicappathscen_EU <- readGDX(gdx,name="c_emicappathscen_EU",field="l",format="first_found") #control variable for emission cap (for EU)
   p_co2price <- readGDX(gdx,name="p_co2price",field="l",format="first_found") #exogenous co2 prices (for electricity)
-  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found")
+  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   if(c_LIMESversion >= 2.27) {
     c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
   }
   
-  
   # create MagPie object of v_emi with iso3 regions
   v_emi <- limesMapping(v_emi)
   
   #take only the co2 and convert from GtC to tCO2
-  v_emi <- v_emi[,,"co2"]*s_c2co2*1e9
-  
-  #Aggregate emissions per country
-  o_emi <- dimSums(v_emi, dim=3)
+  v_emi <- v_emi[,,"co2"]*as.numeric(s_c2co2)*1e9
   
   #LOADING LIST OF REGIONS TO AGGREGATE CERTAIN GROUPS (e.g., EU)
   # settings mapping path
@@ -152,7 +148,6 @@ reportCO2Price <- function(gdx) {
   }
   
   
-  
   #5) CO2 PRICE RESULTING FROM EMISSION CUMULATIVE CAP (PER REGION)
   
   # read marginal values
@@ -237,9 +232,8 @@ reportCO2Price <- function(gdx) {
     p_backloadEUA <- readGDX(gdx,name="p_backloadEUA",field="l",format="first_found")
   }
   
-  
   tmp4 <- NULL
-  tmp4<-mbind(tmp4, setNames(o_co2price*o_emi/(1e9),"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
+  tmp4<-mbind(tmp4, setNames(o_co2price*dimSums(v_emi[,,"seel"], dim=3)/(1e9),"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
   
   if(c_LIMESversion >= 2.28) {
     # read variables from gdx
@@ -262,7 +256,6 @@ reportCO2Price <- function(gdx) {
     } else {
       tmp4 <- mbind(tmp4,setNames(o_selfcancelEUA_regi*s_c2co2*1000,"Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
     }
-    
     
     #Report the auction and revenues from auction only if industry is modelled
     if(c_industry_ETS == 1) {

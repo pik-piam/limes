@@ -23,12 +23,14 @@ reportDemand <- function(gdx,output=NULL) {
   }
   
   #Loading parameters from convGDX2MIF parent function 
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
-  v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found") #demand
   c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found") #factor for scaling net demand
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   tau <- readGDX(gdx,name="tau") #set of time slices
   te <- readGDX(gdx,name="te") #set of technologies
+  
+  #Loading parameters and variables
+  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found",restore_zeros = FALSE) #number of hours/year per tau
+  v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE) #demand
   
   #Make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
   v_exdemand <- v_exdemand[,,tau]
@@ -47,10 +49,11 @@ reportDemand <- function(gdx,output=NULL) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
-    p_eldemand <- v_exdemand[,,"seel"]
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
+      p_eldemand <- v_exdemand[,,"seel"]
       p_hedemand <- v_exdemand[,,"sehe"]
+      
       p_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found")
       p_losses_heat <- limesMapping(p_losses_heat)
       
@@ -65,17 +68,21 @@ reportDemand <- function(gdx,output=NULL) {
       
       o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
       getNames(o_elecheat) <- NULL
+    } else {
+      p_eldemand <- v_exdemand
     }
   } else {
     p_eldemand <- v_exdemand
     
   }
   
+  #Collapse names of demand (just in case)
+  p_eldemand <- collapseNames(p_eldemand)
+  p_hedemand <- collapseNames(p_hedemand)
+  
   #Load also the storage consumption
   o_storecons <- output[,,which(getNames(output)=="Secondary Energy|Electricity|Storage Consumption (TWh/yr)")]
   getNames(o_storecons) <- NULL
-  
-  #o_grosselec <- dimSums(p_eldemand*p_taulength,dim=3)/1000
   
   #electricity-related
   tmp1 <- NULL
