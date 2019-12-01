@@ -1,56 +1,1 @@
-int;ext
-Price|Primary Energy|Biomass;Primary Energy|Electricity|Biomass
-Price|Primary Energy|Hard Coal;Primary Energy|Electricity|Hard Coal
-Price|Primary Energy|Lignite;Primary Energy|Electricity|Lignite
-Price|Primary Energy|Gas;Primary Energy|Electricity|Gas
-Price|Primary Energy|Oil;Primary Energy|Electricity|Oil
-Price|Secondary Energy|Electricity;Secondary Energy|Electricity
-Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
-Price Full|Secondary Energy|Heat;Final Energy|Heat
-Price|Carbon|ETS;Emissions|CO2|Energy|Supply|Electricity
-Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
-Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity
-Price|Carbon|Net|Industry;Emissions|CO2|Industry
-Price|Carbon|National Climate Target|Industry;Emissions|CO2|Industry
-Load Factor|Electricity|Nuclear;Secondary Energy|Electricity|Nuclear
-Load Factor|Electricity|Coal;Secondary Energy|Electricity|Coal
-Load Factor|Electricity|Coal|w/o CCS;Secondary Energy|Electricity|Coal|w/o CCS
-Load Factor|Electricity|Coal|w/ CCS;Secondary Energy|Electricity|Coal|w/ CCS
-Load Factor|Electricity|Lignite;Secondary Energy|Electricity|Lignite
-Load Factor|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCS
-Load Factor|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite|w/ CCS
-Load Factor|Electricity|Hard Coal;Secondary Energy|Electricity|Hard Coal
-Load Factor|Electricity|Hard Coal|w/o CCS;Secondary Energy|Electricity|Hard Coal|w/o CCS
-Load Factor|Electricity|Hard Coal|w/ CCS;Secondary Energy|Electricity|Hard Coal|w/ CCS
-Load Factor|Electricity|Gas;Secondary Energy|Electricity|Gas
-Load Factor|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCS
-Load Factor|Electricity|Gas CC|w/o CCS;Secondary Energy|Electricity|Gas CC|w/o CCS
-Load Factor|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCS
-Load Factor|Electricity|Gas CC|w/ CCS;Secondary Energy|Electricity|Gas CC|w/ CCS
-Load Factor|Electricity|Oil;Secondary Energy|Electricity|Oil
-Load Factor|Electricity|Wind;Secondary Energy|Electricity|Wind
-Load Factor|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore
-Load Factor|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Offshore
-Load Factor|Electricity|Solar;Secondary Energy|Electricity|Solar
-Load Factor|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PV
-Load Factor|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSP
-Load Factor|Electricity|Biomass;Secondary Energy|Electricity|Biomass
-Load Factor|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS
-Load Factor|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS
-Load Factor|Electricity|Hydro;Secondary Energy|Electricity|Hydro
-Load Factor|Electricity|Waste;Secondary Energy|Electricity|Waste
-Load Factor|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen
-Load Factor|Electricity|Other;Secondary Energy|Electricity|Other
-Load Factor|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC
-Load Factor|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC
-Load Factor|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC
-Load Factor|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC
-Load Factor|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC
-Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Renewable
-Price|Secondary Energy|Electricity|Other fees;Secondary Energy|Electricity
-Price|Secondary Energy|Electricity|Other fees|RES subsidy;Secondary Energy|Electricity
-Capacity|Electricity|Transmission Grid;0
-Capacity|Electricity|Transmission Grid-km;0
-Discharge duration|Pump Hydro;0
-Discharge duration|Stat Batteries;0
-Discharge duration|Hydrogen electrolysis;0
+int;extPrice|Primary Energy|Biomass;Primary Energy|Electricity|BiomassPrice|Primary Energy|Hard Coal;Primary Energy|Electricity|Hard CoalPrice|Primary Energy|Lignite;Primary Energy|Electricity|LignitePrice|Primary Energy|Gas;Primary Energy|Electricity|GasPrice|Primary Energy|Oil;Primary Energy|Electricity|OilPrice|Secondary Energy|Electricity;Secondary Energy|ElectricityPrice Full|Secondary Energy|Electricity;Secondary Energy|ElectricityPrice Full|Secondary Energy|Heat;Final Energy|HeatPrice|Carbon|ETS;Emissions|CO2|Energy|Supply|ElectricityPrice|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|ElectricityPrice|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|ElectricityPrice|Carbon|Net|Industry;Emissions|CO2|IndustryPrice|Carbon|National Climate Target|Industry;Emissions|CO2|IndustryLoad Factor|Electricity|Nuclear;Secondary Energy|Electricity|NuclearLoad Factor|Electricity|Coal;Secondary Energy|Electricity|CoalLoad Factor|Electricity|Coal|w/o CCS;Secondary Energy|Electricity|Coal|w/o CCSLoad Factor|Electricity|Coal|w/ CCS;Secondary Energy|Electricity|Coal|w/ CCSLoad Factor|Electricity|Lignite;Secondary Energy|Electricity|LigniteLoad Factor|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCSLoad Factor|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite|w/ CCSLoad Factor|Electricity|Hard Coal;Secondary Energy|Electricity|Hard CoalLoad Factor|Electricity|Hard Coal|w/o CCS;Secondary Energy|Electricity|Hard Coal|w/o CCSLoad Factor|Electricity|Hard Coal|w/ CCS;Secondary Energy|Electricity|Hard Coal|w/ CCSLoad Factor|Electricity|Gas;Secondary Energy|Electricity|GasLoad Factor|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCSLoad Factor|Electricity|Gas CC|w/o CCS;Secondary Energy|Electricity|Gas CC|w/o CCSLoad Factor|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCSLoad Factor|Electricity|Gas CC|w/ CCS;Secondary Energy|Electricity|Gas CC|w/ CCSLoad Factor|Electricity|Oil;Secondary Energy|Electricity|OilLoad Factor|Electricity|Wind;Secondary Energy|Electricity|WindLoad Factor|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|OnshoreLoad Factor|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|OffshoreLoad Factor|Electricity|Solar;Secondary Energy|Electricity|SolarLoad Factor|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PVLoad Factor|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSPLoad Factor|Electricity|Biomass;Secondary Energy|Electricity|BiomassLoad Factor|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCSLoad Factor|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCSLoad Factor|Electricity|Hydro;Secondary Energy|Electricity|HydroLoad Factor|Electricity|Waste;Secondary Energy|Electricity|WasteLoad Factor|Electricity|Hydrogen;Secondary Energy|Electricity|HydrogenLoad Factor|Electricity|Other;Secondary Energy|Electricity|OtherLoad Factor|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FCLoad Factor|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OCLoad Factor|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CCLoad Factor|Electricity|Gas CC;Secondary Energy|Electricity|Gas CCLoad Factor|Electricity|Gas OC;Secondary Energy|Electricity|Gas OCSecondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Gross DemandPrice|Secondary Energy|Electricity|Other fees;Secondary Energy|ElectricityPrice|Secondary Energy|Electricity|Other fees|RES subsidy;Secondary Energy|ElectricityCapacity|Electricity|Transmission Grid;0Capacity|Electricity|Transmission Grid-km;0Discharge duration|Pump Hydro;0Discharge duration|Stat Batteries;0Discharge duration|Hydrogen electrolysis;0

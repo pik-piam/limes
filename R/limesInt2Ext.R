@@ -71,9 +71,6 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   tmp_RegAgg[,,int_tmp2] <- NA
   
   #Make sure only the intensive variables for which the corresponding variable is available, are weighted (avoid errors)
-  #pos <- is.na(pos_int) + is.na(pos_ext)
-  #int <- int_tmp[pos == 0]
-  #ext <- ext_tmp[pos == 0]
   int <- int_tmp2
   ext <- ext_tmp2
   
@@ -85,7 +82,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
       tmp_RegAgg_ie2 <- do.call("mbind",
                                 lapply(int, function(i2e) {
                                   map <- data.frame(region=regionSubsetList[[region]],parentRegion=region,stringsAsFactors=FALSE)
-                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],,ext[match(i2e,int)]])
+                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],,ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],,ext[match(i2e,int)]],dim=1))
                                   getRegions(result) <- region
                                   return(result)
                                 })
@@ -93,9 +90,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
       tmp_RegAgg[region,,int] <- tmp_RegAgg_ie2[region,,int]
     }
     
-    
     #tmp_RegAgg[is.na(tmp_RegAgg)] <- 0  # tmp is NA if weight is zero for all regions within the GLO or the specific region aggregation. Therefore, we replace all NAs with zeros. 
-    
     
   }
   
