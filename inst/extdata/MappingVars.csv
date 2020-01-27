@@ -691,3 +691,130 @@ Load Factor|Electricity|Hard Coal|w/ CCS;Load Factor|Electricity|Hard Coal|w/ CC
 Load Factor|Electricity|Gas|w/o CCS;Load Factor|Electricity|Gas|w/o CCS;--;--;1
 Load Factor|Electricity|Gas|w/ CCS;Load Factor|Electricity|Gas|w/ CCS;--;--;1
 Emissions|CO2|Unallocated certificates;Emissions|CO2|Unallocated certificates;Mt CO2/yr;Mt CO2/yr;1
+Revenues|Electricity;Revenues|Electricity;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Biomass;Revenues|Electricity|Biomass;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Biomass|w/o CCS;Revenues|Electricity|Biomass|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Coal;Revenues|Electricity|Coal;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Coal|w/o CCS;Revenues|Electricity|Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Coal|w/ CCS;Revenues|Electricity|Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hard Coal;Revenues|Electricity|Hard Coal;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hard Coal|w/o CCS;Revenues|Electricity|Hard Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hard Coal|w/ CCS;Revenues|Electricity|Hard Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Lignite;Revenues|Electricity|Lignite;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Lignite|w/o CCS;Revenues|Electricity|Lignite|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Lignite|w/ CCS;Revenues|Electricity|Lignite|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Oil;Revenues|Electricity|Oil;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas;Revenues|Electricity|Gas;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas|w/o CCS;Revenues|Electricity|Gas|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas|w/ CCS;Revenues|Electricity|Gas|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas CC|w/o CCS;Revenues|Electricity|Gas CC|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas CC|w/ CCS;Revenues|Electricity|Gas CC|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas CC;Revenues|Electricity|Gas CC;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Gas OC;Revenues|Electricity|Gas OC;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Other;Revenues|Electricity|Other;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hydrogen;Revenues|Electricity|Hydrogen;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hydrogen FC;Revenues|Electricity|Hydrogen FC;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hydrogen OC;Revenues|Electricity|Hydrogen OC;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hydrogen CC;Revenues|Electricity|Hydrogen CC;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Nuclear;Revenues|Electricity|Nuclear;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Waste;Revenues|Electricity|Waste;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Other Fossil;Revenues|Electricity|Other Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Fossil;Revenues|Electricity|Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Fossil|w/o CCS;Revenues|Electricity|Fossil|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Fossil|w/ CCS;Revenues|Electricity|Fossil|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Variable renewable;Revenues|Electricity|Variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Non-variable renewable;Revenues|Electricity|Non-variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Renewable;Revenues|Electricity|Renewable;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Non-renewable;Revenues|Electricity|Non-renewable;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Wind;Revenues|Electricity|Wind;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Wind|Onshore;Revenues|Electricity|Wind|Onshore;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Wind|Offshore;Revenues|Electricity|Wind|Offshore;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Solar;Revenues|Electricity|Solar;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Solar|PV;Revenues|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Solar|CSP;Revenues|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
+Revenues|Electricity|Hydro;Revenues|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity;Short-run profits|Electricity;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Biomass;Short-run profits|Electricity|Biomass;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Biomass|w/o CCS;Short-run profits|Electricity|Biomass|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Coal;Short-run profits|Electricity|Coal;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Coal|w/o CCS;Short-run profits|Electricity|Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Coal|w/ CCS;Short-run profits|Electricity|Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hard Coal;Short-run profits|Electricity|Hard Coal;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hard Coal|w/o CCS;Short-run profits|Electricity|Hard Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hard Coal|w/ CCS;Short-run profits|Electricity|Hard Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Lignite;Short-run profits|Electricity|Lignite;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Lignite|w/o CCS;Short-run profits|Electricity|Lignite|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Lignite|w/ CCS;Short-run profits|Electricity|Lignite|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Oil;Short-run profits|Electricity|Oil;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas;Short-run profits|Electricity|Gas;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas|w/o CCS;Short-run profits|Electricity|Gas|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas|w/ CCS;Short-run profits|Electricity|Gas|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas CC|w/o CCS;Short-run profits|Electricity|Gas CC|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas CC|w/ CCS;Short-run profits|Electricity|Gas CC|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas CC;Short-run profits|Electricity|Gas CC;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Gas OC;Short-run profits|Electricity|Gas OC;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Other;Short-run profits|Electricity|Other;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hydrogen;Short-run profits|Electricity|Hydrogen;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hydrogen FC;Short-run profits|Electricity|Hydrogen FC;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hydrogen OC;Short-run profits|Electricity|Hydrogen OC;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hydrogen CC;Short-run profits|Electricity|Hydrogen CC;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Nuclear;Short-run profits|Electricity|Nuclear;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Waste;Short-run profits|Electricity|Waste;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Other Fossil;Short-run profits|Electricity|Other Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Fossil;Short-run profits|Electricity|Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Fossil|w/o CCS;Short-run profits|Electricity|Fossil|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Fossil|w/ CCS;Short-run profits|Electricity|Fossil|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Variable renewable;Short-run profits|Electricity|Variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Non-variable renewable;Short-run profits|Electricity|Non-variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Renewable;Short-run profits|Electricity|Renewable;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Non-renewable;Short-run profits|Electricity|Non-renewable;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Wind;Short-run profits|Electricity|Wind;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Wind|Onshore;Short-run profits|Electricity|Wind|Onshore;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Wind|Offshore;Short-run profits|Electricity|Wind|Offshore;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Solar;Short-run profits|Electricity|Solar;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Solar|PV;Short-run profits|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Solar|CSP;Short-run profits|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
+Short-run profits|Electricity|Hydro;Short-run profits|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity;Profits plants built in t|Electricity;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Biomass;Profits plants built in t|Electricity|Biomass;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Biomass|w/o CCS;Profits plants built in t|Electricity|Biomass|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Coal;Profits plants built in t|Electricity|Coal;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Coal|w/o CCS;Profits plants built in t|Electricity|Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Coal|w/ CCS;Profits plants built in t|Electricity|Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hard Coal;Profits plants built in t|Electricity|Hard Coal;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hard Coal|w/o CCS;Profits plants built in t|Electricity|Hard Coal|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hard Coal|w/ CCS;Profits plants built in t|Electricity|Hard Coal|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Lignite;Profits plants built in t|Electricity|Lignite;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Lignite|w/o CCS;Profits plants built in t|Electricity|Lignite|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Lignite|w/ CCS;Profits plants built in t|Electricity|Lignite|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Oil;Profits plants built in t|Electricity|Oil;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas;Profits plants built in t|Electricity|Gas;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas|w/o CCS;Profits plants built in t|Electricity|Gas|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas|w/ CCS;Profits plants built in t|Electricity|Gas|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas CC|w/o CCS;Profits plants built in t|Electricity|Gas CC|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas CC|w/ CCS;Profits plants built in t|Electricity|Gas CC|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas CC;Profits plants built in t|Electricity|Gas CC;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Gas OC;Profits plants built in t|Electricity|Gas OC;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Other;Profits plants built in t|Electricity|Other;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hydrogen;Profits plants built in t|Electricity|Hydrogen;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hydrogen FC;Profits plants built in t|Electricity|Hydrogen FC;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hydrogen OC;Profits plants built in t|Electricity|Hydrogen OC;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hydrogen CC;Profits plants built in t|Electricity|Hydrogen CC;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Nuclear;Profits plants built in t|Electricity|Nuclear;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Waste;Profits plants built in t|Electricity|Waste;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Other Fossil;Profits plants built in t|Electricity|Other Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Fossil;Profits plants built in t|Electricity|Fossil;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Fossil|w/o CCS;Profits plants built in t|Electricity|Fossil|w/o CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Fossil|w/ CCS;Profits plants built in t|Electricity|Fossil|w/ CCS;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Variable renewable;Profits plants built in t|Electricity|Variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Non-variable renewable;Profits plants built in t|Electricity|Non-variable renewable;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Renewable;Profits plants built in t|Electricity|Renewable;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Non-renewable;Profits plants built in t|Electricity|Non-renewable;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Wind;Profits plants built in t|Electricity|Wind;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Wind|Onshore;Profits plants built in t|Electricity|Wind|Onshore;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Wind|Offshore;Profits plants built in t|Electricity|Wind|Offshore;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Solar;Profits plants built in t|Electricity|Solar;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Solar|PV;Profits plants built in t|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Solar|CSP;Profits plants built in t|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
+Profits plants built in t|Electricity|Hydro;Profits plants built in t|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
+Subsidy costs|Electricity;Subsidy costs|Electricity;billion eur2010/yr;billion Eur2015/yr;1

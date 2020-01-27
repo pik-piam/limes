@@ -70,17 +70,18 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
       }
       
       tmp2 <- NULL
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_ind_emiabatproc*p_ind_emimac*s_c2co2,dim=3),"Total Cost|Industry|Abatement (billion eur2010/yr)"))
+      o_totcostabat <- dimSums(v_ind_emiabatproc*p_ind_emimac*s_c2co2,dim=3)
+      tmp2 <- mbind(tmp2,setNames(o_totcostabat,"Total Cost|Industry|Abatement (billion eur2010/yr)"))
       
       #In previous version, there is no information about allocation of EUA to industry per region, so I just define the required EUA equal to the emissions
       o_ind_netreqEUA <-dimSums(o_ind_emi,3)*s_c2co2*1000
       
       if(c_LIMESversion >= 2.28) {
         # read variables from gdx
-        p_sharecomb_freeEUA <- readGDX(gdx,name="p_sharecomb_freeEUA",field="l",format="first_found")
-        p_sharefreeEUA_ind <- readGDX(gdx,name="p_sharefreeEUA_ind",field="l",format="first_found")
+        p_sharecomb_freeEUA <- readGDX(gdx,name="p_sharecomb_freeEUA",field="l",format="first_found") #Share of free allocated certificates to combustion sector
+        p_sharefreeEUA_ind <- readGDX(gdx,name="p_sharefreeEUA_ind",field="l",format="first_found") #Share fo free EUA to industry per country
         p_sharefreeEUA_ind <- limesMapping(p_sharefreeEUA_ind)
-        p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found")
+        p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found") #free allocated certificates in ETS [Gt]
         
         #EUA freely allocated to the industry
         o_ind_freeEUA <- p_freealloc_EUETS*(1-p_sharecomb_freeEUA)*p_sharefreeEUA_ind
@@ -89,7 +90,11 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
         o_ind_netreqEUA <- (dimSums(o_ind_emi,3) - o_ind_freeEUA)*s_c2co2*1000 #in MtCO2/yr
       }
       
-      tmp2 <- mbind(tmp2,setNames(pmax(o_ind_netreqEUA,0)*o_ind_co2price/1000,"Total Cost|Industry|CO2 costs (billion eur2010/yr)"))
+      o_totcostco2 <- pmax(o_ind_netreqEUA,0)*o_ind_co2price/1000
+      tmp2 <- mbind(tmp2,setNames(o_totcostco2,"Total Cost|Industry|CO2 costs (billion eur2010/yr)"))
+      o_revEUAsale <- -pmin(o_ind_netreqEUA,0)*o_ind_co2price/1000
+      tmp2 <- mbind(tmp2,setNames(o_revEUAsale,"Revenues|Industry|EUA sales (billion eur2010/yr)"))
+      tmp2 <- mbind(tmp2,setNames(o_revEUAsale - o_totcostabat - o_totcostco2,"Profits|Industry (billion eur2010/yr)"))
       
       # concatenate data
       tmp <- mbind(tmp1,tmp2)
