@@ -125,34 +125,42 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output_EUETS_nonDE<-dimSums(output[EUETS_nonDE,,],dim=1)
   getRegions(output_EUETS_nonDE)<-"EUETS_nonDE"
   
-  #aggregating KdW (coalition of the willing) and nonKdW
-  KdW_iso2 <- readGDX(gdx,name="regi_KdW")
-  KdW_iso3 <- mappingregi[match(KdW_iso2,mappingregi[,1]),2]
-  #KdW <- which(mappingregi$KdW == 1)
-  KdW <- KdW_iso3 #Better to take it directly from the GDX file
-  output_KdW<-dimSums(output[KdW,,],dim=1)
-  getRegions(output_KdW)<-"KdW"
+  #Showing KdW results is rarely necessary. Apply a switch (0) No (1) Yes
+  show_KdW <- 0
   
-  nonKdW <- which(mappingregi$KdW == 0)
-  output_nonKdW<-dimSums(output[nonKdW,,],dim=1)
-  getRegions(output_nonKdW)<-"nonKdW"
-  
-  #aggregating KdW_EU, KdW_nonEU, nonKdW_EU, nonKdW_nonEU
-  KdW_EU <- which(mappingregi$KdW == 1 & mappingregi$EU == 1)
-  output_KdW_EU<-dimSums(output[KdW_EU,,],dim=1)
-  getRegions(output_KdW_EU)<-"KdW_EU"
-  
-  KdW_nonEU <- which(mappingregi$KdW == 1 & mappingregi$EU == 0)
-  output_KdW_nonEU<-dimSums(output[KdW_nonEU,,],dim=1)
-  getRegions(output_KdW_nonEU)<-"KdW_nonEU"
-  
-  nonKdW_EU <- which(mappingregi$KdW == 0 & mappingregi$EU == 1)
-  output_nonKdW_EU<-dimSums(output[nonKdW_EU,,],dim=1)
-  getRegions(output_nonKdW_EU)<-"nonKdW_EU"
-  
-  nonKdW_nonEU <- which(mappingregi$KdW == 0 & mappingregi$EU == 0)
-  output_nonKdW_nonEU<-dimSums(output[nonKdW_nonEU,,],dim=1)
-  getRegions(output_nonKdW_nonEU)<-"nonKdW_nonEU"
+  if (show_KdW == 1) {
+    #aggregating KdW (coalition of the willing) and nonKdW
+    KdW_iso2 <- readGDX(gdx,name="regi_KdW")
+    KdW_iso3 <- mappingregi[match(KdW_iso2,mappingregi[,1]),2]
+    #KdW <- which(mappingregi$KdW == 1)
+    KdW <- KdW_iso3 #Better to take it directly from the GDX file
+    output_KdW<-dimSums(output[KdW,,],dim=1)
+    getRegions(output_KdW)<-"KdW"
+    
+    nonKdW <- which(mappingregi$KdW == 0)
+    output_nonKdW<-dimSums(output[nonKdW,,],dim=1)
+    getRegions(output_nonKdW)<-"nonKdW"
+    
+    #aggregating KdW_EU, KdW_nonEU, nonKdW_EU, nonKdW_nonEU
+    KdW_EU <- which(mappingregi$KdW == 1 & mappingregi$EU == 1)
+    output_KdW_EU<-dimSums(output[KdW_EU,,],dim=1)
+    getRegions(output_KdW_EU)<-"KdW_EU"
+    
+    KdW_nonEU <- which(mappingregi$KdW == 1 & mappingregi$EU == 0)
+    output_KdW_nonEU<-dimSums(output[KdW_nonEU,,],dim=1)
+    getRegions(output_KdW_nonEU)<-"KdW_nonEU"
+    
+    nonKdW_EU <- which(mappingregi$KdW == 0 & mappingregi$EU == 1)
+    output_nonKdW_EU<-dimSums(output[nonKdW_EU,,],dim=1)
+    getRegions(output_nonKdW_EU)<-"nonKdW_EU"
+    
+    nonKdW_nonEU <- which(mappingregi$KdW == 0 & mappingregi$EU == 0)
+    output_nonKdW_nonEU<-dimSums(output[nonKdW_nonEU,,],dim=1)
+    getRegions(output_nonKdW_nonEU)<-"nonKdW_nonEU"
+    
+    #totals concerning the KdW
+    output <- mbind(output,output_KdW,output_nonKdW,output_KdW_EU,output_KdW_nonEU,output_nonKdW_EU,output_nonKdW_nonEU)
+  }
   
   #load regions that implemented a top-up minimum CO2 price
   minP <- readGDX(gdx,name="regi_minP")
@@ -178,10 +186,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   
   #CONCATENATING OUTPUT FROM REGIONS AND AGGREGATED DATA
-  output <- mbind(output,output_tot,output_EU,output_EUETS)
-  #totals concerning the KdW
-  output <- mbind(output,output_EUETS_nonDE,output_KdW,output_nonKdW,output_KdW_EU,output_KdW_nonEU,output_nonKdW_EU,output_nonKdW_nonEU)
+  output <- mbind(output,output_tot,output_EU,output_EUETS,output_EUETS_nonDE)
   #totals concerning countries implementing min CO2 price is done above
+  #totals concerning countries KdW is done above
   
   
   #Renaming global variable (not possible so far)
@@ -235,12 +242,15 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
     output["EU28",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EUETS",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EUETS_nonDE",,intersect(getNames(output),IntVars)] <- NA
-    output["KdW",,intersect(getNames(output),IntVars)] <- NA
-    output["nonKdW",,intersect(getNames(output),IntVars)] <- NA
-    output["KdW_EU",,intersect(getNames(output),IntVars)] <- NA
-    output["KdW_nonEU",,intersect(getNames(output),IntVars)] <- NA
-    output["nonKdW_EU",,intersect(getNames(output),IntVars)] <- NA
-    output["nonKdW_nonEU",,intersect(getNames(output),IntVars)] <- NA
+    
+    if (show_KdW == 1) {
+      output["KdW",,intersect(getNames(output),IntVars)] <- NA
+      output["nonKdW",,intersect(getNames(output),IntVars)] <- NA
+      output["KdW_EU",,intersect(getNames(output),IntVars)] <- NA
+      output["KdW_nonEU",,intersect(getNames(output),IntVars)] <- NA
+      output["nonKdW_EU",,intersect(getNames(output),IntVars)] <- NA
+      output["nonKdW_nonEU",,intersect(getNames(output),IntVars)] <- NA
+    }
     
     if(length(minP) > 0) {
       output["minP",,intersect(getNames(output),IntVars)] <- NA
