@@ -301,6 +301,8 @@ reportGeneration <- function(gdx,output=NULL) {
     v_p2xse <- readGDX(gdx,name="v_p2xse",field="l",format="first_found")[,,"pehgen.seel"]
     v_p2xse <- v_p2xse[,,tehgen]
     v_p2xse <- limesMapping(v_p2xse[,,tau])
+    q_p2x <- readGDX(gdx,name="q_p2x",field="m",format="first_found")
+    q_p2x <- limesMapping(q_p2x[,,tau])
     
     varList_hgen <- list(
       "Secondary Energy|Hydrogen|Electricity (TWh/yr)" = NA,

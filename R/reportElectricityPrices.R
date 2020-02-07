@@ -212,6 +212,7 @@ reportElectricityPrices <- function(gdx) {
   #v_disinvest <- readGDX(gdx,name="v_disinvest",field="l",format="first_found")
   if(c_LIMESversion >= 2.36) {
     p_plantshortrunprofit <- readGDX(gdx,name="p_plantshortrunprofit",field="l",format="first_found") #Short run profits [eur]
+    p_plantshortrunprofit_w_fix <- readGDX(gdx,name="p_plantshortrunprofit_w_fix",field="l",format="first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
     p_plantprofit_t <- readGDX(gdx,name="p_plantprofit_t",field="l",format="first_found") #short-run profits for plants built in t [eur]
     p_prodsubsidy <- readGDX(gdx,name="p_prodsubsidy",field="l",format="first_found") #subsidy to RES [eur/GWh RES]
     p_prodsubsidycosts <- readGDX(gdx,name="p_prodsubsidycosts",field="l",format="first_found") #cost of subsidies to RES per country [eur]
@@ -220,6 +221,7 @@ reportElectricityPrices <- function(gdx) {
     
     #create MagPie object of m_elecprices with iso3 regions
     p_plantshortrunprofit <- limesMapping(p_plantshortrunprofit)
+    p_plantshortrunprofit_w_fix <- limesMapping(p_plantshortrunprofit_w_fix)
     p_plantprofit_t <- limesMapping(p_plantprofit_t)
     p_prodsubsidy <- limesMapping(p_prodsubsidy)
     p_prodsubsidycosts <- limesMapping(p_prodsubsidycosts)
@@ -283,6 +285,7 @@ reportElectricityPrices <- function(gdx) {
       #tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_seprod_el[,,varList_el[[var]]],dim=c(3.2,3.3,3.4))*p_taulength*o_fullelecprices_disc,dim=3),paste0("Revenues|Electricity",var,"(billion eur2010/yr)")))
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantrevenues[,,varList_el[[var]]],dim=3)/1e9,paste0("Revenues|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantshortrunprofit[,,varList_el[[var]]],dim=3)/1e9,paste0("Short-run profits|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
+      tmp4 <- mbind(tmp4,setNames(dimSums(p_plantshortrunprofit_w_fix[,,varList_el[[var]]],dim=3)/1e9,paste0("Short-run profits [w adeq rev/fix costs]|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantprofit_t[,,varList_el[[var]]],dim=3)/1e9,paste0("Profits plants built in t|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
     }
     
