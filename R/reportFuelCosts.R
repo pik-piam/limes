@@ -36,6 +36,7 @@ reportFuelCosts <- function(gdx) {
   tmp1 <- mbind(tmp1,setNames(p_datafuelcost[,,"pelig"]/(3600*1.e-9),"Price|Primary Energy|Lignite (Eur2010/GJ)"))
   tmp1 <- mbind(tmp1,setNames(p_datafuelcost[,,"pecoal"]/(3600*1.e-9),"Price|Primary Energy|Hard Coal (Eur2010/GJ)"))
   tmp1 <- mbind(tmp1,setNames(p_datafuelcost[,,"peoil"]/(3600*1.e-9),"Price|Primary Energy|Oil (Eur2010/GJ)"))
+  tmp1 <- mbind(tmp1,setNames(p_datafuelcost[,,"pehgen"]/(3600*1.e-9),"Price|Primary Energy|Hydrogen [external] (Eur2010/GJ)"))
   
   tmp2 <- NULL
   

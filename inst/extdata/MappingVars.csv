@@ -636,10 +636,7 @@ Net exports to ITA|Electricity;Net exports to ITA|Electricity;TWh/yr;TWh/yr;1
 Net exports to ESP|Electricity;Net exports to ESP|Electricity;TWh/yr;TWh/yr;1
 Net exports to PRT|Electricity;Net exports to PRT|Electricity;TWh/yr;TWh/yr;1
 Net exports to GRC|Electricity;Net exports to GRC|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen FC;Secondary Energy|Hydrogen|Hydrogen FC;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen OC;Secondary Energy|Hydrogen|Hydrogen OC;TWh/yr;TWh/yr;1
-Secondary Energy|Hydrogen|Hydrogen CC;Secondary Energy|Hydrogen|Hydrogen CC;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis];TWh/yr;TWh/yr;1
 Capacity|Electricity|Storage Reservoir;Capacity|Electricity|Storage Reservoir;GWh;GWh;1
 Capacity|Electricity|Storage Reservoir|Pump Hydro;Capacity|Electricity|Storage Reservoir|Pump Hydro;GWh;GWh;1
 Capacity|Electricity|Storage Reservoir|Stat Batteries;Capacity|Electricity|Storage Reservoir|Stat Batteries;GWh;GWh;1
@@ -819,3 +816,8 @@ Short-run profits [w adeq rev/fix costs]|Electricity|Solar;Short-run profits [w 
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
+Primary Energy|Electricity|Hydrogen [external];Primary Energy|Hydrogen [external];TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen;Primary Energy|Hydrogen;TWh/yr;PJ/yr;3.6
+Price|Primary Energy|Hydrogen [external];Price|Primary Energy|Hydrogen [external];Eur2010/GJ;Eur2015/GJ;1
+Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [electrolysis];Eur2010/GJ;Eur2015/GJ;1
+Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/GJ;Eur2015/GJ;1

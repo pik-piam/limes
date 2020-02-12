@@ -90,29 +90,29 @@ reportPrimaryEnergy <- function(gdx) {
   tmp1 <- NULL
   
   varList_el <- list(
-    "Primary Energy|Electricity [exhaustible resources] (TWh/yr)"=c(petyex), #all
-    "Primary Energy|Electricity|Biomass (TWh/yr)"          =intersect(teel,tebio),
-    "Primary Energy|Electricity|Biomass|w/o CCS (TWh/yr)"  =intersect(teel,setdiff(tebio,teccs)),
-    "Primary Energy|Electricity|Coal (TWh/yr)"             =intersect(teel,c(tecoal,telig)),
-    "Primary Energy|Electricity|Coal|w/o CCS (TWh/yr)"     =intersect(teel,setdiff(c(tecoal,telig),teccs)),
-    "Primary Energy|Electricity|Coal|w/ CCS (TWh/yr)"      =intersect(teel,intersect(c(tecoal,telig),teccs)),
-    "Primary Energy|Electricity|Hard Coal (TWh/yr)"        =intersect(teel,c(tecoal)),
-    "Primary Energy|Electricity|Hard Coal|w/o CCS (TWh/yr)"=intersect(teel,setdiff(c(tecoal),teccs)),
-    "Primary Energy|Electricity|Hard Coal|w/ CCS (TWh/yr)" =intersect(teel,intersect(c(tecoal),teccs)),
-    "Primary Energy|Electricity|Lignite (TWh/yr)"          =intersect(teel,c(telig)),
-    "Primary Energy|Electricity|Lignite|w/o CCS (TWh/yr)"  =intersect(teel,setdiff(c(telig),teccs)),
-    "Primary Energy|Electricity|Lignite|w/ CCS (TWh/yr)"   =intersect(teel,intersect(c(telig),teccs)),
-    "Primary Energy|Electricity|Oil (TWh/yr)"              =intersect(teel,c(teoil)),
-    "Primary Energy|Electricity|Gas (TWh/yr)"              =intersect(teel,c(tegas)),
-    "Primary Energy|Electricity|Gas|w/o CCS (TWh/yr)"      =intersect(teel,setdiff(tegas_el,teccs)),
-    "Primary Energy|Electricity|Gas|w/ CCS (TWh/yr)"       =intersect(teel,intersect(tegas_el,teccs)),
-    "Primary Energy|Electricity|Fossil (TWh/yr)"           =intersect(teel,c(tefossil)),
-    "Primary Energy|Electricity|Fossil|w/o CCS (TWh/yr)"   =intersect(teel,setdiff(tefossil,teccs)),
-    "Primary Energy|Electricity|Fossil|w/ CCS (TWh/yr)"    =intersect(teel,intersect(tefossil,teccs)),
-    "Primary Energy|Electricity|Other (TWh/yr)"            =intersect(teel,c(teothers)),
-    "Primary Energy|Electricity|Hydrogen (TWh/yr)"         =intersect(teel,c(tehgen)),
-    "Primary Energy|Electricity|Nuclear (TWh/yr)"          =intersect(teel,c("tnr")),
-    "Primary Energy|Electricity|Waste (TWh/yr)"            =intersect(teel,c("waste"))
+    "Primary Energy|Electricity [exhaustible resources] (TWh/yr)" =c(petyex), #all
+    "Primary Energy|Electricity|Biomass (TWh/yr)"                 =intersect(teel,tebio),
+    "Primary Energy|Electricity|Biomass|w/o CCS (TWh/yr)"         =intersect(teel,setdiff(tebio,teccs)),
+    "Primary Energy|Electricity|Coal (TWh/yr)"                    =intersect(teel,c(tecoal,telig)),
+    "Primary Energy|Electricity|Coal|w/o CCS (TWh/yr)"            =intersect(teel,setdiff(c(tecoal,telig),teccs)),
+    "Primary Energy|Electricity|Coal|w/ CCS (TWh/yr)"             =intersect(teel,intersect(c(tecoal,telig),teccs)),
+    "Primary Energy|Electricity|Hard Coal (TWh/yr)"               =intersect(teel,c(tecoal)),
+    "Primary Energy|Electricity|Hard Coal|w/o CCS (TWh/yr)"       =intersect(teel,setdiff(c(tecoal),teccs)),
+    "Primary Energy|Electricity|Hard Coal|w/ CCS (TWh/yr)"        =intersect(teel,intersect(c(tecoal),teccs)),
+    "Primary Energy|Electricity|Lignite (TWh/yr)"                 =intersect(teel,c(telig)),
+    "Primary Energy|Electricity|Lignite|w/o CCS (TWh/yr)"         =intersect(teel,setdiff(c(telig),teccs)),
+    "Primary Energy|Electricity|Lignite|w/ CCS (TWh/yr)"          =intersect(teel,intersect(c(telig),teccs)),
+    "Primary Energy|Electricity|Oil (TWh/yr)"                     =intersect(teel,c(teoil)),
+    "Primary Energy|Electricity|Gas (TWh/yr)"                     =intersect(teel,c(tegas)),
+    "Primary Energy|Electricity|Gas|w/o CCS (TWh/yr)"             =intersect(teel,setdiff(tegas_el,teccs)),
+    "Primary Energy|Electricity|Gas|w/ CCS (TWh/yr)"              =intersect(teel,intersect(tegas_el,teccs)),
+    "Primary Energy|Electricity|Fossil (TWh/yr)"                  =intersect(teel,c(tefossil)),
+    "Primary Energy|Electricity|Fossil|w/o CCS (TWh/yr)"          =intersect(teel,setdiff(tefossil,teccs)),
+    "Primary Energy|Electricity|Fossil|w/ CCS (TWh/yr)"           =intersect(teel,intersect(tefossil,teccs)),
+    "Primary Energy|Electricity|Other (TWh/yr)"                   =intersect(teel,c(teothers)),
+    "Primary Energy|Electricity|Hydrogen (TWh/yr)"                =intersect(teel,c(tehgen)),
+    "Primary Energy|Electricity|Nuclear (TWh/yr)"                 =intersect(teel,c("tnr")),
+    "Primary Energy|Electricity|Waste (TWh/yr)"                   =intersect(teel,c("waste"))
   )
   
   for (var in names(varList_el)){
@@ -148,18 +148,18 @@ reportPrimaryEnergy <- function(gdx) {
       
       #Electricity and Heat
       varList_elhe <- list(
-        "Primary Energy|Electricity and Heat [exhaustible resources] (TWh/yr)" =c(petyex),
-         "Primary Energy|Electricity and Heat|Biomass (TWh/yr)"                =c(tebio),
-         "Primary Energy|Electricity and Heat|Coal (TWh/yr)"                   =c(tecoal,telig),
-         "Primary Energy|Electricity and Heat|Hard Coal (TWh/yr)"              =c(tecoal),
-         "Primary Energy|Electricity and Heat|Lignite (TWh/yr)"                =c(telig),
-         "Primary Energy|Electricity and Heat|Oil (TWh/yr)"                    =c(teoil),
-         "Primary Energy|Electricity and Heat|Gas (TWh/yr)"                    =c(tegas),
-         "Primary Energy|Electricity and Heat|Waste (TWh/yr)"                  =c(tewaste),
-         "Primary Energy|Electricity and Heat|Fossil (TWh/yr)"                 =c(tefossil),
-         "Primary Energy|Electricity and Heat|Nuclear (TWh/yr)"                =c("tnr"),
-         "Primary Energy|Electricity and Heat|Other (TWh/yr)"                  =c(teothers),
-         "Primary Energy|Electricity and Heat|Hydrogen (TWh/yr)"               =c(tehgen)
+         "Primary Energy|Electricity and Heat [exhaustible resources] (TWh/yr)" =c(petyex),
+         "Primary Energy|Electricity and Heat|Biomass (TWh/yr)"                 =c(tebio),
+         "Primary Energy|Electricity and Heat|Coal (TWh/yr)"                    =c(tecoal,telig),
+         "Primary Energy|Electricity and Heat|Hard Coal (TWh/yr)"               =c(tecoal),
+         "Primary Energy|Electricity and Heat|Lignite (TWh/yr)"                 =c(telig),
+         "Primary Energy|Electricity and Heat|Oil (TWh/yr)"                     =c(teoil),
+         "Primary Energy|Electricity and Heat|Gas (TWh/yr)"                     =c(tegas),
+         "Primary Energy|Electricity and Heat|Waste (TWh/yr)"                   =c(tewaste),
+         "Primary Energy|Electricity and Heat|Fossil (TWh/yr)"                  =c(tefossil),
+         "Primary Energy|Electricity and Heat|Nuclear (TWh/yr)"                 =c("tnr"),
+         "Primary Energy|Electricity and Heat|Other (TWh/yr)"                   =c(teothers),
+         "Primary Energy|Electricity and Heat|Hydrogen (TWh/yr)"                =c(tehgen)
       )
       for (var in names(varList_elhe)){
         tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem[,,varList_elhe[[var]]],dim=c(3.2,3.3,3.4))*p_taulength,dim=3)/1000,var))

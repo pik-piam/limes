@@ -305,15 +305,17 @@ reportGeneration <- function(gdx,output=NULL) {
     q_p2x <- limesMapping(q_p2x[,,tau])
     
     varList_hgen <- list(
-      "Secondary Energy|Hydrogen|Electricity (TWh/yr)" = NA,
-      "Secondary Energy|Hydrogen|Hydrogen FC (TWh/yr)" = "hfc",
-      "Secondary Energy|Hydrogen|Hydrogen OC (TWh/yr)" = "hct",
-      "Secondary Energy|Hydrogen|Hydrogen CC (TWh/yr)" = "hcc"
+      "Primary Energy|Electricity|Hydrogen [electrolysis] (TWh/yr)" = NA,
+      "Primary Energy|Electricity|Hydrogen|Hydrogen FC [electrolysis] (TWh/yr)" = "hfc",
+      "Primary Energy|Electricity|Hydrogen|Hydrogen OC [electrolysis] (TWh/yr)" = "hct",
+      "Primary Energy|Electricity|Hydrogen|Hydrogen CC [electrolysis] (TWh/yr)" = "hcc"
     )
     
     for (var in names(varList_hgen)){
       tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_p2xse[,,varList_hgen[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
     }
+    
+    tmp4 <- mbind(tmp4,setNames(setNames(output[,,"Primary Energy|Electricity|Hydrogen (TWh/yr)"],NULL)-setNames(tmp4[,,"Primary Energy|Electricity|Hydrogen [electrolysis] (TWh/yr)"],NULL),"Primary Energy|Electricity|Hydrogen [external] (TWh/yr)"))
     
   }
   
