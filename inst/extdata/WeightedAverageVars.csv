@@ -4,6 +4,9 @@ Price|Primary Energy|Hard Coal;Primary Energy|Electricity|Hard Coal
 Price|Primary Energy|Lignite;Primary Energy|Electricity|Lignite
 Price|Primary Energy|Gas;Primary Energy|Electricity|Gas
 Price|Primary Energy|Oil;Primary Energy|Electricity|Oil
+Price|Primary Energy|Hydrogen [external];Primary Energy|Electricity|Hydrogen [external]
+Price|Primary Energy|Hydrogen [electrolysis];Primary Energy|Electricity|Hydrogen [electrolysis]
+Price|Primary Energy|Hydrogen;Primary Energy|Electricity|Hydrogen
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Heat;Final Energy|Heat

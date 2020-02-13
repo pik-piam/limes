@@ -115,7 +115,7 @@ reportPrimaryEnergy <- function(gdx) {
     "Primary Energy|Electricity|Waste (TWh/yr)"                   =intersect(teel,c("waste"))
   )
   
-  for (var in names(varList_el)){
+  for (var in names(varList_el)) {
     tmp1 <- mbind(tmp1,setNames(dimSums(dimSums(v_pedem_el[,,varList_el[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
   }
   
