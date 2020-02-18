@@ -177,7 +177,7 @@ reportCapacity <- function(gdx) {
   #Storage
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("psp")],dim=3),"Capacity|Electricity|Storage|Pump Hydro (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("batteries")],dim=3),"Capacity|Electricity|Storage|Stat Batteries (GW)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("helec")],dim=3),"Capacity|Electricity|Storage|Hydrogen electrolysis (GW)"))
+  tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("helec")],dim=3),"Capacity|Electricity|Storage|Hydrogen electrolysis [input] (GW)"))
   tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c("psp","batteries")],dim=3),"Capacity|Electricity|Storage|Intra-day (GW)"))
   
   #combine aggregated capacity with brake-down of technologies

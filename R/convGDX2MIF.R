@@ -34,6 +34,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #adding primary energy to report output
   output <- mbind(output,reportPrimaryEnergy(gdx)[,time,])
   
+  #adding fuel costs to report output
+  output <- mbind(output,reportFuelCosts(gdx)[,time,])
+  
   #adding electricity prices info to report output
   output <- mbind(output,reportElectricityPrices(gdx)[,time,])
   
@@ -45,9 +48,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   #adding availability factors to report output
   output <- mbind(output,reportLoadFactor(gdx,output)[,time,])
-  
-  #adding fuel costs to report output
-  output <- mbind(output,reportFuelCosts(gdx)[,time,])
   
   #Adding all the input parameters (except for fuel costs)
   #output <- mbind(output,reportInput(gdx)[,time,])
