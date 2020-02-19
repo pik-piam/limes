@@ -319,9 +319,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   
   #MAPPING THE VARIABLES TO THOSE OF A SPECIFIC PROJECT
-  posvarsmapping <- match(getNames(output),finalvars)
-  mappingvars <-paste0(as.vector(mappingvars[posvarsmapping,]$Enavi)," (",as.vector(mappingvars[posvarsmapping,]$UnitEnavi) , ")")
-  output_f <- setNames(output_f,mappingvars)
+  posvarsmapping <- match(getNames(output_f),finalvars)
+  posvarsmapping <- posvarsmapping[which(posvarsmapping != "NA")]
+  mappingvars_project <-paste0(as.vector(mappingvars[posvarsmapping,]$Enavi)," (",as.vector(mappingvars[posvarsmapping,]$UnitEnavi) , ")")
+  output_f <- setNames(output_f,mappingvars_project)
   
   
   #WRITE REPORT
