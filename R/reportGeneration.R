@@ -327,7 +327,7 @@ reportGeneration <- function(gdx,output=NULL) {
   
   #Hydrogen (from electrolysis) used in hydrogen-based generation plants
   if(c_LIMESversion >= 2.34) {
-    t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
+    #t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
     t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
     c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
     p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time-step
@@ -354,11 +354,11 @@ reportGeneration <- function(gdx,output=NULL) {
     }
     
     #compute factor to discount average marginal values
-    f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
+    f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(time)-as.numeric(t0)))
     
     o_p2x_disc <- NULL
     
-    for (t2 in 1:length(t)) {
+    for (t2 in 1:length(time)) {
       o_p2x_disc <- mbind(o_p2x_disc,-o_p2x[,t2,]/as.numeric(f_npv[t2])) #[Geur 2010/GWh]
     }
     o_p2x_disc <- pmax(o_p2x_disc,0)
@@ -367,25 +367,30 @@ reportGeneration <- function(gdx,output=NULL) {
                                   dimSums(p_taulength*dimSums(v_p2xse[,,],dim=c(3.2)),3),"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"))
     
     varList_hgen <- list(
-      "Secondary Energy|Electricity|Hydrogen [electrolysis] (TWh/yr)"             = NA,
-      "Primary Energy|Hydrogen|Electricity [electrolysis] (TWh/yr)"               = NA,
-      "Secondary Energy|Electricity|Hydrogen|Hydrogen FC [electrolysis] (TWh/yr)" = "hfc",
-      "Secondary Energy|Electricity|Hydrogen|Hydrogen OC [electrolysis] (TWh/yr)" = "hct",
-      "Secondary Energy|Electricity|Hydrogen|Hydrogen CC [electrolysis] (TWh/yr)" = "hcc"
+      "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = NA,
+      "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen FC (TWh/yr)" = "hfc",
+      "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen OC (TWh/yr)" = "hct",
+      "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen CC (TWh/yr)" = "hcc"
     )
     
     for (var in names(varList_hgen)){
       tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_p2xse[,,varList_hgen[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
     }
     
-    o_hgen_ext <- setNames(output[,,"Primary Energy|Hydrogen|Electricity (TWh/yr)"],NULL)-setNames(tmp4[,,"Primary Energy|Hydrogen|Electricity [electrolysis] (TWh/yr)"],NULL)
-    tmp4 <- mbind(tmp4,setNames(o_hgen_ext,"Primary Energy|Hydrogen|Electricity [external] (TWh/yr)"))
+    #Hydrogen from external sources
+    o_hgen_ext <- setNames(output[,,"Primary Energy|Hydrogen|Electricity (TWh/yr)"],NULL)-setNames(tmp4[,,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"],NULL)
+    tmp4 <- mbind(tmp4,setNames(o_hgen_ext,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"))
     
-    o_pricehgen_weighted <- (setNames(output[,,"Price|Primary Energy|Hydrogen [external] (Eur2010/GJ)"],NULL)*setNames(tmp4[,,"Primary Energy|Hydrogen|Electricity [external] (TWh/yr)"],NULL)*3.6 + #Eur/GJ to eur/MWh
-                               setNames(tmp4[,,"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"],NULL)*setNames(tmp4[,,"Primary Energy|Hydrogen|Electricity [electrolysis] (TWh/yr)"],NULL))/
-      (setNames(tmp4[,,"Primary Energy|Hydrogen|Electricity [external] (TWh/yr)"],NULL) + setNames(tmp4[,,"Primary Energy|Hydrogen|Electricity [electrolysis] (TWh/yr)"],NULL))
+    #Weighted price for hydrogen
+    o_pricehgen_weighted <- (setNames(output[,,"Price|Primary Energy|Hydrogen [external] (Eur2010/GJ)"],NULL)*setNames(tmp4[,,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"],NULL)*3.6 + #Eur/GJ to eur/MWh
+                               setNames(tmp4[,,"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"],NULL)*setNames(tmp4[,,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"],NULL))/
+      (setNames(tmp4[,,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"],NULL) + setNames(tmp4[,,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"],NULL))
     tmp4 <- mbind(tmp4,setNames(o_pricehgen_weighted,"Price|Primary Energy|Hydrogen (Eur2010/MWh)"))
     
+    #Hydrogen produced from electricity (electrolysis input - losses)
+    p_eta <- p_tedata[,,"eta"]
+    p_eta_helec <- limesMapping(p_eta)[,,"helec"]
+    tmp4 <- mbind(tmp4,setNames(p_eta_helec*setNames(tmp4[,,"Primary Energy|Electricity|Hydrogen (TWh/yr)"],NULL),"Secondary Energy|Hydrogen|Electricity (TWh/yr)"))
     
     if(c_LIMESversion >= 2.36) {
       tau2season <- readGDX(gdx,name="tau2season") #mapping of tau's belonging to each season

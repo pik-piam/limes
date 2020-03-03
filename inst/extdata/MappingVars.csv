@@ -813,18 +813,19 @@ Short-run profits [w adeq rev/fix costs]|Electricity|Solar;Short-run profits [w 
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
-Primary Energy|Hydrogen|Electricity [electrolysis];Primary Energy|Hydrogen|Electricity [electrolysis];TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity [external];Primary Energy|Hydrogen|Electricity [external];TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [electrolysis]|Electricity;Primary Energy|Hydrogen [electrolysis]|Electricity;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [external]|Electricity;Primary Energy|Hydrogen [external]|Electricity;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
 Price|Primary Energy|Hydrogen [external];Price|Primary Energy|Hydrogen [external];Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [electrolysis];Eur2010/MWh;Eur2015/GJ;0.277777778
 Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/MWh;Eur2015/GJ;0.277777778
-Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity [electrolysis]|winter;Primary Energy|Hydrogen|Electricity [electrolysis]|winter;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|winter;Primary Energy|Electricity|Hydrogen|winter;TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity [electrolysis]|spring;Primary Energy|Hydrogen|Electricity [electrolysis]|spring;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|spring;Primary Energy|Electricity|Hydrogen|spring;TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity [electrolysis]|summer;Primary Energy|Hydrogen|Electricity [electrolysis]|summer;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|summer;Primary Energy|Electricity|Hydrogen|summer;TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity [electrolysis]|autumn;Primary Energy|Hydrogen|Electricity [electrolysis]|autumn;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|autumn;Primary Energy|Electricity|Hydrogen|autumn;TWh/yr;PJ/yr;3.6
+Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Electricity|winter;Primary Energy|Hydrogen [electrolysis]|Electricity|winter;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen|winter;Primary Energy|Electricity|Hydrogen|winter;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Electricity|spring;Primary Energy|Hydrogen [electrolysis]|Electricity|spring;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen|spring;Primary Energy|Electricity|Hydrogen|spring;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Electricity|summer;Primary Energy|Hydrogen [electrolysis]|Electricity|summer;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen|summer;Primary Energy|Electricity|Hydrogen|summer;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Electricity|autumn;Primary Energy|Hydrogen [electrolysis]|Electricity|autumn;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen|autumn;Primary Energy|Electricity|Hydrogen|autumn;TWh/yr;TWh/yr;1
+Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
