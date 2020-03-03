@@ -821,10 +821,10 @@ Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [elec
 Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/MWh;Eur2015/GJ;0.277777778
 Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity [electrolysis]|winter;Primary Energy|Hydrogen|Electricity [electrolysis]|winter;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|winter               ;Primary Energy|Electricity|Hydrogen|winter               ;TWh/yr;PJ/yr;3.6
+Primary Energy|Electricity|Hydrogen|winter;Primary Energy|Electricity|Hydrogen|winter;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity [electrolysis]|spring;Primary Energy|Hydrogen|Electricity [electrolysis]|spring;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|spring               ;Primary Energy|Electricity|Hydrogen|spring               ;TWh/yr;PJ/yr;3.6
+Primary Energy|Electricity|Hydrogen|spring;Primary Energy|Electricity|Hydrogen|spring;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity [electrolysis]|summer;Primary Energy|Hydrogen|Electricity [electrolysis]|summer;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity|Hydrogen|summer               ;Primary Energy|Electricity|Hydrogen|summer               ;TWh/yr;PJ/yr;3.6
+Primary Energy|Electricity|Hydrogen|summer;Primary Energy|Electricity|Hydrogen|summer;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity [electrolysis]|autumn;Primary Energy|Hydrogen|Electricity [electrolysis]|autumn;TWh/yr;PJ/yr;3.6
 Primary Energy|Electricity|Hydrogen|autumn;Primary Energy|Electricity|Hydrogen|autumn;TWh/yr;PJ/yr;3.6
