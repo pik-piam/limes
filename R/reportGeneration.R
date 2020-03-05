@@ -399,14 +399,14 @@ reportGeneration <- function(gdx,output=NULL) {
       for(i in 1:length(seasons)) {
         taus <- c(tau2season$tau[tau2season$season == seasons[i]])
         if(length(taus) == 0) {
-          o_outputhelec <- new.magpie(cells_and_regions = getRegions(v_otherse), years = getYears(v_otherse), names = paste0("Primary Energy|Hydrogen|Electricity [electrolysis]|",seasons[i]," (TWh/yr)"),
+          o_outputhelec <- new.magpie(cells_and_regions = getRegions(v_otherse), years = getYears(v_otherse), names = paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)"),
                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
           o_inputhelec <- new.magpie(cells_and_regions = getRegions(v_otherse), years = getYears(v_otherse), names = paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)"),
                                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
           tmp4 <- mbind(tmp4,o_outputhelec)
           tmp4 <- mbind(tmp4,o_inputhelec)
         } else {
-          tmp4 <- mbind(tmp4,setNames(dimSums(v_otherse[,,taus]*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Hydrogen|Electricity [electrolysis]|",seasons[i]," (TWh/yr)")))
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_otherse[,,taus]*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)")))
           o_inputhelec <- v_storein[,,"helec"]
           tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(o_inputhelec[,,taus],dim=c(3.2))*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)")))
         }
