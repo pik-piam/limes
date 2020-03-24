@@ -326,7 +326,7 @@ reportGeneration <- function(gdx,output=NULL) {
   tmp4 <- mbind(tmp4,setNames(dimSums((dimSums(v_storein,dim=c(3.2)) - dimSums(v_storeout,dim=c(3.2)))*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
   
   #Hydrogen (from electrolysis) used in hydrogen-based generation plants
-  if(c_LIMESversion >= 2.34) {
+  if(c_LIMESversion >= 2.36) {
     #t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
     t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
     c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
