@@ -44,7 +44,7 @@ reportExchange <- function(gdx) {
   m_elecprices <- m_elecprices[,,"seel"]
   
   # create MagPie object of m_elecprices with iso3 regions
-  m_elecprices <- limesMapping(m_elecprices)
+  m_elecprices <- limesMapping(m_elecprices)[,,tau]
   
   # calculate marginal value per tau
   m_elecprices = m_elecprices/p_taulength
