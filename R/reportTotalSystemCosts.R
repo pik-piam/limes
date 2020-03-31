@@ -41,9 +41,9 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   v_costintrans <- readGDX(gdx,name="v_costintrans",field="l",format="first_found")
   v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
   
-  # read variables that have been already calculated in other functions (emissions and trade costs)
-  o_costtrade <- output[,,"Total Energy System Cost|Power Sector|Trade Costs (billion eur2010/yr)"]
-  o_costco2 <- output[,,"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"]
+  # read variables that have been already calculated in other functions 
+  o_costtrade <- output[,,"Total Energy System Cost|Power Sector|Trade Costs (billion eur2010/yr)"] #From Exchange
+  o_costco2 <- output[,,"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"] #From CO2Price
   
   # create MagPie object of variables with iso3 regions
   v_costfu <- limesMapping(v_costfu)

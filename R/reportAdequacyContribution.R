@@ -60,14 +60,14 @@ reportAdequacyContribution <- function(gdx) {
   p_tedata_nu <- p_tedata[,,"nu"]
   
   # create MagPie object with iso3 regions
-  v_exdemand <- limesMapping(v_exdemand)
+  v_exdemand <- limesMapping(v_exdemand)[,,tau]
   p_tedata_nu <- limesMapping(p_tedata_nu)
   v_cap <- limesMapping(v_cap)
-  v_seprodmax <- limesMapping(v_seprodmax)
-  m_robuststrategy2 <- limesMapping(m_robuststrategy2)
-  v_seprod <- limesMapping(v_seprod)
-  v_storeout <- limesMapping(v_storeout)
-  v_storein <- limesMapping(v_storein)
+  v_seprodmax <- limesMapping(v_seprodmax)[,,tau]
+  m_robuststrategy2 <- limesMapping(m_robuststrategy2)[,,tau]
+  v_seprod <- limesMapping(v_seprod)[,,tau]
+  v_storeout <- limesMapping(v_storeout)[,,tau]
+  v_storein <- limesMapping(v_storein)[,,tau]
   v_capreserve <- limesMapping(v_capreserve)
   
   #Check the version so to choose the electricity-related variables
