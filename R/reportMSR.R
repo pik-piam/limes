@@ -65,6 +65,17 @@ reportMSR <- function(gdx) {
     tmp1 <- mbind(tmp1,setNames(p_extraintakeMSR*s_c2co2*1000,"Emissions|CO2|Additional intake to the MSR (Mt CO2)"))
     tmp1 <- mbind(tmp1,setNames(p_MSR*s_c2co2*1000,"Emissions|CO2|MSR level (Mt CO2)"))
     
+    #Exogenous cancellations from MSR (implemented for Innopaths)
+    if(c_LIMESversion >= 2.36) {
+      c_exocancMSR <- readGDX(gdx,name="c_exocancMSR",field="l",format="first_found")
+      p_exocancMSR <- readGDX(gdx,name="p_exocancMSR",field="l",format="first_found")
+      
+      if(c_exocancMSR == 1) {
+        tmp1 <- mbind(tmp1,setNames(p_exocancMSR*s_c2co2*1000,"Emissions|CO2|Cancellation from MSR [exogenous] (Mt CO2/yr)"))
+      }
+      
+    }
+    
     tmp2 <- NULL
     
     

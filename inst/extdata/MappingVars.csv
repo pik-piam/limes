@@ -829,3 +829,4 @@ Primary Energy|Electricity|Hydrogen|summer;Primary Energy|Electricity|Hydrogen|s
 Primary Energy|Hydrogen [electrolysis]|Electricity|autumn;Primary Energy|Hydrogen [electrolysis]|Electricity|autumn;TWh/yr;TWh/yr;1
 Primary Energy|Electricity|Hydrogen|autumn;Primary Energy|Electricity|Hydrogen|autumn;TWh/yr;TWh/yr;1
 Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
+Emissions|CO2|Cancellation from MSR [exogenous];Emissions|CO2|Cancellation from MSR [exogenous];Mt CO2/yr;Mt CO2/yr;1
