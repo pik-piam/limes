@@ -74,6 +74,7 @@ reportAdequacyContribution <- function(gdx) {
   if(c_LIMESversion >= 2.28) {
     p_eldemand <- v_exdemand[,,"seel"]
     v_seprod <- v_seprod[,,"seel"]
+    
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
@@ -82,6 +83,11 @@ reportAdequacyContribution <- function(gdx) {
   } else {
     p_eldemand <- v_exdemand
   }
+  
+  v_storein_el <- v_storein[,,"seel"]
+  v_storeout_el <- v_storeout[,,"seel"]
+  v_storein_el <- collapseNames(v_storein_el)
+  v_storeout_el <- collapseNames(v_storeout_el)
   
   
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks
@@ -191,8 +197,8 @@ reportAdequacyContribution <- function(gdx) {
       else {
         capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])])
         demand_peak[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
-        netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
-        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout[regi2,year2,as.character(taupeak[regi2,year2,])])
+        netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
+        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])])
       }
       
       if (taumax[regi2,year2,] == 0) {
@@ -204,8 +210,8 @@ reportAdequacyContribution <- function(gdx) {
       else {
         capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])])
         demand_marg[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
-        netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
-        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout[regi2,year2,as.character(taumax[regi2,year2,])])
+        netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
+        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])])
       }
     }
   }

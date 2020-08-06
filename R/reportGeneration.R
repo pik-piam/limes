@@ -77,12 +77,24 @@ reportGeneration <- function(gdx,output=NULL) {
   if(c_LIMESversion >= 2.28) {
     
     v_seprod_el <- v_seprod[,,"seel"]
+    v_storein_el <- v_storein[,,"seel"]
+    v_storeout_el <- v_storeout[,,"seel"]
+    v_storein_el <- collapseNames(v_storein_el)
+    v_storeout_el <- collapseNames(v_storeout_el)
+    
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    
     if(c_heating == 1) {
       v_seprod_he <- v_seprod[,,"sehe"]
       v_seprod_he <- collapseNames(v_seprod_he)
       p_eldemand <- v_exdemand[,,"seel"]
       #v_seprod_el <- v_seprod[,,"seel"]
+      
+      v_storein_he <- v_storein[,,"sehe"]
+      v_storeout_he <- v_storeout[,,"sehe"]
+      v_storein_he <- collapseNames(v_storein_he)
+      v_storeout_he <- collapseNames(v_storeout_he)
+      
     } else {
       p_eldemand <- v_exdemand
       #v_seprod_el <- v_seprod
@@ -156,8 +168,8 @@ reportGeneration <- function(gdx,output=NULL) {
   }
   
   #general aggregation
-  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy|Electricity|w/ storage (TWh/yr)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout,dim=c(3.2)) - dimSums(v_storein,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy||Electricity|w/o losses (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout_el,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy|Electricity|w/ storage (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout_el,dim=c(3.2)) - dimSums(v_storein_el,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy||Electricity|w/o losses (TWh/yr)"))
   
   tmp2 <- NULL
   #when there is endogenous heating
@@ -306,7 +318,7 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   for (var in names(varList_st)){
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storeout[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storeout_el[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
   }
   
   #Storage consumption
@@ -319,11 +331,11 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   for (var in names(varList_st)){
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storein[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storein_el[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
   }
   
   #Storage losses
-  tmp4 <- mbind(tmp4,setNames(dimSums((dimSums(v_storein,dim=c(3.2)) - dimSums(v_storeout,dim=c(3.2)))*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
+  tmp4 <- mbind(tmp4,setNames(dimSums((dimSums(v_storein_el,dim=c(3.2)) - dimSums(v_storeout_el,dim=c(3.2)))*p_taulength/1000,dim=3),"Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
   
   #Hydrogen (from electrolysis) used in hydrogen-based generation plants
   if(c_LIMESversion >= 2.36) {
@@ -407,7 +419,7 @@ reportGeneration <- function(gdx,output=NULL) {
           tmp4 <- mbind(tmp4,o_inputhelec)
         } else {
           tmp4 <- mbind(tmp4,setNames(dimSums(v_otherse[,,taus]*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)")))
-          o_inputhelec <- v_storein[,,"helec"]
+          o_inputhelec <- v_storein_el[,,"helec"]
           tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(o_inputhelec[,,taus],dim=c(3.2))*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)")))
         }
         
