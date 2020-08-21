@@ -86,6 +86,8 @@ reportCapacity <- function(gdx) {
     tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
     tedh <- readGDX(gdx,name="tedh") #set of District Heating generation technologies
     tedhelec <- readGDX(gdx,name="tedhelec") #set of electric District Heating generation technologies
+    teohecen <- readGDX(gdx,name="teohecen") #set of centralized only-heating generation technologies
+    tehedec <- readGDX(gdx,name="tehedec") #set of decentralized only-heating generation technologies
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       #CHP
@@ -122,24 +124,71 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teoil)],dim=3),"Capacity|Electricity|Electricity-only|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teothers)],dim=3),"Capacity|Electricity|Electricity-only|Other (GW)"))
       
-      #District Heating
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(tedh)],dim=3),"Capacity|Heat|District Heating (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(tecoal,telig),tedh)],dim=3),"Capacity|Heat|District Heating|Coal (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tecoal,tedh)],dim=3),"Capacity|Heat|District Heating|Hard Coal (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(telig,tedh)],dim=3),"Capacity|Heat|District Heating|Lignite (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tegas,tedh)],dim=3),"Capacity|Heat|District Heating|Gas (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,tedh)],dim=3),"Capacity|Heat|District Heating|Biomass (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,tedh)],dim=3),"Capacity|Heat|District Heating|Oil (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,tedh)],dim=3),"Capacity|Heat|District Heating|Other (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tewaste,tedh)],dim=3),"Capacity|Heat|District Heating|Waste (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("sol_heat",tedh)],dim=3),"Capacity|Heat|District Heating|Solar (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("geo_heat",tedh)],dim=3),"Capacity|Heat|District Heating|Geothermal (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tedhelec,tedh)],dim=3),"Capacity|Heat|District Heating|Electricity (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("hpump",tedh)],dim=3),"Capacity|Heat|District Heating|Electricity|Heat Pump (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect("elboil",tedh)],dim=3),"Capacity|Heat|District Heating|Electricity|Electric Boiler (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tefossil,tedh)],dim=3),"Capacity|Heat|District Heating|Fossil (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tenr,tedh)],dim=3),"Capacity|Heat|District Heating|Non-renewable (GW)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(ter,ternofluc),tedh)],dim=3),"Capacity|Heat|District Heating|Renewable (GW)"))
+      #Heat-related capacities
+      varList_he <- list(
+        #1.a) Only-heat (centralized boilers)
+        "Capacity|Heat|District Heating|Heat-only (TWh/yr)"                               =c(teohecen),
+        "Capacity|Heat|District Heating|Heat-only|Biomass (TWh/yr)"                       =intersect(teohecen,tebio),
+        "Capacity|Heat|District Heating|Heat-only|Coal (TWh/yr)"                          =intersect(teohecen,c(tecoal,telig)),
+        "Capacity|Heat|District Heating|Heat-only|Hard Coal (TWh/yr)"                     =intersect(teohecen,c(tecoal)),
+        "Capacity|Heat|District Heating|Heat-only|Lignite (TWh/yr)"                       =intersect(teohecen,c(telig)),
+        "Capacity|Heat|District Heating|Heat-only|Oil (TWh/yr)"                           =intersect(teohecen,c(teoil)),
+        "Capacity|Heat|District Heating|Heat-only|Gas (TWh/yr)"                           =intersect(teohecen,c(tegas)),
+        "Capacity|Heat|District Heating|Heat-only|Other (TWh/yr)"                         =intersect(teohecen,c(teothers)),
+        "Capacity|Heat|District Heating|Heat-only|Waste (TWh/yr)"                         =intersect(teohecen,c(tewaste)),
+        "Capacity|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                  =intersect(teohecen,c(teothers,tewaste,teoil)),
+        "Capacity|Heat|District Heating|Heat-only|Electricity (TWh/yr)"                   =intersect(teohecen,c(tedhelec)),
+        "Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"         =intersect(teohecen,"hpump"),
+        "Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"   =intersect(teohecen,"elboil"),
+        "Capacity|Heat|District Heating|Heat-only|Solar (TWh/yr)"                         =intersect(teohecen,c("sol_heat")),
+        "Capacity|Heat|District Heating|Heat-only|Geothermal (TWh/yr)"                    =intersect(teohecen,c("geo_heat")),
+        "Capacity|Heat|District Heating|Heat-only|Fossil (TWh/yr)"                        =intersect(teohecen,c(tefossil)),
+        "Capacity|Heat|District Heating|Heat-only|Renewable (TWh/yr)"                     =intersect(teohecen,c(ter,ternofluc)),
+        "Capacity|Heat|District Heating|Heat-only|Non-renewable (TWh/yr)"                 =intersect(teohecen,tenr),
+        
+        #1.b) District Heating
+        "Capacity|Heat|District Heating (TWh/yr)"                             =c(tedh),
+        "Capacity|Heat|District Heating|Biomass (TWh/yr)"                     =intersect(tedh,tebio),
+        "Capacity|Heat|District Heating|Coal (TWh/yr)"                        =intersect(tedh,c(tecoal,telig)),
+        "Capacity|Heat|District Heating|Hard Coal (TWh/yr)"                   =intersect(tedh,c(tecoal)),
+        "Capacity|Heat|District Heating|Lignite (TWh/yr)"                     =intersect(tedh,c(telig)),
+        "Capacity|Heat|District Heating|Oil (TWh/yr)"                         =intersect(tedh,c(teoil)),
+        "Capacity|Heat|District Heating|Gas (TWh/yr)"                         =intersect(tedh,c(tegas)),
+        "Capacity|Heat|District Heating|Other (TWh/yr)"                       =intersect(tedh,c(teothers)),
+        "Capacity|Heat|District Heating|Waste (TWh/yr)"                       =intersect(tedh,c(tewaste)),
+        "Capacity|Heat|District Heating|Other Fossil (TWh/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
+        "Capacity|Heat|District Heating|Electricity (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
+        "Capacity|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
+        "Capacity|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil"),
+        "Capacity|Heat|District Heating|Solar (TWh/yr)"                       =intersect(tedh,c("sol_heat")),
+        "Capacity|Heat|District Heating|Geothermal (TWh/yr)"                  =intersect(tedh,c("geo_heat")),
+        "Capacity|Heat|District Heating|Fossil (TWh/yr)"                      =intersect(tedh,c(tefossil)),
+        "Capacity|Heat|District Heating|Renewable (TWh/yr)"                   =intersect(tedh,c(ter,ternofluc)),
+        "Capacity|Heat|District Heating|Non-renewable (TWh/yr)"               =intersect(tedh,tenr)
+        
+      )
+      
+      for (var in names(varList_he)){
+        tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,varList_he[[var]]],dim=3),var))
+      }
+      
+      c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module
+      if(c_buildings == 1) {
+        varList_he <- list(
+          #1.c) Decentralized heating (only electricity-based)
+          "Capacity|Heat|Decentralized (TWh/yr)"                             =c(tehedec),
+          "Capacity|Heat|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,"hpump_dec"),
+          "Capacity|Heat|Decentralized|Resistive electric heater (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
+          "Capacity|Heat|Decentralized|Conventional heater (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
+          "Capacity|Heat|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
+        )
+        
+        for (var in names(varList_he)){
+          tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,varList_he[[var]]],dim=3),var))
+        }
+        
+      }
+      
     }
     
     #Biomass w/ CCS
@@ -235,17 +284,35 @@ reportCapacity <- function(gdx) {
   if(c_LIMESversion >= 2.34) {
     v_storecap <- readGDX(gdx,name="v_storecap",field="l",format="first_found")[,,testore]
     v_storecap <- limesMapping(v_storecap)
-    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,],dim=3),"Capacity|Electricity|Storage Reservoir (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp","batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("psp")],"Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("batteries")],"Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"))
-    tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("helec")],"Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"))
+    
+    varList_st <- list(
+      "Capacity|Electricity|Storage Reservoir (GWh)"                       =setdiff(testore,c("heat_sto")),
+      "Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"             ="psp",
+      "Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"            ="psp",           
+      "Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"        ="batteries",               
+      "Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)" ="helec"
+    )
+    
+    for (var in names(varList_st)){
+      tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,varList_st[[var]]],dim=3),var))
+    }
+    
+    #tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,setdiff(testore,c("heat_sto"))],dim=3),"Capacity|Electricity|Storage Reservoir (GWh)"))
+    #tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("psp","batteries")],dim=3),"Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"))
+    #tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("psp")],"Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"))
+    #tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("batteries")],"Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"))
+    #tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("helec")],"Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"))
     
     
     #Number of storing hours
     tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("psp")]/v_cap[,,c("psp")],"Discharge duration|Pump Hydro (h)"))
     tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("batteries")]/v_cap[,,c("batteries")],"Discharge duration|Stat Batteries (h)"))
     tmp8 <- mbind(tmp8,setNames(v_storecap[,,c("helec")]/v_cap[,,c("helec")],"Discharge duration|Hydrogen electrolysis (h)"))
+    
+    if(c_heating == 1) {
+      tmp8 <- mbind(tmp8,setNames(dimSums(v_storecap[,,c("heat_sto")],dim=3),"Capacity|Heat|Storage Reservoir (GWh)"))
+    }
+    
   }
   
   #combine aggregated capacity with brake-down of technologies

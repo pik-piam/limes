@@ -61,7 +61,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
       tmp2 <- mbind(tmp2,setNames(v_bankemi[,,]*s_c2co2*1000,"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
       tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
     } else {
-      tmp2 <- mbind(tmp2,setNames(v_bankemi[,,]*s_c2co2*1000,"Emissions level in ETS|CO2 (Mt CO2)"))
+      tmp2 <- mbind(tmp2,setNames(v_bankemi[,,]*s_c2co2*1000,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"))
       
       #include the aviation variables (only available from 2.28)
       if (c_LIMESversion >= 2.28) {

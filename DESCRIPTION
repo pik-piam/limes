@@ -1,8 +1,8 @@
 Package: limes
 Type: Package
 Title: The liMES R package
-Version: 1.5.1
-Date: 2020-08-06
+Version: 2.0.0
+Date: 2020-08-21
 Author: Sebastian Osorio
 Maintainer: Sebastian Osorio <sebastian.osorio@pik-potsdam.de>
 Description: Contains the LIMES-specific routines for data and model output manipulation.
@@ -27,4 +27,11 @@ Suggests: testthat
 License: LGPL-3
 Encoding: UTF-8
 RoxygenNote: 7.1.1
-ValidationKey: 2790480
+ValidationKey: 3699000
+Authors@R: 
+    c(person(given = "Sebastian",
+             family = "Osorio",
+             email = "sebastian.osorio@pik-potsdam.de"),
+      person(given = "Sebastian",
+             family = "Osorio",
+             email = "sebastian.osorio@pik-potsdam.de"))

@@ -52,21 +52,22 @@ reportDemand <- function(gdx,output=NULL) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       p_eldemand <- v_exdemand[,,"seel"]
-      p_hedemand <- v_exdemand[,,"sehe"]
+      p_hedemand <- v_exdemand[,,"sehe"] #This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
       
       p_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found")
       p_losses_heat <- limesMapping(p_losses_heat)
       
-      o_elecheat_hpump <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)")]
-      getNames(o_elecheat_hpump) <- NULL
-      o_elecheat_eboil <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)")]
-      getNames(o_elecheat_eboil) <- NULL
+      #o_elecheat_hpump <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)")] #from reportGeneration
+      #getNames(o_elecheat_hpump) <- NULL
+      #o_elecheat_eboil <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)")] #from reportGeneration
+      #getNames(o_elecheat_eboil) <- NULL
       
       p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
       p_etah <- p_tedata[,,"etah"]
       p_etah <- limesMapping(p_etah)
       
-      o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
+      #o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
+      o_elecheat <- output[,,which(getNames(output)=="Final Energy|Heat|Electricity (TWh/yr)")] #from reportGeneration
       getNames(o_elecheat) <- NULL
     } else {
       p_eldemand <- v_exdemand
@@ -89,13 +90,35 @@ reportDemand <- function(gdx,output=NULL) {
   tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
   
+  #Peak demand countries
+  tmp1 <- mbind(tmp1,setNames(as.magpie(apply(p_eldemand,1:2,max)),"Capacity|Electricity|Peak Demand (GW)"))
+  
   #heating-related
   tmp2 <- NULL
   if(c_LIMESversion >= 2.28) {
     if(c_heating == 1) {
-      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_elecheat + o_storecons,"Gross Energy|Electricity|w/ Storage and DisHeat (TWh/yr)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/1000,"Gross Energy|Heat (TWh/yr)"))
-      tmp2 <- mbind(tmp2,setNames((dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final Energy|Heat (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_storecons,"Gross Energy|Electricity|w/ Storage (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 - o_elecheat,"Gross Energy|Electricity|w/o electric heating (TWh/yr)"))
+      
+      #Heat-related
+      c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module
+      v_heatwaste <- readGDX(gdx,name="v_heatwaste",field="l",format="first_found") #Waste heat
+      
+      
+      v_heatwaste <- limesMapping(v_heatwaste)
+      
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_heatwaste*p_taulength,dim=3)/1000,"Useful Energy|Waste heat (TWh/yr)"))
+      #tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_heat))/1000,"Final Energy|Heat (TWh/yr)")
+      
+      if(c_buildings == 1) {
+        v_bd_heatdem_ESR <- readGDX(gdx,name="v_bd_heatdem_ESR",field="l",format="first_found") #heat that is covered by the ES [annual data per sector]
+        v_bd_heatdem_ESR <- limesMapping(v_bd_heatdem_ESR)
+        
+        tmp2 <- mbind(tmp2,setNames(dimSums((p_hedemand-v_heatwaste)*p_taulength,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|ETS (TWh/yr)"))
+        tmp2 <- mbind(tmp2,setNames(dimSums(v_bd_heatdem_ESR,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|non-ETS (TWh/yr)"))
+        tmp2 <- mbind(tmp2,setNames((dimSums((p_hedemand-v_heatwaste)*p_taulength,dim=3)+dimSums(v_bd_heatdem_ESR,dim=3))/1000,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"))
+        
+      }
     }
   }
   

@@ -61,8 +61,8 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
   
-  #adding peak demand to report output
-  output <- mbind(output,reportPeakDemand(gdx)[,time,])
+  #adding peak demand to report output (now included in reportDemand)
+  #output <- mbind(output,reportPeakDemand(gdx)[,time,])
   
   #adding curtailment to report output
   #output <- mbind(output,reportCurtailment(gdx)[,time,]) #now on generation
@@ -77,10 +77,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportDisinvestments(gdx)[,time,])
   
   #adding exchange to report output
-  output <- mbind(output,reportExchange(gdx)[,time,])
+  #output <- mbind(output,reportExchange(gdx)[,time,])
   
   #adding carbon sequestration to report output
-  output <- mbind(output,reportTotalSystemCosts(gdx,output)[,time,])
+  #output <- mbind(output,reportTotalSystemCosts(gdx,output)[,time,]) #depends on reportExchange and reportCO2Price
   
   #adding adequacy contribution to report output
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
@@ -261,8 +261,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   }
   
   #Transmission capacity aggregated (special case)
-  output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
-  output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
+  if(length(intersect(getNames(output),"Capacity|Electricity|Transmission Gri (GW)")) > 0) {
+    output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
+    output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
+  }
   
   
   #ADDING VARIABLES THAT ONLY EXIST FOR AN AGGREGATED REGION, e.g., the EU ETS cap
@@ -299,13 +301,20 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   
   #INCLUDE HISTORICAL VALUES FOR THE INDUSTRY
+  #(source: "REPORT FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Report on the functioning of the European carbon market COM/2019/557 final/2" https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52019DC0557R(01))
   if(!is.na(match("Emissions|CO2|Industry (Mt CO2/yr)",getNames(output)))) {
-    output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 537.4
-    output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 590.8
-    output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- 537.4 + output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
-    output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- 590.8 + output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
-    output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- 537.4 + output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
-    output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- 590.8 + output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
+    output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 715 #Value from 2011 (2010 not available) - emissions reported from data viewer (537.4) might be incomplete as some could be included in combustion
+    output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 771 #emissions reported from data viewer (590.8) might be incomplete as some could be included in combustion
+    output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
+    output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
+    output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
+    output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
+    
+    #To avoid confusion, make sure that industry-related values are not reported for the EU28
+    output["EU28",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
+    output["EU28",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA 
+    output["EU28",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
+    output["EU28",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
   }
   
   #SCALING THE RESULTS ACCORDING TO THE UNITS SPECIFIES FOR THE PROJECT
@@ -328,9 +337,13 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #WRITE REPORT
   #load the model version
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found") #model version
-  if(!is.null(file)) write.report(output_f,model=paste0("LIMES_EU_v",c_LIMESversion),scenario=scenario,file=file,ndigit=7)
+  if(!is.null(file)) {
+    write.report(output_f,model=paste0("LIMES_EU_v",c_LIMESversion),scenario=scenario,file=file,ndigit=7)
+  } 
   #if(!is.null(file)) write.reportProject(paste0("LIMES_generic_",scenario,".mif"),mappingvars,model="LIMES_EU",scenario=scenario,file=file,ndigit=7)
-  else return(output_f)  
+  else {
+    return(output_f) 
+  }  
   
   
   #################################################################

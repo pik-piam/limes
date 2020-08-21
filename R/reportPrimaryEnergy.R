@@ -131,7 +131,7 @@ reportPrimaryEnergy <- function(gdx) {
       #Heat
       varList_he <- list(
         "Primary Energy|Heat (TWh/yr)"                        =NA,
-        "Primary Energy|Exhaustible resources|Heat (TWh/yr)"  =c(petyex),                    
+        "Primary Energy|Exhaustible resources|Heat (TWh/yr)"  =setdiff(petyex,c("pehgen", "peur")),                    
         "Primary Energy|Biomass|Heat (TWh/yr)"                =intersect(tebio,tehe),
         "Primary Energy|Coal|Heat (TWh/yr)"                   =intersect(c(tecoal,telig),tehe),
         "Primary Energy|Hard Coal|Heat (TWh/yr)"              =intersect(tecoal,tehe),

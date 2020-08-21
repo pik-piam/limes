@@ -76,24 +76,40 @@ reportEmissions <- function(gdx) {
   
   #annual emissions per country
   tmp2 <- NULL
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,],3),"Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(telig,tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity|Coal (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(setdiff(telig,teccs),setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity|Coal|w/o CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,intersect(c(tecoal,telig),teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Coal|w/ CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity|Hard Coal (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(setdiff(tecoal,"pcc"))],3),"Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/o CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,intersect(tecoal,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/ CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(telig)],3),"Emissions|CO2|Energy|Supply|Electricity|Lignite (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(setdiff(telig,teccs))],3),"Emissions|CO2|Energy|Supply|Electricity|Lignite|w/o CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,intersect(telig,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Lignite|w/ CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teoil)],3),"Emissions|CO2|Energy|Supply|Electricity|Oil (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(tegas_el)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,setdiff(tegas_el,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas|w/o CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,intersect(tengcc_el,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Gas|w/ CCS (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c("pewaste")],3),"Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(teothers,"waste",teoil)],3),"Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"))
-  tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,c(tefossil)],3),"Emissions|CO2|Energy|Supply|Electricity|Fossil (Mt CO2/yr)"))
+  
+  varList_el <- list(
+    #Conventional
+    "Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"                        =NA,
+    "Emissions|CO2|Energy|Supply|Electricity|Coal (Mt CO2/yr)"                   =intersect(teel,c(tecoal,telig)),
+    "Emissions|CO2|Energy|Supply|Electricity|Coal|w/o CCS (Mt CO2/yr)"           =intersect(teel,setdiff(c(tecoal,telig),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Coal|w/ CCS (Mt CO2/yr)"            =intersect(teel,intersect(c(tecoal,telig),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Hard Coal (Mt CO2/yr)"              =intersect(teel,c(tecoal)),
+    "Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/o CCS (Mt CO2/yr)"      =intersect(teel,setdiff(c(tecoal),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Hard Coal|w/ CCS (Mt CO2/yr)"       =intersect(teel,intersect(c(tecoal),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Lignite (Mt CO2/yr)"                =intersect(teel,c(telig)),
+    "Emissions|CO2|Energy|Supply|Electricity|Lignite|w/o CCS (Mt CO2/yr)"        =intersect(teel,setdiff(c(telig),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Lignite|w/ CCS (Mt CO2/yr)"         =intersect(teel,intersect(c(telig),teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Oil (Mt CO2/yr)"                    =intersect(teel,c(teoil)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas (Mt CO2/yr)"                    =intersect(teel,c(tegas)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas|w/o CCS (Mt CO2/yr)"            =intersect(teel,setdiff(tegas_el,teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas|w/ CCS (Mt CO2/yr)"             =intersect(teel,intersect(tegas_el,teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas CC|w/o CCS (Mt CO2/yr)"         =intersect(teel,setdiff(tengcc_el,teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas CC|w/ CCS (Mt CO2/yr)"          =intersect(teel,intersect(tengcc_el,teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas CC (Mt CO2/yr)"                 =intersect(teel,c(tengcc_el)),
+    "Emissions|CO2|Energy|Supply|Electricity|Gas OC (Mt CO2/yr)"                 =intersect(teel,setdiff(tegas_el,tengcc_el)),
+    "Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"                  =intersect(teel,c(teothers)),
+    "Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"                  =intersect(teel,c("waste")),
+    "Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"           =intersect(teel,c(teothers,"waste",teoil)),
+    
+    #general aggregation
+    "Emissions|CO2|Energy|Supply|Electricity|Fossil (Mt CO2/yr)"                 =intersect(teel,c(tefossil)),
+    "Emissions|CO2|Energy|Supply|Electricity|Fossil|w/o CCS (Mt CO2/yr)"         =intersect(teel,setdiff(tefossil,teccs)),
+    "Emissions|CO2|Energy|Supply|Electricity|Fossil|w/ CCS (Mt CO2/yr)"          =intersect(teel,intersect(tefossil,teccs))
+  )
+  
+  for (var in names(varList_el)){
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3),var))
+  }
   
   # concatenate vars
   tmp3 <- mbind(tmp1,tmp2)
@@ -106,36 +122,85 @@ reportEmissions <- function(gdx) {
     tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
     
     #Biomass related variables (because there are new biomass technologies from v2.33)
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)"))
+    #tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)")) #might be confusing the fact that is exactly the same as BECCS
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],3),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
     
     
     if(c_heating == 1) {
-      #Heat 
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,],3),"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(tecoal,telig),tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tecoal,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Hard Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(telig,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Lignite (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teoil,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Oil (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tegas,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Gas (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(teothers,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Other (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(tewaste,tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Waste (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,intersect(c(teothers,tewaste,teoil),tehe)],3),"Emissions|CO2|Energy|Supply|Heat|Other Fossil (Mt CO2/yr)"))
+      #load heat-related sets
+      techp <- readGDX(gdx,name="techp")
+      teohecen <- readGDX(gdx,name="teohecen")
+      tedh <- readGDX(gdx,name="tedh")
+      tedhelec <- readGDX(gdx,name="tedhelec")
+      ternofluc <- readGDX(gdx,name="ternofluc")
       
+      
+      #1) Emissions FROM DH: CHP AND Heat-only 
+      varList_he <- list(
+        #1.b) CHP
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Oil (Mt CO2/yr)"                     =intersect(techp,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas (Mt CO2/yr)"                     =intersect(techp,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas CC (Mt CO2/yr)"                  =intersect(techp,c(tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas OC (Mt CO2/yr)"                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other (Mt CO2/yr)"                   =intersect(techp,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil)),
+        
+        #1.c) Only-heat (centralized boilers)
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only (Mt CO2/yr)"                   =setdiff(teohecen,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Coal (Mt CO2/yr)"              =intersect(teohecen,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Hard Coal (Mt CO2/yr)"         =intersect(teohecen,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Lignite (Mt CO2/yr)"           =intersect(teohecen,c(telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Oil (Mt CO2/yr)"               =intersect(teohecen,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Gas (Mt CO2/yr)"               =intersect(teohecen,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other (Mt CO2/yr)"             =intersect(teohecen,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Waste (Mt CO2/yr)"             =intersect(teohecen,c(tewaste)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other Fossil (Mt CO2/yr)"      =intersect(teohecen,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Fossil (Mt CO2/yr)"            =intersect(teohecen,c(tefossil)),
+        
+        #1.d) District Heating
+        "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"                             =setdiff(tedh,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Coal (Mt CO2/yr)"                        =intersect(tedh,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Hard Coal (Mt CO2/yr)"                   =intersect(tedh,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Lignite (Mt CO2/yr)"                     =intersect(tedh,c(telig)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Oil (Mt CO2/yr)"                         =intersect(tedh,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Gas (Mt CO2/yr)"                         =intersect(tedh,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Other (Mt CO2/yr)"                       =intersect(tedh,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Waste (Mt CO2/yr)"                       =intersect(tedh,c(tewaste)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil (Mt CO2/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil (Mt CO2/yr)"                      =intersect(tedh,c(tefossil))
+      )
+      
+      for (var in names(varList_he)) {
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,varList_he[[var]]],dim=3),var))
+      }
       
       #Electricity and Heat
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,],3),"Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig,tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tecoal)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(telig)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Oil (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tegas)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Gas (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(tewaste)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Waste (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,c(teothers,tewaste,teoil)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"))
+      varList_el <- list(
+        #Conventional
+        "Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"                  =NA,
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"          =intersect(te,intersect(tebio,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Coal (Mt CO2/yr)"             =intersect(te,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal (Mt CO2/yr)"        =intersect(te,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Lignite (Mt CO2/yr)"          =intersect(te,c(telig)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Oil (Mt CO2/yr)"              =intersect(te,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Gas (Mt CO2/yr)"              =intersect(te,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Other (Mt CO2/yr)"            =intersect(te,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Waste (Mt CO2/yr)"            =intersect(te,c(tewaste)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil (Mt CO2/yr)"     =intersect(te,c(teothers,tewaste,teoil)),
+        
+        #general aggregation
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|Fossil (Mt CO2/yr)"           =intersect(te,c(tefossil))
+      )
       
+      for (var in names(varList_el)){
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList_el[[var]]],dim=3),var))
+      }
     }
   } 
   

@@ -71,8 +71,8 @@ Price|Carbon|Net|Industry;Price|Carbon|Net|Industry;Eur2010/t CO2;Eur2015/t CO2;
 Price|Carbon|National Climate Target|Industry;Price|Carbon|National Climate Target|Industry;Eur2010/t CO2;Eur2015/t CO2;1
 Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1
 Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1
-Gross Energy|Electricity|w/ Storage and DisHeat;Gross Energy|Electricity|w/ Storage and DisHeat;TWh/yr;TWh/yr;1
-Gross Energy|Heat;Gross Energy|Heat;TWh/yr;TWh/yr;1
+Gross Energy|Electricity|w/ Storage;Gross Energy|Electricity|w/ Storage;TWh/yr;TWh/yr;1
+Gross Energy|Electricity|w/o electric heating;Gross Energy|Electricity|w/o electric heating;TWh/yr;TWh/yr;1
 Primary Energy|Electricity;Primary Energy|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Exhaustible resources|Electricity;Primary Energy|Exhaustible resources|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Biomass|Electricity;Primary Energy|Biomass|Electricity;TWh/yr;PJ/yr;3.6
@@ -316,7 +316,6 @@ Emissions|CO2|Aviation;Emissions|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Certificates from Stationary|Aviation;Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Stationary|Electricity and Industry;Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Stationary;Emissions|CO2|Cap|Stationary;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat;Emissions|CO2|Energy|Supply|Heat;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Electricity and Industry;Emissions|CO2|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Preliminary auction ETS;Emissions|CO2|Preliminary auction ETS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Additional sectors in EU ETS;Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr;Mt CO2/yr;1
@@ -371,7 +370,6 @@ Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC;Capacity|Electricity
 Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC;GW;GW;1
 Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;Capacity|Electricity|Reserve Plants|Electricity-only|Biomass;GW;GW;1
 Capacity|Electricity|Reserve Plants|Electricity-only|Oil;Capacity|Electricity|Reserve Plants|Electricity-only|Oil;GW;GW;1
-Final Energy|Heat;Final Energy|Heat;TWh/yr;TWh/yr;1
 Capacity|Electricity|CHP|Gas CC;Capacity|Electricity|CHP|Gas CC;GW;GW;1
 Capacity|Electricity|CHP|Gas OC;Capacity|Electricity|CHP|Gas OC;GW;GW;1
 Capacity|Electricity|Biomass|w/ CCS;Capacity|Electricity|Biomass|w/ CCS;GW;GW;1
@@ -410,28 +408,8 @@ Emissions|CO2|Energy|Supply|Electricity and Heat|Gas;Emissions|CO2|Energy|Supply
 Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Emissions|CO2|Energy|Supply|Electricity and Heat|Waste;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Emissions|CO2|Energy|Supply|Electricity and Heat|Other;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Coal;Emissions|CO2|Energy|Supply|Heat|Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Hard Coal;Emissions|CO2|Energy|Supply|Heat|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Lignite;Emissions|CO2|Energy|Supply|Heat|Lignite;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Oil;Emissions|CO2|Energy|Supply|Heat|Oil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Gas;Emissions|CO2|Energy|Supply|Heat|Gas;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|Other;Emissions|CO2|Energy|Supply|Heat|Other;Mt CO2/yr;Mt CO2/yr;1
-Secondary Energy|Heat;Secondary Energy|Heat;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Biomass;Secondary Energy|Heat|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Coal;Secondary Energy|Heat|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Gas;Secondary Energy|Heat|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Hard Coal;Secondary Energy|Heat|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Lignite;Secondary Energy|Heat|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Oil;Secondary Energy|Heat|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Other;Secondary Energy|Heat|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Waste;Secondary Energy|Heat|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Solar;Secondary Energy|Heat|Solar;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Geothermal;Secondary Energy|Heat|Geothermal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Electricity;Secondary Energy|Heat|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Fossil;Secondary Energy|Heat|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Renewable;Secondary Energy|Heat|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|Non-renewable;Secondary Energy|Heat|Non-renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP;Secondary Energy|Electricity|CHP;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Biomass;Secondary Energy|Electricity|CHP|Biomass;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Coal;Secondary Energy|Electricity|CHP|Coal;TWh/yr;TWh/yr;1
@@ -469,37 +447,6 @@ Secondary Energy|Electricity|Electricity-only|Hard Coal|w/o CCS;Secondary Energy
 Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;Secondary Energy|Electricity|Electricity-only|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/o CCS;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;Secondary Energy|Electricity|Electricity-only|Gas|w/ CCS;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP;Secondary Energy|Heat|CHP;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Biomass;Secondary Energy|Heat|CHP|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Coal;Secondary Energy|Heat|CHP|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas CC;Secondary Energy|Heat|CHP|Gas CC;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas OC;Secondary Energy|Heat|CHP|Gas OC;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Gas;Secondary Energy|Heat|CHP|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Hard Coal;Secondary Energy|Heat|CHP|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Lignite;Secondary Energy|Heat|CHP|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Oil;Secondary Energy|Heat|CHP|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Other;Secondary Energy|Heat|CHP|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Fossil;Secondary Energy|Heat|CHP|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Renewable;Secondary Energy|Heat|CHP|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|CHP|Non-renewable;Secondary Energy|Heat|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating;Secondary Energy|Heat|District Heating;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Biomass;Secondary Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Coal;Secondary Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Gas;Secondary Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Hard Coal;Secondary Energy|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Lignite;Secondary Energy|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Oil;Secondary Energy|Heat|District Heating|Oil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Other;Secondary Energy|Heat|District Heating|Other;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Fossil;Secondary Energy|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Renewable;Secondary Energy|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Non-renewable;Secondary Energy|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Waste;Secondary Energy|Heat|District Heating|Waste;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Solar;Secondary Energy|Heat|District Heating|Solar;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Geothermal;Secondary Energy|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity;Secondary Energy|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity|Heat Pump;Secondary Energy|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
-Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;Secondary Energy|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
-Emissions|CO2|Energy|Supply|Heat|Waste;Emissions|CO2|Energy|Supply|Heat|Waste;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Heat|District Heating;Capacity|Heat|District Heating;GW;GW;1
 Capacity|Heat|District Heating|Coal;Capacity|Heat|District Heating|Coal;GW;GW;1
 Capacity|Heat|District Heating|Hard Coal;Capacity|Heat|District Heating|Hard Coal;GW;GW;1
@@ -517,7 +464,6 @@ Capacity|Heat|District Heating|Electricity|Electric Boiler;Capacity|Heat|Distric
 Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;GW;1
 Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
 Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
-Emissions|CO2|Energy|Supply|Heat|Other Fossil;Emissions|CO2|Energy|Supply|Heat|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
 Transmission capacity with FIN|Electricity;Transmission capacity with FIN|Electricity;GW;GW;1
 Transmission capacity with NOR|Electricity;Transmission capacity with NOR|Electricity;GW;GW;1
 Transmission capacity with SWE|Electricity;Transmission capacity with SWE|Electricity;GW;GW;1
@@ -830,3 +776,151 @@ Primary Energy|Hydrogen [electrolysis]|Electricity|autumn;Primary Energy|Hydroge
 Primary Energy|Electricity|Hydrogen|autumn;Primary Energy|Electricity|Hydrogen|autumn;TWh/yr;TWh/yr;1
 Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
 Emissions|CO2|Cancellation from MSR [exogenous];Emissions|CO2|Cancellation from MSR [exogenous];Mt CO2/yr;Mt CO2/yr;1
+Useful Energy|Heat|Storage;Useful Energy|Heat|Storage;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Storage Consumption;Useful Energy|Heat|Storage Consumption;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Storage Losses;Useful Energy|Heat|Storage Losses;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity;Final Energy|Heat|Electricity;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating;Final Energy|Heat|District Heating;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating|CHP;Final Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating|Heat-only;Final Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|District Heating;Final Energy|Heat|Electricity|District Heating;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|District Heating|Heat Pump;Final Energy|Heat|Electricity|District Heating|Heat Pump;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|District Heating|Electric Boiler;Final Energy|Heat|Electricity|District Heating|Electric Boiler;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity;Final Energy|Heat|Electricity;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|Decentralized;Final Energy|Heat|Electricity|Decentralized;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|Decentralized|Heat Pump;Final Energy|Heat|Electricity|Decentralized|Heat Pump;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|Decentralized|Resisitive electric heater;Final Energy|Heat|Electricity|Decentralized|Resisitive electric heater;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|Decentralized|Conventional heater;Final Energy|Heat|Electricity|Decentralized|Conventional heater;TWh/yr;TWh/yr;1
+Final Energy|Heat|Electricity|Decentralized|Conventional water heater;Final Energy|Heat|Electricity|Decentralized|Conventional water heater;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP;Useful Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Biomass;Useful Energy|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Coal;Useful Energy|Heat|District Heating|CHP|Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Gas CC;Useful Energy|Heat|District Heating|CHP|Gas CC;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Gas OC;Useful Energy|Heat|District Heating|CHP|Gas OC;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Gas;Useful Energy|Heat|District Heating|CHP|Gas;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Hard Coal;Useful Energy|Heat|District Heating|CHP|Hard Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Lignite;Useful Energy|Heat|District Heating|CHP|Lignite;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Oil;Useful Energy|Heat|District Heating|CHP|Oil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Other;Useful Energy|Heat|District Heating|CHP|Other;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Other Fossil;Useful Energy|Heat|District Heating|CHP|Other Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Fossil;Useful Energy|Heat|District Heating|CHP|Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Renewable;Useful Energy|Heat|District Heating|CHP|Renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Non-renewable;Useful Energy|Heat|District Heating|CHP|Non-renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only;Useful Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Biomass;Useful Energy|Heat|District Heating|Heat-only|Biomass;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Coal;Useful Energy|Heat|District Heating|Heat-only|Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Hard Coal;Useful Energy|Heat|District Heating|Heat-only|Hard Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Lignite;Useful Energy|Heat|District Heating|Heat-only|Lignite;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Oil;Useful Energy|Heat|District Heating|Heat-only|Oil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Gas;Useful Energy|Heat|District Heating|Heat-only|Gas;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Other;Useful Energy|Heat|District Heating|Heat-only|Other;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Waste;Useful Energy|Heat|District Heating|Heat-only|Waste;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Other Fossil;Useful Energy|Heat|District Heating|Heat-only|Other Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Electricity;Useful Energy|Heat|District Heating|Heat-only|Electricity;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump;Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Solar;Useful Energy|Heat|District Heating|Heat-only|Solar;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Geothermal;Useful Energy|Heat|District Heating|Heat-only|Geothermal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Fossil;Useful Energy|Heat|District Heating|Heat-only|Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Renewable;Useful Energy|Heat|District Heating|Heat-only|Renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Heat-only|Non-renewable;Useful Energy|Heat|District Heating|Heat-only|Non-renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating;Useful Energy|Heat|District Heating;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Biomass;Useful Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Coal;Useful Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Gas;Useful Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Hard Coal;Useful Energy|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Lignite;Useful Energy|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Oil;Useful Energy|Heat|District Heating|Oil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Other;Useful Energy|Heat|District Heating|Other;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Fossil;Useful Energy|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Renewable;Useful Energy|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Non-renewable;Useful Energy|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Waste;Useful Energy|Heat|District Heating|Waste;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Solar;Useful Energy|Heat|District Heating|Solar;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Geothermal;Useful Energy|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Other Fossil;Useful Energy|Heat|District Heating|Other Fossil;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Electricity;Useful Energy|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Electricity|Heat Pump;Useful Energy|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|Electricity|Electric Boiler;Useful Energy|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity;Useful Energy|Heat|Electricity;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized;Useful Energy|Heat|Electricity|Decentralized;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Heat Pump;Useful Energy|Heat|Electricity|Decentralized|Heat Pump;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater;Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Conventional heater;Useful Energy|Heat|Electricity|Decentralized|Conventional heater;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Conventional water heater;Useful Energy|Heat|Electricity|Decentralized|Conventional water heater;TWh/yr;TWh/yr;1
+Capacity|Heat|District Heating|Heat-only;Capacity|Heat|District Heating|Heat-only;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Biomass;Capacity|Heat|District Heating|Heat-only|Biomass;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Coal;Capacity|Heat|District Heating|Heat-only|Coal;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Hard Coal;Capacity|Heat|District Heating|Heat-only|Hard Coal;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Lignite;Capacity|Heat|District Heating|Heat-only|Lignite;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Oil;Capacity|Heat|District Heating|Heat-only|Oil;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Gas;Capacity|Heat|District Heating|Heat-only|Gas;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Other;Capacity|Heat|District Heating|Heat-only|Other;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Waste;Capacity|Heat|District Heating|Heat-only|Waste;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Other Fossil;Capacity|Heat|District Heating|Heat-only|Other Fossil;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Electricity;Capacity|Heat|District Heating|Heat-only|Electricity;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump;Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Solar;Capacity|Heat|District Heating|Heat-only|Solar;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Geothermal;Capacity|Heat|District Heating|Heat-only|Geothermal;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Fossil;Capacity|Heat|District Heating|Heat-only|Fossil;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Renewable;Capacity|Heat|District Heating|Heat-only|Renewable;GW;GW;1
+Capacity|Heat|District Heating|Heat-only|Non-renewable;Capacity|Heat|District Heating|Heat-only|Non-renewable;GW;GW;1
+Capacity|Heat|District Heating;Capacity|Heat|District Heating;GW;GW;1
+Capacity|Heat|District Heating|Biomass;Capacity|Heat|District Heating|Biomass;GW;GW;1
+Capacity|Heat|District Heating|Coal;Capacity|Heat|District Heating|Coal;GW;GW;1
+Capacity|Heat|District Heating|Gas;Capacity|Heat|District Heating|Gas;GW;GW;1
+Capacity|Heat|District Heating|Hard Coal;Capacity|Heat|District Heating|Hard Coal;GW;GW;1
+Capacity|Heat|District Heating|Lignite;Capacity|Heat|District Heating|Lignite;GW;GW;1
+Capacity|Heat|District Heating|Oil;Capacity|Heat|District Heating|Oil;GW;GW;1
+Capacity|Heat|District Heating|Other;Capacity|Heat|District Heating|Other;GW;GW;1
+Capacity|Heat|District Heating|Fossil;Capacity|Heat|District Heating|Fossil;GW;GW;1
+Capacity|Heat|District Heating|Renewable;Capacity|Heat|District Heating|Renewable;GW;GW;1
+Capacity|Heat|District Heating|Non-renewable;Capacity|Heat|District Heating|Non-renewable;GW;GW;1
+Capacity|Heat|District Heating|Waste;Capacity|Heat|District Heating|Waste;GW;GW;1
+Capacity|Heat|District Heating|Solar;Capacity|Heat|District Heating|Solar;GW;GW;1
+Capacity|Heat|District Heating|Geothermal;Capacity|Heat|District Heating|Geothermal;GW;GW;1
+Capacity|Heat|District Heating|Other Fossil;Capacity|Heat|District Heating|Other Fossil;GW;GW;1
+Capacity|Heat|District Heating|Electricity;Capacity|Heat|District Heating|Electricity;GW;GW;1
+Capacity|Heat|District Heating|Electricity|Heat Pump;Capacity|Heat|District Heating|Electricity|Heat Pump;GW;GW;1
+Capacity|Heat|District Heating|Electricity|Electric Boiler;Capacity|Heat|District Heating|Electricity|Electric Boiler;GW;GW;1
+Capacity|Heat|Decentralized;Capacity|Heat|Decentralized;GW;GW;1
+Capacity|Heat|Decentralized|Heat Pump;Capacity|Heat|Decentralized|Heat Pump;GW;GW;1
+Capacity|Heat|Decentralized|Resistive electric heater;Capacity|Heat|Decentralized|Resistive electric heater;GW;GW;1
+Capacity|Heat|Decentralized|Conventional heater;Capacity|Heat|Decentralized|Conventional heater;GW;GW;1
+Capacity|Heat|Decentralized|Conventional water heater;Capacity|Heat|Decentralized|Conventional water heater;GW;GW;1
+Useful Energy|Waste heat;Useful Energy|Waste heat;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|ETS;Useful Energy Available for Final Consumption|Heat|ETS;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|non-ETS;Useful Energy Available for Final Consumption|Heat|non-ETS;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat;Useful Energy Available for Final Consumption|Heat;TWh/yr;TWh/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Lignite;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Oil;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas CC;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas CC;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas OC;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Gas OC;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Hard Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Lignite;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Oil;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Gas;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Waste;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Waste;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating;Emissions|CO2|Energy|Supply|Heat|District Heating;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Hard Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Lignite;Emissions|CO2|Energy|Supply|Heat|District Heating|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Oil;Emissions|CO2|Energy|Supply|Heat|District Heating|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Gas;Emissions|CO2|Energy|Supply|Heat|District Heating|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Other;Emissions|CO2|Energy|Supply|Heat|District Heating|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Waste;Emissions|CO2|Energy|Supply|Heat|District Heating|Waste;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Mt CO2/yr;Mt CO2/yr;1
