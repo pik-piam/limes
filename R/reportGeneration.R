@@ -263,8 +263,8 @@ reportGeneration <- function(gdx,output=NULL) {
       p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
       f_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found") #DH distribution losses
       f_losses_heat <- limesMapping(f_losses_heat)
-      p_ratio_usefin <- readGDX(gdx,name="p_ratio_usefin",field="l",format="first_found") #ratio of energy service to energy consumption
-      p_ratio_usefin <- limesMapping(p_ratio_usefin)
+      p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found") #ratio of energy service to energy consumption
+      p_bd_ratio_usefin <- limesMapping(p_bd_ratio_usefin)
       #Need to aggregate heat supply per year to be able to divide it by efficiency
       o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
                                 fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
@@ -275,8 +275,8 @@ reportGeneration <- function(gdx,output=NULL) {
       #Allocate values to array
       for (te_name in c(tehe)) {
         o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-f_losses_heat)*p_ratio_usefin[,,te_name]))) #transformation output
-        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_ratio_usefin[,,te_name])) #final energy|heat
+        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-f_losses_heat)*p_bd_ratio_usefin[,,te_name]))) #transformation output
+        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_usefin[,,te_name])) #final energy|heat
       }
       
       #Transformation input  

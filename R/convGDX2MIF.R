@@ -77,10 +77,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportDisinvestments(gdx)[,time,])
   
   #adding exchange to report output
-  #output <- mbind(output,reportExchange(gdx)[,time,])
+  output <- mbind(output,reportExchange(gdx)[,time,])
   
   #adding carbon sequestration to report output
-  #output <- mbind(output,reportTotalSystemCosts(gdx,output)[,time,]) #depends on reportExchange and reportCO2Price
+  output <- mbind(output,reportTotalSystemCosts(gdx,output)[,time,]) #depends on reportExchange and reportCO2Price
   
   #adding adequacy contribution to report output
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
@@ -261,7 +261,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   }
   
   #Transmission capacity aggregated (special case)
-  if(length(intersect(getNames(output),"Capacity|Electricity|Transmission Gri (GW)")) > 0) {
+  if(length(intersect(getNames(output),"Capacity|Electricity|Transmission Grid (GW)")) > 0) {
     output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
     output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
   }
