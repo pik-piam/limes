@@ -275,8 +275,8 @@ reportGeneration <- function(gdx,output=NULL) {
       #Allocate values to array
       for (te_name in c(tehe)) {
         o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-f_losses_heat)*p_bd_ratio_usefin[,,te_name]))) #transformation output
-        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_usefin[,,te_name])) #final energy|heat
+        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-f_losses_heat)*p_bd_ratio_usefin))) #transformation output
+        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_usefin)) #final energy|heat
       }
       
       #Transformation input  
