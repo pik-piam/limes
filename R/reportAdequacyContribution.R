@@ -78,16 +78,32 @@ reportAdequacyContribution <- function(gdx) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
+      
+      #v_storein_el <- v_storein[,,"seel"]
+      #v_storeout_el <- v_storeout[,,"seel"]
+      #v_storein_el <- collapseNames(v_storein_el)
+      #v_storeout_el <- collapseNames(v_storeout_el)
     }
     
   } else {
     p_eldemand <- v_exdemand
+    #v_storein_el <- v_storein
+    #v_storeout_el <- v_storeout
   }
   
-  v_storein_el <- v_storein[,,"seel"]
-  v_storeout_el <- v_storeout[,,"seel"]
-  v_storein_el <- collapseNames(v_storein_el)
-  v_storeout_el <- collapseNames(v_storeout_el)
+  if(c_LIMESversion >= 2.37) { #First version with heat staorage
+    v_storein_el <- v_storein[,,"seel"]
+    v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
+    v_storeout_el <- v_storeout[,,"seel"]
+    v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
+    v_storein_el <- collapseNames(v_storein_el)
+    v_storeout_el <- collapseNames(v_storeout_el)
+    
+    #Redefine testore set -> only electricity-related sets make sense in this function
+    testore <- setdiff(testore,c("heat_sto"))
+  }
+  
+  
   
   
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks

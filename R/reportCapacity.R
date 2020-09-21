@@ -84,12 +84,15 @@ reportCapacity <- function(gdx) {
   #when there is exogenous heating
   if(c_LIMESversion >= 2.33) {
     tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
-    tedh <- readGDX(gdx,name="tedh") #set of District Heating generation technologies
-    tedhelec <- readGDX(gdx,name="tedhelec") #set of electric District Heating generation technologies
-    teohecen <- readGDX(gdx,name="teohecen") #set of centralized only-heating generation technologies
-    tehedec <- readGDX(gdx,name="tehedec") #set of decentralized only-heating generation technologies
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    
     if(c_heating == 1) {
+      #load some required sets
+      tedh <- readGDX(gdx,name="tedh") #set of District Heating generation technologies
+      tedhelec <- readGDX(gdx,name="tedhelec") #set of electric District Heating generation technologies
+      teohecen <- readGDX(gdx,name="teohecen") #set of centralized only-heating generation technologies
+      tehedec <- readGDX(gdx,name="tehedec") #set of decentralized only-heating generation technologies
+      
       #CHP
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,c(techp)],dim=3),"Capacity|Electricity|CHP (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(tecoal,telig),techp)],dim=3),"Capacity|Electricity|CHP|Coal (GW)"))

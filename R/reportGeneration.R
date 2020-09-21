@@ -78,13 +78,6 @@ reportGeneration <- function(gdx,output=NULL) {
   if(c_LIMESversion >= 2.28) {
     
     v_seprod_el <- v_seprod[,,"seel"]
-    v_storein_el <- v_storein[,,"seel"]
-    v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
-    v_storeout_el <- v_storeout[,,"seel"]
-    v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
-    v_storein_el <- collapseNames(v_storein_el)
-    v_storeout_el <- collapseNames(v_storeout_el)
-    
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     
     if(c_heating == 1) {
@@ -93,22 +86,34 @@ reportGeneration <- function(gdx,output=NULL) {
       p_eldemand <- v_exdemand[,,"seel"]
       #v_seprod_el <- v_seprod[,,"seel"]
       
-      v_storein_he <- v_storein[,,"sehe"]
-      v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
-      v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
-      v_storeout_he <- v_storeout[,,"sehe"]
-      v_storeout_he <- collapseNames(v_storeout_he)
-      v_storeout_he <- v_storeout_he[,,"heat_sto"]
-      
     } else {
       p_eldemand <- v_exdemand
       #v_seprod_el <- v_seprod
+      v_storein_el <- v_storein
+      v_storeout_el <- v_storeout
     }
     
   } else {
     p_eldemand <- v_exdemand
     v_seprod_el <- v_seprod
   }
+  
+  if(c_LIMESversion >= 2.37) { #First version with heat staorage
+    v_storein_el <- v_storein[,,"seel"]
+    v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
+    v_storeout_el <- v_storeout[,,"seel"]
+    v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
+    v_storein_el <- collapseNames(v_storein_el)
+    v_storeout_el <- collapseNames(v_storeout_el)
+    
+    v_storein_he <- v_storein[,,"sehe"]
+    v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
+    v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
+    v_storeout_he <- v_storeout[,,"sehe"]
+    v_storeout_he <- collapseNames(v_storeout_he)
+    v_storeout_he <- v_storeout_he[,,"heat_sto"]
+  }
+  
   #Collapse names to avoid some problems
   p_eldemand <- collapseNames(p_eldemand)
   v_seprod_el <- collapseNames(v_seprod_el)
