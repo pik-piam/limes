@@ -31,6 +31,7 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
   if(c_LIMESversion > 2.26) {
     
     c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
+    c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
     
     #Only estimate the industry-related variables if this is modelled
     if(c_industry_ETS == 1) {
@@ -76,25 +77,27 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
       #In previous version, there is no information about allocation of EUA to industry per region, so I just define the required EUA equal to the emissions
       o_ind_netreqEUA <-dimSums(o_ind_emi,3)*s_c2co2*1000
       
-      if(c_LIMESversion >= 2.28) {
-        # read variables from gdx
-        p_sharecomb_freeEUA <- readGDX(gdx,name="p_sharecomb_freeEUA",field="l",format="first_found") #Share of free allocated certificates to combustion sector
-        p_sharefreeEUA_ind <- readGDX(gdx,name="p_sharefreeEUA_ind",field="l",format="first_found") #Share fo free EUA to industry per country
-        p_sharefreeEUA_ind <- limesMapping(p_sharefreeEUA_ind)
-        p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found") #free allocated certificates in ETS [Gt]
+      if(c_bankemi_EU == 1) {
+        if(c_LIMESversion >= 2.28) {
+          # read variables from gdx
+          p_sharecomb_freeEUA <- readGDX(gdx,name="p_sharecomb_freeEUA",field="l",format="first_found") #Share of free allocated certificates to combustion sector
+          p_sharefreeEUA_ind <- readGDX(gdx,name="p_sharefreeEUA_ind",field="l",format="first_found") #Share fo free EUA to industry per country
+          p_sharefreeEUA_ind <- limesMapping(p_sharefreeEUA_ind)
+          p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found") #free allocated certificates in ETS [Gt]
+          
+          #EUA freely allocated to the industry
+          o_ind_freeEUA <- p_freealloc_EUETS*(1-p_sharecomb_freeEUA)*p_sharefreeEUA_ind
+          tmp2 <- mbind(tmp2,setNames(o_ind_freeEUA*s_c2co2*1000,"Emissions|CO2|Free-allocated certificates ETS|Industry (Mt CO2/yr)"))
+          
+          o_ind_netreqEUA <- (dimSums(o_ind_emi,3) - o_ind_freeEUA)*s_c2co2*1000 #in MtCO2/yr
+        }
         
-        #EUA freely allocated to the industry
-        o_ind_freeEUA <- p_freealloc_EUETS*(1-p_sharecomb_freeEUA)*p_sharefreeEUA_ind
-        tmp2 <- mbind(tmp2,setNames(o_ind_freeEUA*s_c2co2*1000,"Emissions|CO2|Free-allocated certificates ETS|Industry (Mt CO2/yr)"))
-        
-        o_ind_netreqEUA <- (dimSums(o_ind_emi,3) - o_ind_freeEUA)*s_c2co2*1000 #in MtCO2/yr
+        o_totcostco2 <- pmax(o_ind_netreqEUA,0)*o_ind_co2price/1000
+        tmp2 <- mbind(tmp2,setNames(o_totcostco2,"Total Cost|Industry|CO2 costs (billion eur2010/yr)"))
+        o_revEUAsale <- -pmin(o_ind_netreqEUA,0)*o_ind_co2price/1000
+        tmp2 <- mbind(tmp2,setNames(o_revEUAsale,"Revenues|Industry|EUA sales (billion eur2010/yr)"))
+        tmp2 <- mbind(tmp2,setNames(o_revEUAsale - o_totcostabat - o_totcostco2,"Profits|Industry (billion eur2010/yr)"))
       }
-      
-      o_totcostco2 <- pmax(o_ind_netreqEUA,0)*o_ind_co2price/1000
-      tmp2 <- mbind(tmp2,setNames(o_totcostco2,"Total Cost|Industry|CO2 costs (billion eur2010/yr)"))
-      o_revEUAsale <- -pmin(o_ind_netreqEUA,0)*o_ind_co2price/1000
-      tmp2 <- mbind(tmp2,setNames(o_revEUAsale,"Revenues|Industry|EUA sales (billion eur2010/yr)"))
-      tmp2 <- mbind(tmp2,setNames(o_revEUAsale - o_totcostabat - o_totcostco2,"Profits|Industry (billion eur2010/yr)"))
       
       # concatenate data
       tmp <- mbind(tmp1,tmp2)

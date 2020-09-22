@@ -235,7 +235,8 @@ reportCO2Price <- function(gdx) {
   tmp4 <- NULL
   tmp4<-mbind(tmp4, setNames(o_co2price*dimSums(v_emi[,,"seel"], dim=3)/(1e9),"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
   
-  if(c_LIMESversion >= 2.28) {
+  c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
+  if(c_LIMESversion >= 2.28 & c_bankemi_EU == 1) {
     # read variables from gdx
     p_shareEUA_auct <- readGDX(gdx,name="p_shareEUA_auct",field="l",format="first_found")
     p_shareEUA_auct <- limesMapping(p_shareEUA_auct)

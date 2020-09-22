@@ -25,7 +25,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
   
   # read parameters
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #conversion factor C -> CO2
-  c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found")
+  c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
   
   #read variables
   v_bankemi <- readGDX(gdx,name="v_bankemi",field="l",format="first_found")
@@ -64,7 +64,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
       tmp2 <- mbind(tmp2,setNames(v_bankemi[,,]*s_c2co2*1000,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"))
       
       #include the aviation variables (only available from 2.28)
-      if (c_LIMESversion >= 2.28) {
+      if (c_LIMESversion >= 2.28 & c_bankemi_EU == 1) { #aviation-related variables are only required when modelling the EU ETS
         c_aviation <- readGDX(gdx,name="c_aviation",field="l",format="first_found")
         if(c_aviation == 1){
           p_aviation_cap <- readGDX(gdx,name="p_aviation_cap",field="l",format="first_found")
@@ -106,7 +106,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
         #Load switch for heating
         c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
         p_certificates_cancelled <- readGDX(gdx,name="p_certificates_cancelled",field="l",format="first_found")
-        if(c_heating == 0) {
+        
+        if(c_heating == 0 & c_bankemi_EU == 1) { #endogenous heating and model version >2.27
           
           #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
           if(c_LIMESversion <= 2.30) {
@@ -145,27 +146,33 @@ reportEUETSvars <- function(gdx,output=NULL) {
             
           }
           
-        } else {#c_heating == 1
-          if(c_LIMESversion <= 2.33) {
-            tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-          } else {
-            p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")
-            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-            p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")
-            tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+        } else {#c_heating == 1 or (c_heating == 0 and c_bankemi_EU == 0)... in the latter case, there is no need to report any of the variables below
+          
+          if(c_heating == 1) {
+            o_emi_heat <- NULL
+            if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)")) > 0) {
+              o_emi_heat <- dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"], dim=1)
+            }
           }
           
-          p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
-          tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-          
-          #EU ETS emissions when there is endogenous heating
-          o_emi_heat <- NULL
-          if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)")) > 0) {
-            o_emi_heat <- dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"], dim=1)
-          }
-          if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat)) {
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include stationary certificates for aviation
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes stationary certificates for aviation
+          if(c_heating == 1 & c_bankemi_EU == 1) {
+            if(c_LIMESversion <= 2.33) {
+              tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+            } else {
+              p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")
+              tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+              p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")
+              tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+            }
+            
+            p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
+            tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
+            
+            #EU ETS emissions when there is endogenous heating
+            if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat) & c_bankemi_EU == 1) {
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include stationary certificates for aviation
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes stationary certificates for aviation
+            }
           }
           
         }
