@@ -249,7 +249,6 @@ reportAdequacyContribution <- function(gdx) {
   
   #Concatenating variables
   tmp4 <- mbind(tmp1,tmp2,tmp3)
-  
 
   #DEMAND and NET IMPORTS WHEN MARGINAL VALUE OF ROBUST CONSTRAINT IS THE LARGEST
   tmp5 <- NULL
