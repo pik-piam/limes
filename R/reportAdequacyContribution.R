@@ -79,19 +79,13 @@ reportAdequacyContribution <- function(gdx) {
     if(c_heating == 1) {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
       
-      #v_storein_el <- v_storein[,,"seel"]
-      #v_storeout_el <- v_storeout[,,"seel"]
-      #v_storein_el <- collapseNames(v_storein_el)
-      #v_storeout_el <- collapseNames(v_storeout_el)
     }
     
   } else {
     p_eldemand <- v_exdemand
-    #v_storein_el <- v_storein
-    #v_storeout_el <- v_storeout
   }
   
-  if(c_LIMESversion >= 2.37) { #First version with heat staorage
+  if(c_LIMESversion >= 2.37) { #First version with heat storage
     v_storein_el <- v_storein[,,"seel"]
     v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
     v_storeout_el <- v_storeout[,,"seel"]
@@ -101,6 +95,9 @@ reportAdequacyContribution <- function(gdx) {
     
     #Redefine testore set -> only electricity-related sets make sense in this function
     testore <- setdiff(testore,c("heat_sto"))
+  } else {
+    v_storein_el <- v_storein
+    v_storeout_el <- v_storeout
   }
   
   

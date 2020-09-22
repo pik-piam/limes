@@ -24,7 +24,7 @@ reportGeneration <- function(gdx,output=NULL) {
   }
   
   # read sets
-  time <- readGDX(gdx,name="t")
+  t <- readGDX(gdx,name="t")
   tehe <- readGDX(gdx,name="tehe")
   teel <- readGDX(gdx,name="teel") #set of electricity generation technologies (non-storage)
   ter <- readGDX(gdx,name="ter") #set of variable renewable electricity generation technologies
@@ -489,11 +489,11 @@ reportGeneration <- function(gdx,output=NULL) {
     }
     
     #compute factor to discount average marginal values
-    f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(time)-as.numeric(t0)))
+    f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
     
     o_p2x_disc <- NULL
     
-    for (t2 in 1:length(time)) {
+    for (t2 in 1:length(t)) {
       o_p2x_disc <- mbind(o_p2x_disc,-o_p2x[,t2,]/as.numeric(f_npv[t2])) #[Geur 2010/GWh]
     }
     o_p2x_disc <- pmax(o_p2x_disc,0)
