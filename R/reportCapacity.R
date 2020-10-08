@@ -141,8 +141,8 @@ reportCapacity <- function(gdx) {
         "Capacity|Heat|District Heating|Heat-only|Waste (TWh/yr)"                         =intersect(teohecen,c(tewaste)),
         "Capacity|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                  =intersect(teohecen,c(teothers,tewaste,teoil)),
         "Capacity|Heat|District Heating|Heat-only|Electricity (TWh/yr)"                   =intersect(teohecen,c(tedhelec)),
-        "Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"         =intersect(teohecen,"hpump"),
-        "Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"   =intersect(teohecen,"elboil"),
+        "Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"         =intersect(teohecen,"hp_large"),
+        "Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"   =intersect(teohecen,"elboil_large"),
         "Capacity|Heat|District Heating|Heat-only|Solar (TWh/yr)"                         =intersect(teohecen,c("sol_heat")),
         "Capacity|Heat|District Heating|Heat-only|Geothermal (TWh/yr)"                    =intersect(teohecen,c("geo_heat")),
         "Capacity|Heat|District Heating|Heat-only|Fossil (TWh/yr)"                        =intersect(teohecen,c(tefossil)),
@@ -161,8 +161,8 @@ reportCapacity <- function(gdx) {
         "Capacity|Heat|District Heating|Waste (TWh/yr)"                       =intersect(tedh,c(tewaste)),
         "Capacity|Heat|District Heating|Other Fossil (TWh/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
         "Capacity|Heat|District Heating|Electricity (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Capacity|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
-        "Capacity|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil"),
+        "Capacity|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+        "Capacity|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large"),
         "Capacity|Heat|District Heating|Solar (TWh/yr)"                       =intersect(tedh,c("sol_heat")),
         "Capacity|Heat|District Heating|Geothermal (TWh/yr)"                  =intersect(tedh,c("geo_heat")),
         "Capacity|Heat|District Heating|Fossil (TWh/yr)"                      =intersect(tedh,c(tefossil)),
@@ -180,7 +180,7 @@ reportCapacity <- function(gdx) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)
           "Capacity|Heat|Decentralized (TWh/yr)"                             =c(tehedec),
-          "Capacity|Heat|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,"hpump_dec"),
+          "Capacity|Heat|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
           "Capacity|Heat|Decentralized|Resistive electric heater (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
           "Capacity|Heat|Decentralized|Conventional heater (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
           "Capacity|Heat|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")

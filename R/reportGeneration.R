@@ -228,8 +228,8 @@ reportGeneration <- function(gdx,output=NULL) {
         "Useful Energy|Heat|District Heating|Heat-only|Waste (TWh/yr)"                          =intersect(teohecen,c(tewaste)),
         "Useful Energy|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                   =intersect(teohecen,c(teothers,tewaste,teoil)),
         "Useful Energy|Heat|District Heating|Heat-only|Electricity (TWh/yr)"                    =intersect(teohecen,c(tedhelec)),
-        "Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"          =intersect(teohecen,"hpump"),
-        "Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"    =intersect(teohecen,"elboil"),
+        "Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"          =intersect(teohecen,"hp_large"),
+        "Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"    =intersect(teohecen,"elboil_large"),
         "Useful Energy|Heat|District Heating|Heat-only|Solar (TWh/yr)"                          =intersect(teohecen,c("sol_heat")),
         "Useful Energy|Heat|District Heating|Heat-only|Geothermal (TWh/yr)"                     =intersect(teohecen,c("geo_heat")),
         "Useful Energy|Heat|District Heating|Heat-only|Fossil (TWh/yr)"                         =intersect(teohecen,c(tefossil)),
@@ -248,8 +248,8 @@ reportGeneration <- function(gdx,output=NULL) {
         "Useful Energy|Heat|District Heating|Waste (TWh/yr)"                       =intersect(tedh,c(tewaste)),
         "Useful Energy|Heat|District Heating|Other Fossil (TWh/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
         "Useful Energy|Heat|District Heating|Electricity (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Useful Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
-        "Useful Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil"),
+        "Useful Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+        "Useful Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large"),
         "Useful Energy|Heat|District Heating|Solar (TWh/yr)"                       =intersect(tedh,c("sol_heat")),
         "Useful Energy|Heat|District Heating|Geothermal (TWh/yr)"                  =intersect(tedh,c("geo_heat")),
         "Useful Energy|Heat|District Heating|Fossil (TWh/yr)"                      =intersect(tedh,c(tefossil)),
@@ -266,8 +266,8 @@ reportGeneration <- function(gdx,output=NULL) {
       
       #1 (cont) Final energy (only for electricity-based heating)
       p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
-      f_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found") #DH distribution losses
-      f_losses_heat <- limesMapping(f_losses_heat)
+      p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found") #DH distribution losses
+      p_losses_DH <- limesMapping(p_losses_DH)
       p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found") #ratio of energy service to energy consumption
       p_bd_ratio_usefin <- limesMapping(p_bd_ratio_usefin)
       #Need to aggregate heat supply per year to be able to divide it by efficiency
@@ -280,7 +280,7 @@ reportGeneration <- function(gdx,output=NULL) {
       #Allocate values to array
       for (te_name in c(tehe)) {
         o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-f_losses_heat)*p_bd_ratio_usefin))) #transformation output
+        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_losses_DH)*p_bd_ratio_usefin))) #transformation output
         o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_usefin)) #final energy|heat
       }
       
@@ -290,8 +290,8 @@ reportGeneration <- function(gdx,output=NULL) {
         "Transformation input|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
         "Transformation input|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
         "Transformation input|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Transformation input|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
-        "Transformation input|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil")
+        "Transformation input|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+        "Transformation input|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
       )
       for (var in names(varList_he2)){
         tmp2 <- mbind(tmp2,setNames(dimSums(o_transfinput_he[,,varList_he2[[var]]],dim=3),var))
@@ -303,8 +303,8 @@ reportGeneration <- function(gdx,output=NULL) {
         "Transformation output|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
         "Transformation output|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
         "Transformation output|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Transformation output|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
-        "Transformation output|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil")
+        "Transformation output|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+        "Transformation output|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
       )
       for (var in names(varList_he2)){
         tmp2 <- mbind(tmp2,setNames(dimSums(o_transfoutput_he[,,varList_he2[[var]]],dim=3),var))
@@ -316,8 +316,8 @@ reportGeneration <- function(gdx,output=NULL) {
         "Final Energy|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
         "Final Energy|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
         "Final Energy|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Final Energy|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hpump"),
-        "Final Energy|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil")
+        "Final Energy|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+        "Final Energy|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
       ) 
       for (var in names(varList_he2)){
         tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
@@ -335,7 +335,7 @@ reportGeneration <- function(gdx,output=NULL) {
           
           #1.d) Decentralized heating (only electricity-based)
           "Useful Energy|Heat|Electricity|Decentralized (TWh/yr)"                             =intersect(tehedec,teheelec),
-          "Useful Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,"hpump_dec"),
+          "Useful Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
           "Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
           "Useful Energy|Heat|Electricity|Decentralized|Conventional heater (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
           "Useful Energy|Heat|Electricity|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
@@ -349,7 +349,7 @@ reportGeneration <- function(gdx,output=NULL) {
         varList_he2 <- list(
           "Final Energy|Heat|Electricity (TWh/yr)"                                           =intersect(tehe,c(teheelec)),
           "Final Energy|Heat|Electricity|Decentralized (TWh/yr)"                             =intersect(tehedec,teheelec),
-          "Final Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,"hpump_dec"),
+          "Final Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
           "Final Energy|Heat|Electricity|Decentralized|Resistive electric heater (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
           "Final Energy|Heat|Electricity|Decentralized|Conventional heater (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
           "Final Energy|Heat|Electricity|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
