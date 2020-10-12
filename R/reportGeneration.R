@@ -476,6 +476,9 @@ reportGeneration <- function(gdx,output=NULL) {
     v_otherse <- readGDX(gdx,name="v_otherse",field="l",format="first_found")[,,"pehgen"] #[GWh]
     v_otherse <- limesMapping(v_otherse[,,tau])
     
+    #Aggregate hydrogen used by different generation technologies, i.e., hydrogen used to produce electricity
+    o_p2xse <- dimSums(v_p2xse[,,tehgen],dim=c(3.2))
+    
     o_p2x <- new.magpie(cells_and_regions = getRegions(m_p2x), years = getYears(m_p2x), names = tau,
                                    fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     
@@ -498,8 +501,8 @@ reportGeneration <- function(gdx,output=NULL) {
     }
     o_p2x_disc <- pmax(o_p2x_disc,0)
     
-    tmp4 <- mbind(tmp4,setNames(1e6*dimSums(o_p2x_disc*p_taulength*dimSums(v_p2xse[,,],dim=c(3.2)),dim=3)/
-                                  dimSums(p_taulength*dimSums(v_p2xse[,,],dim=c(3.2)),3),"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"))
+    tmp4 <- mbind(tmp4,setNames(1e6*dimSums(o_p2x_disc*p_taulength*o_p2xse,dim=3)/
+                                  dimSums(p_taulength*o_p2xse,3),"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"))
     
     varList_hgen <- list(
       "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = NA,
@@ -534,14 +537,14 @@ reportGeneration <- function(gdx,output=NULL) {
       for(i in 1:length(seasons)) {
         taus <- c(tau2season$tau[tau2season$season == seasons[i]])
         if(length(taus) == 0) {
-          o_outputhelec <- new.magpie(cells_and_regions = getRegions(v_otherse), years = getYears(v_otherse), names = paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)"),
+          o_outputhelec <- new.magpie(cells_and_regions = getRegions(o_p2xse), years = getYears(o_p2xse), names = paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)"),
                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-          o_inputhelec <- new.magpie(cells_and_regions = getRegions(v_otherse), years = getYears(v_otherse), names = paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)"),
+          o_inputhelec <- new.magpie(cells_and_regions = getRegions(o_p2xse), years = getYears(o_p2xse), names = paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)"),
                                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
           tmp4 <- mbind(tmp4,o_outputhelec)
           tmp4 <- mbind(tmp4,o_inputhelec)
         } else {
-          tmp4 <- mbind(tmp4,setNames(dimSums(v_otherse[,,taus]*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)")))
+          tmp4 <- mbind(tmp4,setNames(dimSums(o_p2xse[,,taus]*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Hydrogen [electrolysis]|Electricity|",seasons[i]," (TWh/yr)")))
           o_inputhelec <- v_storein_el[,,"helec"]
           tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(o_inputhelec[,,taus],dim=c(3.2))*p_taulength[,,taus],dim=3)/1000,paste0("Primary Energy|Electricity|Hydrogen|",seasons[i]," (TWh/yr)")))
         }

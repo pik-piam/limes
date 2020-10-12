@@ -13,7 +13,7 @@ Emissions|CO2|Aviation;Mt CO2/yr
 Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr
 Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr
 Emissions|CO2|Cap|Stationary;Mt CO2/yr
-Emissions|CO2|Energy|Supply|Heat;Mt CO2/yr
+Emissions|CO2|Energy|Supply|Heat|District Heating;Mt CO2/yr
 Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr
 Emissions|CO2|EU ETS;Mt CO2/yr
 Emissions|CO2|EU ETS|w/ aviation;Mt CO2/yr

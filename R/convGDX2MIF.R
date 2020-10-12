@@ -284,7 +284,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   if(c_LIMESversion >= 2.28) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
-      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat (Mt CO2/yr)"))]
+      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))]
     }
   }
   
