@@ -29,15 +29,12 @@ reportMSR <- function(gdx) {
     c_MSR <- readGDX(gdx,name="c_MSR",field="l",format="first_found")
     
     #read variables with default time step (5 years)
-    p_auction_EUETS <- readGDX(gdx,name="p_auction_EUETS",field="l",format="first_found")
     p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found")
     p_withholdEUA <- readGDX(gdx,name="p_withholdEUA",field="l",format="first_found")
     p_backloadEUA <- readGDX(gdx,name="p_backloadEUA",field="l",format="first_found")
     p_cancelEUA <- readGDX(gdx,name="p_cancelEUA",field="l",format="first_found")
     p_MSR <- readGDX(gdx,name="p_MSR",field="l",format="first_found")
     p_extraintakeMSR <- readGDX(gdx,name="p_extraintakeMSR",field="l",format="first_found")
-    p_emicappath_EUETS <- readGDX(gdx,name="p_emicappath_EUETS",field="l",format="first_found")
-    p_sharefreeEUA <- readGDX(gdx,name="p_sharefreeEUA",field="l",format="first_found")
     
     
     #If variables should not exist (equations are off), write NA
@@ -47,10 +44,7 @@ reportMSR <- function(gdx) {
       p_cancelEUA[] <- NA
       p_MSR[] <- NA
       p_extraintakeMSR[] <- NA
-      p_auction_EUETS[] <- NA
-      p_freealloc_EUETS[] <- NA
-      p_emicappath_EUETS <- NA
-      p_sharefreeEUA <- NA
+      #p_freealloc_EUETS[] <- NA
       
     }
     
@@ -75,6 +69,9 @@ reportMSR <- function(gdx) {
       }
       
     }
+    
+    #Add NAs for 2010 and 2015
+    tmp1[,c(2010,2015),] <- NA
     
     tmp2 <- NULL
     
