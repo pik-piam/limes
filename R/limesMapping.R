@@ -19,8 +19,6 @@ limesMapping <- function(var,mappingPath=NULL){
     mappingPath <- system.file("extdata","LIMES_country_ISO_3.csv",package="limes")
   # reading mapping file
   mapping <- read.csv(mappingPath,sep=";")
-  # initializing output var
-  output <- NULL
   
   #extract the regions of one variable (in some cases, a var only exists for some regions)
   #find the correct position of the region in the subindex (it should normally be in the first position)
@@ -33,10 +31,38 @@ limesMapping <- function(var,mappingPath=NULL){
       pos <- k
   }
   
-  #region_var <- unique(sapply(strsplit(getNames(var),".",1), '[[', 1))
+  #ALTERNATIVE FORMULATION - NOT WORKING FOR ALL VARIABLES DUE TO PROBLEMS IN THE LENGHT OF VECTORS (NOT CLEAR WHY)
+  ##Identifying the names in variables (without the region name)
+  #var_names <- NULL
+  #for (oldRegion in mapping$LIMES_ISO2) {
+  #  tmp <- gsub(paste0(oldRegion,"."),"", getNames(var[,,oldRegion]))
+  #  var_names <- union(var_names,tmp)
+  #}
+  #
+  ## initializing output var
+  #output <- new.magpie(cells_and_regions = mapping$LIMES_ISO3, years = getYears(var), names = c(var_names),
+  #                     fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #output <- collapseNames(output)
+  #
+  ## looping old region names
+  #for (oldRegion in mapping$LIMES_ISO2) {
+  #  # newRegion
+  #  newRegion <- as.vector(mapping[mapping$LIMES_ISO2==oldRegion,]$LIMES_ISO3)
+  #  
+  #  # creating per country margpie object 
+  #  partMagPie <- var[,,oldRegion]
+  #  partMagPie <- collapseNames(partMagPie)
+  #  #tmp <- gsub(paste0(oldRegion,"."),"", getNames(partMagPie))
+  #  output[newRegion,,getNames(partMagPie)] <- partMagPie["GLO",,]
+  #  
+  #}
+  
+  #OLD FORMULATION - WORKS FINE; EXCEPT WHEN ONE OF THE VARIABLES IS REDEFINED EXPORT ->  ZEROS ARE KILLED AND ASSYMETRY PROBLEMS ARISE BETWEEN SOME COUNTRIES
+  # initializing output var
+  output <- NULL
   
   # looping old region names
-  for (oldRegion in mapping$LIMES_ISO2){
+  for (oldRegion in mapping$LIMES_ISO2) {
     # newRegion
     newRegion <- as.vector(mapping[mapping$LIMES_ISO2==oldRegion,]$LIMES_ISO3)
     
@@ -53,13 +79,9 @@ limesMapping <- function(var,mappingPath=NULL){
       partMagPie <- collapseNames(partMagPie)
     }
     
-    ## creating per country margpie object 
-    #partMagPie <- var[,,oldRegion]
-    #getRegions(partMagPie) <- newRegion
-    #partMagPie <- collapseNames(partMagPie)
-    
     # merging per country objects with output
     output <- mbind(output,partMagPie)
-  } 
+  }
+  
   return(output)
 }

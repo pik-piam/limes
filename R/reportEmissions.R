@@ -19,7 +19,6 @@
 reportEmissions <- function(gdx) {
   
   # read sets
-  t <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te")
   teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")

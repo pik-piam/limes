@@ -19,7 +19,6 @@
 reportPrimaryEnergy <- function(gdx) {
   
   # read sets
-  t <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te")
   teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
@@ -56,6 +55,7 @@ reportPrimaryEnergy <- function(gdx) {
   #v_seprod <- v_seprod[,,c(ter,"hydro","ror","hs")]
   #v_seprod <- v_seprod[,,"seel"]
   v_pedem <- v_pedem[,,petyex]
+  #v_pedem[is.na(v_pedem)] <- 0
   
   # create MagPie object of v_pedem|with iso3 regions
   v_pedem <- limesMapping(v_pedem)

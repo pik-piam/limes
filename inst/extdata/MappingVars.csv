@@ -298,7 +298,7 @@ Disinvestment|Electricity|Storage|Stat Batteries;Disinvestment|Electricity|Stora
 Disinvestment|Electricity|Storage|Hydrogen electrolysis;Disinvestment|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1
 Disinvestment|Electricity;Disinvestment|Electricity;GW/yr;GW/yr;1
 EU ETS cap|CO2;EU ETS cap|CO2;Mt CO2/yr;Mt CO2/yr;1
-Emissions level in ETS|CO2;Emissions level in ETS|CO2;Mt CO2;Mt CO2;1
+Emissions|CO2|Total number of allowances in circulation [TNAC];Emissions|CO2|Total number of allowances in circulation [TNAC];Mt CO2;Mt CO2;1
 Emissions|CO2|Industry;Emissions|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Industry;Emissions abated|CO2|Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Certificates auctioned ETS;Emissions|CO2|Certificates auctioned ETS;Mt CO2/yr;Mt CO2/yr;1

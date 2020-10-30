@@ -1,6 +1,5 @@
 LIMES;UnitLIMES
 Emissions level in ETS|CO2|Energy|Supply|Electricity;Mt CO2
-Emissions level in ETS|CO2;Mt CO2
 EU ETS cap|CO2|Energy|Supply|Electricity;Mt CO2/yr
 Emissions|CO2|Free-allocated certificates ETS;Mt CO2/yr
 Emissions|CO2|Intake to MSR;Mt CO2/yr
@@ -19,3 +18,4 @@ Emissions|CO2|EU ETS;Mt CO2/yr
 Emissions|CO2|EU ETS|w/ aviation;Mt CO2/yr
 Emissions|CO2|Unallocated certificates;Mt CO2/yr
 Emissions|CO2|Cancellation from MSR [exogenous];Mt CO2/yr
+Emissions|CO2|Total number of allowances in circulation [TNAC];Mt CO2
