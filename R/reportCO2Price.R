@@ -301,6 +301,22 @@ reportCO2Price <- function(gdx) {
   
   #concatenate reporting data
   tmp <- mbind(tmp3,tmp4)
+  
+  
+  var_names <- c(
+    "Emissions|CO2|Certificates for auction - before unilateral cancellation (Mt CO2/yr)",
+    "Emissions|CO2|Certificates auctioned ETS (Mt CO2/yr)",
+    "Emissions|CO2|Preliminary auction ETS (Mt CO2/yr)",
+    "Revenues EUA auction (billion eur2010/yr)"
+  )
+  
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010,2015), var] <- NA
+    }
+  }
+  
+  
 
   return(tmp)
 }

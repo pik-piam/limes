@@ -779,19 +779,15 @@ Emissions|CO2|Cancellation from MSR [exogenous];Emissions|CO2|Cancellation from 
 Useful Energy|Heat|Storage;Useful Energy|Heat|Storage;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Storage Consumption;Useful Energy|Heat|Storage Consumption;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Storage Losses;Useful Energy|Heat|Storage Losses;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity;Final Energy|Heat|Electricity;TWh/yr;TWh/yr;1
-Final Energy|Heat|District Heating;Final Energy|Heat|District Heating;TWh/yr;TWh/yr;1
-Final Energy|Heat|District Heating|CHP;Final Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
-Final Energy|Heat|District Heating|Heat-only;Final Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|District Heating;Final Energy|Heat|Electricity|District Heating;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|District Heating|Heat Pump;Final Energy|Heat|Electricity|District Heating|Heat Pump;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|District Heating|Electric Boiler;Final Energy|Heat|Electricity|District Heating|Electric Boiler;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity;Final Energy|Heat|Electricity;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|Decentralized;Final Energy|Heat|Electricity|Decentralized;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|Decentralized|Heat Pump;Final Energy|Heat|Electricity|Decentralized|Heat Pump;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|Decentralized|Resisitive electric heater;Final Energy|Heat|Electricity|Decentralized|Resisitive electric heater;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|Decentralized|Conventional heater;Final Energy|Heat|Electricity|Decentralized|Conventional heater;TWh/yr;TWh/yr;1
-Final Energy|Heat|Electricity|Decentralized|Conventional water heater;Final Energy|Heat|Electricity|Decentralized|Conventional water heater;TWh/yr;TWh/yr;1
+Final Energy|Electricity|District Heating|Heat;Final Energy|Electricity|District Heating|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|District Heating|Heat Pump|Heat;Final Energy|Electricity|District Heating|Heat Pump|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|District Heating|Electric Boiler|Heat;Final Energy|Electricity|District Heating|Electric Boiler|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Heat;Final Energy|Electricity|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Decentralized|Heat;Final Energy|Electricity|Decentralized|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Decentralized|Heat Pump|Heat;Final Energy|Electricity|Decentralized|Heat Pump|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Decentralized|Resisitive electric heater|Heat;Final Energy|Electricity|Decentralized|Resisitive electric heater|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Decentralized|Conventional heater|Heat;Final Energy|Electricity|Decentralized|Conventional heater|Heat;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Decentralized|Conventional water heater|Heat;Final Energy|Electricity|Decentralized|Conventional water heater|Heat;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP;Useful Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Biomass;Useful Energy|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Coal;Useful Energy|Heat|District Heating|CHP|Coal;TWh/yr;TWh/yr;1

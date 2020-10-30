@@ -184,6 +184,33 @@ reportEUETSvars <- function(gdx,output=NULL) {
   
   # concatenate data
   tmp <- mbind(tmp1,tmp2)
+  
+  #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
+  var_names <- c(
+    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
+    "Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)",
+    "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)",
+    "Emissions|CO2|Cap|Aviation (Mt CO2/yr)",
+    "Emissions|CO2|Aviation (Mt CO2/yr)"
+  )
+  
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010,2015), var] <- NA
+    }
+  }
+  
+  var_names <- c(
+    "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)",
+    "Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"
+  )
+  
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010), var] <- NA
+    }
+  }
+  
 
   return(tmp)
 }

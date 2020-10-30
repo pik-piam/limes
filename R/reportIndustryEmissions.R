@@ -104,6 +104,10 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
     }
   }
   
+  #Add NAs for 2010 and 2015 due to lack of information
+  tmp[, c(2010,2015),] <- NA
+  
+  
   return(tmp)
 }
   
