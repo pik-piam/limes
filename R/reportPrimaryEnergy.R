@@ -130,7 +130,7 @@ reportPrimaryEnergy <- function(gdx) {
     if(c_heating == 1) {
       #Heat
       varList_he <- list(
-        "Primary Energy|Heat (TWh/yr)"                        =NA,
+        #"Primary Energy|Heat (TWh/yr)"                        =NA,
         "Primary Energy|Exhaustible resources|Heat (TWh/yr)"  =setdiff(petyex,c("pehgen", "peur")),                    
         "Primary Energy|Biomass|Heat (TWh/yr)"                =intersect(tebio,tehe),
         "Primary Energy|Coal|Heat (TWh/yr)"                   =intersect(c(tecoal,telig),tehe),
@@ -146,6 +146,9 @@ reportPrimaryEnergy <- function(gdx) {
         tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem_he[,,varList_he[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
       }
       
+      #Load additional sets
+      techp <- readGDX(gdx,name="techp") #set of chp generation technologies
+      
       #Electricity and Heat
       varList_elhe <- list(
         "Primary Energy|Exhaustible resources|Electricity and Heat (TWh/yr)"   =c(petyex),
@@ -159,7 +162,20 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Fossil|Electricity and Heat (TWh/yr)"                  =c(tefossil),
         "Primary Energy|Nuclear|Electricity and Heat (TWh/yr)"                 =c("tnr"),
         "Primary Energy|Other|Electricity and Heat (TWh/yr)"                   =c(teothers),
-        "Primary Energy|Hydrogen|Electricity and Heat (TWh/yr)"                =c(tehgen)
+        "Primary Energy|Hydrogen|Electricity and Heat (TWh/yr)"                =c(tehgen),
+        
+        #CHP
+        "Primary Energy|Exhaustible resources|CHP (TWh/yr)"   =intersect(techp,te),
+        "Primary Energy|Biomass|CHP (TWh/yr)"                 =intersect(techp,tebio),
+        "Primary Energy|Coal|CHP (TWh/yr)"                    =intersect(techp,c(tecoal,telig)),
+        "Primary Energy|Hard Coal|CHP (TWh/yr)"               =intersect(techp,tecoal),
+        "Primary Energy|Lignite|CHP (TWh/yr)"                 =intersect(techp,telig),
+        "Primary Energy|Oil|CHP (TWh/yr)"                     =intersect(techp,teoil),
+        "Primary Energy|Gas|CHP (TWh/yr)"                     =intersect(techp,tegas),
+        "Primary Energy|Gas|CHP|Gas CC (TWh/yr)"              =intersect(techp,tengcc),
+        "Primary Energy|Gas|CHP|Gas OC (TWh/yr)"              =intersect(techp,setdiff(tegas,tengcc)),
+        "Primary Energy|Fossil|CHP (TWh/yr)"                  =intersect(techp,tefossil),
+        "Primary Energy|Other|CHP (TWh/yr)"                   =intersect(techp,teothers)
       )
       for (var in names(varList_elhe)){
         tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem[,,varList_elhe[[var]]],dim=c(3.2,3.3,3.4))*p_taulength,dim=3)/1000,var))
