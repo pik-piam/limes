@@ -303,14 +303,14 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #INCLUDE HISTORICAL VALUES FOR THE INDUSTRY
   #(source: "REPORT FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Report on the functioning of the European carbon market COM/2019/557 final/2" https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52019DC0557R(01))
   if(!is.na(match("Emissions|CO2|Industry (Mt CO2/yr)",getNames(output)))) {
-    output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 715 #Value from 2011 (2010 not available) - emissions reported from data viewer (537.4) might be incomplete as some could be included in combustion
-    output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 771 #emissions reported from data viewer (590.8) might be incomplete as some could be included in combustion
-    output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
-    output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
+    output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA #715 #Value from 2011 (2010 not available) - emissions reported from data viewer (537.4) might be incomplete as some could be included in combustion
+    #output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- 771 #emissions reported from data viewer (590.8) might be incomplete as some could be included in combustion
+    output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA #output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
+    #output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"]
     
     if(!is.na(match("Emissions|CO2|EU ETS (Mt CO2/yr)",getNames(output)))) {
-      output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
-      output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
+      output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- NA #output["EUETS",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2010,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
+      #output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"] <- output["EUETS",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] + output["EUETS",2015,"Emissions|CO2|EU ETS (Mt CO2/yr)"]
       
     }
     

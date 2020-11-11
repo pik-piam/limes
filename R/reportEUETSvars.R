@@ -107,7 +107,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
         c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
         p_certificates_cancelled <- readGDX(gdx,name="p_certificates_cancelled",field="l",format="first_found")
         
-        if(c_heating == 0 & c_bankemi_EU == 1) { #endogenous heating and model version >2.27
+        if(c_heating != 1 & c_bankemi_EU == 1) { #heating included and model version >2.27
           
           #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
           if(c_LIMESversion <= 2.30) {
@@ -123,17 +123,36 @@ reportEUETSvars <- function(gdx,output=NULL) {
             }
             
           } else {#c_heating == 0 and c_LIMESversion > 2.30
-            p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found") #exogenous emissions from heating (share of cap)
-            p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
+            
+            #Previous version did not have endogenous heating 
+            #-> with endogenous this variable will be calculated from the region-based heating
+            if(c_heating == 0) {
+              p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found") #exogenous emissions from heating (share of cap)
+              #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
+              p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
+              tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+              o_DH_emi <- p_exoemiheat
+            } else {
+              #Read additional parameters
+              p_DH_emiabat <- readGDX(gdx,name="p_DH_emiabat",field="l",format="first_found")
+              p_DH_emimac <- readGDX(gdx,name="p_DH_emimac",field="l",format="first_found")
+              
+              #read variables
+              v_DH_emiabatproc <- readGDX(gdx,name="v_DH_emiabatproc",field="l",format="first_found")
+              
+              #Estimate DH emissions (baselines - abated)
+              o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
+              o_DH_emi <- dimSums(o_DH_emi,3)
+              o_DH_emi[,c(2010),] <- NA
+              tmp2 <- mbind(tmp2,setNames(o_DH_emi*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+            }
+            
             p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found") #exogenous emissions (from other sectors if introduced into the EU ETS)
             tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
             if(!is.null(o_emi_elec_ind)) {
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (p_exoemiheat + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
             }
-            #Previous version did not have endogenous heating 
-            #-> with endogenous this variable will be calculated from the region-based heating
-            tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
             
             if(c_LIMESversion <= 2.33) {
               tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
@@ -202,7 +221,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
   
   var_names <- c(
     "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)",
-    "Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"
+    "Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)",
+    "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"
   )
   
   for(var in var_names) {

@@ -58,7 +58,7 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
       tmp1 <- mbind(tmp1,setNames(dimSums(v_ind_emiabatproc,dim=3)*s_c2co2*1000,"Emissions abated|CO2|Industry (Mt CO2/yr)"))
       
       # read variables that have been already calculated in other functions (emissions and trade costs)
-      o_elec_emi <- output[,,"Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"]
+      o_elec_emi <- output[,,"Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"] #make regions match
       tmp1 <- mbind(tmp1,setNames(dimSums(o_ind_emi,3)*s_c2co2*1000+o_elec_emi,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"))
       
       
@@ -104,8 +104,32 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
     }
   }
   
-  #Add NAs for 2010 and 2015 due to lack of information
-  tmp[, c(2010,2015),] <- NA
+  #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
+  var_names <- c(
+    "Emissions|CO2|Free-allocated certificates ETS|Industry (Mt CO2/yr)",
+    "Total Cost|Industry|CO2 costs (billion eur2010/yr)",
+    "Revenues|Industry|EUA sales (billion eur2010/yr)",
+    "Profits|Industry (billion eur2010/yr)"
+  )
+  
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010,2015), var] <- NA
+    }
+  }
+  
+  var_names <- c(
+    "Emissions|CO2|Industry (Mt CO2/yr)",
+    "Emissions abated|CO2|Industry (Mt CO2/yr)",
+    "Emissions|CO2|Electricity and Industry (Mt CO2/yr)",
+    "Total Cost|Industry|Abatement (billion eur2010/yr)"
+  )
+  
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010), var] <- NA
+    }
+  }
   
   
   return(tmp)
