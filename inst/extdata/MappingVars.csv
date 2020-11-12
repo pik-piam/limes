@@ -915,3 +915,139 @@ Primary Energy|Gas|CHP|Gas CC;Primary Energy|Gas|CHP|Gas CC;TWh/yr;TWh/yr;1
 Primary Energy|Gas|CHP|Gas OC;Primary Energy|Gas|CHP|Gas OC;TWh/yr;TWh/yr;1
 Primary Energy|Fossil|CHP;Primary Energy|Fossil|CHP;TWh/yr;TWh/yr;1
 Primary Energy|Other|CHP;Primary Energy|Other|CHP;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity;Secondary Energy|Gross|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|w/ storage;Secondary Energy|Gross|Electricity|w/ storage;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Biomass;Secondary Energy|Gross|Electricity|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Coal;Secondary Energy|Gross|Electricity|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Curtailment;Secondary Energy|Gross|Electricity|Curtailment;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Gas CC;Secondary Energy|Gross|Electricity|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Gas OC;Secondary Energy|Gross|Electricity|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Gas;Secondary Energy|Gross|Electricity|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydro;Secondary Energy|Gross|Electricity|Hydro;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hard Coal;Secondary Energy|Gross|Electricity|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Lignite;Secondary Energy|Gross|Electricity|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Net Exports;Secondary Energy|Gross|Electricity|Net Exports;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Nuclear;Secondary Energy|Gross|Electricity|Nuclear;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Oil;Secondary Energy|Gross|Electricity|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Other;Secondary Energy|Gross|Electricity|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Other Fossil;Secondary Energy|Gross|Electricity|Other Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Solar;Secondary Energy|Gross|Electricity|Solar;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Solar|CSP;Secondary Energy|Gross|Electricity|Solar|CSP;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Solar|PV;Secondary Energy|Gross|Electricity|Solar|PV;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Wind;Secondary Energy|Gross|Electricity|Wind;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Wind|Offshore;Secondary Energy|Gross|Electricity|Wind|Offshore;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Wind|Onshore;Secondary Energy|Gross|Electricity|Wind|Onshore;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydrogen;Secondary Energy|Gross|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydrogen|w/ storage;Secondary Energy|Gross|Electricity|Hydrogen|w/ storage;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydrogen FC;Secondary Energy|Gross|Electricity|Hydrogen FC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydrogen OC;Secondary Energy|Gross|Electricity|Hydrogen OC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hydrogen CC;Secondary Energy|Gross|Electricity|Hydrogen CC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Coal|w/ CCS;Secondary Energy|Gross|Electricity|Coal|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Coal|w/o CCS;Secondary Energy|Gross|Electricity|Coal|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Gas|w/ CCS;Secondary Energy|Gross|Electricity|Gas|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Gas|w/o CCS;Secondary Energy|Gross|Electricity|Gas|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hard Coal|w/ CCS;Secondary Energy|Gross|Electricity|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Hard Coal|w/o CCS;Secondary Energy|Gross|Electricity|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Lignite|w/ CCS;Secondary Energy|Gross|Electricity|Lignite|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Lignite|w/o CCS;Secondary Energy|Gross|Electricity|Lignite|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Biomass|w/o CCS;Secondary Energy|Gross|Electricity|Biomass|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Biomass|w/ CCS;Secondary Energy|Gross|Electricity|Biomass|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Fossil;Secondary Energy|Gross|Electricity|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Storage;Secondary Energy|Gross|Electricity|Storage;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Storage|Pump Hydro;Secondary Energy|Gross|Electricity|Storage|Pump Hydro;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Storage|Stat Batteries;Secondary Energy|Gross|Electricity|Storage|Stat Batteries;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Storage|Hydrogen electrolysis;Secondary Energy|Gross|Electricity|Storage|Hydrogen electrolysis;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Variable renewable;Secondary Energy|Gross|Electricity|Variable renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Non-variable renewable;Secondary Energy|Gross|Electricity|Non-variable renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Renewable;Secondary Energy|Gross|Electricity|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Non-renewable;Secondary Energy|Gross|Electricity|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|w/o losses;Secondary Energy|Gross|Electricity|w/o losses;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Net Imports;Secondary Energy|Gross|Electricity|Net Imports;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Waste;Secondary Energy|Gross|Electricity|Waste;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP;Secondary Energy|Gross|Electricity|CHP;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Biomass;Secondary Energy|Gross|Electricity|CHP|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Coal;Secondary Energy|Gross|Electricity|CHP|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Gas CC;Secondary Energy|Gross|Electricity|CHP|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Gas OC;Secondary Energy|Gross|Electricity|CHP|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Gas;Secondary Energy|Gross|Electricity|CHP|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Hard Coal;Secondary Energy|Gross|Electricity|CHP|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Lignite;Secondary Energy|Gross|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Oil;Secondary Energy|Gross|Electricity|CHP|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Other;Secondary Energy|Gross|Electricity|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Fossil;Secondary Energy|Gross|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Renewable;Secondary Energy|Gross|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Non-renewable;Secondary Energy|Gross|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only;Secondary Energy|Gross|Electricity|Electricity-only;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Biomass;Secondary Energy|Gross|Electricity|Electricity-only|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Coal;Secondary Energy|Gross|Electricity|Electricity-only|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Gas CC;Secondary Energy|Gross|Electricity|Electricity-only|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Gas OC;Secondary Energy|Gross|Electricity|Electricity-only|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Gas;Secondary Energy|Gross|Electricity|Electricity-only|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal;Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Lignite;Secondary Energy|Gross|Electricity|Electricity-only|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Oil;Secondary Energy|Gross|Electricity|Electricity-only|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Other;Secondary Energy|Gross|Electricity|Electricity-only|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Waste;Secondary Energy|Gross|Electricity|Electricity-only|Waste;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Fossil;Secondary Energy|Gross|Electricity|Electricity-only|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Renewable;Secondary Energy|Gross|Electricity|Electricity-only|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Non-renewable;Secondary Energy|Gross|Electricity|Electricity-only|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Biomass|w/o CCS;Secondary Energy|Gross|Electricity|Electricity-only|Biomass|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Biomass|w/ CCS;Secondary Energy|Gross|Electricity|Electricity-only|Biomass|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Coal|w/o CCS;Secondary Energy|Gross|Electricity|Electricity-only|Coal|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Coal|w/ CCS;Secondary Energy|Gross|Electricity|Electricity-only|Coal|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Lignite|w/o CCS;Secondary Energy|Gross|Electricity|Electricity-only|Lignite|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Lignite|w/ CCS;Secondary Energy|Gross|Electricity|Electricity-only|Lignite|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal|w/o CCS;Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal|w/ CCS;Secondary Energy|Gross|Electricity|Electricity-only|Hard Coal|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Gas|w/o CCS;Secondary Energy|Gross|Electricity|Electricity-only|Gas|w/o CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|Electricity-only|Gas|w/ CCS;Secondary Energy|Gross|Electricity|Electricity-only|Gas|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP;Secondary Energy|Gross|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Biomass;Secondary Energy|Gross|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Coal;Secondary Energy|Gross|Heat|District Heating|CHP|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Gas CC;Secondary Energy|Gross|Heat|District Heating|CHP|Gas CC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Gas OC;Secondary Energy|Gross|Heat|District Heating|CHP|Gas OC;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Gas;Secondary Energy|Gross|Heat|District Heating|CHP|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Hard Coal;Secondary Energy|Gross|Heat|District Heating|CHP|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Lignite;Secondary Energy|Gross|Heat|District Heating|CHP|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Oil;Secondary Energy|Gross|Heat|District Heating|CHP|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Other;Secondary Energy|Gross|Heat|District Heating|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil;Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Fossil;Secondary Energy|Gross|Heat|District Heating|CHP|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Renewable;Secondary Energy|Gross|Heat|District Heating|CHP|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Non-renewable;Secondary Energy|Gross|Heat|District Heating|CHP|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only;Secondary Energy|Gross|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Biomass;Secondary Energy|Gross|Heat|District Heating|Heat-only|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Coal;Secondary Energy|Gross|Heat|District Heating|Heat-only|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Hard Coal;Secondary Energy|Gross|Heat|District Heating|Heat-only|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite;Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil;Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas;Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Other;Secondary Energy|Gross|Heat|District Heating|Heat-only|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste;Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil;Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity;Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Solar;Secondary Energy|Gross|Heat|District Heating|Heat-only|Solar;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Geothermal;Secondary Energy|Gross|Heat|District Heating|Heat-only|Geothermal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Fossil;Secondary Energy|Gross|Heat|District Heating|Heat-only|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Renewable;Secondary Energy|Gross|Heat|District Heating|Heat-only|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Non-renewable;Secondary Energy|Gross|Heat|District Heating|Heat-only|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating;Secondary Energy|Gross|Heat|District Heating;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Biomass;Secondary Energy|Gross|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Coal;Secondary Energy|Gross|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Gas;Secondary Energy|Gross|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Hard Coal;Secondary Energy|Gross|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Lignite;Secondary Energy|Gross|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Oil;Secondary Energy|Gross|Heat|District Heating|Oil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Other;Secondary Energy|Gross|Heat|District Heating|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Fossil;Secondary Energy|Gross|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Renewable;Secondary Energy|Gross|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Non-renewable;Secondary Energy|Gross|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Waste;Secondary Energy|Gross|Heat|District Heating|Waste;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Solar;Secondary Energy|Gross|Heat|District Heating|Solar;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Geothermal;Secondary Energy|Gross|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Other Fossil;Secondary Energy|Gross|Heat|District Heating|Other Fossil;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Electricity;Secondary Energy|Gross|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Electricity|Heat Pump;Secondary Energy|Gross|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Electricity|Electric Boiler;Secondary Energy|Gross|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1

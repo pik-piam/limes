@@ -315,10 +315,16 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
     }
     
     #To avoid confusion, make sure that industry-related values are not reported for the EU28
-    output["EU28",2010,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
-    output["EU28",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA 
-    output["EU28",2010,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
-    output["EU28",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
+    output["EU28",c(2010,2015),"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
+    #output["EU28",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA 
+    output["EU28",c(2010,2015),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
+    #output["EU28",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
+    
+    #Add NA for 2010. Because the MAC industry only applies from 2015, the reported price is the sum 
+    if(is.na(output[c("GLO"),c(2010),"Emissions|CO2|Industry (Mt CO2/yr)"])) {
+      output[c("EU28","EUETS","GLO"),c(2010),"Price|Carbon|Net|Industry (Eur2010/t CO2)"] <- NA
+      output[c("EU28","EUETS","GLO"),c(2010),"Price|Carbon|National Climate Target|Industry (Eur2010/t CO2)"] <- NA
+    }
   }
   
   #SCALING THE RESULTS ACCORDING TO THE UNITS SPECIFIES FOR THE PROJECT
