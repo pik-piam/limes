@@ -479,14 +479,10 @@ reportGeneration <- function(gdx,output=NULL) {
     #Aggregate hydrogen used by different generation technologies, i.e., hydrogen used to produce electricity
     o_p2xse <- dimSums(v_p2xse[,,tehgen],dim=c(3.2))
     
+	#Save marginal value in new variable to compute required calculations
     o_p2x <- new.magpie(cells_and_regions = getRegions(m_p2x), years = getYears(m_p2x), names = tau,
                                    fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-    
-    #Adjust v_p2xse
-    #There are few cases where v_p2xse is higher than v_seprod (wasting electricity in hydrogen, instead of curtailing)
-    o_seprod_hgen <- collapseNames(v_seprod_el[,,"pehgen"])
-    #v_p2xse <- pmin(v_p2xse,o_seprod_hgen, na.rm = TRUE)
-    
+        
     for (t2 in getYears(m_p2x)) {
       o_p2x[,t2,] <- m_p2x[,t2,]
     }
@@ -505,7 +501,7 @@ reportGeneration <- function(gdx,output=NULL) {
                                   dimSums(p_taulength*o_p2xse,3),"Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)"))
     
     varList_hgen <- list(
-      "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = NA,
+      "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = c(tehgen),
       "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen FC (TWh/yr)" = "hfc",
       "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen OC (TWh/yr)" = "hct",
       "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen CC (TWh/yr)" = "hcc"
