@@ -58,12 +58,13 @@ reportEmissions <- function(gdx) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
-    v_emi_el <- v_emi
+    #v_emi_el <- v_emi
+    v_emi_he <- v_emi[,,"sehe"]
+    v_emi_el <- v_emi[,,"seel"]
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    if(c_heating == 1) {
-      v_emi_he <- v_emi[,,"sehe"]
-      v_emi_el <- v_emi[,,"seel"]
-    }
+    #if(c_heating == 1) {
+    #  
+    #}
   } 
   
   #annual emissions per primary energy type
@@ -78,7 +79,7 @@ reportEmissions <- function(gdx) {
   
   varList_el <- list(
     #Conventional
-    "Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"                        =NA,
+    "Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"                        ="seel",
     "Emissions|CO2|Energy|Supply|Electricity|Coal (Mt CO2/yr)"                   =intersect(teel,c(tecoal,telig)),
     "Emissions|CO2|Energy|Supply|Electricity|Coal|w/o CCS (Mt CO2/yr)"           =intersect(teel,setdiff(c(tecoal,telig),teccs)),
     "Emissions|CO2|Energy|Supply|Electricity|Coal|w/ CCS (Mt CO2/yr)"            =intersect(teel,intersect(c(tecoal,telig),teccs)),
@@ -182,7 +183,7 @@ reportEmissions <- function(gdx) {
       #Electricity and Heat
       varList_el <- list(
         #Conventional
-        "Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"                  =NA,
+        "Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"                  =c("seel","sehe"),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"          =intersect(te,intersect(tebio,teccs)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Coal (Mt CO2/yr)"             =intersect(te,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Hard Coal (Mt CO2/yr)"        =intersect(te,c(tecoal)),
