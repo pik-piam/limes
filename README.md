@@ -1,8 +1,8 @@
 # The liMES R package
 
-R package **limes**, version **2.4.2**
+R package **limes**, version **2.5.0**
 
-  
+[![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)   [![R build status](https://github.com/pik-piam/limes/workflows/check/badge.svg)](https://github.com/pik-piam/limes/actions) [![codecov](https://codecov.io/gh/pik-piam/limes/branch/master/graph/badge.svg)](https://codecov.io/gh/pik-piam/limes)
 
 ## Purpose and Functionality
 
@@ -38,7 +38,7 @@ In case of questions / problems please contact Sebastian Osorio <sebastian.osori
 
 To cite package **limes** in publications use:
 
-Osorio S (2020). _limes: The liMES R package_. R package version 2.4.2.
+Osorio S (2021). _limes: The liMES R package_. R package version 2.5.0.
 
 A BibTeX entry for LaTeX users is
 
@@ -46,8 +46,8 @@ A BibTeX entry for LaTeX users is
 @Manual{,
   title = {limes: The liMES R package},
   author = {Sebastian Osorio},
-  year = {2020},
-  note = {R package version 2.4.2},
+  year = {2021},
+  note = {R package version 2.5.0},
 }
 ```
 

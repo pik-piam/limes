@@ -330,7 +330,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #SCALING THE RESULTS ACCORDING TO THE UNITS SPECIFIES FOR THE PROJECT
   tmp <- NULL
   for (i in c(1:length(getNames(output)))) {
-    tmp <- mbind(tmp,output[,,i]*mappingvars[match(getNames(output),finalvars),]$ConvFactor[i])
+    tmp <- mbind(tmp,output[,,i]*mappingvars[match(getNames(output)[i],finalvars),]$ConvFactor)
   }
   output_f <- tmp
   #output<-tmp
@@ -340,7 +340,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #MAPPING THE VARIABLES TO THOSE OF A SPECIFIC PROJECT
   posvarsmapping <- match(getNames(output_f),finalvars)
   posvarsmapping <- posvarsmapping[which(posvarsmapping != "NA")]
-  mappingvars_project <-paste0(as.vector(mappingvars[posvarsmapping,]$Enavi)," (",as.vector(mappingvars[posvarsmapping,]$UnitEnavi) , ")")
+  mappingvars_project <- paste0(as.vector(mappingvars[posvarsmapping,]$Enavi)," (",as.vector(mappingvars[posvarsmapping,]$UnitEnavi) , ")")
   output_f <- setNames(output_f,mappingvars_project)
   
   
