@@ -504,7 +504,7 @@ reportGeneration <- function(gdx,output=NULL) {
     #p_eta <- p_tedata[,,"eta"]
     #p_eta_helec <- limesMapping(p_eta)[,,"helec"]
     #tmp4 <- mbind(tmp4,setNames(p_eta_helec*setNames(tmp4[,,"Primary Energy|Electricity|Hydrogen (TWh/yr)"],NULL),"Secondary Energy|Hydrogen|Electricity (TWh/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(p_taulength*v_otherse,3),"Secondary Energy|Hydrogen|Electricity (TWh/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(p_taulength*v_otherse,3)/1000,"Secondary Energy|Hydrogen|Electricity (TWh/yr)"))
     
     #Hydrogen from external sources used in electricity production (from version 2.37 there is the option of external demand of H2, so it is not possible to know anymore if the imported H2 is exclusively used for electricity production)
     if(c_LIMESversion == 2.36) {
