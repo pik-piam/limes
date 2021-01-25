@@ -2,7 +2,7 @@
 
 R package **limes**, version **2.6.1**
 
-[![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)   [![R build status](https://github.com/pik-piam/limes/workflows/check/badge.svg)](https://github.com/pik-piam/limes/actions) [![codecov](https://codecov.io/gh/pik-piam/limes/branch/master/graph/badge.svg)](https://codecov.io/gh/pik-piam/limes)
+[![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)    
 
 ## Purpose and Functionality
 

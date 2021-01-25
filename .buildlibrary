@@ -6,4 +6,4 @@ AcceptedNotes:
 - Imports includes .* non-default packages.
 - unable to verify current time
 AutocreateReadme: yes
-UseGithubActions: yes
+UseGithubActions: no
