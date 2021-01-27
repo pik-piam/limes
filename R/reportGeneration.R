@@ -542,7 +542,7 @@ reportGeneration <- function(gdx,output=NULL) {
       tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4el*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
       v_demP2XSe_4nel <- readGDX(gdx,name="v_demP2XSe_4nel",field="l",format="first_found")[,,"pehgen"] #[GWh]
       v_demP2XSe_4nel <- limesMapping(v_demP2XSe_4nel)
-      tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4el*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
+      tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4nel*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
       
       #External hydrogen, i.e., imported hydrogen (H2 demand - H2 produced by electrolysers)
       v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found")[,,"pehgen"] #[GWh]
