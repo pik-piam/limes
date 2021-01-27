@@ -763,6 +763,9 @@ Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;Short-run profits [w 
 Primary Energy|Hydrogen [electrolysis]|Electricity;Primary Energy|Hydrogen [electrolysis]|Electricity;TWh/yr;TWh/yr;1
 Primary Energy|Hydrogen [external]|Electricity;Primary Energy|Hydrogen [external]|Electricity;TWh/yr;TWh/yr;1
 Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Other sectors;Primary Energy|Hydrogen [electrolysis]|Other sectors;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [external]|Other sectors;Primary Energy|Hydrogen [external]|Other sectors;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen|Other sectors;Primary Energy|Hydrogen|Other sectors;TWh/yr;TWh/yr;1
 Primary Energy|Hydrogen [external];Primary Energy|Hydrogen [external];TWh/yr;TWh/yr;1
 Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis];TWh/yr;TWh/yr;1
 Primary Energy|Hydrogen;Primary Energy|Hydrogen;TWh/yr;TWh/yr;1
