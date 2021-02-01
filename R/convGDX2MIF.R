@@ -88,7 +88,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
   #(this is needed to keep report within the dimensions)
   #An example is the cap for the EU ETS
-  output <- mbind(output,reportFictitiousVars(gdx)[,time,])
+  output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
+  #Save file before aggregation
+  output_beforeagg <- output
   
   
   #AGGREGATE (WEIGHTED AVERAGE OF) SOME INTENSIVE VARIABLES (e.g., electricity price)

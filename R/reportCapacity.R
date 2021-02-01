@@ -20,7 +20,7 @@
 reportCapacity <- function(gdx) {
   
   # read sets
-  t <- readGDX(gdx,name="t")
+  tt <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te") 
   teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
@@ -280,7 +280,7 @@ reportCapacity <- function(gdx) {
     }
   }
   
-  tmp7 <- mbind(tmp5[,as.numeric(c(t)),],tmp6)
+  tmp7 <- mbind(tmp5[,as.numeric(tt),],tmp6)
   
   #Energy storage (reservoir) capacity and ratios
   tmp8 <- NULL
@@ -319,7 +319,7 @@ reportCapacity <- function(gdx) {
   }
   
   #combine aggregated capacity with brake-down of technologies
-  tmp <- mbind(tmp7,tmp8[,as.numeric(c(t)),])
+  tmp <- mbind(tmp7,tmp8[,as.numeric(tt),])
 
   return(tmp)
 }

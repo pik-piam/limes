@@ -19,7 +19,6 @@ reportPeakDemand <- function(gdx) {
 
   #Loading sets and parameters from convGDX2MIF parent function 
   regi <- readGDX(gdx,name="regi") #set of countries
-  t <- readGDX(gdx,name="t") #set of time
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found") #demand
   

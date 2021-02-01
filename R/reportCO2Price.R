@@ -21,7 +21,7 @@ reportCO2Price <- function(gdx) {
   
   # read sets and parameters
   te <- readGDX(gdx,name="te") #technologies set
-  t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
+  tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #time set
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
   p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time step
@@ -48,7 +48,7 @@ reportCO2Price <- function(gdx) {
   mappingregi <- read.csv(mappingregiPath,sep=";")
   
   #compute factor to discount average marginal values
-  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
+  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
   
   
   #1) EXOGENOUS CO2 PRICE
@@ -160,7 +160,7 @@ reportCO2Price <- function(gdx) {
   if(c_emicapcumscen_regi > 0) {
     m_emiconstcum_regi <- limesMapping(m_emiconstcum_regi)
     m_emiconstcum_regi <- limesAllocateYears(m_emiconstcum_regi,gdx)
-    for (t2 in c(1:length(t))) {
+    for (t2 in c(1:length(tt))) {
     o_marg_emicapcum_regi = mbind(o_marg_emicapcum_regi,(1/s_c2co2)*(-m_emiconstcum_regi[,t2,]*p_ts/f_npv[t2])) #the f_npv considers the parameter p_ts, but emicapcumscen_regi is a constraint for the 5 years
     }
     o_marg_emicapcum_regi[,c(2010,2015),]<-0 #Ensuring the values for 2010 and 2015 are zero

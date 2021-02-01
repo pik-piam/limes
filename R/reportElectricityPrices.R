@@ -21,7 +21,7 @@ reportElectricityPrices <- function(gdx) {
   
   # read sets and parameters
   p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
-  t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
+  tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
   c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found") #electricity losses
@@ -112,7 +112,7 @@ reportElectricityPrices <- function(gdx) {
   }
   
   #compute factor to discount average marginal values
-  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
+  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
   
   #discounting marginal values
   o_elecprices_disc <- NULL
@@ -125,7 +125,7 @@ reportElectricityPrices <- function(gdx) {
   o_restargetrelative_disc <- NULL #Only until version 2.26
   o_restarget_disc <- NULL
   
-  for (t2 in 1:length(t)) {
+  for (t2 in 1:length(tt)) {
     o_elecprices_disc <- mbind(o_elecprices_disc,m_elecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     o_fullelecprices_disc <- mbind(o_fullelecprices_disc,o_fullelecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     o_fullheprices_disc <- mbind(o_fullheprices_disc,o_fullheprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]

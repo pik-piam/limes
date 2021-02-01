@@ -20,7 +20,7 @@
 reportDisinvestments <- function(gdx) {
   
   # read sets
-  t <- readGDX(gdx,name="t",field="l",format="first_found") #time set
+  tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   teel <- readGDX(gdx,name="teel") #set of electricity generation technologies (non-storage)
   ter <- readGDX(gdx,name="ter") #set of variable renewable electricity generation technologies
   ternofluc <- readGDX(gdx,name="ternofluc") #set of non-variable (non-fluctuating) renewable electricity generation technologies
@@ -51,8 +51,8 @@ reportDisinvestments <- function(gdx) {
   v_disinvest <- limesMapping(v_disinvest)
   
   #need to add the year 2010 to v_disinvest (depending on the scenario)
-  if (length(getYears(v_disinvest)) < length(t)) {
-    for (t2 in setdiff(t,getYears(v_disinvest))) {
+  if (length(getYears(v_disinvest)) < length(tt)) {
+    for (t2 in setdiff(tt,getYears(v_disinvest))) {
       tmp<- v_disinvest[,1,]*0
       getYears(tmp)<- t2
       v_disinvest<-mbind(tmp,v_disinvest)

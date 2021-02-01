@@ -528,7 +528,7 @@ reportGeneration <- function(gdx,output=NULL) {
     if(c_LIMESversion >= 2.37) {
       #H2 demand
       #Hydrogen sold to other sectors (i.e., not used for electricity generation) - exogenous
-      p_demXSe_exo <- readGDX(gdx,name="p_demXSe_exo",field="l",format="first_found")[,,"pehgen"] #[GWh]
+      p_demXSe_exo <- readGDX(gdx,name=c("p_demXSe_exo","p_hgen_othersec"),field="l",format="first_found")[,,"pehgen"] #[GWh]
       p_demXSe_exo <- limesMapping(p_demXSe_exo)
       tmp4 <- mbind(tmp4,setNames(p_demXSe_exo/1000,"Final Energy|Hydrogen|Other sectors (TWh/yr)"))
       tmp4 <- mbind(tmp4,setNames(setNames(output[,,"Primary Energy|Hydrogen|Electricity (TWh/yr)"],NULL),"Final Energy|Hydrogen|Power Sector (TWh/yr)"))
@@ -537,22 +537,33 @@ reportGeneration <- function(gdx,output=NULL) {
       #H2 production
       #Internal hydrogen (produced through electrolysis)
       tmp4 <- mbind(tmp4,setNames(setNames(tmp4[,,"Secondary Energy|Hydrogen|Electricity (TWh/yr)"],NULL),"Primary Energy|Hydrogen [electrolysis] (TWh/yr)"))
-      v_demP2XSe_4el <- readGDX(gdx,name="v_demP2XSe_4el",field="l",format="first_found")[,,"pehgen"] #[GWh]
+      v_demP2XSe_4el <- readGDX(gdx,name=c("v_demP2XSe_4el","v_p2xse"),field="l",format="first_found")[,,"pehgen"] #[GWh]
       v_demP2XSe_4el <- limesMapping(v_demP2XSe_4el)
+      if(length(grep("[.]",getNames(v_demP2XSe_4el)[1])) == 1) { #In the case of 'v_p2xse', it was technology-dependent
+        v_demP2XSe_4el <- dimSums(v_demP2XSe_4el, dim=3.2)
+      }
       tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4el*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
-      v_demP2XSe_4nel <- readGDX(gdx,name="v_demP2XSe_4nel",field="l",format="first_found")[,,"pehgen"] #[GWh]
+      v_demP2XSe_4nel <- readGDX(gdx,name=c("v_demP2XSe_4nel","v_hgen_othersec"),field="l",format="first_found")[,,"pehgen"] #[GWh]
       v_demP2XSe_4nel <- limesMapping(v_demP2XSe_4nel)
       tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4nel*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
       
       #External hydrogen, i.e., imported hydrogen (H2 demand - H2 produced by electrolysers)
-      v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found")[,,"pehgen"] #[GWh]
-      v_imp_XSe_4el_tau <- limesMapping(v_imp_XSe_4el_tau)
+      c_sharehgen <- readGDX(gdx,name="c_sharehgen",field="l",format="first_found")
+      if (c_sharehgen == 1) {
+        v_imp_XSe_4el_tau <- new.magpie(cells_and_regions = getRegions(v_demP2XSe_4el), years = getYears(v_demP2XSe_4el), names = NULL,
+                                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+        v_imp_XSe_4nel <- new.magpie(cells_and_regions = getRegions(v_demP2XSe_4el), years = getYears(v_demP2XSe_4el), names = NULL,
+                                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+      } else {
+        v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found")[,,"pehgen"] #[GWh]
+        v_imp_XSe_4el_tau <- limesMapping(v_imp_XSe_4el_tau)
+        
+        v_imp_XSe_4nel <- readGDX(gdx,name="v_imp_XSe_4nel",field="l",format="first_found")[,,"pehgen"] #[GWh]
+        v_imp_XSe_4nel <- limesMapping(v_imp_XSe_4nel)
+      }
+      
       tmp4 <- mbind(tmp4,setNames(dimSums(v_imp_XSe_4el_tau*p_taulength,3)/1000,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"))
-      
-      v_imp_XSe_4nel <- readGDX(gdx,name="v_imp_XSe_4nel",field="l",format="first_found")[,,"pehgen"] #[GWh]
-      v_imp_XSe_4nel <- limesMapping(v_imp_XSe_4nel)
       tmp4 <- mbind(tmp4,setNames(v_imp_XSe_4nel/1000,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"))
-      
       tmp4 <- mbind(tmp4,setNames(collapseNames(tmp4[,,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"]) + 
                                     collapseNames(tmp4[,,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"]),"Primary Energy|Hydrogen [external] (TWh/yr)"))
        

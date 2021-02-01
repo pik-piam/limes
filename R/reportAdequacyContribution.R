@@ -27,7 +27,6 @@ reportAdequacyContribution <- function(gdx) {
   ternofluc <- readGDX(gdx,name="ternofluc")
   teel <- readGDX(gdx,name="teel")
   tau <- readGDX(gdx,name="tau")
-  t <- readGDX(gdx,name="t")
   testore <- readGDX(gdx,name="testore")
   tegas <- readGDX(gdx,name="tegas") #set of gas generation technologies
   telig <- readGDX(gdx,name="telig") #set of lignite generation technologies
@@ -105,7 +104,7 @@ reportAdequacyContribution <- function(gdx) {
   
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks
   #Need a magpie variable with regi and year
-  taumax <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = t, names = NULL,
+  taumax <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = NULL,
                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   taumax <- setNames(taumax, NULL)
   taupeak <- taumax
@@ -122,11 +121,11 @@ reportAdequacyContribution <- function(gdx) {
   #Capacity Adequacy FOR CONVENTIONAL TECHNOLOGIES AND STORAGE
   
   #Need a magpie variable with the same sets as v_cap
-  capadeq <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = t, names = tentra,
+  capadeq <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tentra,
                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   
   for (tentra2 in tentra) {
-    capadeq[,as.numeric(t),tentra2] <- v_cap[,as.numeric(t),tentra2]*p_tedata_nu[,,tentra2]*as.numeric(p_adeq_te[,,tentra2])
+    capadeq[,,tentra2] <- v_cap[,getYears(capadeq),tentra2]*p_tedata_nu[,,tentra2]*as.numeric(p_adeq_te[,,tentra2])
   }
   
   #Contribution of aggregate technologies (most challenging)
@@ -181,20 +180,20 @@ reportAdequacyContribution <- function(gdx) {
   #Capacity Adequacy FOR CONVENTIONAL vRES
   
   #create the variables according to the needed indexes
-  capadeq_vres_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = t, names = ter,
+  capadeq_vres_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = ter,
                                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   capadeq_vres_peak <- capadeq_vres_marg
   
-  capadeq_stor_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = t, names = testore,
+  capadeq_stor_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = testore,
                                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
   
-  demand_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = t, names = NULL,
+  demand_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(v_exdemand), names = NULL,
                                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   demand_peak <- demand_marg
   
-  netimports_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = t, names = NULL,
+  netimports_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(v_exdemand), names = NULL,
                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   netimports_peak <- netimports_marg
   
@@ -274,7 +273,7 @@ reportAdequacyContribution <- function(gdx) {
   
   
   #combine aggregated Capacity Adequacy with brake-down of technologies
-  tmp <- mbind(tmp4[,as.numeric(c(t)),],tmp5)
+  tmp <- mbind(tmp4,tmp5)
 
   return(tmp)
 }

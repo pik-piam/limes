@@ -15,13 +15,13 @@
 limesAllocateYears <- function(var,gdx){
   
   #reading the years from the gdx
-  t <- readGDX(gdx,name="t") #set of years
+  tt <- readGDX(gdx,name="t") #set of years
   
   # initializing output var
   output<-NULL
   
   # looping years
-  for (t2 in t) {
+  for (t2 in tt) {
     # creating per year margpie object
     getYears(var)<-t2
     # merging per country objects with output

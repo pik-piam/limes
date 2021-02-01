@@ -30,7 +30,6 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time step
   trans <- readGDX(gdx,name="trans") #set of cross-border transmission lines (numeric)
   regi <- readGDX(gdx,name="regi") #set of countries
-  t <- readGDX(gdx,name="t") #set of time
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
   p_incoall <- readGDX(gdx,name="p_incoall",field="l",format="first_found") #capital costs
 
@@ -66,11 +65,11 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   tmp1 <- mbind(tmp1,setNames(v_costin,"Total Energy System Cost|Power Sector|Generation Investment Costs (billion eur2010/yr)"))
   
   #Specific calculation for RES
-  t_all <- getYears(v_deltacap)
-  costin_tech <- new.magpie(cells_and_regions = getRegions(v_deltacap), years = t, names = getNames(v_deltacap),
+  t_all <- getYears(p_incoall)
+  costin_tech <- new.magpie(cells_and_regions = getRegions(p_incoall), years = t_all, names = getNames(p_incoall),
                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  for (t2 in t) {
-    costin_tech[,as.numeric(t2),] <- v_deltacap[,as.numeric(t2),]*p_incoall[,as.numeric(t2),]
+  for (t2 in t_all) {
+    costin_tech[,t2,] <- v_deltacap[,t2,]*p_incoall[,t2,]
   }
   tmp1 <- mbind(tmp1,setNames(dimSums(costin_tech[,,c(ter,ternofluc)],dim=3),"Total Energy System Cost|Power Sector|Generation Investment Costs|Renewable (billion eur2010/yr)"))
   

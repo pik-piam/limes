@@ -25,7 +25,6 @@ reportCapacityAdditions <- function(gdx) {
   ternofluc <- readGDX(gdx,name="ternofluc") #set of non-variable (non-fluctuating) renewable electricity generation technologies
   tefossil <- readGDX(gdx,name="tefossil") #set of fossil-based electricity generation technologies
   tenr <- readGDX(gdx,name="tenr") #set of non-renewable electricity generation technologies (includes storage)
-  t <- readGDX(gdx,name="t")
   te <- readGDX(gdx,name="te") 
   tehe <- readGDX(gdx,name="tehe")
   tecoal <- readGDX(gdx,name="tecoal") 

@@ -23,7 +23,7 @@ reportExchange <- function(gdx) {
   trans <- readGDX(gdx,name="trans") #set of cross-border transmission lines (numeric)
   tau <- readGDX(gdx,name="tau") #set of tau
   regi <- readGDX(gdx,name="regi") #set of countries
-  t <- readGDX(gdx,name="t") #set of time
+  tt <- readGDX(gdx,name="t") #set of time
   p_tedataconn <- readGDX(gdx,name="p_tedataconn",field="l",format="first_found") #technical parameters of transmission
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
@@ -50,11 +50,11 @@ reportExchange <- function(gdx) {
   m_elecprices = m_elecprices/p_taulength
   
   #compute factor to discount average marginal values
-  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(t)-as.numeric(t0)))
+  f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
   
   #discounting marginal values [Geur/GWh]
   m_elecprices_tmp <- NULL
-  for (t2 in 1:length(t)) { 
+  for (t2 in 1:length(tt)) { 
     m_elecprices_tmp <- mbind(m_elecprices_tmp,m_elecprices[,t2,]/f_npv[t2])
   }
   
@@ -425,8 +425,8 @@ reportExchange <- function(gdx) {
   #----------------------------------------------------------------------------------
   #REPORTING THE EXPORT AND IMPORT TRANSMISSION CAPACITY
   #add variable name transmission capacity
-  tmp6<-setNames(capexports[,as.numeric(t),],"Export Transmission Capacity|Electricity (GW)")
-  tmp7<-setNames(capimports[,as.numeric(t),],"Import Transmission Capacity|Electricity (GW)")
+  tmp6<-setNames(capexports[,as.numeric(tt),],"Export Transmission Capacity|Electricity (GW)")
+  tmp7<-setNames(capimports[,as.numeric(tt),],"Import Transmission Capacity|Electricity (GW)")
   
   #add capacity to export and import
   tmp8 <- mbind(tmp6,tmp7)
@@ -437,7 +437,7 @@ reportExchange <- function(gdx) {
   #transmission capacity (under current configuration, export and import capacity are the same)
   tmp10 <- NULL
   tmp10 <- setNames(tmp7,"Capacity|Electricity|Transmission Grid (GW)")
-  tmp10 <- mbind(tmp10, setNames(capimports_km[,as.numeric(t),],"Capacity|Electricity|Transmission Grid-km (GWkm)"))
+  tmp10 <- mbind(tmp10, setNames(capimports_km[,as.numeric(tt),],"Capacity|Electricity|Transmission Grid-km (GWkm)"))
   
   #concatenate
   tmp11 <- mbind(tmp9,tmp10)
@@ -454,7 +454,7 @@ reportExchange <- function(gdx) {
   #REPORTING THE EXPORTS; IMPORTS AND NET EXPORTS FOR EACH CROSS-BORDER LINK
   tmp14 <- NULL
   tmp14 <- mbind(expo_regi,impo_regi,netexpo_regi)
-  tmp14 <- mbind(tmp14,cap_regi[,as.numeric(t),])
+  tmp14 <- mbind(tmp14,cap_regi[,as.numeric(tt),])
   # erasing all the data regarding connections that do not exist (created before to fit the size of the variables)
   for (regi2 in getRegions(tmp14)) { for (name in getNames(tmp14)){
     if (sum(tmp14[regi2,,name])==0) {
