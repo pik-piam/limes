@@ -71,7 +71,13 @@ reportElectricityPrices <- function(gdx) {
       m_fullheprices <- m_robuststrategy2[,,"sehe"]
     } else {
       m_fullelecprices <- m_robuststrategy2
-      p_eldemand <- v_exdemand
+      #Better to check that 'sehe' does not appear in v_exdemand
+      if(length(grep("sehe",getNames(v_exdemand))) > 0) {
+        p_eldemand <- v_exdemand[,,"seel"]
+      } else {
+        p_eldemand <- v_exdemand
+      }
+      
       }
     
     m_restargetrelativegross_tech <- readGDX(gdx,name="q_restargetrelativegross_tech",field="m",format="first_found")

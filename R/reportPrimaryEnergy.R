@@ -61,9 +61,12 @@ reportPrimaryEnergy <- function(gdx) {
   v_pedem <- limesMapping(v_pedem)
   #v_seprod <- limesMapping(v_seprod)
   
-  #sum over tau
+  #Check names in v_pedem - in one of the v2.37 versions, v_pedem becomes annual, so we need first to aggregate to annual value
+  if(length(grep("1[.]",getNames(v_pedem))) > 0) { #check if tau is part of the names
+    v_pedem <- dimSums(v_pedem*p_taulength,dim = 3.1)
+  }
   
-  
+  #create magpie for PE for heating purposes
   v_pedem_he <- new.magpie(cells_and_regions = getRegions(v_pedem), years = getYears(v_pedem), names = NULL,
              fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
@@ -116,7 +119,7 @@ reportPrimaryEnergy <- function(gdx) {
   )
   
   for (var in names(varList_el)) {
-    tmp1 <- mbind(tmp1,setNames(dimSums(dimSums(v_pedem_el[,,varList_el[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
+    tmp1 <- mbind(tmp1,setNames(dimSums(v_pedem_el[,,varList_el[[var]]],dim=3)/1000,var))
   }
   
   tmp2 <- NULL
@@ -125,7 +128,7 @@ reportPrimaryEnergy <- function(gdx) {
     tewaste <- readGDX(gdx,name="tewaste") #set of|waste generation technologies
     
     #Electricity (new technologies)
-    tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem_el[,,intersect(tebio,teccs)],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,"Primary Energy|Biomass|Electricity|w/ CCS (TWh/yr)"))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_pedem_el[,,intersect(tebio,teccs)],dim=3)/1000,"Primary Energy|Biomass|Electricity|w/ CCS (TWh/yr)"))
     
     if(c_heating == 1) {
       #Heat
@@ -143,7 +146,7 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Waste|Heat (TWh/yr)"                  =intersect(tewaste,tehe)
       )
       for (var in names(varList_he)){
-        tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem_he[,,varList_he[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
+        tmp2 <- mbind(tmp2,setNames(dimSums(v_pedem_he[,,varList_he[[var]]],dim=3)/1000,var))
       }
       
       #Load additional sets
@@ -178,7 +181,7 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Other|CHP (TWh/yr)"                   =intersect(techp,teothers)
       )
       for (var in names(varList_elhe)){
-        tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_pedem[,,varList_elhe[[var]]],dim=c(3.2,3.3,3.4))*p_taulength,dim=3)/1000,var))
+        tmp2 <- mbind(tmp2,setNames(dimSums(v_pedem[,,varList_elhe[[var]]],dim=3)/1000,var))
       }
         
     }
