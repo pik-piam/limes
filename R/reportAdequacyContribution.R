@@ -63,6 +63,7 @@ reportAdequacyContribution <- function(gdx) {
   p_tedata_nu <- limesMapping(p_tedata_nu)
   v_cap <- limesMapping(v_cap)
   v_seprodmax <- limesMapping(v_seprodmax)[,,tau]
+  v_seprodmax <- v_seprodmax[,,ter]
   m_robuststrategy2 <- limesMapping(m_robuststrategy2)[,,tau]
   v_seprod <- limesMapping(v_seprod)[,,tau]
   v_storeout <- limesMapping(v_storeout)[,,tau]

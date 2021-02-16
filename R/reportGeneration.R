@@ -476,22 +476,29 @@ reportGeneration <- function(gdx,output=NULL) {
     #Marginal value for hydrogen  - Hydrogen price
     m_p2x <- readGDX(gdx,name=c("q_p2x","q_aggdemXSE_el_year","q_balP2XSe"),field="m",format="first_found")[,,"pehgen"] #[Geur/GWh]
     m_p2x <- limesMapping(m_p2x)
+    m_p2x_year <- new.magpie(cells_and_regions = getRegions(m_p2x), years = getYears(m_p2x), names = NULL,
+               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     if(length(grep("1",getNames(m_p2x))) > 0) { #In some versions q_p2x is tau-dependent
       m_p2x <- m_p2x[,,tau]/p_taulength
-      if(dimSums(v_prodP2XSe,3)==0) {
-        m_p2x <- 1e6*dimSums(m_p2x*p_taulength,dim=3)/dimSums(p_taulength,3) #calculate weighted average (in eur/MWh)
-      } else {
-        m_p2x <- 1e6*dimSums(m_p2x*p_taulength*v_prodP2XSe,dim=3)/dimSums(p_taulength*v_prodP2XSe,3) #calculate weighted average (in eur/MWh)
+      for(regi2 in getRegions(m_p2x)) {
+        for(year2 in getYears(m_p2x)) {
+          if(dimSums(v_prodP2XSe[regi2,year2,],3)==0) {
+            m_p2x_year[regi2,year2,] <- 1e6*dimSums(m_p2x[regi2,year2,]*p_taulength,dim=3)/dimSums(p_taulength,3) #calculate weighted average (in eur/MWh)
+          } else {
+            m_p2x_year[regi2,year2,] <- 1e6*dimSums(m_p2x[regi2,year2,]*p_taulength*v_prodP2XSe[regi2,year2,],dim=3)/dimSums(p_taulength*v_prodP2XSe[regi2,year2,],3) #calculate weighted average (in eur/MWh)
+          }
+        }
       }
+      
     } else {
-      m_p2x <- 1e6*m_p2x
+      m_p2x_year <- 1e6*m_p2x
     }
     
 	  ##Create magpie to save marginal value to compute required calculations
     o_p2x_disc <- NULL
     
-    for (t2 in 1:length(getYears(m_p2x))) {
-      o_p2x_disc <- mbind(o_p2x_disc,m_p2x[,t2,]/as.numeric(f_npv[t2])) #[Geur 2010/GWh]
+    for (t2 in 1:length(getYears(m_p2x_year))) {
+      o_p2x_disc <- mbind(o_p2x_disc,m_p2x_year[,t2,]/as.numeric(f_npv[t2])) #[Geur 2010/GWh]
     }
     o_p2x_disc <- abs(o_p2x_disc) #depending on how the constraint is formulated
     
