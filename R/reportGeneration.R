@@ -61,8 +61,8 @@ reportGeneration <- function(gdx,output=NULL) {
   
   # read variables
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found",restore_zeros = FALSE)[,,tau]
-  v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found")[,,tau]
-  v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")[,,tau]
+  v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found",restore_zeros = FALSE)[,,tau]
+  v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found",restore_zeros = FALSE)[,,tau]
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE)[,,tau] #demand
   
   #Make sure only the sets -> to reduce the size of the variables
@@ -111,10 +111,15 @@ reportGeneration <- function(gdx,output=NULL) {
     
     v_storein_he <- v_storein[,,"sehe"]
     v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
-    v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
     v_storeout_he <- v_storeout[,,"sehe"]
     v_storeout_he <- collapseNames(v_storeout_he)
-    v_storeout_he <- v_storeout_he[,,"heat_sto"]
+    if(length(grep("heat_sto",getNames(v_storein_he))) > 0) {
+      v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
+    }
+    if(length(grep("heat_sto",getNames(v_storeout_he))) > 0) {
+      v_storeout_he <- v_storeout_he[,,"heat_sto"] #then filter by technology
+    }
+    
   }
   
   #Collapse names to avoid some problems
@@ -269,9 +274,9 @@ reportGeneration <- function(gdx,output=NULL) {
       
       #1 (cont) Final energy (only for electricity-based heating)
       p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
-      p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found") #DH distribution losses
+      p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found",restore_zeros = FALSE) #DH distribution losses
       p_losses_DH <- limesMapping(p_losses_DH)
-      p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found") #ratio of energy service to energy consumption
+      p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
       p_bd_ratio_usefin <- limesMapping(p_bd_ratio_usefin)
       #Need to aggregate heat supply per year to be able to divide it by efficiency
       o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
@@ -467,14 +472,14 @@ reportGeneration <- function(gdx,output=NULL) {
   if(c_LIMESversion >= 2.36) {
     
     #Read additional variables only available after this model version
-    v_prodP2XSe <- readGDX(gdx,name=c("v_otherse","v_prodP2XSe"),field="l",format="first_found")[,,"pehgen"] #[GWh]
+    v_prodP2XSe <- readGDX(gdx,name=c("v_otherse","v_prodP2XSe"),field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh]
     v_prodP2XSe <- limesMapping(v_prodP2XSe[,,tau])
     
     #compute factor to discount average marginal values
     f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
     
     #Marginal value for hydrogen  - Hydrogen price
-    m_p2x <- readGDX(gdx,name=c("q_p2x","q_aggdemXSE_el_year","q_balP2XSe"),field="m",format="first_found")[,,"pehgen"] #[Geur/GWh]
+    m_p2x <- readGDX(gdx,name=c("q_p2x","q_aggdemXSE_el_year","q_balP2XSe"),field="m",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[Geur/GWh]
     m_p2x <- limesMapping(m_p2x)
     m_p2x_year <- new.magpie(cells_and_regions = getRegions(m_p2x), years = getYears(m_p2x), names = NULL,
                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
@@ -495,10 +500,11 @@ reportGeneration <- function(gdx,output=NULL) {
     }
     
 	  ##Create magpie to save marginal value to compute required calculations
-    o_p2x_disc <- NULL
+    o_p2x_disc <- new.magpie(cells_and_regions = getRegions(v_prodP2XSe), years = getYears(v_prodP2XSe), names = NULL,
+                                                  fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     
-    for (t2 in 1:length(getYears(m_p2x_year))) {
-      o_p2x_disc <- mbind(o_p2x_disc,m_p2x_year[,t2,]/as.numeric(f_npv[t2])) #[Geur 2010/GWh]
+    for (t2 in getYears(m_p2x_year)) {
+      o_p2x_disc[,t2,] <- m_p2x_year[,t2,]/as.numeric(f_npv[t2]) #[Geur 2010/GWh]
     }
     o_p2x_disc <- abs(o_p2x_disc) #depending on how the constraint is formulated
     
@@ -511,7 +517,7 @@ reportGeneration <- function(gdx,output=NULL) {
     if(c_LIMESversion == 2.36) {
       
       #Read additional variables only available after this model version
-      v_p2xse <- readGDX(gdx,name="v_p2xse",field="l",format="first_found")[,,"pehgen.seel"] #[GWh]
+      v_p2xse <- readGDX(gdx,name="v_p2xse",field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen.seel"] #[GWh]
       v_p2xse <- v_p2xse[,,tehgen]
       v_p2xse <- limesMapping(v_p2xse[,,tau])
       
@@ -552,7 +558,7 @@ reportGeneration <- function(gdx,output=NULL) {
       #H2 production
       #Internal hydrogen (produced through electrolysis)
       tmp4 <- mbind(tmp4,setNames(setNames(tmp4[,,"Secondary Energy|Hydrogen|Electricity (TWh/yr)"],NULL),"Primary Energy|Hydrogen [electrolysis] (TWh/yr)"))
-      v_demP2XSe_4el <- readGDX(gdx,name=c("v_demP2XSe_4el","v_p2xse","v_pedem"),field="l",format="first_found")[,,"pehgen"] #[GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
+      v_demP2XSe_4el <- readGDX(gdx,name=c("v_demP2XSe_4el","v_p2xse","v_pedem"),field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
       if(length(grep("pehgen.seel",getNames(v_demP2XSe_4el))) > 0) {
         v_demP2XSe_4el <- v_demP2XSe_4el[,,paste0("pehgen.seel.",tehgen)] #In the case of 'v_p2xse' and v_pedem, it was technology-dependent
       }
@@ -561,7 +567,7 @@ reportGeneration <- function(gdx,output=NULL) {
         v_demP2XSe_4el <- dimSums(v_demP2XSe_4el, dim=3.2)
       }
       tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4el*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
-      v_demP2XSe_4nel <- readGDX(gdx,name=c("v_demP2XSe_4nel","v_hgen_othersec"),field="l",format="first_found")[,,"pehgen"] #[GWh]
+      v_demP2XSe_4nel <- readGDX(gdx,name=c("v_demP2XSe_4nel","v_hgen_othersec"),field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh]
       v_demP2XSe_4nel <- limesMapping(v_demP2XSe_4nel)
       tmp4 <- mbind(tmp4,setNames(dimSums(v_demP2XSe_4nel*p_taulength,3)/1000,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
       
@@ -573,10 +579,10 @@ reportGeneration <- function(gdx,output=NULL) {
         v_imp_XSe_4nel <- new.magpie(cells_and_regions = getRegions(v_demP2XSe_4el), years = getYears(v_demP2XSe_4el), names = NULL,
                                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
       } else {
-        v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found")[,,"pehgen"] #[GWh]
+        v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh]
         v_imp_XSe_4el_tau <- limesMapping(v_imp_XSe_4el_tau)
         
-        v_imp_XSe_4nel <- readGDX(gdx,name="v_imp_XSe_4nel",field="l",format="first_found")[,,"pehgen"] #[GWh]
+        v_imp_XSe_4nel <- readGDX(gdx,name="v_imp_XSe_4nel",field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh]
         v_imp_XSe_4nel <- limesMapping(v_imp_XSe_4nel)
       }
       

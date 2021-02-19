@@ -172,6 +172,9 @@ Capacity Additions|Electricity|Gas|w/o CCS;Capacity Additions|Electricity|Gas|w/
 Capacity Additions|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Storage|Intra-day;Capacity Additions|Electricity|Storage|Intra-day;GW/yr;GW/yr;1
 Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Emissions withdrawn ETS|CO2|Energy|Supply|Electricity;Mt CO2/yr;Mt CO2/yr;1
+Capacity Additions|Electricity|Other Fossil;Capacity Additions|Electricity|Other Fossil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Biomass|w/ CCS;Capacity Additions|Electricity|Biomass|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Biomass|w/o CCS;Capacity Additions|Electricity|Biomass|w/o CCS;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Variable renewable;Capacity Additions|Electricity|Variable renewable;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Non-variable renewable;Capacity Additions|Electricity|Non-variable renewable;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Renewable;Capacity Additions|Electricity|Renewable;GW/yr;GW/yr;1

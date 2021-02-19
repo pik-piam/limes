@@ -35,8 +35,9 @@ reportAdequacyContribution <- function(gdx) {
   tehgen <- readGDX(gdx,name="tehgen") #set of hydrogen generation technologies
   tehydro <- readGDX(gdx,name="tehydro") #set of hydropower generation technologies
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
-  teoil <- readGDX(gdx,name="teoil") #set of biomass generation technologies
-  teothers <- readGDX(gdx,name="teothers") #set of biomass generation technologies
+  teoil <- readGDX(gdx,name="teoil") #set of oil generation technologies
+  teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
+  tereserve <- readGDX(gdx,name="tereserve") #set of other gases generation technologies
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
   
@@ -46,14 +47,14 @@ reportAdequacyContribution <- function(gdx) {
   p_adeq_imp <- readGDX(gdx,name="p_adeq_imp",field="l",format="first_found") #adequacy factor for net imports
   
   # read variables and marginal values
-  v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found") #demand
-  v_cap <- readGDX(gdx,name="v_cap",field="l",format="first_found")
-  v_seprodmax <- readGDX(gdx,name="v_seprodmax",field="l",format="first_found")
-  v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")
-  v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found")
-  v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")
-  v_capreserve <- readGDX(gdx,name="v_capreserve",field="l",format="first_found")
-  m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found")
+  v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE) #demand
+  v_cap <- readGDX(gdx,name="v_cap",field="l",format="first_found",restore_zeros = FALSE)
+  v_seprodmax <- readGDX(gdx,name="v_seprodmax",field="l",format="first_found",restore_zeros = FALSE)
+  v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found",restore_zeros = FALSE)
+  v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found",restore_zeros = FALSE)
+  v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found",restore_zeros = FALSE)
+  v_capreserve <- readGDX(gdx,name="v_capreserve",field="l",format="first_found",restore_zeros = FALSE)
+  m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found",restore_zeros = FALSE)
   
   #Take only certain parameters
   p_tedata_nu <- p_tedata[,,"nu"]
@@ -72,7 +73,12 @@ reportAdequacyContribution <- function(gdx) {
   
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
-    p_eldemand <- v_exdemand[,,"seel"]
+    if(length(grep("seel",getNames(v_exdemand))) > 0) {
+      p_eldemand <- v_exdemand[,,"seel"] #then filter by SE
+    } else {
+      p_eldemand <- v_exdemand
+    }
+    
     v_seprod <- v_seprod[,,"seel"]
     
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
@@ -253,24 +259,52 @@ reportAdequacyContribution <- function(gdx) {
   tmp5 <- mbind(tmp5,setNames(p_adeq_imp*netimports_peak,"Capacity Adequacy|Peak Demand|Contribution|Imports (GW)"))
   tmp5 <- mbind(tmp5,setNames(demand_marg,"Capacity Adequacy|Most Challenging|Demand (GW)"))
   tmp5 <- mbind(tmp5,setNames(demand_peak,"Capacity Adequacy|Peak Demand|Demand (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve,dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve,dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(telig)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal,telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal,telig)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tegas_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tegas_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tengcc_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tengcc_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,setdiff(tegas_el,tengcc_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,setdiff(tegas_el,tengcc_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil (GW)"))
-  tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve,dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve,dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(telig)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal,telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tecoal,telig)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tegas_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tegas_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tengcc_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tengcc_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,setdiff(tegas_el,tengcc_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,setdiff(tegas_el,tengcc_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil (GW)"))
+  #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil (GW)"))
+  
+  varList_el <- list(
+    #Most challenging
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants (GW)"                  =c(tereserve),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Hard Coal (GW)"        =intersect(tereserve,c(tecoal)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Lignite (GW)"        =intersect(tereserve,c(telig)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Coal (GW)"        =intersect(tereserve,c(tecoal,telig)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas (GW)"        =intersect(tereserve,c(tegas)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas CC (GW)"        =intersect(tereserve,c(tengcc)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC (GW)"        =intersect(tereserve,setdiff(tegas,tengcc)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass (GW)"        =intersect(tereserve,c(tebio)),
+    "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil (GW)"        =intersect(tereserve,c(tebio)),
+    
+    #Peak demand
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants (GW)"                  =c(tereserve),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal (GW)"        =intersect(tereserve,c(tecoal)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Lignite (GW)"        =intersect(tereserve,c(telig)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Coal (GW)"        =intersect(tereserve,c(tecoal,telig)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas (GW)"        =intersect(tereserve,c(tegas)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas CC (GW)"        =intersect(tereserve,c(tengcc)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Gas OC (GW)"        =intersect(tereserve,setdiff(tegas,tengcc)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass (GW)"        =intersect(tereserve,c(tebio)),
+    "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil (GW)"        =intersect(tereserve,c(tebio))
+  )
+  
+  for (var in names(varList_el)){
+    tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,varList_el[[var]]],dim=3),var))
+  }
   
   
   #combine aggregated Capacity Adequacy with brake-down of technologies
