@@ -61,34 +61,34 @@ reportCapacityAdditions <- function(gdx) {
   #aggregated technologies (w/o CHP) - depending on LIMES version, they will be considered
   varList_el <- list(
     #Conventional
-    "Capacity Additions|Electricity (GW/yr)"                  =c(teel),
-    "Capacity Additions|Electricity|Biomass (GW/yr)"          =intersect(teel,tebio),
-    "Capacity Additions|Electricity|Biomass|w/o CCS (GW/yr)"  =intersect(teel,setdiff(tebio,teccs)),
-    "Capacity Additions|Electricity|Coal (GW/yr)"             =intersect(teel,c(tecoal,telig)),
-    "Capacity Additions|Electricity|Coal|w/o CCS (GW/yr)"     =intersect(teel,setdiff(c(tecoal,telig),teccs)),
-    "Capacity Additions|Electricity|Coal|w/ CCS (GW/yr)"      =intersect(teel,intersect(c(tecoal,telig),teccs)),
-    "Capacity Additions|Electricity|Hard Coal (GW/yr)"        =intersect(teel,c(tecoal)),
-    "Capacity Additions|Electricity|Hard Coal|w/o CCS (GW/yr)"=intersect(teel,setdiff(c(tecoal),teccs)),
-    "Capacity Additions|Electricity|Hard Coal|w/ CCS (GW/yr)" =intersect(teel,intersect(c(tecoal),teccs)),
-    "Capacity Additions|Electricity|Lignite (GW/yr)"          =intersect(teel,c(telig)),
-    "Capacity Additions|Electricity|Lignite|w/o CCS (GW/yr)"  =intersect(teel,setdiff(c(telig),teccs)),
-    "Capacity Additions|Electricity|Lignite|w/ CCS (GW/yr)"   =intersect(teel,intersect(c(telig),teccs)),
-    "Capacity Additions|Electricity|Oil (GW/yr)"              =intersect(teel,c(teoil)),
-    "Capacity Additions|Electricity|Gas (GW/yr)"              =intersect(teel,c(tegas)),
-    "Capacity Additions|Electricity|Gas|w/o CCS (GW/yr)"      =intersect(teel,setdiff(tegas_el,teccs)),
-    "Capacity Additions|Electricity|Gas|w/ CCS (GW/yr)"       =intersect(teel,intersect(tegas_el,teccs)),
-    "Capacity Additions|Electricity|Gas CC|w/o CCS (GW/yr)"   =intersect(teel,setdiff(tengcc_el,teccs)),
-    "Capacity Additions|Electricity|Gas CC|w/ CCS (GW/yr)"    =intersect(teel,intersect(tengcc_el,teccs)),
-    "Capacity Additions|Electricity|Gas CC (GW/yr)"           =intersect(teel,c(tengcc_el)),
-    "Capacity Additions|Electricity|Gas OC (GW/yr)"           =intersect(teel,setdiff(tegas_el,tengcc_el)),
-    "Capacity Additions|Electricity|Other (GW/yr)"            =intersect(teel,c(teothers)),
-    "Capacity Additions|Electricity|Hydrogen (GW/yr)"         =intersect(teel,c(tehgen)),
-    "Capacity Additions|Electricity|Hydrogen FC (GW/yr)"      =intersect(teel,c("hfc")),
-    "Capacity Additions|Electricity|Hydrogen OC (GW/yr)"      =intersect(teel,c("hct")),
-    "Capacity Additions|Electricity|Hydrogen CC (GW/yr)"      =intersect(teel,c("hcc")),
-    "Capacity Additions|Electricity|Nuclear (GW/yr)"          =intersect(teel,c("tnr")),
-    "Capacity Additions|Electricity|Waste (GW/yr)"            =intersect(teel,c("waste")),
-    "Capacity Additions|Electricity|Other Fossil (GW/yr)"     =intersect(teel,c(teothers,"waste",teoil)),
+    "Capacity Additions|Electricity (GW/yr)"                        =c(teel),
+    "Capacity Additions|Electricity|Biomass (GW/yr)"                =intersect(teel,tebio),
+    "Capacity Additions|Electricity|Biomass|w/o CCS (GW/yr)"        =intersect(teel,setdiff(tebio,teccs)),
+    "Capacity Additions|Electricity|Coal (GW/yr)"                   =intersect(teel,c(tecoal,telig)),
+    "Capacity Additions|Electricity|Coal|w/o CCS (GW/yr)"           =intersect(teel,setdiff(c(tecoal,telig),teccs)),
+    "Capacity Additions|Electricity|Coal|w/ CCS (GW/yr)"            =intersect(teel,intersect(c(tecoal,telig),teccs)),
+    "Capacity Additions|Electricity|Hard Coal (GW/yr)"              =intersect(teel,c(tecoal)),
+    "Capacity Additions|Electricity|Hard Coal|w/o CCS (GW/yr)"      =intersect(teel,setdiff(c(tecoal),teccs)),
+    "Capacity Additions|Electricity|Hard Coal|w/ CCS (GW/yr)"       =intersect(teel,intersect(c(tecoal),teccs)),
+    "Capacity Additions|Electricity|Lignite (GW/yr)"                =intersect(teel,c(telig)),
+    "Capacity Additions|Electricity|Lignite|w/o CCS (GW/yr)"        =intersect(teel,setdiff(c(telig),teccs)),
+    "Capacity Additions|Electricity|Lignite|w/ CCS (GW/yr)"         =intersect(teel,intersect(c(telig),teccs)),
+    "Capacity Additions|Electricity|Oil (GW/yr)"                    =intersect(teel,c(teoil)),
+    "Capacity Additions|Electricity|Gas (GW/yr)"                    =intersect(teel,c(tegas)),
+    "Capacity Additions|Electricity|Gas|w/o CCS (GW/yr)"            =intersect(teel,setdiff(tegas_el,teccs)),
+    "Capacity Additions|Electricity|Gas|w/ CCS (GW/yr)"             =intersect(teel,intersect(tegas_el,teccs)),
+    "Capacity Additions|Electricity|Gas CC|w/o CCS (GW/yr)"         =intersect(teel,setdiff(tengcc_el,teccs)),
+    "Capacity Additions|Electricity|Gas CC|w/ CCS (GW/yr)"          =intersect(teel,intersect(tengcc_el,teccs)),
+    "Capacity Additions|Electricity|Gas CC (GW/yr)"                 =intersect(teel,c(tengcc_el)),
+    "Capacity Additions|Electricity|Gas OC (GW/yr)"                 =intersect(teel,setdiff(tegas_el,tengcc_el)),
+    "Capacity Additions|Electricity|Other (GW/yr)"                  =intersect(teel,c(teothers)),
+    "Capacity Additions|Electricity|Hydrogen (GW/yr)"               =intersect(teel,c(tehgen)),
+    "Capacity Additions|Electricity|Hydrogen FC (GW/yr)"            =intersect(teel,c("hfc")),
+    "Capacity Additions|Electricity|Hydrogen OC (GW/yr)"            =intersect(teel,c("hct")),
+    "Capacity Additions|Electricity|Hydrogen CC (GW/yr)"            =intersect(teel,c("hcc")),
+    "Capacity Additions|Electricity|Nuclear (GW/yr)"                =intersect(teel,c("tnr")),
+    "Capacity Additions|Electricity|Waste (GW/yr)"                  =intersect(teel,c("waste")),
+    "Capacity Additions|Electricity|Other Fossil (GW/yr)"           =intersect(teel,c(teothers,"waste",teoil)),
     
     #general aggregation
     "Capacity Additions|Electricity|Fossil (GW/yr)"                 =intersect(teel,c(tefossil)),
@@ -115,7 +115,7 @@ reportCapacityAdditions <- function(gdx) {
     "Capacity Additions|Electricity|Storage|Stat Batteries (GW/yr)"                        =c("batteries"),
     "Capacity Additions|Electricity|Storage|Pump Hydro (GW/yr)"                            =c("psp"),
     "Capacity Additions|Electricity|Storage|Hydrogen electrolysis [input] (GW/yr)"         =c("helec"),
-    "Capacity Additions|Electricity|Storage|Intra-day [input] (GW/yr)"                     =c("batteries","psp")
+    "Capacity Additions|Electricity|Storage|Intra-day (GW/yr)"                             =c("batteries","psp")
   )
   
   tmp2 <- NULL
@@ -124,7 +124,7 @@ reportCapacityAdditions <- function(gdx) {
   }
   
   if(c_LIMESversion >= 2.33) {
-    tmp2 <- mbind(tmp2,setNames(dimSums(v_deltacap[,,intersect(tebio,teccs)],dim=3),"Capacity Additions|Electricity|Biomass|w/ CCS (GW)"))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_deltacap[,,intersect(tebio,teccs)],dim=3),"Capacity Additions|Electricity|Biomass|w/ CCS (GW/yr)"))
   }
   
   #concatenate
