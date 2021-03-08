@@ -370,7 +370,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #    
   #  #Files-related variables
   #  #outputdir <- "C:/Users/osorio/ownCloud/PIK/Data for LIMES/CSV files/output"     # path to the output folder
-  #  #limes_reporting_file <- path(outputdir,paste0("LIMES_inputparam.mif"))
+  #  limes_reporting_file <- path(outputdir,paste0("LIMES_inputparam.mif"))
   #  file=limes_reporting_file
   #  #lastDir <- splitPath[[1]][length(splitPath[[1]])]
   #  #scenario <- lastDir

@@ -149,7 +149,7 @@ reportInput <- function(gdx,mappingPath=NULL) {
   # read parameters
   p_exdemand <- readGDX(gdx,name="p_exdemand",field="l",format="first_found") #electricity and heat demand
   c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found") #factor for scaling electricity demand
-  p_losses_heat <- readGDX(gdx,name="f_losses_heat",field="l",format="first_found")
+  p_losses_heat <- readGDX(gdx,name=c("f_losses_heat","p_losses_DH"),field="l",format="first_found")
   
   # create MagPie object of demand with iso3 regions
   p_exdemand <- limesMapping(p_exdemand)
