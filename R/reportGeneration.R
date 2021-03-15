@@ -503,8 +503,11 @@ reportGeneration <- function(gdx,output=NULL) {
     o_p2x_disc <- new.magpie(cells_and_regions = getRegions(v_prodP2XSe), years = getYears(v_prodP2XSe), names = NULL,
                                                   fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     
-    for (t2 in getYears(m_p2x_year)) {
-      o_p2x_disc[,t2,] <- m_p2x_year[,t2,]/as.numeric(f_npv[t2]) #[Geur 2010/GWh]
+    
+    for (t2 in getYears(o_p2x_disc)) {
+      if(t2 %in% getYears(m_p2x_year)) {
+        o_p2x_disc[,t2,] <- m_p2x_year[,t2,]/as.numeric(f_npv[getYears(o_p2x_disc) %in% t2]) #[Geur 2010/GWh]
+      }
     }
     o_p2x_disc <- abs(o_p2x_disc) #depending on how the constraint is formulated
     
@@ -541,8 +544,6 @@ reportGeneration <- function(gdx,output=NULL) {
         
         tmp4 <- mbind(tmp4,setNames(dimSums(v_p2xse[,,]*p_taulength,dim=3)/1000,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
       }
-      
-     
      
       #Hydrogen produced by electrolysis and used to generate electricity
       o_hgen_ext_el <- pmax(setNames(output[,,"Primary Energy|Hydrogen|Electricity (TWh/yr)"],NULL) - setNames(tmp4[,,"Secondary Energy|Hydrogen|Electricity (TWh/yr)"],NULL), 0)
