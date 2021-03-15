@@ -517,21 +517,33 @@ reportGeneration <- function(gdx,output=NULL) {
     if(c_LIMESversion == 2.36) {
       
       #Read additional variables only available after this model version
-      v_p2xse <- readGDX(gdx,name="v_p2xse",field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen.seel"] #[GWh]
-      v_p2xse <- v_p2xse[,,tehgen]
+      v_p2xse <- readGDX(gdx,name=c("v_p2xse","v_demP2XSe_4el"),field="l",format="first_found",restore_zeros = FALSE) #[GWh]
       v_p2xse <- limesMapping(v_p2xse[,,tau])
+      v_p2xse <- v_p2xse[,,tau]
       
-      varList_hgen <- list(
-        "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = c(tehgen),
-        "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen FC (TWh/yr)" = "hfc",
-        "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen OC (TWh/yr)" = "hct",
-        "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen CC (TWh/yr)" = "hcc"
-      )
-      
-      for (var in names(varList_hgen)){
-        tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_p2xse[,,varList_hgen[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+      #Because of some tests in v2.36, there might be some runs in which some variables might be renamed to the names used in 2.37
+      if(length(grep("hcc",getNames(v_p2xse))) > 0) {
+        v_p2xse <- v_p2xse[,,"pehgen.seel"]
+        v_p2xse <- v_p2xse[,,tehgen]
+        
+        varList_hgen <- list(
+          "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"               = c(tehgen),
+          "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen FC (TWh/yr)" = "hfc",
+          "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen OC (TWh/yr)" = "hct",
+          "Primary Energy|Hydrogen [electrolysis]|Electricity|Hydrogen CC (TWh/yr)" = "hcc"
+        )
+        
+        for (var in names(varList_hgen)){
+          tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_p2xse[,,varList_hgen[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+        }
+        
+      } else {
+        
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_p2xse[,,]*p_taulength,dim=3)/1000,"Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
       }
       
+     
+     
       #Hydrogen produced by electrolysis and used to generate electricity
       o_hgen_ext_el <- pmax(setNames(output[,,"Primary Energy|Hydrogen|Electricity (TWh/yr)"],NULL) - setNames(tmp4[,,"Secondary Energy|Hydrogen|Electricity (TWh/yr)"],NULL), 0)
       tmp4 <- mbind(tmp4,setNames(o_hgen_ext_el,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"))
