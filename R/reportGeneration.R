@@ -101,23 +101,25 @@ reportGeneration <- function(gdx,output=NULL) {
     v_seprod_el <- v_seprod
   }
   
-  if(c_LIMESversion >= 2.37) { #First version with heat staorage
-    v_storein_el <- v_storein[,,"seel"]
-    v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
-    v_storeout_el <- v_storeout[,,"seel"]
-    v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
-    v_storein_el <- collapseNames(v_storein_el)
-    v_storeout_el <- collapseNames(v_storeout_el)
-    
-    v_storein_he <- v_storein[,,"sehe"]
-    v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
-    v_storeout_he <- v_storeout[,,"sehe"]
-    v_storeout_he <- collapseNames(v_storeout_he)
-    if(length(grep("heat_sto",getNames(v_storein_he))) > 0) {
-      v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
+  if(c_LIMESversion >= 2.37) { #First version with heat storage
+    if(length(grep("heat_sto",getNames(v_storein))) > 0) {
+      v_storein_el <- v_storein[,,"seel"]
+      v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
+      v_storein_el <- collapseNames(v_storein_el)
+      
+      v_storein_he <- v_storein[,,"sehe"]
+      v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
+      #v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
     }
-    if(length(grep("heat_sto",getNames(v_storeout_he))) > 0) {
-      v_storeout_he <- v_storeout_he[,,"heat_sto"] #then filter by technology
+    
+    if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
+      v_storeout_el <- v_storeout[,,"seel"]
+      v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
+      v_storeout_el <- collapseNames(v_storeout_el)
+      
+      v_storeout_he <- v_storeout[,,"sehe"]
+      v_storeout_he <- collapseNames(v_storeout_he)
+      #v_storeout_he <- v_storeout_he[,,"heat_sto"] #then filter by technology
     }
     
   }

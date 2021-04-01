@@ -92,15 +92,21 @@ reportAdequacyContribution <- function(gdx) {
   }
   
   if(c_LIMESversion >= 2.37) { #First version with heat storage
-    v_storein_el <- v_storein[,,"seel"]
-    v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
-    v_storeout_el <- v_storeout[,,"seel"]
-    v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
-    v_storein_el <- collapseNames(v_storein_el)
-    v_storeout_el <- collapseNames(v_storeout_el)
+    if(length(grep("heat_sto",getNames(v_storein))) > 0) {
+      v_storein_el <- v_storein[,,"seel"]
+      v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
+      v_storein_el <- collapseNames(v_storein_el)
+    }
+    
+    if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
+      v_storeout_el <- v_storeout[,,"seel"]
+      v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
+      v_storeout_el <- collapseNames(v_storeout_el)
+    }
     
     #Redefine testore set -> only electricity-related sets make sense in this function
-    testore <- setdiff(testore,c("heat_sto"))
+    testore_el <- setdiff(testore,c("heat_sto"))
+    
   } else {
     v_storein_el <- v_storein
     v_storeout_el <- v_storeout
@@ -191,7 +197,7 @@ reportAdequacyContribution <- function(gdx) {
                                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   capadeq_vres_peak <- capadeq_vres_marg
   
-  capadeq_stor_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = testore,
+  capadeq_stor_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = testore_el,
                                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
@@ -217,7 +223,7 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])])
         demand_peak[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
         netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
-        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])])
+        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])])
       }
       
       if (taumax[regi2,year2,] == 0) {
@@ -230,7 +236,7 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])])
         demand_marg[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
         netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
-        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore]*collapseNames(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])])
+        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])])
       }
     }
   }
@@ -245,10 +251,10 @@ reportAdequacyContribution <- function(gdx) {
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_peak[,,c("windon","windoff")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Wind (GW)"))
   
   #Contribution of storage (most challenging)
-  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,c(testore)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,c(testore_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Storage (GW)"))
   
   #Contribution of storage (peak demand)
-  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,c(testore)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,c(testore_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Storage (GW)"))
   
   #Concatenating variables
   tmp4 <- mbind(tmp1,tmp2,tmp3)
