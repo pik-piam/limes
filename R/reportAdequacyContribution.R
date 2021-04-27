@@ -91,17 +91,21 @@ reportAdequacyContribution <- function(gdx) {
     p_eldemand <- v_exdemand
   }
   
-  if(c_LIMESversion >= 2.37) { #First version with heat storage
+  if(c_LIMESversion >= 2.37) { #First version with heat storage: Robert's version had it. The official does not
     if(length(grep("heat_sto",getNames(v_storein))) > 0) {
       v_storein_el <- v_storein[,,"seel"]
       v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
       v_storein_el <- collapseNames(v_storein_el)
+    } else {
+      v_storein_el <- v_storein
     }
     
     if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
       v_storeout_el <- v_storeout[,,"seel"]
       v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
       v_storeout_el <- collapseNames(v_storeout_el)
+    } else {
+      v_storeout_el <- v_storeout
     }
     
     #Redefine testore set -> only electricity-related sets make sense in this function
