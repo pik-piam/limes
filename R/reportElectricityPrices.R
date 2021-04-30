@@ -216,7 +216,7 @@ reportElectricityPrices <- function(gdx) {
   #v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
   #p_omeg <- readGDX(gdx,name="p_omeg",field="l",format="first_found")
   #v_disinvest <- readGDX(gdx,name="v_disinvest",field="l",format="first_found")
-  if(c_LIMESversion >= 2.36) {
+  if(c_LIMESversion >= 2.4) {
     p_plantshortrunprofit <- readGDX(gdx,name="p_plantshortrunprofit",field="l",format="first_found") #Short run profits [eur]
     p_plantshortrunprofit_w_fix <- readGDX(gdx,name="p_plantshortrunprofit_w_fix",field="l",format="first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
     p_plantprofit_t <- readGDX(gdx,name="p_plantprofit_t",field="l",format="first_found") #short-run profits for plants built in t [eur]

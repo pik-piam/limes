@@ -276,10 +276,10 @@ reportGeneration <- function(gdx,output=NULL) {
       
       #1 (cont) Final energy (only for electricity-based heating)
       p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
-      p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found",restore_zeros = FALSE) #DH distribution losses
-      p_losses_DH <- limesMapping(p_losses_DH)
-      p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
-      p_bd_ratio_usefin <- limesMapping(p_bd_ratio_usefin)
+      p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found",restore_zeros = FALSE) #DH distribution losses
+      p_DH_losses <- limesMapping(p_DH_losses)
+      p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
+      p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
       #Need to aggregate heat supply per year to be able to divide it by efficiency
       o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
                                 fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
@@ -290,8 +290,8 @@ reportGeneration <- function(gdx,output=NULL) {
       #Allocate values to array
       for (te_name in c(tehe)) {
         o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_losses_DH)*p_bd_ratio_usefin))) #transformation output
-        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_usefin)) #final energy|heat
+        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_DH_losses)*p_bd_ratio_ue2fe))) #transformation output
+        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_ue2fe)) #final energy|heat
       }
       
       #Transformation input  
@@ -464,9 +464,9 @@ reportGeneration <- function(gdx,output=NULL) {
   
   #Heat storage
   if(c_heating == 1) {
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storeout_he[,,],dim=c(3.2))*p_taulength,dim=3)/1000,"Useful Energy|Heat|Storage (TWh/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storein_he[,,],dim=c(3.2))*p_taulength,dim=3)/1000,"Useful Energy|Heat|Storage Consumption (TWh/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums((dimSums(v_storein_he,dim=c(3.2)) - dimSums(v_storeout_he,dim=c(3.2)))*p_taulength/1000,dim=3),"Useful Energy|Heat|Storage Losses (TWh/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_storeout_he[,,]*p_taulength,dim=3)/1000,"Useful Energy|Heat|Storage (TWh/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_storein_he[,,]*p_taulength,dim=3)/1000,"Useful Energy|Heat|Storage Consumption (TWh/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums((v_storein_he - v_storeout_he)*p_taulength/1000,dim=3),"Useful Energy|Heat|Storage Losses (TWh/yr)"))
   }
   
   
@@ -769,17 +769,17 @@ reportGeneration <- function(gdx,output=NULL) {
     
     #Gross heat
     #Load additional parameters
-    p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found") #District heating losses [--] - same for all DH technologies
-    p_losses_DH <- limesMapping(p_losses_DH)
-    p_bd_ratio_usefin <- readGDX(gdx,name="p_bd_ratio_usefin",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
-    p_bd_ratio_usefin <- limesMapping(p_bd_ratio_usefin)
+    p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found") #District heating losses [--] - same for all DH technologies
+    p_DH_losses <- limesMapping(p_DH_losses)
+    p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
+    p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
     #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
     o_gross2ue <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = NULL,
                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     o_grossprod_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tedh),
                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     #Value from 2015 is used to scale the heat efficiency (etah), then we need a matrix with the same sets as v_seprod_he to estimate gross heat later
-    o_gross2ue[,as.numeric(tt),] <- ((1-p_losses_DH[,c(2015),])*p_bd_ratio_usefin[,c(2015),])
+    o_gross2ue[,as.numeric(tt),] <- ((1-p_DH_losses)*p_bd_ratio_ue2fe)
     #Estimate annual gross production for different technologies (in TWh/yr)
     for (tehe2 in getNames(o_grossprod_he)) {
       o_grossprod_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/o_gross2ue
@@ -876,7 +876,7 @@ reportGeneration <- function(gdx,output=NULL) {
   v_seprodmax <- limesMapping(v_seprodmax)
   o_genvres <- setNames(tmp1[,,"Secondary Energy|Electricity|Variable renewable (TWh/yr)"],NULL) 
   tmp8 <- NULL
-  tmp8 <- mbind(tmp8,setNames(dimSums(dimSums(v_seprodmax[,,ter],dim=c(3.2))*p_taulength,dim=3)/1000-o_genvres,"Secondary Energy|Electricity|Curtailment (TWh/yr)"))
+  tmp8 <- mbind(tmp8,setNames(dimSums(dimSums(v_seprodmax[,,intersect(teel,ter)],dim=c(3.2))*p_taulength,dim=3)/1000-o_genvres,"Secondary Energy|Electricity|Curtailment (TWh/yr)"))
   
   #merge tmp's
   tmp <- mbind(tmp7,tmp8)

@@ -40,6 +40,7 @@ reportAdequacyContribution <- function(gdx) {
   tereserve <- readGDX(gdx,name="tereserve") #set of other gases generation technologies
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
+  ter_el <- intersect(teel,ter)
   
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
@@ -64,7 +65,7 @@ reportAdequacyContribution <- function(gdx) {
   p_tedata_nu <- limesMapping(p_tedata_nu)
   v_cap <- limesMapping(v_cap)
   v_seprodmax <- limesMapping(v_seprodmax)[,,tau]
-  v_seprodmax <- v_seprodmax[,,ter]
+  v_seprodmax <- v_seprodmax[,,ter_el]
   m_robuststrategy2 <- limesMapping(m_robuststrategy2)[,,tau]
   v_seprod <- limesMapping(v_seprod)[,,tau]
   v_storeout <- limesMapping(v_storeout)[,,tau]
@@ -197,7 +198,7 @@ reportAdequacyContribution <- function(gdx) {
   #Capacity Adequacy FOR CONVENTIONAL vRES
   
   #create the variables according to the needed indexes
-  capadeq_vres_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = ter,
+  capadeq_vres_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = ter_el,
                                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   capadeq_vres_peak <- capadeq_vres_marg
   
@@ -224,7 +225,7 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_peak[regi2,year2,] <- 0
       }
       else {
-        capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])])
+        capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseNames(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])])
         demand_peak[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
         netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
         capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])])
@@ -237,7 +238,7 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_marg[regi2,year2,] <- 0
         }
       else {
-        capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter]*collapseNames(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])])
+        capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseNames(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])])
         demand_marg[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
         netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
         capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])])

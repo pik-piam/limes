@@ -42,7 +42,7 @@ reportDemand <- function(gdx,output=NULL) {
                            fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   o_elecheat <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = NULL,
                            fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  p_losses_DH <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = NULL, names = NULL,
+  p_DH_losses <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = NULL, names = NULL,
                            fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   p_etah <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = NULL, names = te,
                        fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
@@ -54,8 +54,8 @@ reportDemand <- function(gdx,output=NULL) {
       p_eldemand <- v_exdemand[,,"seel"]
       p_hedemand <- v_exdemand[,,"sehe"] #This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
       
-      p_losses_DH <- readGDX(gdx,name="p_losses_DH",field="l",format="first_found")
-      p_losses_DH <- limesMapping(p_losses_DH)
+      p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found")
+      p_DH_losses <- limesMapping(p_DH_losses)
       
       #o_elecheat_hpump <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)")] #from reportGeneration
       #getNames(o_elecheat_hpump) <- NULL
@@ -108,7 +108,7 @@ reportDemand <- function(gdx,output=NULL) {
       v_heatwaste <- limesMapping(v_heatwaste)
       
       tmp2 <- mbind(tmp2,setNames(dimSums(v_heatwaste*p_taulength,dim=3)/1000,"Useful Energy|Waste heat (TWh/yr)"))
-      #tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_losses_DH))/1000,"Final Energy|Heat (TWh/yr)")
+      #tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_DH_losses))/1000,"Final Energy|Heat (TWh/yr)")
       
       if(c_buildings == 1) {
         v_bd_heatdem_ESR <- readGDX(gdx,name="v_bd_heatdem_ESR",field="l",format="first_found") #heat that is covered by the ES [annual data per sector]
