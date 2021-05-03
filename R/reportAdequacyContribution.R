@@ -115,6 +115,9 @@ reportAdequacyContribution <- function(gdx) {
   } else {
     v_storein_el <- v_storein
     v_storeout_el <- v_storeout
+    
+    #Redefine testore set -> only electricity-related sets make sense in this function
+    testore_el <- testore
   }
   
   
