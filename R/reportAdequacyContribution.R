@@ -117,7 +117,7 @@ reportAdequacyContribution <- function(gdx) {
     v_storeout_el <- v_storeout
     
     #Redefine testore set -> only electricity-related sets make sense in this function
-    testore_el <- testore
+    testore_el <- setdiff(testore,c("heat_sto"))
   }
   
   
