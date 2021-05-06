@@ -33,6 +33,7 @@ reportPrimaryEnergy <- function(gdx) {
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
   teoil <- readGDX(gdx,name="teoil") #set of oil generation technologies
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
+  tenr <- readGDX(gdx,name="tenr") #set of non-renewable generation technologies
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
   petyex <- readGDX(gdx,name="petyex")
@@ -151,6 +152,7 @@ reportPrimaryEnergy <- function(gdx) {
       
       #Load additional sets
       techp <- readGDX(gdx,name="techp") #set of chp generation technologies
+      teoel <- readGDX(gdx,name="teoel") #set of electricity-only generation technologies
       
       #Electricity and Heat
       varList_elhe <- list(
@@ -178,7 +180,22 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Gas|CHP|Gas CC (TWh/yr)"              =intersect(techp,tengcc),
         "Primary Energy|Gas|CHP|Gas OC (TWh/yr)"              =intersect(techp,setdiff(tegas,tengcc)),
         "Primary Energy|Fossil|CHP (TWh/yr)"                  =intersect(techp,tefossil),
-        "Primary Energy|Other|CHP (TWh/yr)"                   =intersect(techp,teothers)
+        "Primary Energy|Other|CHP (TWh/yr)"                   =intersect(techp,teothers),
+        
+        #Electricity-only
+        "Primary Energy|Exhaustible resources|Electricity-only (TWh/yr)"   =intersect(teoel,c(tenr,tebio,tehgen)),
+        "Primary Energy|Biomass|Electricity-only (TWh/yr)"                 =intersect(teoel,tebio),
+        "Primary Energy|Coal|Electricity-only (TWh/yr)"                    =intersect(teoel,c(tecoal,telig)),
+        "Primary Energy|Hard Coal|Electricity-only (TWh/yr)"               =intersect(teoel,tecoal),
+        "Primary Energy|Lignite|Electricity-only (TWh/yr)"                 =intersect(teoel,telig),
+        "Primary Energy|Oil|Electricity-only (TWh/yr)"                     =intersect(teoel,teoil),
+        "Primary Energy|Gas|Electricity-only (TWh/yr)"                     =intersect(teoel,tegas),
+        "Primary Energy|Gas|Electricity-only|Gas CC (TWh/yr)"              =intersect(teoel,tengcc),
+        "Primary Energy|Gas|Electricity-only|Gas OC (TWh/yr)"              =intersect(teoel,setdiff(tegas,tengcc)),
+        "Primary Energy|Fossil|Electricity-only (TWh/yr)"                  =intersect(teoel,tefossil),
+        "Primary Energy|Other|Electricity-only (TWh/yr)"                   =intersect(teoel,teothers),
+        "Primary Energy|Hydrogen|Electricity-only (TWh/yr)"                =intersect(teoel,tehgen)
+        
       )
       for (var in names(varList_elhe)){
         tmp2 <- mbind(tmp2,setNames(dimSums(v_pedem[,,varList_elhe[[var]]],dim=3)/1000,var))

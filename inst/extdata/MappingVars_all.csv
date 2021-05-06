@@ -548,17 +548,17 @@ Capacity|Electricity|Biomass|w/ CCS;Capacity|Electricity|Biomass|w/ CCS;GW;GW;1
 Capacity|Electricity|Electricity-only|Gas CC;Capacity|Electricity|Electricity-only|Gas CC;GW;GW;1
 Capacity|Electricity|Electricity-only|Gas OC;Capacity|Electricity|Electricity-only|Gas OC;GW;GW;1
 Primary Energy|Electricity and Heat;Primary Energy|Electricity and Heat;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat [exhaustible resources];Primary Energy|Electricity and Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Biomass;Primary Energy|Electricity and Heat|Biomass;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Coal;Primary Energy|Electricity and Heat|Coal;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Fossil;Primary Energy|Electricity and Heat|Fossil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Gas;Primary Energy|Electricity and Heat|Gas;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Nuclear;Primary Energy|Electricity and Heat|Nuclear;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Oil;Primary Energy|Electricity and Heat|Oil;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Other;Primary Energy|Electricity and Heat|Other;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Waste;Primary Energy|Electricity and Heat|Waste;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Lignite;Primary Energy|Electricity and Heat|Lignite;TWh/yr;PJ/yr;3.6
-Primary Energy|Electricity and Heat|Hard Coal;Primary Energy|Electricity and Heat|Hard Coal;TWh/yr;PJ/yr;3.6
+Primary Energy|Exhaustible resources|Electricity and Heat;Primary Energy|Exhaustible resources|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Biomass|Electricity and Heat;Primary Energy|Biomass|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Coal|Electricity and Heat;Primary Energy|Coal|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Fossil|Electricity and Heat;Primary Energy|Fossil|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|Electricity and Heat;Primary Energy|Gas|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Nuclear|Electricity and Heat;Primary Energy|Nuclear|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Oil|Electricity and Heat;Primary Energy|Oil|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Other|Electricity and Heat;Primary Energy|Other|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Waste|Electricity and Heat;Primary Energy|Waste|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Lignite|Electricity and Heat;Primary Energy|Lignite|Electricity and Heat;TWh/yr;PJ/yr;3.6
+Primary Energy|Hard Coal|Electricity and Heat;Primary Energy|Hard Coal|Electricity and Heat;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat;Primary Energy|Heat;TWh/yr;PJ/yr;3.6
 Primary Energy|Heat [exhaustible resources];Primary Energy|Heat [exhaustible resources];TWh/yr;PJ/yr;3.6
 Primary Energy|Heat|Biomass;Primary Energy|Heat|Biomass;TWh/yr;PJ/yr;3.6
@@ -885,3 +885,28 @@ Profits plants built in t|Electricity|Solar|CSP;Profits plants built in t|Electr
 Profits plants built in t|Electricity|Hydro;Profits plants built in t|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
 Subsidy costs|Electricity;Subsidy costs|Electricity;billion eur2010/yr;billion Eur2015/yr;1
 Subsidy for RES;Subsidy for RES;Eur2010/MWh RES;Eur2015/MWh RES;1
+Primary Energy|CHP;Primary Energy|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Exhaustible resources|CHP;Primary Energy|Exhaustible resources|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Biomass|CHP;Primary Energy|Biomass|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Coal|CHP;Primary Energy|Coal|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Fossil|CHP;Primary Energy|Fossil|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|CHP;Primary Energy|Gas|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Nuclear|CHP;Primary Energy|Nuclear|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Oil|CHP;Primary Energy|Oil|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Other|CHP;Primary Energy|Other|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Waste|CHP;Primary Energy|Waste|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Lignite|CHP;Primary Energy|Lignite|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Hard Coal|CHP;Primary Energy|Hard Coal|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Electricity-only;Primary Energy|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Exhaustible resources|Electricity-only;Primary Energy|Exhaustible resources|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Biomass|Electricity-only;Primary Energy|Biomass|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Coal|Electricity-only;Primary Energy|Coal|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Fossil|Electricity-only;Primary Energy|Fossil|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|Electricity-only;Primary Energy|Gas|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Nuclear|Electricity-only;Primary Energy|Nuclear|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Oil|Electricity-only;Primary Energy|Oil|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Other|Electricity-only;Primary Energy|Other|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Waste|Electricity-only;Primary Energy|Waste|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Lignite|Electricity-only;Primary Energy|Lignite|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Hard Coal|Electricity-only;Primary Energy|Hard Coal|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen|Electricity-only;Primary Energy|Hydrogen|Electricity-only;TWh/yr;PJ/yr;3.6
