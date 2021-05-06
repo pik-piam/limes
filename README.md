@@ -1,6 +1,6 @@
 # The liMES R package
 
-R package **limes**, version **2.11.0**
+R package **limes**, version **2.11.1**
 
 [![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)    
 
@@ -38,7 +38,7 @@ In case of questions / problems please contact Sebastian Osorio <sebastian.osori
 
 To cite package **limes** in publications use:
 
-Osorio S (2021). _limes: The liMES R package_. R package version 2.11.0.
+Osorio S (2021). _limes: The liMES R package_. R package version 2.11.1.
 
 A BibTeX entry for LaTeX users is
 
@@ -47,7 +47,7 @@ A BibTeX entry for LaTeX users is
   title = {limes: The liMES R package},
   author = {Sebastian Osorio},
   year = {2021},
-  note = {R package version 2.11.0},
+  note = {R package version 2.11.1},
 }
 ```
 

@@ -1063,3 +1063,16 @@ Secondary Energy|Gross|Heat|District Heating|Other Fossil;Secondary Energy|Gross
 Secondary Energy|Gross|Heat|District Heating|Electricity;Secondary Energy|Gross|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Electricity|Heat Pump;Secondary Energy|Gross|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Electricity|Electric Boiler;Secondary Energy|Gross|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
+Primary Energy|Electricity-only;Primary Energy|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Exhaustible resources|Electricity-only;Primary Energy|Exhaustible resources|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Biomass|Electricity-only;Primary Energy|Biomass|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Coal|Electricity-only;Primary Energy|Coal|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Fossil|Electricity-only;Primary Energy|Fossil|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|Electricity-only;Primary Energy|Gas|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Nuclear|Electricity-only;Primary Energy|Nuclear|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Oil|Electricity-only;Primary Energy|Oil|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Other|Electricity-only;Primary Energy|Other|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Waste|Electricity-only;Primary Energy|Waste|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Lignite|Electricity-only;Primary Energy|Lignite|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Hard Coal|Electricity-only;Primary Energy|Hard Coal|Electricity-only;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen|Electricity-only;Primary Energy|Hydrogen|Electricity-only;TWh/yr;PJ/yr;3.6
