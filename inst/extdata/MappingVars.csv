@@ -763,19 +763,19 @@ Short-run profits [w adeq rev/fix costs]|Electricity|Solar;Short-run profits [w 
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|PV;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;Short-run profits [w adeq rev/fix costs]|Electricity|Solar|CSP;billion eur2010/yr;billion Eur2015/yr;1
 Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;Short-run profits [w adeq rev/fix costs]|Electricity|Hydro;billion eur2010/yr;billion Eur2015/yr;1
-Primary Energy|Hydrogen [electrolysis]|Electricity;Primary Energy|Hydrogen [electrolysis]|Electricity;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen [external]|Electricity;Primary Energy|Hydrogen [external]|Electricity;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen [electrolysis]|Other sectors;Primary Energy|Hydrogen [electrolysis]|Other sectors;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen [external]|Other sectors;Primary Energy|Hydrogen [external]|Other sectors;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen|Other sectors;Primary Energy|Hydrogen|Other sectors;TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen [external];Primary Energy|Hydrogen [external];TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis];TWh/yr;TWh/yr;1
-Primary Energy|Hydrogen;Primary Energy|Hydrogen;TWh/yr;TWh/yr;1
+Primary Energy|Hydrogen [electrolysis]|Electricity;Primary Energy|Hydrogen [electrolysis]|Electricity;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [external]|Electricity;Primary Energy|Hydrogen [external]|Electricity;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [electrolysis]|Other sectors;Primary Energy|Hydrogen [electrolysis]|Other sectors;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [external]|Other sectors;Primary Energy|Hydrogen [external]|Other sectors;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen|Other sectors;Primary Energy|Hydrogen|Other sectors;TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [external];Primary Energy|Hydrogen [external];TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis];TWh/yr;PJ/yr;3.6
+Primary Energy|Hydrogen;Primary Energy|Hydrogen;TWh/yr;PJ/yr;3.6
 Price|Primary Energy|Hydrogen [external];Price|Primary Energy|Hydrogen [external];Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [electrolysis];Eur2010/MWh;Eur2015/GJ;0.277777778
 Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/MWh;Eur2015/GJ;0.277777778
-Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;PJ/yr;3.6
 Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
 Final Energy|Hydrogen|Other sectors;Final Energy|Hydrogen|Other sectors;TWh/yr;TWh/yr;1
 Final Energy|Hydrogen|Power Sector;Final Energy|Hydrogen|Power Sector;TWh/yr;TWh/yr;1
@@ -916,17 +916,17 @@ Emissions|CO2|Energy|Supply|Heat|District Heating|Waste;Emissions|CO2|Energy|Sup
 Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating;Emissions|CO2|Energy|Supply|Heat|District Heating;Mt CO2/yr;Mt CO2/yr;1
-Primary Energy|Exhaustible resources|CHP;Primary Energy|Exhaustible resources|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Biomass|CHP;Primary Energy|Biomass|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Coal|CHP;Primary Energy|Coal|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Hard Coal|CHP;Primary Energy|Hard Coal|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Lignite|CHP;Primary Energy|Lignite|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Oil|CHP;Primary Energy|Oil|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Gas|CHP;Primary Energy|Gas|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Gas|CHP|Gas CC;Primary Energy|Gas|CHP|Gas CC;TWh/yr;TWh/yr;1
-Primary Energy|Gas|CHP|Gas OC;Primary Energy|Gas|CHP|Gas OC;TWh/yr;TWh/yr;1
-Primary Energy|Fossil|CHP;Primary Energy|Fossil|CHP;TWh/yr;TWh/yr;1
-Primary Energy|Other|CHP;Primary Energy|Other|CHP;TWh/yr;TWh/yr;1
+Primary Energy|Exhaustible resources|CHP;Primary Energy|Exhaustible resources|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Biomass|CHP;Primary Energy|Biomass|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Coal|CHP;Primary Energy|Coal|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Hard Coal|CHP;Primary Energy|Hard Coal|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Lignite|CHP;Primary Energy|Lignite|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Oil|CHP;Primary Energy|Oil|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|CHP;Primary Energy|Gas|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|CHP|Gas CC;Primary Energy|Gas|CHP|Gas CC;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|CHP|Gas OC;Primary Energy|Gas|CHP|Gas OC;TWh/yr;PJ/yr;3.6
+Primary Energy|Fossil|CHP;Primary Energy|Fossil|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Other|CHP;Primary Energy|Other|CHP;TWh/yr;PJ/yr;3.6
 Secondary Energy|Gross|Electricity;Secondary Energy|Gross|Electricity;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|w/ storage;Secondary Energy|Gross|Electricity|w/ storage;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|Biomass;Secondary Energy|Gross|Electricity|Biomass;TWh/yr;TWh/yr;1
