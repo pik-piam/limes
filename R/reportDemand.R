@@ -67,7 +67,7 @@ reportDemand <- function(gdx,output=NULL) {
       p_etah <- limesMapping(p_etah)
       
       #o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
-      o_elecheat <- output[,,which(getNames(output)=="Final Energy|Electricity|Heat (TWh/yr)")] #from reportGeneration
+      o_elecheat <- output[,,which(getNames(output)=="Secondary Energy Input|Electricity|Heat (TWh/yr)")] #from reportGeneration
       getNames(o_elecheat) <- NULL
     } else {
       p_eldemand <- v_exdemand
