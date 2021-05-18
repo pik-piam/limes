@@ -792,15 +792,15 @@ Emissions|CO2|Cancellation from MSR [exogenous];Emissions|CO2|Cancellation from 
 Useful Energy|Heat|Storage;Useful Energy|Heat|Storage;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Storage Consumption;Useful Energy|Heat|Storage Consumption;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Storage Losses;Useful Energy|Heat|Storage Losses;TWh/yr;TWh/yr;1
-Final Energy|Electricity|District Heating|Heat;Final Energy|Electricity|District Heating|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|District Heating|Heat Pump|Heat;Final Energy|Electricity|District Heating|Heat Pump|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|District Heating|Electric Boiler|Heat;Final Energy|Electricity|District Heating|Electric Boiler|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Heat;Final Energy|Electricity|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Decentralized|Heat;Final Energy|Electricity|Decentralized|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Decentralized|Heat Pump|Heat;Final Energy|Electricity|Decentralized|Heat Pump|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Decentralized|Resisitive electric heater|Heat;Final Energy|Electricity|Decentralized|Resisitive electric heater|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Decentralized|Conventional heater|Heat;Final Energy|Electricity|Decentralized|Conventional heater|Heat;TWh/yr;TWh/yr;1
-Final Energy|Electricity|Decentralized|Conventional water heater|Heat;Final Energy|Electricity|Decentralized|Conventional water heater|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|District Heating|Heat;Secondary Energy Input|Electricity|District Heating|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|District Heating|Heat Pump|Heat;Secondary Energy Input|Electricity|District Heating|Heat Pump|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|District Heating|Electric Boiler|Heat;Secondary Energy Input|Electricity|District Heating|Electric Boiler|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Heat;Secondary Energy Input|Electricity|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Heat;Secondary Energy Input|Electricity|Decentralized|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Heat Pump|Heat;Secondary Energy Input|Electricity|Decentralized|Heat Pump|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Resisitive electric heater|Heat;Secondary Energy Input|Electricity|Decentralized|Resisitive electric heater|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Conventional heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional heater|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP;Useful Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Biomass;Useful Energy|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Coal;Useful Energy|Heat|District Heating|CHP|Coal;TWh/yr;TWh/yr;1
@@ -1076,3 +1076,4 @@ Primary Energy|Waste|Electricity-only;Primary Energy|Waste|Electricity-only;TWh/
 Primary Energy|Lignite|Electricity-only;Primary Energy|Lignite|Electricity-only;TWh/yr;PJ/yr;3.6
 Primary Energy|Hard Coal|Electricity-only;Primary Energy|Hard Coal|Electricity-only;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity-only;Primary Energy|Hydrogen|Electricity-only;TWh/yr;PJ/yr;3.6
+Price|Secondary Energy|Heat;Price|Secondary Energy|Heat;Eur2010/MWh;Eur2015/GJ;1

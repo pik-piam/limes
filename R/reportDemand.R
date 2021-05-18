@@ -114,9 +114,9 @@ reportDemand <- function(gdx,output=NULL) {
         v_bd_heatdem_ESR <- readGDX(gdx,name="v_bd_heatdem_ESR",field="l",format="first_found") #heat that is covered by the ES [annual data per sector]
         v_bd_heatdem_ESR <- limesMapping(v_bd_heatdem_ESR)
         
-        tmp2 <- mbind(tmp2,setNames(dimSums((p_hedemand-v_heatwaste)*p_taulength,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|ETS (TWh/yr)"))
+        tmp2 <- mbind(tmp2,setNames(dimSums((p_hedemand)*p_taulength,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|ETS (TWh/yr)"))
         tmp2 <- mbind(tmp2,setNames(dimSums(v_bd_heatdem_ESR,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|non-ETS (TWh/yr)"))
-        tmp2 <- mbind(tmp2,setNames((dimSums((p_hedemand-v_heatwaste)*p_taulength,dim=3)+dimSums(v_bd_heatdem_ESR,dim=3))/1000,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"))
+        tmp2 <- mbind(tmp2,setNames((dimSums((p_hedemand)*p_taulength,dim=3)+dimSums(v_bd_heatdem_ESR,dim=3))/1000,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"))
         
       }
     }

@@ -273,6 +273,9 @@ reportGeneration <- function(gdx,output=NULL) {
       
       #EXPLANATION OF TERMINOLOGY (for DH):
       #Transformation input ----(etah)--->>>> transformation output -----(distribution losses)---->>> final energy|heat -------(ratio of energy service to energy consumption)------>>>> useful energy
+      #Transformation input = primary energy/final energy (in the case of electricity) (in reporttPrimaryEnergy)
+      #Transformation output = gross energy (in this file)
+      #Final energy 
       
       #1 (cont) Final energy (only for electricity-based heating)
       p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
@@ -280,58 +283,58 @@ reportGeneration <- function(gdx,output=NULL) {
       p_DH_losses <- limesMapping(p_DH_losses)
       p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
       p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
-      #Need to aggregate heat supply per year to be able to divide it by efficiency
-      o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
-                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      o_transfoutput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
-                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      o_finalenergy_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
-                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      #Allocate values to array
-      for (te_name in c(tehe)) {
-        o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-        o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_DH_losses)*p_bd_ratio_ue2fe))) #transformation output
-        o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_ue2fe)) #final energy|heat
-      }
+      ##Need to aggregate heat supply per year to be able to divide it by efficiency
+      #o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tedh,
+      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+      #o_transfoutput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tedh,
+      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+      #o_finalenergy_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
+      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+      ##Allocate values to array
+      #for (te_name in c(tehe)) {
+      #  o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
+      #  o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_DH_losses)*p_bd_ratio_ue2fe))) #transformation output
+      #  o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_ue2fe)) #final energy|heat
+      #}
+      #
+      ##Transformation input  
+      #varList_he2 <- list(
+      #  "Transformation input|Heat|District Heating (TWh/yr)"                             =c(tedh),
+      #  "Transformation input|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
+      #  "Transformation input|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
+      #  "Transformation input|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
+      #  "Transformation input|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+      #  "Transformation input|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
+      #)
+      #for (var in names(varList_he2)){
+      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_transfinput_he[,,varList_he2[[var]]],dim=3),var))
+      #}
+      #
+      ##Transformation output  
+      #varList_he2 <- list(
+      #  "Transformation output|Heat|District Heating (TWh/yr)"                             =c(tedh),
+      #  "Transformation output|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
+      #  "Transformation output|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
+      #  "Transformation output|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
+      #  "Transformation output|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+      #  "Transformation output|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
+      #)
+      #for (var in names(varList_he2)){
+      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_transfoutput_he[,,varList_he2[[var]]],dim=3),var))
+      #}
       
-      #Transformation input  
-      varList_he2 <- list(
-        "Transformation input|Heat|District Heating (TWh/yr)"                             =c(tedh),
-        "Transformation input|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-        "Transformation input|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-        "Transformation input|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Transformation input|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
-        "Transformation input|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
-      )
-      for (var in names(varList_he2)){
-        tmp2 <- mbind(tmp2,setNames(dimSums(o_transfinput_he[,,varList_he2[[var]]],dim=3),var))
-      }
-      
-      #Transformation output  
-      varList_he2 <- list(
-        "Transformation output|Heat|District Heating (TWh/yr)"                             =c(tedh),
-        "Transformation output|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-        "Transformation output|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-        "Transformation output|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Transformation output|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
-        "Transformation output|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
-      )
-      for (var in names(varList_he2)){
-        tmp2 <- mbind(tmp2,setNames(dimSums(o_transfoutput_he[,,varList_he2[[var]]],dim=3),var))
-      }
-      
-      #Final energy
-      varList_he2 <- list(
-        #"Final Energy|Heat|District Heating (TWh/yr)"                             =c(tedh),
-        #"Final Energy|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-        #"Final Energy|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-        "Final Energy|Electricity|District Heating|Heat (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-        "Final Energy|Electricity|District Heating|Heat Pump|Heat (TWh/yr)"       =intersect(tedh,"hp_large"),
-        "Final Energy|Electricity|District Heating|Electric Boiler|Heat (TWh/yr)" =intersect(tedh,"elboil_large")
-      ) 
-      for (var in names(varList_he2)){
-        tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
-      }
+      ##Final energy
+      #varList_he2 <- list(
+      #  #"Final Energy|Heat|District Heating (TWh/yr)"                             =c(tedh),
+      #  #"Final Energy|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
+      #  #"Final Energy|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
+      #  "Final Energy|Electricity|District Heating|Heat (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
+      #  "Final Energy|Electricity|District Heating|Heat Pump|Heat (TWh/yr)"       =intersect(tedh,"hp_large"),
+      #  "Final Energy|Electricity|District Heating|Electric Boiler|Heat (TWh/yr)" =intersect(tedh,"elboil_large")
+      #) 
+      #for (var in names(varList_he2)){
+      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
+      #}
       
       
       #1 (cont) Decentralized heat
@@ -355,19 +358,19 @@ reportGeneration <- function(gdx,output=NULL) {
           tmp2 <- mbind(tmp2,setNames(dimSums(dimSums(v_seprod_he[,,varList_he[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
         }
         
-        #Final energy
-        varList_he2 <- list(
-          "Final Energy|Electricity|Heat (TWh/yr)"                                           =intersect(tehe,c(teheelec)),
-          "Final Energy|Electricity|Decentralized|Heat (TWh/yr)"                             =intersect(tehedec,teheelec),
-          "Final Energy|Electricity|Decentralized|Heat Pump|Heat (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
-          "Final Energy|Electricity|Decentralized|Resistive electric heater|Heat (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
-          "Final Energy|Electricity|Decentralized|Conventional heater|Heat (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
-          "Final Energy|Electricity|Decentralized|Conventional water heater|Heat (TWh/yr)"   =intersect(tehedec,"convwh_dec")
-        )
-        
-        for (var in names(varList_he2)){
-          tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
-        }
+        ##Final energy
+        #varList_he2 <- list(
+        #  "Final Energy|Electricity|Heat (TWh/yr)"                                           =intersect(tehe,c(teheelec)),
+        #  "Final Energy|Electricity|Decentralized|Heat (TWh/yr)"                             =intersect(tehedec,teheelec),
+        #  "Final Energy|Electricity|Decentralized|Heat Pump|Heat (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
+        #  "Final Energy|Electricity|Decentralized|Resistive electric heater|Heat (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
+        #  "Final Energy|Electricity|Decentralized|Conventional heater|Heat (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
+        #  "Final Energy|Electricity|Decentralized|Conventional water heater|Heat (TWh/yr)"   =intersect(tehedec,"convwh_dec")
+        #)
+        #
+        #for (var in names(varList_he2)){
+        #  tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
+        #}
         
       }
       
