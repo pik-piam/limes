@@ -347,12 +347,12 @@ reportGeneration <- function(gdx,output=NULL) {
           "Useful Energy|Heat|Electricity (TWh/yr)"          =intersect(tehe,c(teheelec)),
           
           #1.d) Decentralized heating (only electricity-based)
-          "Useful Energy|Heat|Electricity|Decentralized (TWh/yr)"                             =intersect(tehedec,teheelec),
-          "Useful Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
-          "Useful Energy|Heat|Electricity|Decentralized|Resistance (TWh/yr)"                  =intersect(tehedec,"resheat_dec"),
-          "Useful Energy|Heat|Electricity|Decentralized|Conventional (TWh/yr)"                =intersect(tehedec,c("convheat_dec","convwh_dec")),
-          "Useful Energy|Heat|Electricity|Decentralized|Conventional space heater (TWh/yr)"   =intersect(tehedec,"convheat_dec"),
-          "Useful Energy|Heat|Electricity|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
+          "Useful Energy|Heat|Decentralized|Electricity (TWh/yr)"                             =intersect(tehedec,teheelec),
+          "Useful Energy|Heat|Decentralized|Electricity|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
+          "Useful Energy|Heat|Decentralized|Electricity|Resistance (TWh/yr)"                  =intersect(tehedec,"resheat_dec"),
+          "Useful Energy|Heat|Decentralized|Electricity|Conventional (TWh/yr)"                =intersect(tehedec,c("convheat_dec","convwh_dec")),
+          "Useful Energy|Heat|Decentralized|Electricity|Conventional space heater (TWh/yr)"   =intersect(tehedec,"convheat_dec"),
+          "Useful Energy|Heat|Decentralized|Electricity|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
         )
         
         for (var in names(varList_he)){

@@ -233,7 +233,7 @@ reportPrimaryEnergy <- function(gdx) {
             "Secondary Energy Input|Electricity|Heat (TWh/yr)"                                           =intersect(tehe,c(teheelec)),
             "Secondary Energy Input|Electricity|Decentralized|Heat (TWh/yr)"                             =intersect(tehedec,teheelec),
             "Secondary Energy Input|Electricity|Decentralized|Heat Pump|Heat (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
-            "Secondary Energy Input|Electricity|Decentralized|Conventional|Heat (TWh/yr)"                =intersect(tehedec,c("convheat_dec,convwh_dec")),
+            "Secondary Energy Input|Electricity|Decentralized|Conventional|Heat (TWh/yr)"                =intersect(tehedec,c("convheat_dec","convwh_dec")),
             "Secondary Energy Input|Electricity|Decentralized|Resistance|Heat (TWh/yr)"                  =intersect(tehedec,"resheat_dec"),
             "Secondary Energy Input|Electricity|Decentralized|Conventional space heater|Heat (TWh/yr)"   =intersect(tehedec,"convheat_dec"),
             "Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat (TWh/yr)"   =intersect(tehedec,"convwh_dec")

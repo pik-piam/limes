@@ -57,18 +57,10 @@ reportDemand <- function(gdx,output=NULL) {
       p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found")
       p_DH_losses <- limesMapping(p_DH_losses)
       
-      #o_elecheat_hpump <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)")] #from reportGeneration
-      #getNames(o_elecheat_hpump) <- NULL
-      #o_elecheat_eboil <- output[,,which(getNames(output)=="Secondary Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)")] #from reportGeneration
-      #getNames(o_elecheat_eboil) <- NULL
-      
       p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
       p_etah <- p_tedata[,,"etah"]
       p_etah <- limesMapping(p_etah)
       
-      #o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
-      o_elecheat <- output[,,which(getNames(output)=="Secondary Energy Input|Electricity|Heat (TWh/yr)")] #from reportGeneration
-      getNames(o_elecheat) <- NULL
     } else {
       p_eldemand <- v_exdemand
     }
@@ -87,7 +79,7 @@ reportDemand <- function(gdx,output=NULL) {
   
   #electricity-related
   tmp1 <- NULL
-  tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)"))
+  #tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)")) I do not think this is the definition of gross demand
   tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength/c_demandscale,dim=3)/1000,"Final Energy|Electricity (TWh/yr)"))
   
   #Peak demand countries
@@ -97,8 +89,6 @@ reportDemand <- function(gdx,output=NULL) {
   tmp2 <- NULL
   if(c_LIMESversion >= 2.28) {
     if(c_heating == 1) {
-      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_storecons,"Gross Energy|Electricity|w/ Storage (TWh/yr)"))
-      tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 - o_elecheat,"Gross Energy|Electricity|w/o electric heating (TWh/yr)"))
       
       #Heat-related
       c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module
@@ -107,7 +97,7 @@ reportDemand <- function(gdx,output=NULL) {
       
       v_heatwaste <- limesMapping(v_heatwaste)
       
-      tmp2 <- mbind(tmp2,setNames(dimSums(v_heatwaste*p_taulength,dim=3)/1000,"Useful Energy|Waste heat (TWh/yr)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_heatwaste*p_taulength,dim=3)/1000,"Useful Energy|Heat waste (TWh/yr)"))
       #tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_DH_losses))/1000,"Final Energy|Heat (TWh/yr)")
       
       if(c_buildings == 1) {
@@ -117,6 +107,13 @@ reportDemand <- function(gdx,output=NULL) {
         tmp2 <- mbind(tmp2,setNames(dimSums((p_hedemand)*p_taulength,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|ETS (TWh/yr)"))
         tmp2 <- mbind(tmp2,setNames(dimSums(v_bd_heatdem_ESR,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|non-ETS (TWh/yr)"))
         tmp2 <- mbind(tmp2,setNames((dimSums((p_hedemand)*p_taulength,dim=3)+dimSums(v_bd_heatdem_ESR,dim=3))/1000,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"))
+        
+        #o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
+        o_elecheat <- output[,,which(getNames(output)=="Secondary Energy Input|Electricity|Heat (TWh/yr)")] #from reportGeneration
+        getNames(o_elecheat) <- NULL
+        
+        #tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_storecons,"Gross Energy|Electricity|w/ Storage (TWh/yr)"))
+        #tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 - o_elecheat,"Gross Energy|Electricity|w/o electric heating (TWh/yr)"))
         
       }
     }
