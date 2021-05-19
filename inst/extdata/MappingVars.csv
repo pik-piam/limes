@@ -798,8 +798,9 @@ Secondary Energy Input|Electricity|District Heating|Electric Boiler|Heat;Seconda
 Secondary Energy Input|Electricity|Heat;Secondary Energy Input|Electricity|Heat;TWh/yr;TWh/yr;1
 Secondary Energy Input|Electricity|Decentralized|Heat;Secondary Energy Input|Electricity|Decentralized|Heat;TWh/yr;TWh/yr;1
 Secondary Energy Input|Electricity|Decentralized|Heat Pump|Heat;Secondary Energy Input|Electricity|Decentralized|Heat Pump|Heat;TWh/yr;TWh/yr;1
-Secondary Energy Input|Electricity|Decentralized|Resisitive electric heater|Heat;Secondary Energy Input|Electricity|Decentralized|Resisitive electric heater|Heat;TWh/yr;TWh/yr;1
-Secondary Energy Input|Electricity|Decentralized|Conventional heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional heater|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Resistance|Heat;Secondary Energy Input|Electricity|Decentralized|Resistance|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Conventional|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional|Heat;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Decentralized|Conventional space heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional space heater|Heat;TWh/yr;TWh/yr;1
 Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP;Useful Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Biomass;Useful Energy|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
@@ -854,8 +855,9 @@ Useful Energy|Heat|District Heating|Electricity|Electric Boiler;Useful Energy|He
 Useful Energy|Heat|Electricity;Useful Energy|Heat|Electricity;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Electricity|Decentralized;Useful Energy|Heat|Electricity|Decentralized;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Electricity|Decentralized|Heat Pump;Useful Energy|Heat|Electricity|Decentralized|Heat Pump;TWh/yr;TWh/yr;1
-Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater;Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater;TWh/yr;TWh/yr;1
-Useful Energy|Heat|Electricity|Decentralized|Conventional heater;Useful Energy|Heat|Electricity|Decentralized|Conventional heater;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Resistance;Useful Energy|Heat|Electricity|Decentralized|Resistance;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Conventional;Useful Energy|Heat|Electricity|Decentralized|Conventional;TWh/yr;TWh/yr;1
+Useful Energy|Heat|Electricity|Decentralized|Conventional space heater;Useful Energy|Heat|Electricity|Decentralized|Conventional space heater;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Electricity|Decentralized|Conventional water heater;Useful Energy|Heat|Electricity|Decentralized|Conventional water heater;TWh/yr;TWh/yr;1
 Capacity|Heat|District Heating|Heat-only;Capacity|Heat|District Heating|Heat-only;GW;GW;1
 Capacity|Heat|District Heating|Heat-only|Biomass;Capacity|Heat|District Heating|Heat-only|Biomass;GW;GW;1
@@ -875,10 +877,11 @@ Capacity|Heat|District Heating|Heat-only|Geothermal;Capacity|Heat|District Heati
 Capacity|Heat|District Heating|Heat-only|Fossil;Capacity|Heat|District Heating|Heat-only|Fossil;GW;GW;1
 Capacity|Heat|District Heating|Heat-only|Renewable;Capacity|Heat|District Heating|Heat-only|Renewable;GW;GW;1
 Capacity|Heat|District Heating|Heat-only|Non-renewable;Capacity|Heat|District Heating|Heat-only|Non-renewable;GW;GW;1
-Capacity|Heat|Decentralized;Capacity|Heat|Decentralized;GW;GW;1
+Capacity|Heat|Decentralized|P2H;Capacity|Heat|Decentralized|P2H;GW;GW;1
 Capacity|Heat|Decentralized|Heat Pump;Capacity|Heat|Decentralized|Heat Pump;GW;GW;1
-Capacity|Heat|Decentralized|Resistive electric heater;Capacity|Heat|Decentralized|Resistive electric heater;GW;GW;1
-Capacity|Heat|Decentralized|Conventional heater;Capacity|Heat|Decentralized|Conventional heater;GW;GW;1
+Capacity|Heat|Decentralized|Resistance;Capacity|Heat|Decentralized|Resistance;GW;GW;1
+Capacity|Heat|Decentralized|Conventional;Capacity|Heat|Decentralized|Conventional;GW;GW;1
+Capacity|Heat|Decentralized|Conventional space heater;Capacity|Heat|Decentralized|Conventional space heater;GW;GW;1
 Capacity|Heat|Decentralized|Conventional water heater;Capacity|Heat|Decentralized|Conventional water heater;GW;GW;1
 Useful Energy|Waste heat;Useful Energy|Waste heat;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|ETS;Useful Energy Available for Final Consumption|Heat|ETS;TWh/yr;TWh/yr;1

@@ -225,10 +225,11 @@ reportCapacity <- function(gdx) {
       if(c_buildings == 1) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)
-          "Capacity|Heat|Decentralized (GW)"                             =c(tehedec),
+          "Capacity|Heat|Decentralized|P2H (GW)"                         =c(tehedec),
           "Capacity|Heat|Decentralized|Heat Pump (GW)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
-          "Capacity|Heat|Decentralized|Resistive electric heater (GW)"   =intersect(tehedec,"resheat_dec"),
-          "Capacity|Heat|Decentralized|Conventional heater (GW)"         =intersect(tehedec,"convheat_dec"),
+          "Capacity|Heat|Decentralized|Resistance (GW)"                  =intersect(tehedec,"resheat_dec"),
+          "Capacity|Heat|Decentralized|Conventional (GW)"                =intersect(tehedec,c("convheat_dec,convwh_dec")),
+          "Capacity|Heat|Decentralized|Conventional space heater (GW)"   =intersect(tehedec,"convheat_dec"),
           "Capacity|Heat|Decentralized|Conventional water heater (GW)"   =intersect(tehedec,"convwh_dec")
         )
         

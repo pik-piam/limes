@@ -349,8 +349,9 @@ reportGeneration <- function(gdx,output=NULL) {
           #1.d) Decentralized heating (only electricity-based)
           "Useful Energy|Heat|Electricity|Decentralized (TWh/yr)"                             =intersect(tehedec,teheelec),
           "Useful Energy|Heat|Electricity|Decentralized|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
-          "Useful Energy|Heat|Electricity|Decentralized|Resistive electric heater (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
-          "Useful Energy|Heat|Electricity|Decentralized|Conventional heater (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
+          "Useful Energy|Heat|Electricity|Decentralized|Resistance (TWh/yr)"                  =intersect(tehedec,"resheat_dec"),
+          "Useful Energy|Heat|Electricity|Decentralized|Conventional (TWh/yr)"                =intersect(tehedec,c("convheat_dec","convwh_dec")),
+          "Useful Energy|Heat|Electricity|Decentralized|Conventional space heater (TWh/yr)"   =intersect(tehedec,"convheat_dec"),
           "Useful Energy|Heat|Electricity|Decentralized|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
         )
         
