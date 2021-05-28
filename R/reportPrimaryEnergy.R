@@ -22,7 +22,6 @@ reportPrimaryEnergy <- function(gdx) {
   te <- readGDX(gdx,name="te")
   teel <- readGDX(gdx,name="teel")
   tehe <- readGDX(gdx,name="tehe")
-  ter <- readGDX(gdx,name="ter")
   tecoal <- readGDX(gdx,name="tecoal") 
   telig <- readGDX(gdx,name="telig") 
   tegas <- readGDX(gdx,name="tegas") 
@@ -35,10 +34,7 @@ reportPrimaryEnergy <- function(gdx) {
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
   tenr <- readGDX(gdx,name="tenr") #set of non-renewable generation technologies
   tegas_el <- intersect(tegas,teel)
-  tengcc_el <- intersect(tengcc,teel)
   petyex <- readGDX(gdx,name="petyex")
-  pety <- readGDX(gdx,name="pety") #set of primary energies
-  petyren <- readGDX(gdx,name="petyren") #set of primary energies
   tau <- readGDX(gdx,name="tau") #set of time slices
   pe2se <- readGDX(gdx,name="pe2se")
   pe2se <- paste0(pe2se[,1],".",pe2se[,2],".",pe2se[,3])
@@ -193,6 +189,7 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Gas|CHP|Gas OC (TWh/yr)"              =intersect(techp,setdiff(tegas,tengcc)),
         "Primary Energy|Fossil|CHP (TWh/yr)"                  =intersect(techp,tefossil),
         "Primary Energy|Other|CHP (TWh/yr)"                   =intersect(techp,teothers),
+        "Primary Energy|Waste|CHP (TWh/yr)"                   =intersect(techp,tewaste),
         
         #Electricity-only
         "Primary Energy|Exhaustible resources|Electricity-only (TWh/yr)"   =intersect(teoel,c(tenr,tebio,tehgen)),
@@ -206,6 +203,7 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Gas|Electricity-only|Gas OC (TWh/yr)"              =intersect(teoel,setdiff(tegas,tengcc)),
         "Primary Energy|Fossil|Electricity-only (TWh/yr)"                  =intersect(teoel,tefossil),
         "Primary Energy|Other|Electricity-only (TWh/yr)"                   =intersect(teoel,teothers),
+        "Primary Energy|Waste|Electricity-only (TWh/yr)"                   =intersect(teoel,"waste"),
         "Primary Energy|Hydrogen|Electricity-only (TWh/yr)"                =intersect(teoel,tehgen)
         
       )

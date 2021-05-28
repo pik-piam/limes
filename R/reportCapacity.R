@@ -150,6 +150,8 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|CHP|Biomass (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|CHP|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,techp)],dim=3),"Capacity|Electricity|CHP|Other (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tewaste,techp)],dim=3),"Capacity|Electricity|CHP|Waste (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(c(teothers,tewaste,teoil),techp)],dim=3),"Capacity|Electricity|CHP|Other Fossil (GW)"))
       
       #Electricity-only
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,setdiff(teel,techp)],dim=3),"Capacity|Electricity|Electricity-only (GW)"))
@@ -172,6 +174,7 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),setdiff(tebio,teccs))],dim=3),"Capacity|Electricity|Electricity-only|Biomass|w/o CCS (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teoil)],dim=3),"Capacity|Electricity|Electricity-only|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),teothers)],dim=3),"Capacity|Electricity|Electricity-only|Other (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(setdiff(teel,techp),tewaste)],dim=3),"Capacity|Electricity|Electricity-only|Waste (GW)"))
       
       #Heat-related capacities
       varList_he <- list(
@@ -266,6 +269,7 @@ reportCapacity <- function(gdx) {
   tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c("ngt")],dim=3),"Capacity|Electricity|Reserve Plants|Gas OC (GW)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity|Electricity|Reserve Plants|Biomass (GW)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity|Electricity|Reserve Plants|Oil (GW)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c(tewaste)],dim=3),"Capacity|Electricity|Reserve Plants|Waste (GW)"))
   
   #when there is exogenous heating
   if(c_LIMESversion >= 2.33) {
@@ -280,6 +284,7 @@ reportCapacity <- function(gdx) {
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c("ngt_chp")],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Gas OC (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Biomass (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Oil (GW)"))
+      tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tewaste,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Waste (GW)"))
       #Electricity-only
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(tereserve,techp)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(c(tecoal,telig),techp)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only|Coal (GW)"))
@@ -290,6 +295,7 @@ reportCapacity <- function(gdx) {
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(tegas_el,tengcc_el)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(tebio,techp)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only|Biomass (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(teoil,techp)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only|Oil (GW)"))
+      tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,setdiff(tewaste,techp)],dim=3),"Capacity|Electricity|Reserve Plants|Electricity-only|Waste (GW)"))
     }
   }
   

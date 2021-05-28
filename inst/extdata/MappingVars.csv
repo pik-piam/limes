@@ -347,6 +347,7 @@ Capacity|Electricity|CHP|Gas;Capacity|Electricity|CHP|Gas;GW;GW;1
 Capacity|Electricity|CHP|Biomass;Capacity|Electricity|CHP|Biomass;GW;GW;1
 Capacity|Electricity|CHP|Oil;Capacity|Electricity|CHP|Oil;GW;GW;1
 Capacity|Electricity|CHP|Other;Capacity|Electricity|CHP|Other;GW;GW;1
+Capacity|Electricity|CHP|Waste;Capacity|Electricity|CHP|Waste;GW;GW;1
 Capacity|Electricity|Electricity-only;Capacity|Electricity|Electricity-only;GW;GW;1
 Capacity|Electricity|Electricity-only|Coal;Capacity|Electricity|Electricity-only|Coal;GW;GW;1
 Capacity|Electricity|Electricity-only|Hard Coal;Capacity|Electricity|Electricity-only|Hard Coal;GW;GW;1
@@ -355,6 +356,7 @@ Capacity|Electricity|Electricity-only|Gas;Capacity|Electricity|Electricity-only|
 Capacity|Electricity|Electricity-only|Biomass;Capacity|Electricity|Electricity-only|Biomass;GW;GW;1
 Capacity|Electricity|Electricity-only|Oil;Capacity|Electricity|Electricity-only|Oil;GW;GW;1
 Capacity|Electricity|Electricity-only|Other;Capacity|Electricity|Electricity-only|Other;GW;GW;1
+Capacity|Electricity|Electricity-only|Waste;Capacity|Electricity|Electricity-only|Waste;GW;GW;1
 Capacity|Electricity|Reserve Plants|CHP;Capacity|Electricity|Reserve Plants|CHP;GW;GW;1
 Capacity|Electricity|Reserve Plants|CHP|Coal;Capacity|Electricity|Reserve Plants|CHP|Coal;GW;GW;1
 Capacity|Electricity|Reserve Plants|CHP|Hard Coal;Capacity|Electricity|Reserve Plants|CHP|Hard Coal;GW;GW;1
@@ -423,6 +425,7 @@ Secondary Energy|Electricity|CHP|Hard Coal;Secondary Energy|Electricity|CHP|Hard
 Secondary Energy|Electricity|CHP|Lignite;Secondary Energy|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Oil;Secondary Energy|Electricity|CHP|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Other;Secondary Energy|Electricity|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|CHP|Waste;Secondary Energy|Electricity|CHP|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Fossil;Secondary Energy|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Renewable;Secondary Energy|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|CHP|Non-renewable;Secondary Energy|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1
@@ -812,6 +815,7 @@ Useful Energy|Heat|District Heating|CHP|Hard Coal;Useful Energy|Heat|District He
 Useful Energy|Heat|District Heating|CHP|Lignite;Useful Energy|Heat|District Heating|CHP|Lignite;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Oil;Useful Energy|Heat|District Heating|CHP|Oil;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Other;Useful Energy|Heat|District Heating|CHP|Other;TWh/yr;TWh/yr;1
+Useful Energy|Heat|District Heating|CHP|Waste;Useful Energy|Heat|District Heating|CHP|Waste;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Other Fossil;Useful Energy|Heat|District Heating|CHP|Other Fossil;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Fossil;Useful Energy|Heat|District Heating|CHP|Fossil;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating|CHP|Renewable;Useful Energy|Heat|District Heating|CHP|Renewable;TWh/yr;TWh/yr;1
@@ -930,6 +934,7 @@ Primary Energy|Gas|CHP|Gas CC;Primary Energy|Gas|CHP|Gas CC;TWh/yr;PJ/yr;3.6
 Primary Energy|Gas|CHP|Gas OC;Primary Energy|Gas|CHP|Gas OC;TWh/yr;PJ/yr;3.6
 Primary Energy|Fossil|CHP;Primary Energy|Fossil|CHP;TWh/yr;PJ/yr;3.6
 Primary Energy|Other|CHP;Primary Energy|Other|CHP;TWh/yr;PJ/yr;3.6
+Primary Energy|Waste|CHP;Primary Energy|Waste|CHP;TWh/yr;PJ/yr;3.6
 Secondary Energy|Gross|Electricity;Secondary Energy|Gross|Electricity;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|w/ storage;Secondary Energy|Gross|Electricity|w/ storage;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|Biomass;Secondary Energy|Gross|Electricity|Biomass;TWh/yr;TWh/yr;1
@@ -989,6 +994,7 @@ Secondary Energy|Gross|Electricity|CHP|Hard Coal;Secondary Energy|Gross|Electric
 Secondary Energy|Gross|Electricity|CHP|Lignite;Secondary Energy|Gross|Electricity|CHP|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Oil;Secondary Energy|Gross|Electricity|CHP|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Other;Secondary Energy|Gross|Electricity|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Electricity|CHP|Waste;Secondary Energy|Gross|Electricity|CHP|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Fossil;Secondary Energy|Gross|Electricity|CHP|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Renewable;Secondary Energy|Gross|Electricity|CHP|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Non-renewable;Secondary Energy|Gross|Electricity|CHP|Non-renewable;TWh/yr;TWh/yr;1
@@ -1026,6 +1032,7 @@ Secondary Energy|Gross|Heat|District Heating|CHP|Hard Coal;Secondary Energy|Gros
 Secondary Energy|Gross|Heat|District Heating|CHP|Lignite;Secondary Energy|Gross|Heat|District Heating|CHP|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|CHP|Oil;Secondary Energy|Gross|Heat|District Heating|CHP|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|CHP|Other;Secondary Energy|Gross|Heat|District Heating|CHP|Other;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|CHP|Waste;Secondary Energy|Gross|Heat|District Heating|CHP|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil;Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|CHP|Fossil;Secondary Energy|Gross|Heat|District Heating|CHP|Fossil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|CHP|Renewable;Secondary Energy|Gross|Heat|District Heating|CHP|Renewable;TWh/yr;TWh/yr;1

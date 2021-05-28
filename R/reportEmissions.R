@@ -43,6 +43,7 @@ reportEmissions <- function(gdx) {
   
   # read variables
   v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
+  #v_emi <- readGDX(gdx,name="v_emi",field="l",format="simple",restore_zeros = FALSE, types = "variables")
   
   # create MagPie object of v_emi with iso3 regions
   v_emi <- limesMapping(v_emi)

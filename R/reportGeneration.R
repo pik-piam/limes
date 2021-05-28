@@ -213,6 +213,7 @@ reportGeneration <- function(gdx,output=NULL) {
         #1.b) CHP
         "Useful Energy|Heat|District Heating|CHP (TWh/yr)"                                         =c(techp),
         "Useful Energy|Heat|District Heating|CHP|Biomass (TWh/yr)"                                 =intersect(techp,tebio),
+        "Useful Energy|Heat|District Heating|CHP|Waste (TWh/yr)"                                   =intersect(techp,tewaste),
         "Useful Energy|Heat|District Heating|CHP|Coal (TWh/yr)"                                    =intersect(techp,c(tecoal,telig)),
         "Useful Energy|Heat|District Heating|CHP|Hard Coal (TWh/yr)"                               =intersect(techp,c(tecoal)),
         "Useful Energy|Heat|District Heating|CHP|Lignite (TWh/yr)"                                 =intersect(techp,c(telig)),
@@ -380,6 +381,7 @@ reportGeneration <- function(gdx,output=NULL) {
         #2.a) CHP
         "Secondary Energy|Electricity|CHP (TWh/yr)"               =c(techp),
         "Secondary Energy|Electricity|CHP|Biomass (TWh/yr)"       =intersect(techp,tebio),
+        "Secondary Energy|Electricity|CHP|Waste (TWh/yr)"         =intersect(techp,tewaste),
         "Secondary Energy|Electricity|CHP|Coal (TWh/yr)"          =intersect(techp,c(tecoal,telig)),
         "Secondary Energy|Electricity|CHP|Hard Coal (TWh/yr)"     =intersect(techp,c(tecoal)),
         "Secondary Energy|Electricity|CHP|Lignite (TWh/yr)"       =intersect(techp,c(telig)),
@@ -724,6 +726,7 @@ reportGeneration <- function(gdx,output=NULL) {
       #2.a) CHP
       "Secondary Energy|Gross|Electricity|CHP (TWh/yr)"               =c(techp),
       "Secondary Energy|Gross|Electricity|CHP|Biomass (TWh/yr)"       =intersect(techp,tebio),
+      "Secondary Energy|Gross|Electricity|CHP|Waste (TWh/yr)"         =intersect(techp,tewaste),
       "Secondary Energy|Gross|Electricity|CHP|Coal (TWh/yr)"          =intersect(techp,c(tecoal,telig)),
       "Secondary Energy|Gross|Electricity|CHP|Hard Coal (TWh/yr)"     =intersect(techp,c(tecoal)),
       "Secondary Energy|Gross|Electricity|CHP|Lignite (TWh/yr)"       =intersect(techp,c(telig)),
@@ -802,6 +805,7 @@ reportGeneration <- function(gdx,output=NULL) {
       "Secondary Energy|Gross|Heat|District Heating|CHP|Gas CC (TWh/yr)"                                  =intersect(techp,c(tengcc_el)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Gas OC (TWh/yr)"                                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Other (TWh/yr)"                                   =intersect(techp,c(teothers)),
+      "Secondary Energy|Gross|Heat|District Heating|CHP|Waste (TWh/yr)"                                   =intersect(techp,tewaste),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil (TWh/yr)"                            =intersect(techp,c(teothers,tewaste,teoil)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Fossil (TWh/yr)"                                  =intersect(techp,c(tefossil)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Renewable (TWh/yr)"                               =intersect(techp,c(ter,ternofluc)),
