@@ -103,28 +103,28 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   mappingregi <- read.csv(mappingregiPath,sep=";")
   
   #aggregating all countries
-  output_tot <- dimSums(output,dim=1)
+  output_tot <- dimSums(output,dim=1, na.rm = T)
   #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
   output_tot[,,getNames(output_RegAgg)] <- output_RegAgg["GLO",,]
   
   #aggregating only EU-28
   EU<-which(getRegions(output)!="NOR" & getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="GLO")
   output_EU<-NULL
-  output_EU<-dimSums(output[EU,,],dim=1)
+  output_EU<-dimSums(output[EU,,],dim=1, na.rm = T)
   getRegions(output_EU)<-"EU28"
   output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU28",,]
   
   #aggregating only EU-ETS
   EUETS<-which(getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="GLO")
   output_EUETS<-NULL
-  output_EUETS<-dimSums(output[EUETS,,],dim=1)
+  output_EUETS<-dimSums(output[EUETS,,],dim=1, na.rm = T)
   getRegions(output_EUETS)<-"EUETS"
   output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,]
   
   #aggregating EUETS-nonDE
   EUETS_nonDE<-which(getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="DEU")
   output_EUETS_nonDE<-NULL
-  output_EUETS_nonDE<-dimSums(output[EUETS_nonDE,,],dim=1)
+  output_EUETS_nonDE<-dimSums(output[EUETS_nonDE,,],dim=1, na.rm = T)
   getRegions(output_EUETS_nonDE)<-"EUETS_nonDE"
   
   #Showing KdW results is rarely necessary. Apply a switch (0) No (1) Yes
@@ -136,28 +136,28 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
     KdW_iso3 <- mappingregi[match(KdW_iso2,mappingregi[,1]),2]
     #KdW <- which(mappingregi$KdW == 1)
     KdW <- KdW_iso3 #Better to take it directly from the GDX file
-    output_KdW<-dimSums(output[KdW,,],dim=1)
+    output_KdW<-dimSums(output[KdW,,],dim=1, na.rm = T)
     getRegions(output_KdW)<-"KdW"
     
     nonKdW <- which(mappingregi$KdW == 0)
-    output_nonKdW<-dimSums(output[nonKdW,,],dim=1)
+    output_nonKdW<-dimSums(output[nonKdW,,],dim=1, na.rm = T)
     getRegions(output_nonKdW)<-"nonKdW"
     
     #aggregating KdW_EU, KdW_nonEU, nonKdW_EU, nonKdW_nonEU
     KdW_EU <- which(mappingregi$KdW == 1 & mappingregi$EU == 1)
-    output_KdW_EU<-dimSums(output[KdW_EU,,],dim=1)
+    output_KdW_EU<-dimSums(output[KdW_EU,,],dim=1, na.rm = T)
     getRegions(output_KdW_EU)<-"KdW_EU"
     
     KdW_nonEU <- which(mappingregi$KdW == 1 & mappingregi$EU == 0)
-    output_KdW_nonEU<-dimSums(output[KdW_nonEU,,],dim=1)
+    output_KdW_nonEU<-dimSums(output[KdW_nonEU,,],dim=1, na.rm = T)
     getRegions(output_KdW_nonEU)<-"KdW_nonEU"
     
     nonKdW_EU <- which(mappingregi$KdW == 0 & mappingregi$EU == 1)
-    output_nonKdW_EU<-dimSums(output[nonKdW_EU,,],dim=1)
+    output_nonKdW_EU<-dimSums(output[nonKdW_EU,,],dim=1, na.rm = T)
     getRegions(output_nonKdW_EU)<-"nonKdW_EU"
     
     nonKdW_nonEU <- which(mappingregi$KdW == 0 & mappingregi$EU == 0)
-    output_nonKdW_nonEU<-dimSums(output[nonKdW_nonEU,,],dim=1)
+    output_nonKdW_nonEU<-dimSums(output[nonKdW_nonEU,,],dim=1, na.rm = T)
     getRegions(output_nonKdW_nonEU)<-"nonKdW_nonEU"
     
     #totals concerning the KdW
@@ -171,16 +171,16 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   if(length(minP) > 0) {
     minP_iso3 <- mappingregi[match(minP,mappingregi[,1]),2]
     
-    output_minP<-dimSums(output[minP_iso3,,],dim=1)
+    output_minP<-dimSums(output[minP_iso3,,],dim=1, na.rm = T)
     getRegions(output_minP)<-"minP"
     
     output_nonminP<-output_tot - output_minP
     getRegions(output_nonminP)<-"non_minP"
     
-    output_EUnonminP<-dimSums(output[EU,,],dim=1) - output_minP
+    output_EUnonminP<-dimSums(output[EU,,],dim=1, na.rm = T) - output_minP
     getRegions(output_EUnonminP)<-"EU_non_minP"
     
-    output_EUETSnonminP<-dimSums(output[EUETS,,],dim=1) - output_minP
+    output_EUETSnonminP<-dimSums(output[EUETS,,],dim=1, na.rm = T) - output_minP
     getRegions(output_EUETSnonminP)<-"EUETS_non_minP"
     
     output <- mbind(output,output_minP,output_nonminP,output_EUnonminP,output_EUETSnonminP)
