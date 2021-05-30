@@ -534,7 +534,9 @@ reportGeneration <- function(gdx,output=NULL) {
       
       #Because of some tests in v2.36, there might be some runs in which some variables might be renamed to the names used in 2.37
       if(length(grep("hcc",getNames(v_p2xse))) > 0) {
-        v_p2xse <- v_p2xse[,,"pehgen.seel"]
+        if(length(grep("pehgen.seel",getNames(v_p2xse))) > 0) {
+          v_p2xse <- v_p2xse[,,"pehgen.seel"]
+        }
         v_p2xse <- v_p2xse[,,tehgen]
         
         varList_hgen <- list(
