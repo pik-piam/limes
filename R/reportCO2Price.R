@@ -20,14 +20,12 @@
 reportCO2Price <- function(gdx) {
   
   # read sets and parameters
-  te <- readGDX(gdx,name="te") #technologies set
   tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #time set
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
   p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time step
   c_emicappathscen <- readGDX(gdx,name="c_emicappathscen",field="l",format="first_found") #control variable for emission cap (per country)
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #time step
-  c_emicappathscen_EU <- readGDX(gdx,name="c_emicappathscen_EU",field="l",format="first_found") #control variable for emission cap (for EU)
   p_co2price <- readGDX(gdx,name="p_co2price",field="l",format="first_found") #exogenous co2 prices (for electricity)
   v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
@@ -172,7 +170,6 @@ reportCO2Price <- function(gdx) {
   
   # read marginal values
   m_emiconstcum <- readGDX(gdx,name="q_emiconstcum",field="m",format="first_found")
-  c_emicapcumscen <- readGDX(gdx,name="c_emicapcumscen",field="l",format="first_found")
   
   #loading the countries belonging to EU ETS
   emicapcum_regi_iso2 <- readGDX(gdx,name="regeuets")
@@ -233,7 +230,7 @@ reportCO2Price <- function(gdx) {
   }
   
   tmp4 <- NULL
-  tmp4<-mbind(tmp4, setNames(o_co2price*dimSums(v_emi[,,"seel"], dim=3)/(1e9),"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
+  tmp4<-mbind(tmp4, setNames(o_co2price*dimSums(v_emi[,,"seel"], dim=3, na.rm = T)/(1e9),"Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
   
   c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
   if(c_LIMESversion >= 2.28 & c_bankemi_EU == 1) {

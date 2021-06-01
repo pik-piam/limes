@@ -21,7 +21,6 @@ reportEmissions <- function(gdx) {
   # read sets
   te <- readGDX(gdx,name="te")
   teel <- readGDX(gdx,name="teel")
-  tehe <- readGDX(gdx,name="tehe")
   ter <- readGDX(gdx,name="ter")
   tecoal <- readGDX(gdx,name="tecoal") 
   telig <- readGDX(gdx,name="telig") 
@@ -29,7 +28,6 @@ reportEmissions <- function(gdx) {
   tengcc <- readGDX(gdx,name="tengcc")
   tefossil <- readGDX(gdx,name="tefossil") #set of fossil-based generation technologies
   teccs <- readGDX(gdx,name="teccs") #set of generation technologies with CCS
-  tehgen <- readGDX(gdx,name="tehgen") #set of hydrogen generation technologies
   tebio <- readGDX(gdx,name="tebio") #set of biomass generation technologies
   teoil <- readGDX(gdx,name="teoil") #set of oil generation technologies
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
@@ -38,7 +36,6 @@ reportEmissions <- function(gdx) {
   
   # read parameters
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #conversion factor C -> CO2
-  c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found")
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
   # read variables
@@ -109,11 +106,12 @@ reportEmissions <- function(gdx) {
   )
   
   for (var in names(varList_el)){
-    tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3),var))
+    tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3,na.rm = T),var))
   }
   
   # concatenate vars
   tmp3 <- mbind(tmp1,tmp2)
+    
   
   #annual emissions withdrawn from the EU ETS
   #If activate this, remember to activate the code in convGDX2MIF to erase the values for the countries for which this variable does not exist
@@ -124,8 +122,8 @@ reportEmissions <- function(gdx) {
     
     #Biomass related variables (because there are new biomass technologies from v2.33)
     #tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)")) #might be confusing the fact that is exactly the same as BECCS
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],3),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],dim=3,na.rm = T),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
     
     
     if(c_heating == 1) {
@@ -178,7 +176,7 @@ reportEmissions <- function(gdx) {
       )
       
       for (var in names(varList_he)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,varList_he[[var]]],dim=3),var))
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,varList_he[[var]]],dim=3,na.rm = T),var))
       }
       
       #Electricity and Heat
@@ -200,7 +198,7 @@ reportEmissions <- function(gdx) {
       )
       
       for (var in names(varList_el)){
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList_el[[var]]],dim=3),var))
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList_el[[var]]],dim=3,na.rm = T),var))
       }
     }
   } 
@@ -210,11 +208,11 @@ reportEmissions <- function(gdx) {
   
   #Carbon sequestration
   tmp6 <- NULL
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,3),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],3),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],3),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],3),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],3),"Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
   
   # concatenate data
   tmp <- mbind(tmp5,tmp6)
