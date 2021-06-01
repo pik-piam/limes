@@ -63,7 +63,7 @@ reportPrimaryEnergy <- function(gdx) {
   
   #Check names in v_pedem - in one of the v2.37 versions, v_pedem becomes annual, so we need first to aggregate to annual value
   if(length(grep("1[.]",getNames(v_pedem))) > 0) { #check if tau is part of the names
-    v_pedem <- dimSums(v_pedem*p_taulength,dim = 3.1)
+    v_pedem <- dimSums(v_pedem*p_taulength,dim = 3.1, na.rm = T)
   }
   
   #create magpie for PE for heating purposes
