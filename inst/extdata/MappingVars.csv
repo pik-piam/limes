@@ -1087,3 +1087,53 @@ Primary Energy|Lignite|Electricity-only;Primary Energy|Lignite|Electricity-only;
 Primary Energy|Hard Coal|Electricity-only;Primary Energy|Hard Coal|Electricity-only;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity-only;Primary Energy|Hydrogen|Electricity-only;TWh/yr;PJ/yr;3.6
 Price|Secondary Energy|Heat;Price|Secondary Energy|Heat;Eur2010/MWh;Eur2015/GJ;1
+Useful Area|Residential;Useful Area|Residential;Mm2;Mm2;1
+Useful Area|Non-residential;Useful Area|Non-residential;Mm2;Mm2;1
+Useful Energy Available for Final Consumption|Heat|Residential|Space-heating;Useful Energy Available for Final Consumption|Heat|Residential|Space-heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|Water-heating;Useful Energy Available for Final Consumption|Heat|Residential|Water-heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Industry;Useful Energy Available for Final Consumption|Heat|Industry;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Agriculture;Useful Energy Available for Final Consumption|Heat|Agriculture;TWh/yr;TWh/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP;Emissions|CO2|Energy|Supply|Electricity|CHP;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Coal;Emissions|CO2|Energy|Supply|Electricity|CHP|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal;Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Lignite;Emissions|CO2|Energy|Supply|Electricity|CHP|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Oil;Emissions|CO2|Energy|Supply|Electricity|CHP|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Gas;Emissions|CO2|Energy|Supply|Electricity|CHP|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Gas CC;Emissions|CO2|Energy|Supply|Electricity|CHP|Gas CC;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Gas OC;Emissions|CO2|Energy|Supply|Electricity|CHP|Gas OC;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Other;Emissions|CO2|Energy|Supply|Electricity|CHP|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Other Fossil;Emissions|CO2|Energy|Supply|Electricity|CHP|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|CHP|Fossil;Emissions|CO2|Energy|Supply|Electricity|CHP|Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only;Emissions|CO2|Energy|Supply|Electricity|Electricity-only;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Oil;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Waste;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Waste;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other Fossil;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/o CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/o CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/ CCS;Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/ CCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Hard Coal;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Lignite;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Lignite;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Oil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Oil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Gas;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Waste;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Waste;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Mt CO2/yr;Mt CO2/yr;1

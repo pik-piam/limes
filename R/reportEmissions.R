@@ -129,6 +129,7 @@ reportEmissions <- function(gdx) {
     if(c_heating == 1) {
       #load heat-related sets
       techp <- readGDX(gdx,name="techp")
+      teoel <- readGDX(gdx,name="teoel")
       teohecen <- readGDX(gdx,name="teohecen")
       tedh <- readGDX(gdx,name="tedh")
       tedhelec <- readGDX(gdx,name="tedhelec")
@@ -180,7 +181,7 @@ reportEmissions <- function(gdx) {
       }
       
       #Electricity and Heat
-      varList_el <- list(
+      varList <- list(
         #Conventional
         "Emissions|CO2|Energy|Supply|Electricity and Heat (Mt CO2/yr)"                  =c("seel","sehe"),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Biomass (Mt CO2/yr)"          =intersect(te,intersect(tebio,teccs)),
@@ -197,7 +198,74 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Fossil (Mt CO2/yr)"           =intersect(te,c(tefossil))
       )
       
-      for (var in names(varList_el)){
+      for (var in names(varList)){
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim=3,na.rm = T),var))
+      }
+      
+      #Electricity emissions
+      varList_el<- list(
+        #1.b) CHP
+        "Emissions|CO2|Energy|Supply|Electricity|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Oil (Mt CO2/yr)"                     =intersect(techp,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Gas (Mt CO2/yr)"                     =intersect(techp,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Gas CC (Mt CO2/yr)"                  =intersect(techp,c(tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Gas OC (Mt CO2/yr)"                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Other (Mt CO2/yr)"                   =intersect(techp,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil)),
+        
+        #Electricity-only
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only (Mt CO2/yr)"                        =intersect(teoel,c(tefossil,intersect(tebio,teccs))),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal (Mt CO2/yr)"                   =intersect(teoel,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/o CCS (Mt CO2/yr)"           =intersect(teoel,setdiff(c(tecoal,telig),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal|w/ CCS (Mt CO2/yr)"            =intersect(teoel,intersect(c(tecoal,telig),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal (Mt CO2/yr)"              =intersect(teoel,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/o CCS (Mt CO2/yr)"      =intersect(teoel,setdiff(c(tecoal),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Hard Coal|w/ CCS (Mt CO2/yr)"       =intersect(teoel,intersect(c(tecoal),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite (Mt CO2/yr)"                =intersect(teoel,c(telig)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/o CCS (Mt CO2/yr)"        =intersect(teoel,setdiff(c(telig),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Lignite|w/ CCS (Mt CO2/yr)"         =intersect(teoel,intersect(c(telig),teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Oil (Mt CO2/yr)"                    =intersect(teoel,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas (Mt CO2/yr)"                    =intersect(teoel,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/o CCS (Mt CO2/yr)"            =intersect(teoel,setdiff(tegas_el,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas|w/ CCS (Mt CO2/yr)"             =intersect(teoel,intersect(tegas_el,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas CC|w/o CCS (Mt CO2/yr)"         =intersect(teoel,setdiff(tengcc_el,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas CC|w/ CCS (Mt CO2/yr)"          =intersect(teoel,intersect(tengcc_el,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas CC (Mt CO2/yr)"                 =intersect(teoel,c(tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Gas OC (Mt CO2/yr)"                 =intersect(teoel,setdiff(tegas_el,tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other (Mt CO2/yr)"                  =intersect(teoel,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Waste (Mt CO2/yr)"                  =intersect(teoel,c(tewaste)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Other Fossil (Mt CO2/yr)"           =intersect(teoel,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil (Mt CO2/yr)"                 =intersect(teoel,c(tefossil)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil|w/o CCS (Mt CO2/yr)"         =intersect(teoel,setdiff(tefossil,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil|w/ CCS (Mt CO2/yr)"          =intersect(teoel,intersect(tefossil,teccs)),
+        "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass|w/ CCS (Mt CO2/yr)"         =intersect(teoel,intersect(tebio,teccs))
+      )
+      
+      for (var in names(varList_el)) {
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3,na.rm = T),var))
+      }
+      
+      #CHP emissions
+      varList<- list(
+        #1.b) CHP
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Oil (Mt CO2/yr)"                     =intersect(techp,c(teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Gas (Mt CO2/yr)"                     =intersect(techp,c(tegas)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Gas CC (Mt CO2/yr)"                  =intersect(techp,c(tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Gas OC (Mt CO2/yr)"                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other (Mt CO2/yr)"                   =intersect(techp,c(teothers)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil))
+      )
+      
+      for (var in names(varList)) {
         tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList_el[[var]]],dim=3,na.rm = T),var))
       }
     }

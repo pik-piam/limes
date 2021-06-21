@@ -23,8 +23,8 @@ limesMapping <- function(var,mappingPath=NULL){
   #extract the regions of one variable (in some cases, a var only exists for some regions)
   #find the correct position of the region in the subindex (it should normally be in the first position)
   region_var <- NULL
-  for (k in 1:lengths(strsplit(getNames(var),".",1)[1])) {
-    a <- unique(sapply(strsplit(getNames(var),".",1), '[[', k))
+  for (k in 1:lengths(strsplit(getNames(var),"[.]")[1])) {
+    a <- unique(sapply(strsplit(getNames(var),"[.]"), '[[', k))
     if (length(intersect(a,mapping$LIMES_ISO2)) > 0)
       region_var <- a
   }
