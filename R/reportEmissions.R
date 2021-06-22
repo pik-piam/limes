@@ -266,7 +266,7 @@ reportEmissions <- function(gdx) {
       )
       
       for (var in names(varList)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList_el[[var]]],dim=3,na.rm = T),var))
+        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim=3,na.rm = T),var))
       }
     }
   } 
