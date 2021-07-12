@@ -226,7 +226,7 @@ reportElectricityPrices <- function(gdx) {
   #v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
   #p_omeg <- readGDX(gdx,name="p_omeg",field="l",format="first_found")
   #v_disinvest <- readGDX(gdx,name="v_disinvest",field="l",format="first_found")
-  if(c_LIMESversion >= 3) {
+  if(c_LIMESversion == 2.36) {
     p_plantshortrunprofit <- readGDX(gdx,name="p_plantshortrunprofit",field="l",format="first_found") #Short run profits [eur]
     p_plantshortrunprofit_w_fix <- readGDX(gdx,name="p_plantshortrunprofit_w_fix",field="l",format="first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
     p_plantprofit_t <- readGDX(gdx,name="p_plantprofit_t",field="l",format="first_found") #short-run profits for plants built in t [eur]
@@ -302,12 +302,12 @@ reportElectricityPrices <- function(gdx) {
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantrevenues[,,varList_el[[var]]],dim=3)/1e9,paste0("Revenues|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantshortrunprofit[,,varList_el[[var]]],dim=3)/1e9,paste0("Short-run profits|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4,setNames(dimSums(p_plantshortrunprofit_w_fix[,,varList_el[[var]]],dim=3)/1e9,paste0("Short-run profits [w adeq rev/fix costs]|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
-      tmp4 <- mbind(tmp4,setNames(dimSums(p_plantprofit_t[,,varList_el[[var]]],dim=3)/1e9,paste0("Profits plants built in t|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
+      #tmp4 <- mbind(tmp4,setNames(dimSums(p_plantprofit_t[,,varList_el[[var]]],dim=3)/1e9,paste0("Profits plants built in t|Electricity",var,"(billion eur2010/yr)"))) #convert eur to billion eur
     }
     
-    tmp4 <- mbind(tmp4,setNames(o_subsidRES_disc*1e6,"Subsidy for RES (Eur2010/MWh RES)")) #convert [eur/GWh RES] to [eur/MWh RES] - per unit of RES generated
-    tmp4 <- mbind(tmp4,setNames(p_prodsubsidycosts/(dimSums(p_taulength*p_eldemand,3)*1000),"Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)")) #convert eur/GWh to eur/MWh - per unit of demand
-    tmp4 <- mbind(tmp4,setNames(p_prodsubsidycosts/1e9,"Subsidy costs|Electricity (billion eur2010/yr)")) #convert eur to billion eur
+    #tmp4 <- mbind(tmp4,setNames(o_subsidRES_disc*1e6,"Subsidy for RES (Eur2010/MWh RES)")) #convert [eur/GWh RES] to [eur/MWh RES] - per unit of RES generated
+    #tmp4 <- mbind(tmp4,setNames(p_prodsubsidycosts/(dimSums(p_taulength*p_eldemand,3)*1000),"Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)")) #convert eur/GWh to eur/MWh - per unit of demand
+    #tmp4 <- mbind(tmp4,setNames(p_prodsubsidycosts/1e9,"Subsidy costs|Electricity (billion eur2010/yr)")) #convert eur to billion eur
     
   }
   
