@@ -96,7 +96,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output[is.na(output)]<-0
   #Save file before aggregation
   output_beforeagg <- output
-  
+  #output <-  output_beforeagg
   
   #AGGREGATE (WEIGHTED AVERAGE OF) SOME INTENSIVE VARIABLES (e.g., electricity price)
   output_RegAgg <- limesInt2Ext(output,gdx)
@@ -305,6 +305,12 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #output["EUETS",,AggVars] <- reportEUETSvars(gdx)[,time,AggVars]
   #Erasing the values for the remaining regions
   output[setdiff(getRegions(output),"EUETS"),,AggVars] <- NA
+  
+  #Add UK ETS cap (new after brexit)
+  if(c_LIMESversion >= 2.38) {
+    p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
+    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS
+  }
   
   
   #INCLUDE HISTORICAL VALUES FOR THE INDUSTRY

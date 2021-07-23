@@ -66,7 +66,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
       #include the aviation variables (only available from 2.28)
       if (c_LIMESversion >= 2.28 & c_bankemi_EU == 1) { #aviation-related variables are only required when modelling the EU ETS
         c_aviation <- readGDX(gdx,name="c_aviation",field="l",format="first_found")
-        if(c_aviation == 1){
+        if(c_aviation > 0){
           p_aviation_cap <- readGDX(gdx,name="p_aviation_cap",field="l",format="first_found")
           p_aviation_emi <- readGDX(gdx,name="p_aviation_emi",field="l",format="first_found")
           o_aviation_demandEUA <- as.magpie(apply(mbind(p_aviation_emi*0,p_aviation_emi-p_aviation_cap),1:2,max))
