@@ -309,7 +309,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #Add UK ETS cap (new after brexit)
   if(c_LIMESversion >= 2.38) {
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
-    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS
+    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
   }
   
   
@@ -342,7 +342,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   #SCALING THE RESULTS ACCORDING TO THE UNITS SPECIFIES FOR THE PROJECT
   tmp <- NULL
-  for (i in c(1:length(getNames(output)))) {
+  for (i in seq_len(length(getNames(output)))) {
     tmp <- mbind(tmp,output[,,i]*mappingvars[match(getNames(output)[i],finalvars),]$ConvFactor)
   }
   output_f <- tmp
