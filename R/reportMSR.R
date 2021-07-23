@@ -30,8 +30,8 @@ reportMSR <- function(gdx) {
     
     #read variables with default time step (5 years)
     p_freealloc_EUETS <- readGDX(gdx,name="p_freealloc_EUETS",field="l",format="first_found")
-    p_withholdEUA <- readGDX(gdx,name="p_withholdEUA",field="l",format="first_found")
-    p_backloadEUA <- readGDX(gdx,name="p_backloadEUA",field="l",format="first_found")
+    p_intakeMSR <- readGDX(gdx,name=c("p_intakeMSR","p_withholdEUA"),field="l",format="first_found")
+    p_outtakeMSR <- readGDX(gdx,name=c("p_outtakeMSR","p_backloadEUA"),field="l",format="first_found")
     p_cancelEUA <- readGDX(gdx,name="p_cancelEUA",field="l",format="first_found")
     p_MSR <- readGDX(gdx,name="p_MSR",field="l",format="first_found")
     p_extraintakeMSR <- readGDX(gdx,name="p_extraintakeMSR",field="l",format="first_found")
@@ -39,8 +39,8 @@ reportMSR <- function(gdx) {
     
     #If variables should not exist (equations are off), write NA
     if(c_MSR == 0) {
-      p_withholdEUA[] <- NA
-      p_backloadEUA[] <- NA
+      p_intakeMSR[] <- NA
+      p_outtakeMSR[] <- NA
       p_cancelEUA[] <- NA
       p_MSR[] <- NA
       p_extraintakeMSR[] <- NA
@@ -53,8 +53,8 @@ reportMSR <- function(gdx) {
     #(DO NOT FORGET TO INCLUDE THESE VARIABLES IN MappingVars*.csv and AggregateVariables.csv EXCEL FILES)
     tmp1 <- NULL
     tmp1 <- mbind(tmp1,setNames(p_freealloc_EUETS*s_c2co2*1000,"Emissions|CO2|Free-allocated certificates ETS (Mt CO2/yr)"))
-    tmp1 <- mbind(tmp1,setNames(p_withholdEUA*s_c2co2*1000,"Emissions|CO2|Intake to MSR (Mt CO2/yr)"))
-    tmp1 <- mbind(tmp1,setNames(p_backloadEUA*s_c2co2*1000,"Emissions|CO2|Outtake from MSR (Mt CO2/yr)"))
+    tmp1 <- mbind(tmp1,setNames(p_intakeMSR*s_c2co2*1000,"Emissions|CO2|Intake to MSR (Mt CO2/yr)"))
+    tmp1 <- mbind(tmp1,setNames(p_outtakeMSR*s_c2co2*1000,"Emissions|CO2|Outtake from MSR (Mt CO2/yr)"))
     tmp1 <- mbind(tmp1,setNames(p_cancelEUA*s_c2co2*1000,"Emissions|CO2|Cancellation from MSR (Mt CO2/yr)"))
     tmp1 <- mbind(tmp1,setNames(p_extraintakeMSR*s_c2co2*1000,"Emissions|CO2|Additional intake to the MSR (Mt CO2)"))
     tmp1 <- mbind(tmp1,setNames(p_MSR*s_c2co2*1000,"Emissions|CO2|MSR level (Mt CO2)"))
