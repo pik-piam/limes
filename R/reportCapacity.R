@@ -21,9 +21,7 @@ reportCapacity <- function(gdx) {
   
   # read sets
   tt <- readGDX(gdx,name="t")
-  te <- readGDX(gdx,name="te") 
   teel <- readGDX(gdx,name="teel")
-  tehe <- readGDX(gdx,name="tehe")
   tecoal <- readGDX(gdx,name="tecoal") 
   telig <- readGDX(gdx,name="telig") 
   tegas <- readGDX(gdx,name="tegas") 
@@ -147,6 +145,7 @@ reportCapacity <- function(gdx) {
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tegas,techp)],dim=3),"Capacity|Electricity|CHP|Gas (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tengcc,techp)],dim=3),"Capacity|Electricity|CHP|Gas CC (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(techp,setdiff(tegas,tengcc))],dim=3),"Capacity|Electricity|CHP|Gas OC (GW)"))
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tehgen,techp)],dim=3),"Capacity|Electricity|CHP|Hydrogen (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|CHP|Biomass (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|CHP|Oil (GW)"))
       tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,intersect(teothers,techp)],dim=3),"Capacity|Electricity|CHP|Other (GW)"))
@@ -282,6 +281,7 @@ reportCapacity <- function(gdx) {
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tegas_el,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Gas (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tengcc_el,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Gas CC (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,c("ngt_chp")],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Gas OC (GW)"))
+      tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tehgen,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Hydrogen (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tebio,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Biomass (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(teoil,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Oil (GW)"))
       tmp6 <- mbind(tmp6,setNames(dimSums(v_capreserve[,,intersect(tewaste,techp)],dim=3),"Capacity|Electricity|Reserve Plants|CHP|Waste (GW)"))

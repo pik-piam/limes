@@ -221,6 +221,7 @@ reportGeneration <- function(gdx,output=NULL) {
         "Useful Energy|Heat|District Heating|CHP|Gas (TWh/yr)"                                     =intersect(techp,c(tegas)),
         "Useful Energy|Heat|District Heating|CHP|Gas CC (TWh/yr)"                                  =intersect(techp,c(tengcc_el)),
         "Useful Energy|Heat|District Heating|CHP|Gas OC (TWh/yr)"                                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Useful Energy|Heat|District Heating|CHP|Hydrogen (TWh/yr)"                                =intersect(techp,c(tehgen)),
         "Useful Energy|Heat|District Heating|CHP|Other (TWh/yr)"                                   =intersect(techp,c(teothers)),
         "Useful Energy|Heat|District Heating|CHP|Other Fossil (TWh/yr)"                            =intersect(techp,c(teothers,tewaste,teoil)),
         "Useful Energy|Heat|District Heating|CHP|Fossil (TWh/yr)"                                  =intersect(techp,c(tefossil)),
@@ -255,6 +256,7 @@ reportGeneration <- function(gdx,output=NULL) {
         "Useful Energy|Heat|District Heating|Lignite (TWh/yr)"                     =intersect(tedh,c(telig)),
         "Useful Energy|Heat|District Heating|Oil (TWh/yr)"                         =intersect(tedh,c(teoil)),
         "Useful Energy|Heat|District Heating|Gas (TWh/yr)"                         =intersect(tedh,c(tegas)),
+        "Useful Energy|Heat|District Heating|Hydrogen (TWh/yr)"                    =intersect(tedh,c(teothers)),
         "Useful Energy|Heat|District Heating|Other (TWh/yr)"                       =intersect(tedh,c(teothers)),
         "Useful Energy|Heat|District Heating|Waste (TWh/yr)"                       =intersect(tedh,c(tewaste)),
         "Useful Energy|Heat|District Heating|Other Fossil (TWh/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
@@ -279,7 +281,6 @@ reportGeneration <- function(gdx,output=NULL) {
       #Final energy 
       
       #1 (cont) Final energy (only for electricity-based heating)
-      p_etah <- limesMapping(p_tedata[,,"etah"]) #this already includes distribution losses and ratio of energy service to energy consumption
       p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found",restore_zeros = FALSE) #DH distribution losses
       p_DH_losses <- limesMapping(p_DH_losses)
       p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
@@ -389,6 +390,7 @@ reportGeneration <- function(gdx,output=NULL) {
         "Secondary Energy|Electricity|CHP|Gas (TWh/yr)"           =intersect(techp,c(tegas)),
         "Secondary Energy|Electricity|CHP|Gas CC (TWh/yr)"        =intersect(techp,c(tengcc_el)),
         "Secondary Energy|Electricity|CHP|Gas OC (TWh/yr)"        =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Secondary Energy|Electricity|CHP|Hydrogen (TWh/yr)"      =intersect(techp,tehgen),
         "Secondary Energy|Electricity|CHP|Other (TWh/yr)"         =intersect(techp,c(teothers)),
         "Secondary Energy|Electricity|CHP|Other Fossil (TWh/yr)"  =intersect(techp,c(teothers,tewaste,teoil)),
         "Secondary Energy|Electricity|CHP|Fossil (TWh/yr)"        =intersect(techp,c(tefossil)),
@@ -736,6 +738,7 @@ reportGeneration <- function(gdx,output=NULL) {
       "Secondary Energy|Gross|Electricity|CHP|Gas (TWh/yr)"           =intersect(techp,c(tegas)),
       "Secondary Energy|Gross|Electricity|CHP|Gas CC (TWh/yr)"        =intersect(techp,c(tengcc_el)),
       "Secondary Energy|Gross|Electricity|CHP|Gas OC (TWh/yr)"        =intersect(techp,setdiff(tegas_el,tengcc_el)),
+      "Secondary Energy|Gross|Electricity|CHP|Hydrogen (TWh/yr)"      =intersect(techp,tehgen),
       "Secondary Energy|Gross|Electricity|CHP|Other (TWh/yr)"         =intersect(techp,c(teothers)),
       "Secondary Energy|Gross|Electricity|CHP|Other Fossil (TWh/yr)"  =intersect(techp,c(teothers,tewaste,teoil)),
       "Secondary Energy|Gross|Electricity|CHP|Fossil (TWh/yr)"        =intersect(techp,c(tefossil)),
@@ -806,6 +809,7 @@ reportGeneration <- function(gdx,output=NULL) {
       "Secondary Energy|Gross|Heat|District Heating|CHP|Gas (TWh/yr)"                                     =intersect(techp,c(tegas)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Gas CC (TWh/yr)"                                  =intersect(techp,c(tengcc_el)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Gas OC (TWh/yr)"                                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+      "Secondary Energy|Gross|Heat|District Heating|CHP|Hydrogen (TWh/yr)"                                =intersect(techp,tehgen),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Other (TWh/yr)"                                   =intersect(techp,c(teothers)),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Waste (TWh/yr)"                                   =intersect(techp,tewaste),
       "Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil (TWh/yr)"                            =intersect(techp,c(teothers,tewaste,teoil)),

@@ -225,8 +225,8 @@ reportCO2Price <- function(gdx) {
   p_emicappath_EUETS <- readGDX(gdx,name="p_emicappath_EUETS",field="l",format="first_found")
   if(c_LIMESversion >= 2.28) {
     p_auction_EUETS <- readGDX(gdx,name="p_auction_EUETS",field="l",format="first_found")
-    p_withholdEUA <- readGDX(gdx,name="p_withholdEUA",field="l",format="first_found")
-    p_backloadEUA <- readGDX(gdx,name="p_backloadEUA",field="l",format="first_found")
+    p_intakeMSR <- readGDX(gdx,name=c("p_intakeMSR","p_withholdEUA"),field="l",format="first_found")
+    p_outtakeMSR <- readGDX(gdx,name=c("p_outtakeMSR","p_backloadEUA"),field="l",format="first_found")
   }
   
   tmp4 <- NULL
@@ -265,7 +265,7 @@ reportCO2Price <- function(gdx) {
         
         #o_auction_preunicanc is indeed what is allocated to different countries, and then they could decide to cancel unilaterally
         #i.e., they do not auction these EUA and delete them from the EU log
-        o_auction_preunicanc <- p_emicappath_EUETS*(1-p_sharefreeEUA) - p_withholdEUA + p_backloadEUA
+        o_auction_preunicanc <- p_emicappath_EUETS*(1-p_sharefreeEUA) - p_intakeMSR + p_outtakeMSR
         
         #EUA cancelled need to be subtracted from EUA preliminary auctions
         o_auctionEUA_regi <- o_auction_preunicanc*p_shareEUA_auct - 0*o_selfcancelEUA_regi/(s_c2co2*1000)

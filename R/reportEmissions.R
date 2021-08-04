@@ -134,12 +134,13 @@ reportEmissions <- function(gdx) {
       tedh <- readGDX(gdx,name="tedh")
       tedhelec <- readGDX(gdx,name="tedhelec")
       ternofluc <- readGDX(gdx,name="ternofluc")
+      tehgen <- readGDX(gdx,name="tehgen") #set of hydrogen generation technologies
       
       
       #1) Emissions FROM DH: CHP AND Heat-only 
       varList_he <- list(
         #1.b) CHP
-        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
@@ -152,7 +153,7 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil)),
         
         #1.c) Only-heat (centralized boilers)
-        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only (Mt CO2/yr)"                   =setdiff(teohecen,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only (Mt CO2/yr)"                   =setdiff(teohecen,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Coal (Mt CO2/yr)"              =intersect(teohecen,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Hard Coal (Mt CO2/yr)"         =intersect(teohecen,c(tecoal)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Lignite (Mt CO2/yr)"           =intersect(teohecen,c(telig)),
@@ -164,7 +165,7 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Fossil (Mt CO2/yr)"            =intersect(teohecen,c(tefossil)),
         
         #1.d) District Heating
-        "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"                             =setdiff(tedh,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"                             =setdiff(tedh,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Coal (Mt CO2/yr)"                        =intersect(tedh,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Hard Coal (Mt CO2/yr)"                   =intersect(tedh,c(tecoal)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Lignite (Mt CO2/yr)"                     =intersect(tedh,c(telig)),
@@ -205,7 +206,7 @@ reportEmissions <- function(gdx) {
       #Electricity emissions
       varList_el<- list(
         #1.b) CHP
-        "Emissions|CO2|Energy|Supply|Electricity|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Electricity|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
@@ -252,7 +253,7 @@ reportEmissions <- function(gdx) {
       #CHP emissions
       varList<- list(
         #1.b) CHP
-        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec)),
+        "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Coal (Mt CO2/yr)"                    =intersect(techp,c(tecoal,telig)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Hard Coal (Mt CO2/yr)"               =intersect(techp,c(tecoal)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Lignite (Mt CO2/yr)"                 =intersect(techp,c(telig)),
