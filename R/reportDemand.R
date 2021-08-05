@@ -94,7 +94,6 @@ reportDemand <- function(gdx,output=NULL) {
       c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module
       v_heatwaste <- readGDX(gdx,name="v_heatwaste",field="l",format="first_found") #Waste heat
       
-      
       v_heatwaste <- limesMapping(v_heatwaste)
       
       tmp2 <- mbind(tmp2,setNames(dimSums(v_heatwaste*p_taulength,dim=3)/1000,"Useful Energy|Heat waste (TWh/yr)"))
@@ -108,7 +107,12 @@ reportDemand <- function(gdx,output=NULL) {
         tmp2 <- mbind(tmp2,setNames(dimSums(v_bd_heatdem_ESR,dim=3)/1000,"Useful Energy Available for Final Consumption|Heat|non-ETS (TWh/yr)"))
         tmp2 <- mbind(tmp2,setNames((dimSums((p_hedemand)*p_taulength,dim=3)+dimSums(v_bd_heatdem_ESR,dim=3))/1000,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"))
         
-        #o_elecheat <- o_elecheat_hpump/collapseNames(p_etah[,,"hpump"]) + o_elecheat_eboil/collapseNames(p_etah[,,"elboil"])
+        #Final energy
+        p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
+        p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
+        tmp2 <- mbind(tmp2,setNames(tmp2[,,"Useful Energy Available for Final Consumption|Heat (TWh/yr)"]/p_bd_ratio_ue2fe,"Final Energy|Heat (TWh/yr)"))
+        
+        #Use of electricity in heating
         o_elecheat <- output[,,which(getNames(output)=="Secondary Energy Input|Electricity|Heat (TWh/yr)")] #from reportGeneration
         getNames(o_elecheat) <- NULL
         

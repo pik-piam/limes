@@ -862,6 +862,106 @@ reportGeneration <- function(gdx,output=NULL) {
       tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod_he[,,varList_he[[var]]],3),var)) #o_grossprod_he is already in TWh/yr
     }
     
+    
+    #Final energy
+    #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
+    o_fe_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tedh),
+                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+    
+    for (tehe2 in getNames(o_fe_he)) {
+      o_fe_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
+    }
+    
+    #Final heat consumption
+    varList_he <- list(
+      #1.b) CHP
+      "Final Energy|Heat|District Heating|CHP (TWh/yr)"                                         =c(techp),
+      "Final Energy|Heat|District Heating|CHP|Biomass (TWh/yr)"                                 =intersect(techp,tebio),
+      "Final Energy|Heat|District Heating|CHP|Coal (TWh/yr)"                                    =intersect(techp,c(tecoal,telig)),
+      "Final Energy|Heat|District Heating|CHP|Hard Coal (TWh/yr)"                               =intersect(techp,c(tecoal)),
+      "Final Energy|Heat|District Heating|CHP|Lignite (TWh/yr)"                                 =intersect(techp,c(telig)),
+      "Final Energy|Heat|District Heating|CHP|Oil (TWh/yr)"                                     =intersect(techp,c(teoil)),
+      "Final Energy|Heat|District Heating|CHP|Gas (TWh/yr)"                                     =intersect(techp,c(tegas)),
+      "Final Energy|Heat|District Heating|CHP|Gas CC (TWh/yr)"                                  =intersect(techp,c(tengcc_el)),
+      "Final Energy|Heat|District Heating|CHP|Gas OC (TWh/yr)"                                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+      "Final Energy|Heat|District Heating|CHP|Hydrogen (TWh/yr)"                                =intersect(techp,tehgen),
+      "Final Energy|Heat|District Heating|CHP|Other (TWh/yr)"                                   =intersect(techp,c(teothers)),
+      "Final Energy|Heat|District Heating|CHP|Waste (TWh/yr)"                                   =intersect(techp,tewaste),
+      "Final Energy|Heat|District Heating|CHP|Other Fossil (TWh/yr)"                            =intersect(techp,c(teothers,tewaste,teoil)),
+      "Final Energy|Heat|District Heating|CHP|Fossil (TWh/yr)"                                  =intersect(techp,c(tefossil)),
+      "Final Energy|Heat|District Heating|CHP|Renewable (TWh/yr)"                               =intersect(techp,c(ter,ternofluc)),
+      "Final Energy|Heat|District Heating|CHP|Non-renewable (TWh/yr)"                           =intersect(techp,tenr),
+      
+      #1.c) Only-heat (centralized boilers)
+      "Final Energy|Heat|District Heating|Heat-only (TWh/yr)"                                =c(teohecen),
+      "Final Energy|Heat|District Heating|Heat-only|Biomass (TWh/yr)"                        =intersect(teohecen,tebio),
+      "Final Energy|Heat|District Heating|Heat-only|Coal (TWh/yr)"                           =intersect(teohecen,c(tecoal,telig)),
+      "Final Energy|Heat|District Heating|Heat-only|Hard Coal (TWh/yr)"                      =intersect(teohecen,c(tecoal)),
+      "Final Energy|Heat|District Heating|Heat-only|Lignite (TWh/yr)"                        =intersect(teohecen,c(telig)),
+      "Final Energy|Heat|District Heating|Heat-only|Oil (TWh/yr)"                            =intersect(teohecen,c(teoil)),
+      "Final Energy|Heat|District Heating|Heat-only|Gas (TWh/yr)"                            =intersect(teohecen,c(tegas)),
+      "Final Energy|Heat|District Heating|Heat-only|Other (TWh/yr)"                          =intersect(teohecen,c(teothers)),
+      "Final Energy|Heat|District Heating|Heat-only|Waste (TWh/yr)"                          =intersect(teohecen,c(tewaste)),
+      "Final Energy|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                   =intersect(teohecen,c(teothers,tewaste,teoil)),
+      "Final Energy|Heat|District Heating|Heat-only|Electricity (TWh/yr)"                    =intersect(teohecen,c(tedhelec)),
+      "Final Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"          =intersect(teohecen,"hp_large"),
+      "Final Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"    =intersect(teohecen,"elboil_large"),
+      "Final Energy|Heat|District Heating|Heat-only|Solar (TWh/yr)"                          =intersect(teohecen,c("sol_heat")),
+      "Final Energy|Heat|District Heating|Heat-only|Geothermal (TWh/yr)"                     =intersect(teohecen,c("geo_heat")),
+      "Final Energy|Heat|District Heating|Heat-only|Fossil (TWh/yr)"                         =intersect(teohecen,c(tefossil)),
+      "Final Energy|Heat|District Heating|Heat-only|Renewable (TWh/yr)"                      =intersect(teohecen,c(ter,ternofluc)),
+      "Final Energy|Heat|District Heating|Heat-only|Non-renewable (TWh/yr)"                  =intersect(teohecen,tenr),
+      
+      #1.d) District Heating
+      "Final Energy|Heat|District Heating (TWh/yr)"                             =c(tedh),
+      "Final Energy|Heat|District Heating|Biomass (TWh/yr)"                     =intersect(tedh,tebio),
+      "Final Energy|Heat|District Heating|Coal (TWh/yr)"                        =intersect(tedh,c(tecoal,telig)),
+      "Final Energy|Heat|District Heating|Hard Coal (TWh/yr)"                   =intersect(tedh,c(tecoal)),
+      "Final Energy|Heat|District Heating|Lignite (TWh/yr)"                     =intersect(tedh,c(telig)),
+      "Final Energy|Heat|District Heating|Oil (TWh/yr)"                         =intersect(tedh,c(teoil)),
+      "Final Energy|Heat|District Heating|Gas (TWh/yr)"                         =intersect(tedh,c(tegas)),
+      "Final Energy|Heat|District Heating|Other (TWh/yr)"                       =intersect(tedh,c(teothers)),
+      "Final Energy|Heat|District Heating|Waste (TWh/yr)"                       =intersect(tedh,c(tewaste)),
+      "Final Energy|Heat|District Heating|Other Fossil (TWh/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
+      "Final Energy|Heat|District Heating|Electricity (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
+      "Final Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
+      "Final Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large"),
+      "Final Energy|Heat|District Heating|Solar (TWh/yr)"                       =intersect(tedh,c("sol_heat")),
+      "Final Energy|Heat|District Heating|Geothermal (TWh/yr)"                  =intersect(tedh,c("geo_heat")),
+      "Final Energy|Heat|District Heating|Fossil (TWh/yr)"                      =intersect(tedh,c(tefossil)),
+      "Final Energy|Heat|District Heating|Renewable (TWh/yr)"                   =intersect(tedh,c(ter,ternofluc)),
+      "Final Energy|Heat|District Heating|Non-renewable (TWh/yr)"               =intersect(tedh,tenr)
+    )
+    
+    for (var in names(varList_he)){
+      tmp6 <- mbind(tmp6,setNames(dimSums(o_fe_he[,,varList_he[[var]]],3),var)) #o_fe_he is already in TWh/yr
+    }
+    
+    if(c_buildings == 1) {
+      #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
+      o_fe_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tehedec),
+                            fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+      
+      for (tehe2 in getNames(o_fe_he)) {
+        o_fe_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
+      }
+      
+      varList_he <- list(
+        #Decentralized heating (only electricity-based)
+        "Final Energy|Heat|Decentralized|Electricity (TWh/yr)"                             =intersect(tehedec,teheelec),
+        "Final Energy|Heat|Decentralized|Electricity|Heat Pump (TWh/yr)"                   =intersect(tehedec,c("hp_sh_dec","hp_wh_dec")),
+        "Final Energy|Heat|Decentralized|Electricity|Resistance (TWh/yr)"                  =intersect(tehedec,"resheat_dec"),
+        "Final Energy|Heat|Decentralized|Electricity|Conventional (TWh/yr)"                =intersect(tehedec,c("convheat_dec","convwh_dec")),
+        "Final Energy|Heat|Decentralized|Electricity|Conventional space heater (TWh/yr)"   =intersect(tehedec,"convheat_dec"),
+        "Final Energy|Heat|Decentralized|Electricity|Conventional water heater (TWh/yr)"   =intersect(tehedec,"convwh_dec")
+      )
+      
+      for (var in names(varList_he)){
+        tmp6 <- mbind(tmp6,setNames(dimSums(o_fe_he[,,varList_he[[var]]],3),var)) #o_fe_he is already in TWh/yr
+      }
+      
+    }
+    
   }
   
   

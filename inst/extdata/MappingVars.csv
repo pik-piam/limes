@@ -1143,3 +1143,8 @@ Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other;Emissions|CO2|Energy|
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Mt CO2/yr;Mt CO2/yr;1
+Final Energy|Heat;Final Energy|Heat;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating;Final Energy|Heat|District Heating;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating|Heat-only;Final Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating|CHP;Final Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
+Final Energy|Heat|Decentralized|Electricity;Final Energy|Heat|Decentralized|Electricity;TWh/yr;TWh/yr;1
