@@ -306,10 +306,18 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #Erasing the values for the remaining regions
   output[setdiff(getRegions(output),"EUETS"),,AggVars] <- NA
   
-  #Add UK ETS cap (new after brexit)
+  #Add certain variables that only exist for one region
   if(c_LIMESversion >= 2.38) {
+    #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
     output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
+    
+    #EU demand for hydrogen (not defined on a region basis)
+    if(sum(output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"]) == 0) {
+      p_demXSe_EU_exo <- readGDX(gdx,name="p_demXSe_EU_exo",field="l",format="first_found")
+      output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] <- p_demXSe_EU_exo[,,"pehgen"]/1000
+    }
+    
   }
   
   
