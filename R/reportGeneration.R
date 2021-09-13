@@ -14,7 +14,7 @@
 #' \dontrun{reportGeneration(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems collapseDim
 #' @export
 #' 
 reportGeneration <- function(gdx,output=NULL) {
@@ -85,7 +85,7 @@ reportGeneration <- function(gdx,output=NULL) {
     
     if(c_heating == 1) {
       v_seprod_he <- v_seprod[,,"sehe"]
-      v_seprod_he <- collapseNames(v_seprod_he)
+      v_seprod_he <- collapseDim(v_seprod_he, dim = 3.3)
       p_eldemand <- v_exdemand[,,"seel"]
       #v_seprod_el <- v_seprod[,,"seel"]
       
@@ -105,28 +105,28 @@ reportGeneration <- function(gdx,output=NULL) {
     if(length(grep("heat_sto",getNames(v_storein))) > 0) {
       v_storein_el <- v_storein[,,"seel"]
       v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
-      v_storein_el <- collapseNames(v_storein_el)
+      v_storein_el <- collapseDim(v_storein_el, dim = 3.2)
       
       v_storein_he <- v_storein[,,"sehe"]
-      v_storein_he <- collapseNames(v_storein_he) #first collapse (to keep the technology name)
+      v_storein_he <- collapseDim(v_storein_he, dim = 3.2) #first collapse (to keep the technology name)
       #v_storein_he <- v_storein_he[,,"heat_sto"] #then filter by technology
     }
     
     if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
       v_storeout_el <- v_storeout[,,"seel"]
       v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
-      v_storeout_el <- collapseNames(v_storeout_el)
+      v_storeout_el <- collapseDim(v_storeout_el, dim = 3.2)
       
       v_storeout_he <- v_storeout[,,"sehe"]
-      v_storeout_he <- collapseNames(v_storeout_he)
+      v_storeout_he <- collapseDim(v_storeout_he, dim = 3.2)
       #v_storeout_he <- v_storeout_he[,,"heat_sto"] #then filter by technology
     }
     
   }
   
   #Collapse names to avoid some problems
-  p_eldemand <- collapseNames(p_eldemand)
-  v_seprod_el <- collapseNames(v_seprod_el)
+  p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
+  v_seprod_el <- collapseDim(v_seprod_el, dim = 3.2)
   
   
   #generation per aggregated technology per country
@@ -285,58 +285,6 @@ reportGeneration <- function(gdx,output=NULL) {
       p_DH_losses <- limesMapping(p_DH_losses)
       p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
       p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
-      ##Need to aggregate heat supply per year to be able to divide it by efficiency
-      #o_transfinput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tedh,
-      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      #o_transfoutput_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tedh,
-      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      #o_finalenergy_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = tehe,
-      #                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-      ##Allocate values to array
-      #for (te_name in c(tehe)) {
-      #  o_transfinput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/collapseNames(p_etah[,,te_name]) #transformation input
-      #  o_transfoutput_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/((1-p_DH_losses)*p_bd_ratio_ue2fe))) #transformation output
-      #  o_finalenergy_he[,,te_name] <- (dimSums(collapseNames(v_seprod_he[,,te_name])*p_taulength,dim=3)/1000)/(collapseNames(p_etah[,,te_name]/p_bd_ratio_ue2fe)) #final energy|heat
-      #}
-      #
-      ##Transformation input  
-      #varList_he2 <- list(
-      #  "Transformation input|Heat|District Heating (TWh/yr)"                             =c(tedh),
-      #  "Transformation input|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-      #  "Transformation input|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-      #  "Transformation input|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-      #  "Transformation input|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
-      #  "Transformation input|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
-      #)
-      #for (var in names(varList_he2)){
-      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_transfinput_he[,,varList_he2[[var]]],dim=3),var))
-      #}
-      #
-      ##Transformation output  
-      #varList_he2 <- list(
-      #  "Transformation output|Heat|District Heating (TWh/yr)"                             =c(tedh),
-      #  "Transformation output|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-      #  "Transformation output|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-      #  "Transformation output|Heat|Electricity|District Heating (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-      #  "Transformation output|Heat|Electricity|District Heating|Heat Pump (TWh/yr)"       =intersect(tedh,"hp_large"),
-      #  "Transformation output|Heat|Electricity|District Heating|Electric Boiler (TWh/yr)" =intersect(tedh,"elboil_large")
-      #)
-      #for (var in names(varList_he2)){
-      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_transfoutput_he[,,varList_he2[[var]]],dim=3),var))
-      #}
-      
-      ##Final energy
-      #varList_he2 <- list(
-      #  #"Final Energy|Heat|District Heating (TWh/yr)"                             =c(tedh),
-      #  #"Final Energy|Heat|District Heating|CHP (TWh/yr)"                         =c(techp),
-      #  #"Final Energy|Heat|District Heating|Heat-only (TWh/yr)"                   =c(teohecen),
-      #  "Final Energy|Electricity|District Heating|Heat (TWh/yr)"                 =intersect(tedh,c(tedhelec)),
-      #  "Final Energy|Electricity|District Heating|Heat Pump|Heat (TWh/yr)"       =intersect(tedh,"hp_large"),
-      #  "Final Energy|Electricity|District Heating|Electric Boiler|Heat (TWh/yr)" =intersect(tedh,"elboil_large")
-      #) 
-      #for (var in names(varList_he2)){
-      #  tmp2 <- mbind(tmp2,setNames(dimSums(o_finalenergy_he[,,varList_he2[[var]]],dim=3),var))
-      #}
       
       
       #1 (cont) Decentralized heat
@@ -491,11 +439,11 @@ reportGeneration <- function(gdx,output=NULL) {
     #Marginal value for hydrogen  - Hydrogen price
     m_p2x <- readGDX(gdx,name=c("q_p2x","q_aggdemXSE_el_year","q_balP2XSe"),field="m",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[Geur/GWh]
     m_p2x <- limesMapping(m_p2x)
-    m_p2x_year <- new.magpie(cells_and_regions = getRegions(m_p2x), years = getYears(m_p2x), names = NULL,
+    m_p2x_year <- new.magpie(cells_and_regions = getItems(m_p2x, dim = 1), years = getYears(m_p2x), names = NULL,
                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     if(length(grep("1",getNames(m_p2x))) > 0) { #In some versions q_p2x is tau-dependent
       m_p2x <- m_p2x[,,tau]/p_taulength
-      for(regi2 in getRegions(m_p2x)) {
+      for(regi2 in getItems(m_p2x, dim = 1)) {
         for(year2 in getYears(m_p2x)) {
           if(dimSums(v_prodP2XSe[regi2,year2,],3)==0) {
             m_p2x_year[regi2,year2,] <- 1e6*dimSums(m_p2x[regi2,year2,]*p_taulength,dim=3)/dimSums(p_taulength,3) #calculate weighted average (in eur/MWh)
@@ -510,7 +458,7 @@ reportGeneration <- function(gdx,output=NULL) {
     }
     
 	  ##Create magpie to save marginal value to compute required calculations
-    o_p2x_disc <- new.magpie(cells_and_regions = getRegions(v_prodP2XSe), years = getYears(v_prodP2XSe), names = NULL,
+    o_p2x_disc <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = NULL,
                                                   fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
     
     
@@ -599,9 +547,9 @@ reportGeneration <- function(gdx,output=NULL) {
       #External hydrogen, i.e., imported hydrogen (H2 demand - H2 produced by electrolysers)
       c_sharehgen <- readGDX(gdx,name="c_sharehgen",field="l",format="first_found")
       if (c_sharehgen == 1) {
-        v_imp_XSe_4el_tau <- new.magpie(cells_and_regions = getRegions(v_demP2XSe_4el), years = getYears(v_demP2XSe_4el), names = NULL,
+        v_imp_XSe_4el_tau <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
                                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-        v_imp_XSe_4nel <- new.magpie(cells_and_regions = getRegions(v_demP2XSe_4el), years = getYears(v_demP2XSe_4el), names = NULL,
+        v_imp_XSe_4nel <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
                                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
       } else {
         v_imp_XSe_4el_tau <- readGDX(gdx,name="v_imp_XSe_4el_tau",field="l",format="first_found",restore_zeros = FALSE)[,,"pehgen"] #[GWh]
@@ -613,8 +561,8 @@ reportGeneration <- function(gdx,output=NULL) {
       
       tmp4 <- mbind(tmp4,setNames(dimSums(v_imp_XSe_4el_tau*p_taulength,3)/1000,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"))
       tmp4 <- mbind(tmp4,setNames(v_imp_XSe_4nel/1000,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"))
-      tmp4 <- mbind(tmp4,setNames(collapseNames(tmp4[,,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"]) + 
-                                    collapseNames(tmp4[,,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"]),"Primary Energy|Hydrogen [external] (TWh/yr)"))
+      tmp4 <- mbind(tmp4,setNames(collapseDim(tmp4[,,"Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"], dim = 3.1) + 
+                                    collapseDim(tmp4[,,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], dim = 3.1),"Primary Energy|Hydrogen [external] (TWh/yr)"))
        
       #Total hydrogen used in the model
       tmp4 <- mbind(tmp4,setNames(setNames(tmp4[,,"Final Energy|Hydrogen (TWh/yr)"],NULL),"Primary Energy|Hydrogen (TWh/yr)"))
@@ -633,9 +581,9 @@ reportGeneration <- function(gdx,output=NULL) {
     for(i in 1:length(seasons)) {
       taus <- c(tau2season$tau[tau2season$season == seasons[i]])
       if(length(taus) == 0) {
-        o_outputhelec <- new.magpie(cells_and_regions = getRegions(v_prodP2XSe), years = getYears(v_prodP2XSe), names = paste0("Output|Hydrogen|Electrolysis|",seasons[i]," (TWh/yr)"),
+        o_outputhelec <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = paste0("Output|Hydrogen|Electrolysis|",seasons[i]," (TWh/yr)"),
                                     fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-        o_inputhelec <- new.magpie(cells_and_regions = getRegions(v_storein_el), years = getYears(v_storein_el), names = paste0("Input|Hydrogen|Electrolysis|",seasons[i]," (TWh/yr)"),
+        o_inputhelec <- new.magpie(cells_and_regions = getItems(v_storein_el, dim = 1), years = getYears(v_storein_el), names = paste0("Input|Hydrogen|Electrolysis|",seasons[i]," (TWh/yr)"),
                                    fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
         tmp4 <- mbind(tmp4,o_outputhelec)
         tmp4 <- mbind(tmp4,o_inputhelec)
@@ -644,7 +592,7 @@ reportGeneration <- function(gdx,output=NULL) {
         p_eta_helec <- p_tedata[,,"eta.helec"]
         p_eta_helec <- limesMapping(p_eta_helec)
         o_inputhelec <- v_storein_el[,,"helec"]
-        o_inputhelec <- collapseNames(o_inputhelec)
+        o_inputhelec <- collapseDim(o_inputhelec, dim = 3.2)
         tmp4 <- mbind(tmp4,setNames(dimSums(o_inputhelec[,,taus]*p_taulength[,,taus],dim=3)*p_eta_helec/1000,paste0("Input|Hydrogen|Electrolysis|",seasons[i]," (TWh/yr)")))
       }
     }
@@ -657,11 +605,11 @@ reportGeneration <- function(gdx,output=NULL) {
   #Gross production and demand
   tmp6 <- NULL
   #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
-  o_grossprod <- new.magpie(cells_and_regions = getRegions(v_seprod_el), years = getYears(v_seprod_el), names = c(teel),
+  o_grossprod <- new.magpie(cells_and_regions = getItems(v_seprod_el, dim = 1), years = getYears(v_seprod_el), names = c(teel),
                                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #Estimate annual gross production for different technologies (in TWh/yr)
   for (teel2 in teel) {
-    o_grossprod[,,teel2] <- dimSums(collapseNames(dimSums(v_seprod_el[,,teel2],dim=c(3.2)))*p_taulength/1000,dim=3)/(1-p_autocons[,,teel2])
+    o_grossprod[,,teel2] <- dimSums(collapseDim(dimSums(v_seprod_el[,,teel2], dim=c(3.2)), dim = 3.2)*p_taulength/1000,dim=3)/(1-p_autocons[,,teel2])
   }
   
   varList_el <- list(
@@ -786,15 +734,15 @@ reportGeneration <- function(gdx,output=NULL) {
     p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
     p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
     #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
-    o_gross2ue <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = NULL,
+    o_gross2ue <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = NULL,
                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-    o_grossprod_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tedh),
+    o_grossprod_he <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = c(tedh),
                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     #Value from 2015 is used to scale the heat efficiency (etah), then we need a matrix with the same sets as v_seprod_he to estimate gross heat later
     o_gross2ue[,as.numeric(tt),] <- ((1-p_DH_losses)*p_bd_ratio_ue2fe)
     #Estimate annual gross production for different technologies (in TWh/yr)
     for (tehe2 in getNames(o_grossprod_he)) {
-      o_grossprod_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/o_gross2ue
+      o_grossprod_he[,,tehe2] <- dimSums(collapseDim(v_seprod_he[,,tehe2], dim = c(3.2,3.3))*p_taulength/1000,dim=3)/o_gross2ue
     }
     
     #Gross heat (disaggregated between heat-only and CHP technologies)
@@ -865,11 +813,11 @@ reportGeneration <- function(gdx,output=NULL) {
     
     #Final energy
     #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
-    o_fe_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tedh),
+    o_fe_he <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = c(tedh),
                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     
     for (tehe2 in getNames(o_fe_he)) {
-      o_fe_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
+      o_fe_he[,,tehe2] <- dimSums(collapseDim(v_seprod_he[,,tehe2], dim = c(3.2,3.3))*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
     }
     
     #Final heat consumption
@@ -939,11 +887,11 @@ reportGeneration <- function(gdx,output=NULL) {
     
     if(c_buildings == 1) {
       #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
-      o_fe_he <- new.magpie(cells_and_regions = getRegions(v_seprod_he), years = getYears(v_seprod_he), names = c(tehedec),
+      o_fe_he <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = c(tehedec),
                             fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
       
       for (tehe2 in getNames(o_fe_he)) {
-        o_fe_he[,,tehe2] <- dimSums(collapseNames(v_seprod_he[,,tehe2])*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
+        o_fe_he[,,tehe2] <- dimSums(collapseDim(v_seprod_he[,,tehe2], dim = c(3.2,3.3))*p_taulength/1000,dim=3)/p_bd_ratio_ue2fe
       }
       
       varList_he <- list(
@@ -973,7 +921,7 @@ reportGeneration <- function(gdx,output=NULL) {
   #tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod[,,intersect(teel,c("tnr"))],dim=3),"Gross Production|Electricity|Nuclear (TWh/yr)"))
   
   #Net imports
-  o_netimpots <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(p_eldemand), names = tau,
+  o_netimpots <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(p_eldemand), names = tau,
                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   o_netimpots <- dimSums(p_eldemand*p_taulength/1000,dim=3) - setNames(tmp1[,,"Secondary Energy||Electricity|w/o losses (TWh/yr)"],NULL)
   

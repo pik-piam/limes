@@ -14,7 +14,7 @@
 #' \dontrun{reportTotalSystemCosts(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems
 #' @export
 #' 
 reportTotalSystemCosts <- function(gdx,output=NULL) {
@@ -66,7 +66,7 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   
   #Specific calculation for RES
   t_all <- getYears(p_incoall)
-  costin_tech <- new.magpie(cells_and_regions = getRegions(p_incoall), years = t_all, names = getNames(p_incoall),
+  costin_tech <- new.magpie(cells_and_regions = getItems(p_incoall, dim = 1), years = t_all, names = getNames(p_incoall),
                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   for (t2 in t_all) {
     costin_tech[,t2,] <- v_deltacap[,t2,]*p_incoall[,t2,]

@@ -13,7 +13,7 @@
 #' \dontrun{reportCapacity Adequacy(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems collapseDim
 #' @export
 #'
 
@@ -96,7 +96,7 @@ reportAdequacyContribution <- function(gdx) {
     if(length(grep("heat_sto",getNames(v_storein))) > 0) {
       v_storein_el <- v_storein[,,"seel"]
       v_storein_el <- v_storein_el[,,setdiff(testore,c("heat_sto"))]
-      v_storein_el <- collapseNames(v_storein_el)
+      v_storein_el <- collapseDim(v_storein_el, dim = 3.2)
     } else {
       v_storein_el <- v_storein
     }
@@ -104,7 +104,7 @@ reportAdequacyContribution <- function(gdx) {
     if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
       v_storeout_el <- v_storeout[,,"seel"]
       v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
-      v_storeout_el <- collapseNames(v_storeout_el)
+      v_storeout_el <- collapseDim(v_storeout_el, dim = 3.2)
     } else {
       v_storeout_el <- v_storeout
     }
@@ -125,12 +125,12 @@ reportAdequacyContribution <- function(gdx) {
   
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks
   #Need a magpie variable with regi and year
-  taumax <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = NULL,
+  taumax <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   taumax <- setNames(taumax, NULL)
   taupeak <- taumax
   
-  for (regi2 in getRegions(m_robuststrategy2)) {
+  for (regi2 in getItems(m_robuststrategy2, dim = 1)) {
     for (year2 in getYears(m_robuststrategy2)) { #2010 and 2015 should remain as zeros
       taupeak[regi2,year2,] <- match(as.magpie(apply(p_eldemand[regi2,year2,],1:2,max)),p_eldemand[regi2,year2,])
       if (dimSums(m_robuststrategy2[regi2,year2,],dim=3) == 0) {taumax[regi2,year2,] <- 0}
@@ -142,7 +142,7 @@ reportAdequacyContribution <- function(gdx) {
   #Capacity Adequacy FOR CONVENTIONAL TECHNOLOGIES AND STORAGE
   
   #Need a magpie variable with the same sets as v_cap
-  capadeq <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tentra,
+  capadeq <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tentra,
                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   
   for (tentra2 in tentra) {
@@ -164,7 +164,7 @@ reportAdequacyContribution <- function(gdx) {
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(teothers)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Other (GW)"))
   
   #Discard the capacity when there is no marginal value
-  for (regi2 in getRegions(p_eldemand)) {
+  for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) { #2010 and 2015 should remain as zeros
       if (taumax[regi2,year2,] == 0)
         tmp1[regi2,year2,] = 0
@@ -190,7 +190,7 @@ reportAdequacyContribution <- function(gdx) {
   #tmp2 <- mbind(tmp2,setNames(dimSums(capadeq[,,c("others")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Other (GW)"))
   
   #Discard the capacity when there is no marginal value
-  for (regi2 in getRegions(p_eldemand)) {
+  for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) { #2010 and 2015 should remain as zeros
       if (taupeak[regi2,year2,] == 0)
         tmp2[regi2,year2,] = 0
@@ -201,25 +201,25 @@ reportAdequacyContribution <- function(gdx) {
   #Capacity Adequacy FOR CONVENTIONAL vRES
   
   #create the variables according to the needed indexes
-  capadeq_vres_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = ter_el,
+  capadeq_vres_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = ter_el,
                                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   capadeq_vres_peak <- capadeq_vres_marg
   
-  capadeq_stor_marg <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = testore_el,
+  capadeq_stor_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = testore_el,
                                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
   
-  demand_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(v_exdemand), names = NULL,
+  demand_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   demand_peak <- demand_marg
   
-  netimports_marg <- new.magpie(cells_and_regions = getRegions(p_eldemand), years = getYears(v_exdemand), names = NULL,
+  netimports_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   netimports_peak <- netimports_marg
   
   #consider ONLY vRES, imports and demand for the tau in which the marginal value for the robust constraint peaks and when demand peaks
-  for (regi2 in getRegions(p_eldemand)) {
+  for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) { 
       if (taupeak[regi2,year2,] == 0) {
         capadeq_vres_peak[regi2,year2,] <- 0
@@ -228,10 +228,10 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_peak[regi2,year2,] <- 0
       }
       else {
-        capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseNames(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])])
+        capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseDim(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
         demand_peak[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
         netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
-        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])])
+        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseDim(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
       }
       
       if (taumax[regi2,year2,] == 0) {
@@ -241,10 +241,10 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_marg[regi2,year2,] <- 0
         }
       else {
-        capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseNames(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])])
+        capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseDim(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
         demand_marg[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
         netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
-        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseNames(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])])
+        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseDim(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
       }
     }
   }

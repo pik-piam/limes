@@ -8,7 +8,7 @@
 #' \dontrun{LIMESMapping(var,mappingPath="R/mapping/mapping.csv")}
 #' 
 #' @export
-#' @importFrom magclass collapseNames getRegions<-
+#' @importFrom magclass collapseDim getItems<-
 #' @importFrom utils read.csv
 #' @importFrom stringr str_detect str_remove
 #' 
@@ -25,8 +25,10 @@ limesMapping <- function(var,mappingPath=NULL){
   region_var <- NULL
   for (k in 1:lengths(strsplit(getNames(var),"[.]")[1])) {
     a <- unique(sapply(strsplit(getNames(var),"[.]"), '[[', k))
-    if (length(intersect(a,mapping$LIMES_ISO2)) > 0)
+    if (length(intersect(a,mapping$LIMES_ISO2)) > 0) {
       region_var <- a
+      dimregi <- 3 + k/10 #Save the dimension in which the region is embedded. Need to specify this later and this can vary from variable to variable
+    }
   }
   
   
@@ -78,13 +80,13 @@ limesMapping <- function(var,mappingPath=NULL){
     if (oldRegion %in% region_var) {
       # creating per country margpie object 
       partMagPie <- var[,,oldRegion]
-      getRegions(partMagPie) <- newRegion
-      partMagPie <- collapseNames(partMagPie)
+      getItems(partMagPie, dim = 1) <- newRegion
+      partMagPie <- collapseDim(partMagPie, dim = dimregi)
     } else {
       partMagPie <- var[,,region_var[1]]*0
       #partMagPie <- NA
-      getRegions(partMagPie) <- newRegion
-      partMagPie <- collapseNames(partMagPie)
+      getItems(partMagPie, dim = 1) <- newRegion
+      partMagPie <- collapseDim(partMagPie, dim = dimregi)
     }
     
     # merging per country objects with output/allocating objects in output

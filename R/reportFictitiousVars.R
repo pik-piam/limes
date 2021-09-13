@@ -14,7 +14,7 @@
 #' \dontrun{reportEmissions(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems
 #' @export
 #' 
 reportFictitiousVars <- function(gdx,output=NULL) {
@@ -27,7 +27,7 @@ reportFictitiousVars <- function(gdx,output=NULL) {
   #tt <- readGDX(gdx,name="t")
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
-  o_fictitious <- new.magpie(cells_and_regions = getRegions(output), years = getYears(output), names = NULL,
+  o_fictitious <- new.magpie(cells_and_regions = getItems(output, dim = 1), years = getYears(output), names = NULL,
                              fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   
   tmp1 <- NULL

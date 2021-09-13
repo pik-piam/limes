@@ -13,7 +13,7 @@
 #' \dontrun{reportElectricityPrices(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getYears
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getYears collapseDim
 #' @export
 #' 
 
@@ -34,10 +34,10 @@ reportElectricityPrices <- function(gdx) {
   
   # read variables and make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE)[,,tau] #demand
-  m_sebal <- readGDX(gdx,name="q_sebal",field="m",format="first_found")[,,tau]
+  m_sebal <- readGDX(gdx,name="q_sebal",field="m",format="first_found", restore_zeros = FALSE)[,,tau]
   #m_elecprices <- m_sebal[,,"seel"]
   #m_heatprices <- m_sebal[,,"sehe"]
-  m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found")[,,tau]
+  m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found", restore_zeros = FALSE)[,,tau]
   #v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
   #v_seprod <- v_seprod[,,pety]
   #v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found")[,,tau]
@@ -55,11 +55,11 @@ reportElectricityPrices <- function(gdx) {
   m_restarget <- limesMapping(m_restarget)
   
   #Initialize heating price
-  m_fullheprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
+  m_fullheprices <- new.magpie(cells_and_regions = getItems(m_robuststrategy2, dim = 1), years = getYears(m_robuststrategy2), names = tau,
                                               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-  m_heatprices <- new.magpie(cells_and_regions = getRegions(m_sebal), years = getYears(m_sebal), names = tau,
+  m_heatprices <- new.magpie(cells_and_regions = getItems(m_sebal, dim = 1), years = getYears(m_sebal), names = tau,
                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-  p_hedemand <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tau,
+  p_hedemand <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tau,
                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
@@ -70,12 +70,16 @@ reportElectricityPrices <- function(gdx) {
     if(c_heating == 1) {
       p_eldemand <- v_exdemand[,,"seel"]
       p_hedemand <- v_exdemand[,,"sehe"]
-      #v_seprod_he <- v_seprod[,,"sehe"]
+      p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
+      
       m_fullelecprices <- m_robuststrategy2[,,"seel"]
       m_fullheprices <- m_robuststrategy2[,,"sehe"]
+      m_fullheprices <- collapseDim(m_fullheprices, dim = 3.2)/p_taulength
       
       m_elecprices <- m_sebal[,,"seel"]
       m_heatprices <- m_sebal[,,"sehe"]
+      m_heatprices <- collapseDim(m_heatprices, dim = 3.2)/p_taulength
+      
     } else {
       m_fullelecprices <- m_robuststrategy2
       m_elecprices <- m_sebal
@@ -104,14 +108,12 @@ reportElectricityPrices <- function(gdx) {
   }
   
   #Collapse names of demand (just in case)
-  p_eldemand <- collapseNames(p_eldemand)
-  p_hedemand <- collapseNames(p_hedemand)
+  p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
   
   # calculate marginal value per tau
-  m_elecprices <- collapseNames(m_elecprices)/p_taulength
-  m_heatprices <- collapseNames(m_heatprices)/p_taulength
-  m_fullelecprices <- collapseNames(m_fullelecprices)/p_taulength
-  m_fullheprices <- collapseNames(m_fullheprices)/p_taulength
+  m_elecprices <- collapseDim(m_elecprices, dim = 3.2)/p_taulength
+  m_fullelecprices <- collapseDim(m_fullelecprices, dim = 3.2)/p_taulength
+  
   
   ##Create variables to allocate marginal values
   #o_fullelecprices <- new.magpie(cells_and_regions = getRegions(m_robuststrategy2), years = getYears(m_robuststrategy2), names = tau,
@@ -140,10 +142,10 @@ reportElectricityPrices <- function(gdx) {
   o_restarget_disc <- NULL
   
   for (t2 in 1:length(tt)) {
-    o_elecprices_disc <- mbind(o_elecprices_disc,m_elecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
-    o_heatprices_disc <- mbind(o_heatprices_disc,m_heatprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
-    o_fullelecprices_disc <- mbind(o_fullelecprices_disc,m_fullelecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
-    o_fullheprices_disc <- mbind(o_fullheprices_disc,m_fullheprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
+    o_elecprices_disc <- mbind(o_elecprices_disc, m_elecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
+    o_heatprices_disc <- mbind(o_heatprices_disc, m_heatprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
+    o_fullelecprices_disc <- mbind(o_fullelecprices_disc, m_fullelecprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
+    o_fullheprices_disc <- mbind(o_fullheprices_disc, m_fullheprices[,t2,]/f_npv[t2]) #[Geur 2010/GWh]
     
     o_restarget_disc <- mbind(o_restarget_disc,m_restarget[,t2,]/f_npv[t2]) #[Geur 2010/GWh-RES]
     

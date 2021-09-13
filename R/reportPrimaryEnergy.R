@@ -13,7 +13,7 @@
 #' \dontrun{reportPrimaryEnergy(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems collapseDim
 #' @export
 #' 
 reportPrimaryEnergy <- function(gdx) {
@@ -67,7 +67,7 @@ reportPrimaryEnergy <- function(gdx) {
   }
   
   #create magpie for PE for heating purposes
-  v_pedem_he <- new.magpie(cells_and_regions = getRegions(v_pedem), years = getYears(v_pedem), names = NULL,
+  v_pedem_he <- new.magpie(cells_and_regions = getItems(v_pedem, dim = 1), years = getYears(v_pedem), names = NULL,
              fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
   #Check the version so to choose the electricity-related variables
@@ -77,14 +77,15 @@ reportPrimaryEnergy <- function(gdx) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       v_pedem_he <- v_pedem[,,"sehe"]
+      v_pedem_he <- collapseDim(v_pedem_he, dim = 3.2)
     }
   } else {
     v_pedem_el <- v_pedem
     
   }
   
-  v_pedem_el <- collapseNames(v_pedem_el)
-  v_pedem_he <- collapseNames(v_pedem_he)
+  v_pedem_el <- collapseDim(v_pedem_el, dim = 3.2)
+  
   
   #PRIMARY ENERGY FOR vRES and hydro is in reportGeneration
   

@@ -17,7 +17,7 @@
 #' \dontrun{convGDX2MIF(gdx,gdx_ref,file="LIMES_generic_default.csv",scenario="default")}
 #' 
 #' @export
-#' @importFrom magclass mbind write.report getRegions getNames
+#' @importFrom magclass mbind write.report getNames getItems<- getItems
 
 
 convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.numeric(readGDX(gdx,name="t"))) {
@@ -74,7 +74,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportCapacityAdditions(gdx)[,time,])
   
   #adding capacity disinvestments to report output
-  output <- mbind(output,reportDisinvestments(gdx)[,time,])
+  #output <- mbind(output,reportDisinvestments(gdx)[,time,])
   
   #adding exchange to report output
   output <- mbind(output,reportExchange(gdx)[,time,])
@@ -109,28 +109,29 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   
   #aggregating all countries
   output_tot <- dimSums(output,dim=1, na.rm = T)
+  getItems(output_tot, dim = 1) <- "GLO"
   #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
   output_tot[,,getNames(output_RegAgg)] <- output_RegAgg["GLO",,]
   
   #aggregating only EU-28
-  EU<-which(getRegions(output)!="NOR" & getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="GLO")
+  EU<-which(getItems(output, dim = 1) != "NOR" & getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
   output_EU<-NULL
   output_EU<-dimSums(output[EU,,],dim=1, na.rm = T)
-  getRegions(output_EU)<-"EU28"
+  getItems(output_EU, dim = 1) <- "EU28"
   output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU28",,]
   
   #aggregating only EU-ETS
-  EUETS<-which(getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="GLO")
+  EUETS<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
   output_EUETS<-NULL
   output_EUETS<-dimSums(output[EUETS,,],dim=1, na.rm = T)
-  getRegions(output_EUETS)<-"EUETS"
+  getItems(output_EUETS, dim = 1)<-"EUETS"
   output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,]
   
   #aggregating EUETS-nonDE
-  EUETS_nonDE<-which(getRegions(output)!="CHE" & getRegions(output)!="BAL" & getRegions(output)!="DEU")
+  EUETS_nonDE<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "DEU" & getItems(output, dim = 1) != "GLO")
   output_EUETS_nonDE<-NULL
   output_EUETS_nonDE<-dimSums(output[EUETS_nonDE,,],dim=1, na.rm = T)
-  getRegions(output_EUETS_nonDE)<-"EUETS_nonDE"
+  getItems(output_EUETS_nonDE, dim = 1)<-"EUETS_nonDE"
   
   #Showing KdW results is rarely necessary. Apply a switch (0) No (1) Yes
   show_KdW <- 0
@@ -142,28 +143,28 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
     #KdW <- which(mappingregi$KdW == 1)
     KdW <- KdW_iso3 #Better to take it directly from the GDX file
     output_KdW<-dimSums(output[KdW,,],dim=1, na.rm = T)
-    getRegions(output_KdW)<-"KdW"
+    getItems(output_KdW, dim = 1)<-"KdW"
     
     nonKdW <- which(mappingregi$KdW == 0)
     output_nonKdW<-dimSums(output[nonKdW,,],dim=1, na.rm = T)
-    getRegions(output_nonKdW)<-"nonKdW"
+    getItems(output_nonKdW, dim = 1)<-"nonKdW"
     
     #aggregating KdW_EU, KdW_nonEU, nonKdW_EU, nonKdW_nonEU
     KdW_EU <- which(mappingregi$KdW == 1 & mappingregi$EU == 1)
     output_KdW_EU<-dimSums(output[KdW_EU,,],dim=1, na.rm = T)
-    getRegions(output_KdW_EU)<-"KdW_EU"
+    getItems(output_KdW_EU, dim = 1)<-"KdW_EU"
     
     KdW_nonEU <- which(mappingregi$KdW == 1 & mappingregi$EU == 0)
     output_KdW_nonEU<-dimSums(output[KdW_nonEU,,],dim=1, na.rm = T)
-    getRegions(output_KdW_nonEU)<-"KdW_nonEU"
+    getItems(output_KdW_nonEU, dim = 1)<-"KdW_nonEU"
     
     nonKdW_EU <- which(mappingregi$KdW == 0 & mappingregi$EU == 1)
     output_nonKdW_EU<-dimSums(output[nonKdW_EU,,],dim=1, na.rm = T)
-    getRegions(output_nonKdW_EU)<-"nonKdW_EU"
+    getItems(output_nonKdW_EU, dim = 1)<-"nonKdW_EU"
     
     nonKdW_nonEU <- which(mappingregi$KdW == 0 & mappingregi$EU == 0)
     output_nonKdW_nonEU<-dimSums(output[nonKdW_nonEU,,],dim=1, na.rm = T)
-    getRegions(output_nonKdW_nonEU)<-"nonKdW_nonEU"
+    getItems(output_nonKdW_nonEU, dim = 1)<-"nonKdW_nonEU"
     
     #totals concerning the KdW
     output <- mbind(output,output_KdW,output_nonKdW,output_KdW_EU,output_KdW_nonEU,output_nonKdW_EU,output_nonKdW_nonEU)
@@ -177,16 +178,16 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
     minP_iso3 <- mappingregi[match(minP,mappingregi[,1]),2]
     
     output_minP<-dimSums(output[minP_iso3,,],dim=1, na.rm = T)
-    getRegions(output_minP)<-"minP"
+    getItems(output_minP, dim = 1)<-"minP"
     
     output_nonminP<-output_tot - output_minP
-    getRegions(output_nonminP)<-"non_minP"
+    getItems(output_nonminP, dim = 1)<-"non_minP"
     
     output_EUnonminP<-dimSums(output[EU,,],dim=1, na.rm = T) - output_minP
-    getRegions(output_EUnonminP)<-"EU_non_minP"
+    getItems(output_EUnonminP, dim = 1)<-"EU_non_minP"
     
     output_EUETSnonminP<-dimSums(output[EUETS,,],dim=1, na.rm = T) - output_minP
-    getRegions(output_EUETSnonminP)<-"EUETS_non_minP"
+    getItems(output_EUETSnonminP, dim = 1)<-"EUETS_non_minP"
     
     output <- mbind(output,output_minP,output_nonminP,output_EUnonminP,output_EUETSnonminP)
   }
@@ -196,10 +197,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,output_tot,output_EU,output_EUETS,output_EUETS_nonDE)
   #totals concerning countries implementing min CO2 price is done above
   #totals concerning countries KdW is done above
-  
-  
-  #Renaming global variable (not possible so far)
-  #getRegions(output["GLO",,])<-"EUR"
   
   
   #INCLUDING ONLY CERTAIN VARIABLES
@@ -304,7 +301,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output["EUETS",,setdiff(AggVars,union(getNames(output_EUETSvars),getNames(output_MSR)))] <- NA
   #output["EUETS",,AggVars] <- reportEUETSvars(gdx)[,time,AggVars]
   #Erasing the values for the remaining regions
-  output[setdiff(getRegions(output),"EUETS"),,AggVars] <- NA
+  output[setdiff(getItems(output, dim = 1),"EUETS"),,AggVars] <- NA
   
   #Add certain variables that only exist for one region
   if(c_LIMESversion >= 2.38) {
@@ -406,7 +403,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #  #Clean the output
   #  output_glo <- NULL
   #  var_dup <- NULL
-  #  n_regi <- length(unique(getRegions(output)))
+  #  n_regi <- length(unique(getitems(output, dim = 1)))
   #  n_years <- length(getYears(output))
   #  for (var_name in getNames(output)) {
   #    #Create array to save whether the number is duplicated for all REGI in one YEAR
@@ -432,7 +429,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #    } else {
   #      output_tmp <- 0*output["DEU",,var_name]
   #    }
-  #    getRegions(output_tmp) <- "GLO"
+  #    getitems(output_tmp, dim = 1) <- "GLO"
   #    
   #    #Concatenate all "GLO" variables
   #    output_glo <- mbind(output_glo,output_tmp)
@@ -443,7 +440,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   #  
   #  #Clean the file
   #  #Erase region-dependent data for variables with duplicates
-  #  output_f[setdiff(getRegions(output_f),"GLO"),,var_dup] <- NA
+  #  output_f[setdiff(getitems(output_f, dim = 1),"GLO"),,var_dup] <- NA
   #  #Erase "GLO" data for variables without duplicates
   #  output_f["GLO",,setdiff(getNames(output_f),var_dup)] <- NA
   #  

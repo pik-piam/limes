@@ -15,7 +15,7 @@
 #'
 #' @importFrom gdx readGDX
 #' @importFrom magclass mbind setNames dimSums getSets
-#' @importFrom magclass collapseNames getRegions<- new.magpie getYears getNames
+#' @importFrom magclass new.magpie getYears getNames getItems collapseDim
 #' @importFrom luscale speed_aggregate
 #' @importFrom utils read.csv
 #' @export
@@ -107,10 +107,10 @@ reportInput <- function(gdx,mappingPath=NULL) {
   
   #Emission factor for each country
   o_emifac_tmp <- limesAllocateYears(p_emifac[,,"co2"],gdx)
-  o_emifac_tmp <- collapseNames(o_emifac_tmp)
-  o_emifac <- new.magpie(cells_and_regions = getRegions(p_incoall), years = getYears(p_incoall), names = getNames(o_emifac_tmp),
+  o_emifac_tmp <- collapseDim(o_emifac_tmp, dim = 3.2)
+  o_emifac <- new.magpie(cells_and_regions = getItems(p_incoall, dim = 1), years = getYears(p_incoall), names = getNames(o_emifac_tmp),
                          fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-  for (regi in getRegions(p_incoall)) {
+  for (regi in getItems(p_incoall, dim = 1)) {
     o_emifac[regi,,] <- o_emifac_tmp["GLO",,]
   }
   

@@ -6,7 +6,7 @@
 #' @author Sebastian Osorio and Renato Rodrigues
 #' 
 #' @export
-#' @importFrom magclass collapseNames getRegions<- new.magpie getYears getNames
+#' @importFrom magclass getItems new.magpie getYears getNames getItems<-
 #' @importFrom luscale speed_aggregate
 #' @importFrom utils read.csv
 #' @importFrom gdx readGDX
@@ -61,9 +61,9 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   ext_tmp2 <- ext_tmp[pos_tmp2]
   
   #Create a magpie object for each intensive variable
-  regionSubsetList <- list("GLO" =getRegions(var),
-                           "EU28"=setdiff(getRegions(var),c("CHE","NOR","BAL")),
-                           "EUETS" =setdiff(getRegions(var),c("CHE","BAL")))
+  regionSubsetList <- list("GLO" = getItems(var, dim = 1),
+                           "EU28" = setdiff(getItems(var, dim = 1), c("CHE","NOR","BAL")),
+                           "EUETS" = setdiff(getItems(var, dim = 1), c("CHE","BAL")))
   
   tmp_RegAgg <- new.magpie(cells_and_regions = names(regionSubsetList),years = getYears(var),names = int_tmp2,fill=0)
   
@@ -83,7 +83,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
                                 lapply(int, function(i2e) {
                                   map <- data.frame(region=regionSubsetList[[region]],parentRegion=region,stringsAsFactors=FALSE)
                                   result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],,ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],,ext[match(i2e,int)]],dim=1))
-                                  getRegions(result) <- region
+                                  getItems(result, dim = 1) <- region
                                   return(result)
                                 })
                                 )

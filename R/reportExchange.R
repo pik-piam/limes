@@ -13,7 +13,7 @@
 #' \dontrun{reportExchange(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getNames<-
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getNames<- getItems<- getItems
 #' @export
 #' 
 reportExchange <- function(gdx) {
@@ -106,9 +106,9 @@ reportExchange <- function(gdx) {
         regi_tmp_iso2 <- trans[match(conns_tmp,trans$conn),]$reg #country to which is exported (ISO2)
         regi_tmp_iso3 <- mapping[match(regi_tmp_iso2,mapping$LIMES_ISO2),]$LIMES_ISO3 #country to which is exported (ISO3)
         price_conn1 <- m_elecprices_tmp[regi_tmp_iso3,,tau2] #price in country to which is exported (price paid for the exports)
-        getRegions(flow_tmp1) <- as.vector(regi_tmp_iso3)
+        getItems(flow_tmp1, dim = 1) <- regi_tmp_iso3
         value_tmp1 <- setNames(flow_tmp1,NULL)*(1-as.numeric(p_losses[,,conns_tmp]))*setNames(price_conn1,NULL)
-        getRegions(value_tmp1) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(value_tmp1, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value1 <- value1 + value_tmp1
         
         #calculate the NET EXPORTS (positive flows)
@@ -124,20 +124,20 @@ reportExchange <- function(gdx) {
         
         #exports to every country (positive flows)
         flow_regi <- setNames(flow_regi1,NULL)
-        getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Exports to ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
+        getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Exports to ", mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (TWh/yr)")
         expo1 <- mbind(expo1,setNames(flow_regi,a))
         
         #net exports to every country (positive flows)
         netflow_regi <- setNames(netflow_regi1,NULL)
-        getRegions(netflow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Net exports to ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
+        getItems(netflow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Net exports to ", mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (TWh/yr)")
         netexpo1 <- mbind(netexpo1,setNames(netflow_regi,a))
         
         #cross-border transmission capacity (positive flows)
         cap_regi_tmp <- v_captrans[,,conns_tmp]
-        getRegions(cap_regi_tmp) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Transmission capacity with ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (GW)")
+        getItems(cap_regi_tmp, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Transmission capacity with ", mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (GW)")
         cap_regi1 <- mbind(cap_regi1,setNames(cap_regi_tmp,a))
 
       }
@@ -171,11 +171,11 @@ reportExchange <- function(gdx) {
         regi_tmp_iso2 <- trans[match(conns_tmp,trans$conn),]$regi #country to which is exported (ISO2)
         regi_tmp_iso3 <- mapping[match(regi_tmp_iso2,mapping$LIMES_ISO2),]$LIMES_ISO3 #country to which is exported (ISO3)
         price_conn2 <- m_elecprices_tmp[regi_tmp_iso3,,tau2] #price in country to which is exported (price paid for the exports)
-        getRegions(flow_tmp2) <- as.vector(regi_tmp_iso3)
+        getItems(flow_tmp2, dim = 1) <- regi_tmp_iso3
         #setNames(flow_tmp2,NULL)
         #setNames(price_conn2,NULL)
-        value_tmp2 <- setNames(flow_tmp2,NULL)*(1-as.numeric(p_losses[,,conns_tmp]))*setNames(price_conn2,NULL)
-        getRegions(value_tmp2) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        value_tmp2 <- setNames(flow_tmp2,NULL)*(1-as.numeric(p_losses[,,conns_tmp]))*setNames(price_conn2, NULL)
+        getItems(value_tmp2, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value2 <- value2 + value_tmp2
         
         #calculate the NET EXPORTS (negative flows)
@@ -191,20 +191,20 @@ reportExchange <- function(gdx) {
         
         #exports to every country (negative flows)
         flow_regi <- setNames(flow_regi2,NULL)
-        getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Exports to ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
+        getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Exports to ", mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (TWh/yr)")
         expo2 <- mbind(expo2,setNames(flow_regi,a))
         
         #net exports to every country (negative flows)
         netflow_regi <- setNames(netflow_regi2,NULL)
-        getRegions(netflow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Net exports to ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
+        getItems(netflow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Net exports to ", mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (TWh/yr)")
         netexpo2 <- mbind(netexpo2,setNames(netflow_regi,a))
         
         #cross-border transmission capacity
         cap_regi_tmp <- v_captrans[,,conns_tmp]
-        getRegions(cap_regi_tmp) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Transmission capacity with ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (GW)")
+        getItems(cap_regi_tmp, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Transmission capacity with ", mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (GW)")
         cap_regi2 <- mbind(cap_regi2,setNames(cap_regi_tmp,a))
         
         }
@@ -220,19 +220,19 @@ reportExchange <- function(gdx) {
     for (regi_noexp_tmp in regi_noexp) { 
       #exports to every country
       flow_regi <- setNames(flow_tmp2,NULL)*0
-      getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-      a <- paste0("Exports to ",regi_noexp_tmp,"|Electricity (TWh/yr)")
+      getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+      a <- paste0("Exports to ", regi_noexp_tmp,"|Electricity (TWh/yr)")
       expo3 <- mbind(expo3,setNames(flow_regi,a))
       
       #net exports to every country
       netflow_regi <- setNames(netflow_tmp2,NULL)*0
-      getRegions(netflow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-      a <- paste0("Net exports to ",regi_noexp_tmp,"|Electricity (TWh/yr)")
+      getItems(netflow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+      a <- paste0("Net exports to ", regi_noexp_tmp,"|Electricity (TWh/yr)")
       netexpo3 <- mbind(netexpo3,setNames(netflow_regi,a))
       
       #transmission capacity to every country
       cap_regi_tmp <- cap_regi_tmp*0
-      getRegions(cap_regi_tmp) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+      getItems(cap_regi_tmp, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
       a <- paste0("Transmission capacity with ",regi_noexp_tmp,"|Electricity (GW)")
       cap_regi3 <- mbind(cap_regi3,setNames(cap_regi_tmp,a))
       
@@ -305,9 +305,9 @@ reportExchange <- function(gdx) {
         regi_tmp_iso2 <- trans[match(conns_tmp,trans$conn),]$regi #country from which is imported (ISO2)
         regi_tmp_iso3 <- mapping[match(regi_tmp_iso2,mapping$LIMES_ISO2),]$LIMES_ISO3 #country from which is imported (ISO3)
         price_conn1 <- m_elecprices_tmp[mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3,,tau2] #price in country that imports (price paid for the exports)
-        getRegions(flow_tmp1) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(flow_tmp1, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value_tmp1 <- setNames(flow_tmp1,NULL)*setNames(price_conn1,NULL)
-        getRegions(value_tmp1) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(value_tmp1, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value1 <- value1 + value_tmp1
         
       }
@@ -316,8 +316,8 @@ reportExchange <- function(gdx) {
         
         #imports from every country (positive flows)
         flow_regi <- setNames(flow_regi1,NULL)
-        getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
-        a <- paste0("Imports from ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
+        getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
+        a <- paste0("Imports from ", mapping[match(trans[match(conns_tmp,trans$conn),]$regi,mapping$LIMES_ISO2),]$LIMES_ISO3,"|Electricity (TWh/yr)")
         impo1 <- mbind(impo1,setNames(flow_regi,a))
         }
     }
@@ -347,9 +347,9 @@ reportExchange <- function(gdx) {
         regi_tmp_iso2 <- trans[match(conns_tmp,trans$conn),]$reg #country from which is imported (ISO2)
         regi_tmp_iso3 <- mapping[match(regi_tmp_iso2,mapping$LIMES_ISO2),]$LIMES_ISO3 #country from which is imported (ISO3)
         price_conn2 <- m_elecprices_tmp[mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3,,tau2] #price in country that imports (price paid for the exports)
-        getRegions(flow_tmp2) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(flow_tmp2, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value_tmp2 <- setNames(flow_tmp2,NULL)*setNames(price_conn2,NULL)
-        getRegions(value_tmp2) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(value_tmp2, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         value2 <- value2 + value_tmp2
       }
         cap2 <- cap2 + setNames(v_captrans[,,conns_tmp],NULL)
@@ -357,7 +357,7 @@ reportExchange <- function(gdx) {
         
         #imports from every country (negative flows)
         flow_regi <- setNames(flow_regi2,NULL)
-        getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+        getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
         a <- paste0("Imports from ",as.vector(mapping[match(trans[match(conns_tmp,trans$conn),]$reg,mapping$LIMES_ISO2),]$LIMES_ISO3),"|Electricity (TWh/yr)")
         impo2 <- mbind(impo2,setNames(flow_regi,a))
         }
@@ -371,7 +371,7 @@ reportExchange <- function(gdx) {
     for (regi_noimp_tmp in regi_noimp) { 
       #exports to every country (negative flows)
       flow_regi <- setNames(flow_tmp2/1000,NULL)*0
-      getRegions(flow_regi) <- as.vector(mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3)
+      getItems(flow_regi, dim = 1) <- mapping[match(regi2,mapping$LIMES_ISO2),]$LIMES_ISO3
       a <- paste0("Imports from ",regi_noimp_tmp,"|Electricity (TWh/yr)")
       impo3 <- mbind(impo3,setNames(flow_regi,a))
     }
@@ -456,7 +456,7 @@ reportExchange <- function(gdx) {
   tmp14 <- mbind(expo_regi,impo_regi,netexpo_regi)
   tmp14 <- mbind(tmp14,cap_regi[,as.numeric(tt),])
   # erasing all the data regarding connections that do not exist (created before to fit the size of the variables)
-  for (regi2 in getRegions(tmp14)) { for (name in getNames(tmp14)){
+  for (regi2 in getItems(tmp14, dim = 1)) { for (name in getNames(tmp14)){
     if (sum(tmp14[regi2,,name])==0) {
       tmp14[regi2,,name] <- NA
     }

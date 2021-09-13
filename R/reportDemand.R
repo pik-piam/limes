@@ -13,7 +13,7 @@
 #' \dontrun{reportDemand(gdx,output=NULL)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems collapseDim
 #' @export
 #' 
 reportDemand <- function(gdx,output=NULL) {
@@ -38,13 +38,13 @@ reportDemand <- function(gdx,output=NULL) {
   
   # create MagPie object of demand with iso3 regions
   v_exdemand <- limesMapping(v_exdemand)
-  p_hedemand <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = tau,
+  p_hedemand <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tau,
                            fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-  o_elecheat <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = getYears(v_exdemand), names = NULL,
+  o_elecheat <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                            fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  p_DH_losses <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = NULL, names = NULL,
+  p_DH_losses <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = NULL,
                            fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
-  p_etah <- new.magpie(cells_and_regions = getRegions(v_exdemand), years = NULL, names = te,
+  p_etah <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = te,
                        fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
   
   #Check the version so to choose the electricity-related variables
@@ -53,6 +53,7 @@ reportDemand <- function(gdx,output=NULL) {
     if(c_heating == 1) {
       p_eldemand <- v_exdemand[,,"seel"]
       p_hedemand <- v_exdemand[,,"sehe"] #This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
+      p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
       
       p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found")
       p_DH_losses <- limesMapping(p_DH_losses)
@@ -70,8 +71,7 @@ reportDemand <- function(gdx,output=NULL) {
   }
   
   #Collapse names of demand (just in case)
-  p_eldemand <- collapseNames(p_eldemand)
-  p_hedemand <- collapseNames(p_hedemand)
+  p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
   
   #Load also the storage consumption
   o_storecons <- output[,,which(getNames(output)=="Secondary Energy|Electricity|Storage Consumption (TWh/yr)")]

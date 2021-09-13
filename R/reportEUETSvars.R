@@ -14,7 +14,7 @@
 #' \dontrun{reportEmissions(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
+#' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie getItems<-
 #' @export
 #' 
 reportEUETSvars <- function(gdx,output=NULL) {
@@ -93,7 +93,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
       regeuets <- regeuets_iso3 #Better to take it directly from the GDX file
       o_emi_elec_ind <- NULL
       if(length(which(getNames(output) == "Emissions|CO2|Electricity and Industry (Mt CO2/yr)")) > 0) {
-        o_emi_elec_ind <- dimSums(output[regeuets,,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1)
+        o_emi_elec_ind <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
+        getItems(o_emi_elec_ind, dim = 1) <- "GLO"
       }
       
       #Load share from heating
@@ -170,7 +171,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
           if(c_heating == 1) {
             o_emi_heat <- NULL
             if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)")) > 0) {
-              o_emi_heat <- dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1)
+              o_emi_heat <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
+              getItems(o_emi_heat, dim = 1) <- "GLO"
             }
           }
           
