@@ -19,8 +19,9 @@ Read in (net and gross) demand data from GDX file, information used in convGDX2M
 for the reporting
 }
 \examples{
-
-\dontrun{reportDemand(gdx,output=NULL)}
+\dontrun{
+reportDemand(gdx, output = NULL)
+}
 
 }
 \seealso{

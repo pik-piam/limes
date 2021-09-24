@@ -892,9 +892,10 @@ Capacity|Heat|Decentralized|Conventional;Capacity|Heat|Decentralized|Conventiona
 Capacity|Heat|Decentralized|Conventional space heater;Capacity|Heat|Decentralized|Conventional space heater;GW;GW;1
 Capacity|Heat|Decentralized|Conventional water heater;Capacity|Heat|Decentralized|Conventional water heater;GW;GW;1
 Useful Energy|Heat waste;Useful Energy|Heat waste;TWh/yr;TWh/yr;1
-Useful Energy Available for Final Consumption|Heat|ETS;Useful Energy Available for Final Consumption|Heat|ETS;TWh/yr;TWh/yr;1
-Useful Energy Available for Final Consumption|Heat|non-ETS;Useful Energy Available for Final Consumption|Heat|non-ETS;TWh/yr;TWh/yr;1
-Useful Energy Available for Final Consumption|Heat;Useful Energy Available for Final Consumption|Heat;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings;Useful Energy Available for Final Consumption|Heat|Buildings;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Other sectors|District heating;Useful Energy Available for Final Consumption|Heat|Other sectors|District heating;TWh/yr;TWh/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|CHP;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Coal;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal;Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
@@ -1099,8 +1100,8 @@ Useful Energy Available for Final Consumption|Heat|Residential|Space-heating;Use
 Useful Energy Available for Final Consumption|Heat|Residential|Water-heating;Useful Energy Available for Final Consumption|Heat|Residential|Water-heating;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating;TWh/yr;TWh/yr;1
-Useful Energy Available for Final Consumption|Heat|Industry;Useful Energy Available for Final Consumption|Heat|Industry;TWh/yr;TWh/yr;1
-Useful Energy Available for Final Consumption|Heat|Agriculture;Useful Energy Available for Final Consumption|Heat|Agriculture;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Industry|District heating;Useful Energy Available for Final Consumption|Heat|Industry|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Agriculture|District heating;Useful Energy Available for Final Consumption|Heat|Agriculture|District heating;TWh/yr;TWh/yr;1
 Emissions|CO2|Energy|Supply|Electricity|CHP;Emissions|CO2|Energy|Supply|Electricity|CHP;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity|CHP|Coal;Emissions|CO2|Energy|Supply|Electricity|CHP|Coal;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal;Emissions|CO2|Energy|Supply|Electricity|CHP|Hard Coal;Mt CO2/yr;Mt CO2/yr;1
@@ -1143,7 +1144,10 @@ Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other;Emissions|CO2|Energy|
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Biomass;Mt CO2/yr;Mt CO2/yr;1
-Final Energy|Heat;Final Energy|Heat;TWh/yr;TWh/yr;1
+Final Energy|Heat|Buildings;Final Energy|Heat|Buildings;TWh/yr;TWh/yr;1
+Final Energy|Heat|Buildings|ETS-covered;Final Energy|Heat|Buildings|ETS-covered;TWh/yr;TWh/yr;1
+Final Energy|Heat|Buildings|non-ETS-covered;Final Energy|Heat|Buildings|non-ETS-covered;TWh/yr;TWh/yr;1
+Final Energy|Heat|Other sectors|District heating;Final Energy|Heat|Other sectors|District heating;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating;Final Energy|Heat|District Heating;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only;Final Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|CHP;Final Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
