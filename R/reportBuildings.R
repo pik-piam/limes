@@ -20,7 +20,8 @@ reportBuildings <- function(gdx) {
 
   # Loading parameters from convGDX2MIF parent function
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
-
+  
+  tmp1 <- NULL
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.38) {
 
@@ -47,8 +48,6 @@ reportBuildings <- function(gdx) {
       v_bd_heatdem_ETS <- limesMapping(v_bd_heatdem_ETS)
       p_othersec_demDH_ue <- limesMapping(p_othersec_demDH_ue)
       p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
-
-      tmp1 <- NULL
 
       # Surface area
       tmp1 <- mbind(tmp1, setNames(p_bd_area[, , "resid"], "Useful Area|Residential (Mm2)"))

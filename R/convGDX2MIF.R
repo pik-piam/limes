@@ -86,7 +86,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
   
   #adding buildings to report output
-  #output <- mbind(output,reportBuildings(gdx)[,time,])
+  output <- mbind(output,reportBuildings(gdx)[,time,])
   
   #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
   #(this is needed to keep report within the dimensions)
