@@ -74,6 +74,9 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   int <- int_tmp2
   ext <- ext_tmp2
   
+  #Allocate very low values for extensive variables where values are 0
+  var[, , ext] <- pmax(var[, , ext], 1e-20)
+  
   tmp_RegAgg_ie2 <-NULL
   
   if(length(int) > 0) {
@@ -81,8 +84,8 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
     for(region in names(regionSubsetList)){
       tmp_RegAgg_ie2 <- do.call("mbind",
                                 lapply(int, function(i2e) {
-                                  map <- data.frame(region=regionSubsetList[[region]],parentRegion=region,stringsAsFactors=FALSE)
-                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],,ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],,ext[match(i2e,int)]],dim=1))
+                                  map <- data.frame(region=regionSubsetList[[region]], parentRegion=region, stringsAsFactors=FALSE)
+                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],, ext[match(i2e,int)]], dim=1))
                                   getItems(result, dim = 1) <- region
                                   return(result)
                                 })

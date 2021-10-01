@@ -86,7 +86,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
   
   #adding buildings to report output
-  output <- mbind(output,reportBuildings(gdx)[,time,])
+  output <- mbind(output,reportBuildings(gdx,output)[,time,]) #Depends on reportGeneration
   
   #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
   #(this is needed to keep report within the dimensions)
@@ -360,6 +360,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.nu
   posvarsmapping <- posvarsmapping[which(posvarsmapping != "NA")]
   mappingvars_project <- paste0(as.vector(mappingvars[posvarsmapping,]$Enavi)," (",as.vector(mappingvars[posvarsmapping,]$UnitEnavi) , ")")
   output_f <- setNames(output_f,mappingvars_project)
+  
+  #REPORT FIGURES
+  #reportFigures(gdx,output_f)
   
   
   #WRITE REPORT
