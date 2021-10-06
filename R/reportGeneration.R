@@ -281,12 +281,6 @@ reportGeneration <- function(gdx,output=NULL) {
       #Transformation output = gross energy (in this file)
       #Final energy 
       
-      #1 (cont) Final energy (only for electricity-based heating)
-      p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found",restore_zeros = FALSE) #DH distribution losses
-      p_DH_losses <- limesMapping(p_DH_losses)
-      p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found",restore_zeros = FALSE) #ratio of energy service to energy consumption
-      p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
-      
       
       #1 (cont) Decentralized heat
       c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module
@@ -732,15 +726,15 @@ reportGeneration <- function(gdx,output=NULL) {
     #Load additional parameters
     p_DH_losses <- readGDX(gdx,name="p_DH_losses",field="l",format="first_found") #District heating losses [--] - same for all DH technologies
     p_DH_losses <- limesMapping(p_DH_losses)
-    p_bd_ratio_ue2fe <- readGDX(gdx,name="p_bd_ratio_ue2fe",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
-    p_bd_ratio_ue2fe <- limesMapping(p_bd_ratio_ue2fe)
+    p_bd_ratio_ue2fe_DH <- readGDX(gdx,name="p_bd_ratio_ue2fe_DH",field="l",format="first_found") #Ratio useful energy to final energy [--] - same for all DH technologies
+    p_bd_ratio_ue2fe_DH <- limesMapping(p_bd_ratio_ue2fe_DH)
     #Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
     o_gross2ue <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = NULL,
                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     o_grossprod_he <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = c(tedh),
                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
     #Value from 2015 is used to scale the heat efficiency (etah), then we need a matrix with the same sets as v_seprod_he to estimate gross heat later
-    o_gross2ue[,as.numeric(tt),] <- ((1-p_DH_losses)*p_bd_ratio_ue2fe)
+    o_gross2ue[,as.numeric(tt),] <- ((1-p_DH_losses)*p_bd_ratio_ue2fe_DH)
     #Estimate annual gross production for different technologies (in TWh/yr)
     for (tehe2 in getNames(o_grossprod_he)) {
       o_grossprod_he[,,tehe2] <- dimSums(collapseDim(v_seprod_he[,,tehe2], dim = c(3.2,3.3))*p_taulength/1000,dim=3)/o_gross2ue
@@ -814,10 +808,10 @@ reportGeneration <- function(gdx,output=NULL) {
     
     #Final energy (Final Energy|Heat|*)
     #Take estimations from useful energy, divide by the ue2fe factor, and change name
-    items <- getItems(tmp5, dim = 3)[grep("Useful Energy", getItems(tmp5, dim = 3))]
+    items <- getItems(tmp5, dim = 3)[grep("Useful Energy|District Heating", getItems(tmp5, dim = 3))]
     items <- items[items != "Useful Energy|Heat|Storage Consumption (TWh/yr)" & items != "Useful Energy|Heat|Storage Losses (TWh/yr)" ]
     for(var_name in items) {
-      tmp6 <- mbind(tmp6, setNames(tmp5[, , var_name] / p_bd_ratio_ue2fe, str_replace(var_name, "Useful", "Final")))
+      tmp6 <- mbind(tmp6, setNames(tmp5[, , var_name] / p_bd_ratio_ue2fe_DH, str_replace(var_name, "Useful", "Final")))
     }
     
     ##Need to create a variable with t,regi,te for gross production (v_seprod has these indexes)
