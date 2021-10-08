@@ -178,49 +178,82 @@ reportCapacity <- function(gdx) {
       #Heat-related capacities
       varList_he <- list(
         #1.a) Only-heat (centralized boilers)
-        "Capacity|Heat|District Heating|Heat-only (GW)"                               =c(teohecen),
-        "Capacity|Heat|District Heating|Heat-only|Biomass (GW)"                       =intersect(teohecen,tebio),
-        "Capacity|Heat|District Heating|Heat-only|Coal (GW)"                          =intersect(teohecen,c(tecoal,telig)),
-        "Capacity|Heat|District Heating|Heat-only|Hard Coal (GW)"                     =intersect(teohecen,c(tecoal)),
-        "Capacity|Heat|District Heating|Heat-only|Lignite (GW)"                       =intersect(teohecen,c(telig)),
-        "Capacity|Heat|District Heating|Heat-only|Oil (GW)"                           =intersect(teohecen,c(teoil)),
-        "Capacity|Heat|District Heating|Heat-only|Gas (GW)"                           =intersect(teohecen,c(tegas)),
-        "Capacity|Heat|District Heating|Heat-only|Other (GW)"                         =intersect(teohecen,c(teothers)),
-        "Capacity|Heat|District Heating|Heat-only|Waste (GW)"                         =intersect(teohecen,c(tewaste)),
-        "Capacity|Heat|District Heating|Heat-only|Other Fossil (GW)"                  =intersect(teohecen,c(teothers,tewaste,teoil)),
-        "Capacity|Heat|District Heating|Heat-only|Electricity (GW)"                   =intersect(teohecen,c(tedhelec)),
-        "Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump (GW)"         =intersect(teohecen,"hp_large"),
-        "Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler (GW)"   =intersect(teohecen,"elboil_large"),
-        "Capacity|Heat|District Heating|Heat-only|Solar (GW)"                         =intersect(teohecen,c("sol_heat")),
-        "Capacity|Heat|District Heating|Heat-only|Geothermal (GW)"                    =intersect(teohecen,c("geo_heat")),
-        "Capacity|Heat|District Heating|Heat-only|Fossil (GW)"                        =intersect(teohecen,c(tefossil)),
-        "Capacity|Heat|District Heating|Heat-only|Renewable (GW)"                     =intersect(teohecen,c(ter,ternofluc)),
-        "Capacity|Heat|District Heating|Heat-only|Non-renewable (GW)"                 =intersect(teohecen,tenr),
+        "Capacity|Gross|Heat|District Heating|Heat-only (GW)"                               =c(teohecen),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Biomass (GW)"                       =intersect(teohecen,tebio),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Coal (GW)"                          =intersect(teohecen,c(tecoal,telig)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Hard Coal (GW)"                     =intersect(teohecen,c(tecoal)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Lignite (GW)"                       =intersect(teohecen,c(telig)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Oil (GW)"                           =intersect(teohecen,c(teoil)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Gas (GW)"                           =intersect(teohecen,c(tegas)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Other (GW)"                         =intersect(teohecen,c(teothers)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Waste (GW)"                         =intersect(teohecen,c(tewaste)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil (GW)"                  =intersect(teohecen,c(teothers,tewaste,teoil)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Electricity (GW)"                   =intersect(teohecen,c(tedhelec)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump (GW)"         =intersect(teohecen,"hp_large"),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler (GW)"   =intersect(teohecen,"elboil_large"),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Solar (GW)"                         =intersect(teohecen,c("sol_heat")),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Geothermal (GW)"                    =intersect(teohecen,c("geo_heat")),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Fossil (GW)"                        =intersect(teohecen,c(tefossil)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Renewable (GW)"                     =intersect(teohecen,c(ter,ternofluc)),
+        "Capacity|Gross|Heat|District Heating|Heat-only|Non-renewable (GW)"                 =intersect(teohecen,tenr)
         
-        #1.b) District Heating
-        "Capacity|Heat|District Heating (GW)"                             =c(tedh),
-        "Capacity|Heat|District Heating|Biomass (GW)"                     =intersect(tedh,tebio),
-        "Capacity|Heat|District Heating|Coal (GW)"                        =intersect(tedh,c(tecoal,telig)),
-        "Capacity|Heat|District Heating|Hard Coal (GW)"                   =intersect(tedh,c(tecoal)),
-        "Capacity|Heat|District Heating|Lignite (GW)"                     =intersect(tedh,c(telig)),
-        "Capacity|Heat|District Heating|Oil (GW)"                         =intersect(tedh,c(teoil)),
-        "Capacity|Heat|District Heating|Gas (GW)"                         =intersect(tedh,c(tegas)),
-        "Capacity|Heat|District Heating|Other (GW)"                       =intersect(tedh,c(teothers)),
-        "Capacity|Heat|District Heating|Waste (GW)"                       =intersect(tedh,c(tewaste)),
-        "Capacity|Heat|District Heating|Other Fossil (GW)"                =intersect(tedh,c(teothers,tewaste,teoil)),
-        "Capacity|Heat|District Heating|Electricity (GW)"                 =intersect(tedh,c(tedhelec)),
-        "Capacity|Heat|District Heating|Electricity|Heat Pump (GW)"       =intersect(tedh,"hp_large"),
-        "Capacity|Heat|District Heating|Electricity|Electric Boiler (GW)" =intersect(tedh,"elboil_large"),
-        "Capacity|Heat|District Heating|Solar (GW)"                       =intersect(tedh,c("sol_heat")),
-        "Capacity|Heat|District Heating|Geothermal (GW)"                  =intersect(tedh,c("geo_heat")),
-        "Capacity|Heat|District Heating|Fossil (GW)"                      =intersect(tedh,c(tefossil)),
-        "Capacity|Heat|District Heating|Renewable (GW)"                   =intersect(tedh,c(ter,ternofluc)),
-        "Capacity|Heat|District Heating|Non-renewable (GW)"               =intersect(tedh,tenr)
+        ##1.b) District Heating
+        #"Capacity|Heat|District Heating (GW)"                             =c(tedh),
+        #"Capacity|Heat|District Heating|Biomass (GW)"                     =intersect(tedh,tebio),
+        #"Capacity|Heat|District Heating|Coal (GW)"                        =intersect(tedh,c(tecoal,telig)),
+        #"Capacity|Heat|District Heating|Hard Coal (GW)"                   =intersect(tedh,c(tecoal)),
+        #"Capacity|Heat|District Heating|Lignite (GW)"                     =intersect(tedh,c(telig)),
+        #"Capacity|Heat|District Heating|Oil (GW)"                         =intersect(tedh,c(teoil)),
+        #"Capacity|Heat|District Heating|Gas (GW)"                         =intersect(tedh,c(tegas)),
+        #"Capacity|Heat|District Heating|Other (GW)"                       =intersect(tedh,c(teothers)),
+        #"Capacity|Heat|District Heating|Waste (GW)"                       =intersect(tedh,c(tewaste)),
+        #"Capacity|Heat|District Heating|Other Fossil (GW)"                =intersect(tedh,c(teothers,tewaste,teoil)),
+        #"Capacity|Heat|District Heating|Electricity (GW)"                 =intersect(tedh,c(tedhelec)),
+        #"Capacity|Heat|District Heating|Electricity|Heat Pump (GW)"       =intersect(tedh,"hp_large"),
+        #"Capacity|Heat|District Heating|Electricity|Electric Boiler (GW)" =intersect(tedh,"elboil_large"),
+        #"Capacity|Heat|District Heating|Solar (GW)"                       =intersect(tedh,c("sol_heat")),
+        #"Capacity|Heat|District Heating|Geothermal (GW)"                  =intersect(tedh,c("geo_heat")),
+        #"Capacity|Heat|District Heating|Fossil (GW)"                      =intersect(tedh,c(tefossil)),
+        #"Capacity|Heat|District Heating|Renewable (GW)"                   =intersect(tedh,c(ter,ternofluc)),
+        #"Capacity|Heat|District Heating|Non-renewable (GW)"               =intersect(tedh,tenr)
         
       )
       
       for (var in names(varList_he)){
         tmp2 <- mbind(tmp2,setNames(dimSums(v_cap[,,varList_he[[var]]],dim=3),var))
+      }
+      
+      varList_he <- list(
+        #1.b) CHP
+        "Capacity|Gross|Heat|District Heating|CHP (GW)"                                         =c(techp),
+        "Capacity|Gross|Heat|District Heating|CHP|Biomass (GW)"                                 =intersect(techp,tebio),
+        "Capacity|Gross|Heat|District Heating|CHP|Waste (GW)"                                   =intersect(techp,tewaste),
+        "Capacity|Gross|Heat|District Heating|CHP|Coal (GW)"                                    =intersect(techp,c(tecoal,telig)),
+        "Capacity|Gross|Heat|District Heating|CHP|Hard Coal (GW)"                               =intersect(techp,c(tecoal)),
+        "Capacity|Gross|Heat|District Heating|CHP|Lignite (GW)"                                 =intersect(techp,c(telig)),
+        "Capacity|Gross|Heat|District Heating|CHP|Oil (GW)"                                     =intersect(techp,c(teoil)),
+        "Capacity|Gross|Heat|District Heating|CHP|Gas (GW)"                                     =intersect(techp,c(tegas)),
+        "Capacity|Gross|Heat|District Heating|CHP|Gas CC (GW)"                                  =intersect(techp,c(tengcc_el)),
+        "Capacity|Gross|Heat|District Heating|CHP|Gas OC (GW)"                                  =intersect(techp,setdiff(tegas_el,tengcc_el)),
+        "Capacity|Gross|Heat|District Heating|CHP|Hydrogen (GW)"                                =intersect(techp,c(tehgen)),
+        "Capacity|Gross|Heat|District Heating|CHP|Other (GW)"                                   =intersect(techp,c(teothers)),
+        "Capacity|Gross|Heat|District Heating|CHP|Other Fossil (GW)"                            =intersect(techp,c(teothers,tewaste,teoil)),
+        "Capacity|Gross|Heat|District Heating|CHP|Fossil (GW)"                                  =intersect(techp,c(tefossil)),
+        "Capacity|Gross|Heat|District Heating|CHP|Renewable (GW)"                               =intersect(techp,c(ter,ternofluc)),
+        "Capacity|Gross|Heat|District Heating|CHP|Non-renewable (GW)"                           =intersect(techp,tenr)
+      )
+      
+      p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
+      o_autocons <- p_tedata[,,"autocons"]
+      o_cb_coeff <- p_tedata[,,"cb_coeff"]
+      o_cv_coeff <- p_tedata[,,"cv_coeff"]
+      
+      o_autocons <- collapseDim(limesMapping(o_autocons), dim = 3.1)
+      o_cb_coeff <- collapseDim(limesMapping(o_cb_coeff), dim = 3.1)
+      o_cv_coeff <- collapseDim(limesMapping(o_cv_coeff), dim = 3.1)
+      
+      for (var in names(varList_he)){
+        tmp2 <- mbind(tmp2,setNames(dimSums((v_cap[,,varList_he[[var]]]/(1-o_autocons[,,varList_he[[var]]]))*(1/(o_cb_coeff[,,varList_he[[var]]] + o_cv_coeff[,,varList_he[[var]]])),dim=3),var))
       }
       
       c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch on buildings module

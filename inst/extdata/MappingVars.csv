@@ -867,24 +867,24 @@ Useful Energy|Heat|Buildings|Decentralized|Electricity|Resistance;Useful Energy|
 Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional;Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional space heater;Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional space heater;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional water heater;Useful Energy|Heat|Buildings|Decentralized|Electricity|Conventional water heater;TWh/yr;TWh/yr;1
-Capacity|Heat|District Heating|Heat-only;Capacity|Heat|District Heating|Heat-only;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Biomass;Capacity|Heat|District Heating|Heat-only|Biomass;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Coal;Capacity|Heat|District Heating|Heat-only|Coal;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Hard Coal;Capacity|Heat|District Heating|Heat-only|Hard Coal;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Lignite;Capacity|Heat|District Heating|Heat-only|Lignite;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Oil;Capacity|Heat|District Heating|Heat-only|Oil;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Gas;Capacity|Heat|District Heating|Heat-only|Gas;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Other;Capacity|Heat|District Heating|Heat-only|Other;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Waste;Capacity|Heat|District Heating|Heat-only|Waste;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Other Fossil;Capacity|Heat|District Heating|Heat-only|Other Fossil;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Electricity;Capacity|Heat|District Heating|Heat-only|Electricity;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump;Capacity|Heat|District Heating|Heat-only|Electricity|Heat Pump;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Capacity|Heat|District Heating|Heat-only|Electricity|Electric Boiler;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Solar;Capacity|Heat|District Heating|Heat-only|Solar;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Geothermal;Capacity|Heat|District Heating|Heat-only|Geothermal;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Fossil;Capacity|Heat|District Heating|Heat-only|Fossil;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Renewable;Capacity|Heat|District Heating|Heat-only|Renewable;GW;GW;1
-Capacity|Heat|District Heating|Heat-only|Non-renewable;Capacity|Heat|District Heating|Heat-only|Non-renewable;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only;Capacity|Gross|Heat|District Heating|Heat-only;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Biomass;Capacity|Gross|Heat|District Heating|Heat-only|Biomass;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Coal;Capacity|Gross|Heat|District Heating|Heat-only|Coal;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Hard Coal;Capacity|Gross|Heat|District Heating|Heat-only|Hard Coal;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Lignite;Capacity|Gross|Heat|District Heating|Heat-only|Lignite;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Oil;Capacity|Gross|Heat|District Heating|Heat-only|Oil;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Gas;Capacity|Gross|Heat|District Heating|Heat-only|Gas;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Other;Capacity|Gross|Heat|District Heating|Heat-only|Other;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Waste;Capacity|Gross|Heat|District Heating|Heat-only|Waste;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil;Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Electricity;Capacity|Gross|Heat|District Heating|Heat-only|Electricity;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Solar;Capacity|Gross|Heat|District Heating|Heat-only|Solar;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Geothermal;Capacity|Gross|Heat|District Heating|Heat-only|Geothermal;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Fossil;Capacity|Gross|Heat|District Heating|Heat-only|Fossil;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Renewable;Capacity|Gross|Heat|District Heating|Heat-only|Renewable;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Non-renewable;Capacity|Gross|Heat|District Heating|Heat-only|Non-renewable;GW;GW;1
 Capacity|Heat|Decentralized|P2H;Capacity|Heat|Decentralized|P2H;GW;GW;1
 Capacity|Heat|Decentralized|Heat Pump;Capacity|Heat|Decentralized|Heat Pump;GW;GW;1
 Capacity|Heat|Decentralized|Resistance;Capacity|Heat|Decentralized|Resistance;GW;GW;1
@@ -1215,3 +1215,19 @@ Final Energy|Heat|Buildings|Decentralized|Electricity|Resistance;Final Energy|He
 Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional;Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional;TWh/yr;TWh/yr;1
 Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional space heater;Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional space heater;TWh/yr;TWh/yr;1
 Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional water heater;Final Energy|Heat|Buildings|Decentralized|Electricity|Conventional water heater;TWh/yr;TWh/yr;1
+Capacity|Gross|Heat|District Heating|CHP;Capacity|Gross|Heat|District Heating|CHP;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Hydrogen;Capacity|Gross|Heat|District Heating|CHP|Hydrogen;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Biomass;Capacity|Gross|Heat|District Heating|CHP|Biomass;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Coal;Capacity|Gross|Heat|District Heating|CHP|Coal;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Gas CC;Capacity|Gross|Heat|District Heating|CHP|Gas CC;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Gas OC;Capacity|Gross|Heat|District Heating|CHP|Gas OC;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Gas;Capacity|Gross|Heat|District Heating|CHP|Gas;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Hard Coal;Capacity|Gross|Heat|District Heating|CHP|Hard Coal;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Lignite;Capacity|Gross|Heat|District Heating|CHP|Lignite;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Oil;Capacity|Gross|Heat|District Heating|CHP|Oil;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Other;Capacity|Gross|Heat|District Heating|CHP|Other;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Waste;Capacity|Gross|Heat|District Heating|CHP|Waste;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Other Fossil;Capacity|Gross|Heat|District Heating|CHP|Other Fossil;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Fossil;Capacity|Gross|Heat|District Heating|CHP|Fossil;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Renewable;Capacity|Gross|Heat|District Heating|CHP|Renewable;GW;GW;1
+Capacity|Gross|Heat|District Heating|CHP|Non-renewable;Capacity|Gross|Heat|District Heating|CHP|Non-renewable;GW;GW;1
