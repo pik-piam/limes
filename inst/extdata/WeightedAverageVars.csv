@@ -9,7 +9,8 @@ Price|Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolys
 Price|Primary Energy|Hydrogen;Primary Energy|Hydrogen
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
-Price Full|Secondary Energy|Heat;Final Energy|Heat
+Price Full|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings
+Price|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings
 Price|Carbon|ETS;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity
