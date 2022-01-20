@@ -74,7 +74,7 @@ reportCO2Price <- function(gdx) {
   m_emicappath_DE <- readGDX(gdx,name="q_emicappath_DE",field="m",format="first_found")
   
   if(c_LIMESversion < 2.38) {
-    m_emicappath3 <- readGDX(gdx,name="q_emicappath3",field="m",format="first_found")
+    m_emicappath3 <- readGDX(gdx,name="q_emicappath3", field="m", format="first_found")
   } else {
     m_emicappath3 <- new.magpie(cells_and_regions = getItems(m_emicappath_DE, dim = 1), years = getYears(m_emicappath_DE), names = NULL,
                                 fill = NA, sort = FALSE, sets = NULL, unit = "unknown")

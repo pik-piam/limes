@@ -24,13 +24,11 @@ reportElectricityPrices <- function(gdx) {
   tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
-  c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found") #electricity losses
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time step
   tau <- readGDX(gdx,name="tau") #set of time slices
   ter <- readGDX(gdx,name="ter") #set of variable renewable electricity generation technologies
   ternofluc <- readGDX(gdx,name="ternofluc") #set of non-variable (non-fluctuating) renewable electricity generation technologies
-  pety <- readGDX(gdx,name="pety") #set of primary energies
   
   # read variables and make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE)[,,tau] #demand
@@ -98,7 +96,7 @@ reportElectricityPrices <- function(gdx) {
     m_restargetrelativedem_tech <- limesMapping(m_restargetrelativedem_tech) #[Geur/GWh]
     
     if(c_LIMESversion < 2.38) {
-      m_restarget <- readGDX(gdx,name="q_restarget",field="m",format="first_found")
+      m_restarget <- readGDX(gdx,name="q_restarget", field="m", format="first_found")
       m_restarget <- limesMapping(m_restarget)
     } else {
       m_restarget <- new.magpie(cells_and_regions = getItems(m_restargetrelativedem_tech, dim = 1), years = getYears(m_restargetrelativedem_tech), names = NULL,
