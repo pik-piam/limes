@@ -20,7 +20,7 @@
 #' @importFrom magclass mbind write.report getNames getItems<- getItems
 
 
-convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default",time=as.numeric(readGDX(gdx,name="t"))) {
+convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.numeric(readGDX(gdx,name="t"))) {
   #time=as.numeric(readGDX(gdx,name="t"))
   # generate the report
   

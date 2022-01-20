@@ -42,7 +42,7 @@ reportElectricityPrices <- function(gdx) {
   #v_seprod <- v_seprod[,,pety]
   #v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found")[,,tau]
   #v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found")[,,tau]
-  m_restarget <- readGDX(gdx,name="q_restarget",field="m",format="first_found")
+  
   
   # create MagPie object of m_elecprices with iso3 regions
   m_sebal <- limesMapping(m_sebal) #[Geur/GWh]
@@ -52,7 +52,7 @@ reportElectricityPrices <- function(gdx) {
   #v_seprod <- limesMapping(v_seprod) #[GWh]
   #v_storeout <- limesMapping(v_storeout) #[GWh]
   #v_storein <- limesMapping(v_storein) #[GWh]
-  m_restarget <- limesMapping(m_restarget)
+  
   
   #Initialize heating price
   m_fullheprices <- new.magpie(cells_and_regions = getItems(m_robuststrategy2, dim = 1), years = getYears(m_robuststrategy2), names = tau,
@@ -90,12 +90,22 @@ reportElectricityPrices <- function(gdx) {
         p_eldemand <- v_exdemand
       }
       
-      }
+    }
     
     m_restargetrelativegross_tech <- readGDX(gdx,name="q_restargetrelativegross_tech",field="m",format="first_found")
     m_restargetrelativedem_tech <- readGDX(gdx,name="q_restargetrelativedem_tech",field="m",format="first_found")
     m_restargetrelativegross_tech <- limesMapping(m_restargetrelativegross_tech) #[Geur/GWh]
     m_restargetrelativedem_tech <- limesMapping(m_restargetrelativedem_tech) #[Geur/GWh]
+    
+    if(c_LIMESversion < 2.38) {
+      m_restarget <- readGDX(gdx,name="q_restarget",field="m",format="first_found")
+      m_restarget <- limesMapping(m_restarget)
+    } else {
+      m_restarget <- new.magpie(cells_and_regions = getItems(m_restargetrelativedem_tech, dim = 1), years = getYears(m_restargetrelativedem_tech), names = NULL,
+                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+    }
+    
+    
   } else {
     #v_seprod_el <- v_seprod
     p_eldemand <- v_exdemand

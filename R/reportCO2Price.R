@@ -71,8 +71,15 @@ reportCO2Price <- function(gdx) {
   # read marginal values
   m_emicappath1 <- readGDX(gdx,name="q_emicappath1",field="m",format="first_found")
   m_emicappath2 <- readGDX(gdx,name="q_emicappath2",field="m",format="first_found")
-  m_emicappath3 <- readGDX(gdx,name="q_emicappath3",field="m",format="first_found")
   m_emicappath_DE <- readGDX(gdx,name="q_emicappath_DE",field="m",format="first_found")
+  
+  if(c_LIMESversion < 2.38) {
+    m_emicappath3 <- readGDX(gdx,name="q_emicappath3",field="m",format="first_found")
+  } else {
+    m_emicappath3 <- new.magpie(cells_and_regions = getItems(m_emicappath_DE, dim = 1), years = getYears(m_emicappath_DE), names = NULL,
+                                fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+  }
+  
   
   #declaring the variable to save the information
   o_marg_emicap_regi <- NULL
@@ -87,10 +94,10 @@ reportCO2Price <- function(gdx) {
         o_marg_emicap_regi = (1/s_c2co2)*(-m_emicappath3)
       } else {
         tmp<-m_emicappath_DE[,2015,]*0 #take just one column to ensure the lenght of the vector
-        getYears(tmp)<-2010
+        getYears(tmp) <- 2010
         m_emicappath_DE<-mbind(tmp,m_emicappath_DE)
         m_emicappath_DE <- limesMapping(m_emicappath_DE)
-        o_marg_emicap_regi = (1/s_c2co2)*(-m_emicappath_DE)
+        o_marg_emicap_regi <- (1/s_c2co2)*(-m_emicappath_DE)
       }
   
   #Discounting the marginal values
