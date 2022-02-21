@@ -185,12 +185,24 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   for (var in names(varList_el)){
-    tmp1 <- mbind(tmp1,setNames(dimSums(dimSums(v_seprod_el[,,varList_el[[var]]],dim=c(3.2,3.3))*p_taulength,dim=3)/1000,var))
+    tmp1 <- mbind(tmp1,setNames(dimSums(dimSums(v_seprod_el[,,varList_el[[var]]],dim=c(3.2,3.3))
+                                        * p_taulength,dim=3)
+                                /1000,
+                                var))
   }
   
   #general aggregation
-  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout_el,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy|Electricity|w/ storage (TWh/yr)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) + dimSums(v_storeout_el,dim=c(3.2)) - dimSums(v_storein_el,dim=c(3.2)))*p_taulength,dim=3)/1000,"Secondary Energy||Electricity|w/o losses (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) 
+                                       + dimSums(v_storeout_el,dim=c(3.2)))
+                                      * p_taulength,dim=3)
+                              /1000,
+                              "Secondary Energy|Electricity|w/ storage (TWh/yr)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums((dimSums(v_seprod_el[,,c(teel)],dim=c(3.2,3.3)) 
+                                       + dimSums(v_storeout_el,dim=c(3.2)) 
+                                       - dimSums(v_storein_el,dim=c(3.2)))
+                                      * p_taulength,dim=3)
+                              /1000,
+                              "Secondary Energy||Electricity|w/o losses (TWh/yr)"))
   
   tmp2 <- NULL
   #when there is endogenous heating switch
@@ -394,7 +406,10 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   for (var in names(varList_st)){
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storeout_el[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storeout_el[,,varList_st[[var]]],dim=c(3.2))
+                                        * p_taulength,dim=3)
+                                /1000,
+                                var))
   }
   
   #Storage consumption
@@ -407,7 +422,10 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   for (var in names(varList_st)){
-    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storein_el[,,varList_st[[var]]],dim=c(3.2))*p_taulength,dim=3)/1000,var))
+    tmp4 <- mbind(tmp4,setNames(dimSums(dimSums(v_storein_el[,,varList_st[[var]]],dim=c(3.2))
+                                        * p_taulength,dim=3)
+                                /1000,
+                                var))
   }
   
   #Storage losses
@@ -607,7 +625,7 @@ reportGeneration <- function(gdx,output=NULL) {
     o_grossprod[,,teel2] <- dimSums(collapseDim(dimSums(v_seprod_el[,,teel2], dim=c(3.2)), dim = 3.2)*p_taulength/1000,dim=3)/(1-p_autocons[,,teel2])
   }
   
-  varList_el <- list(
+  varList_elGr <- list(
     #Conventional
     "Secondary Energy|Gross|Electricity (TWh/yr)"                  =c(teel),
     "Secondary Energy|Gross|Electricity|Biomass (TWh/yr)"          =intersect(teel,tebio),
@@ -658,18 +676,18 @@ reportGeneration <- function(gdx,output=NULL) {
   )
   
   if(c_LIMESversion >= 2.33) {
-    varList_el <- append(varList_el,list("Secondary Energy|Gross|Electricity|Biomass|w/ CCS (TWh/yr)" =intersect(teccs,tebio)))
+    varList_elGr <- append(varList_elGr,list("Secondary Energy|Gross|Electricity|Biomass|w/ CCS (TWh/yr)" =intersect(teccs,tebio)))
   }
   
-  for (var in names(varList_el)){
-    tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod[,,varList_el[[var]]],3),var)) #o_grossprod is already in TWh/yr
+  for (var in names(varList_elGr)){
+    tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod[,,varList_elGr[[var]]],3),var)) #o_grossprod is already in TWh/yr
   }
   
   
   if(c_heating == 1) {
     
     #Gross electricity (disaggregated between electricity-only and CHP technologies)
-    varList_el <- list(
+    varList_elGrEoChp <- list(
       #2.a) CHP
       "Secondary Energy|Gross|Electricity|CHP (TWh/yr)"               =c(techp),
       "Secondary Energy|Gross|Electricity|CHP|Biomass (TWh/yr)"       =intersect(techp,tebio),
@@ -718,8 +736,8 @@ reportGeneration <- function(gdx,output=NULL) {
       "Secondary Energy|Gross|Electricity|Electricity-only|Non-renewable (TWh/yr)"    =intersect(teoel,tenr) #this does not include storage
     )
     
-    for (var in names(varList_el)){
-      tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod[,,varList_el[[var]]],3),var)) #o_grossprod is already in TWh/yr
+    for (var in names(varList_elGrEoChp)){
+      tmp6 <- mbind(tmp6,setNames(dimSums(o_grossprod[,,varList_elGrEoChp[[var]]],3),var)) #o_grossprod is already in TWh/yr
     }
     
     #Gross heat
