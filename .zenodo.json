@@ -1,6 +1,6 @@
 {
   "title": "limes: The liMES R package",
-  "version": "2.25.0",
+  "version": "2.28.0",
   "description": "<p>Contains the LIMES-specific routines for data and model output manipulation.<\/p>",
   "creators": [
     {
