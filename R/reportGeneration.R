@@ -964,7 +964,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     # Reporting tau
     varList_eltau <- varList_el
-    names(varList_eltau) <- gsub("Secondary Energy", "Capacity", names(varList_eltau))
+    names(varList_eltau) <- gsub("Secondary Energy", "Load", names(varList_eltau))
     names(varList_eltau) <- gsub("TWh/yr", "GW", names(varList_eltau))
 
     for (var in names(varList_eltau)) {
