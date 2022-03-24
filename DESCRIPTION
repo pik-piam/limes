@@ -1,8 +1,8 @@
 Package: limes
 Type: Package
 Title: The liMES R package
-Version: 2.25.0
-Date: 2022-01-20
+Version: 2.29.0
+Date: 2022-03-24
 Authors@R: as.person(c("Sebastian Osorio <sebastian.osorio@pik-potsdam.de> [aut,cre]"))
 Description: Contains the LIMES-specific routines for data and model output manipulation.
 Depends:
