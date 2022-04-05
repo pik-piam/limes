@@ -2,18 +2,18 @@
 % Please edit documentation in R/reportCapacity.R
 \name{reportCapacity}
 \alias{reportCapacity}
-\title{Read in GDX and calculate capacities, used in convGDX2MIF.R for the reporting}
+\title{Read in GDX and calculate capacities,  used in convGDX2MIF.R for the reporting}
 \usage{
 reportCapacity(gdx)
 }
 \arguments{
-\item{gdx}{a GDX object as created by readGDX, or the path to a gdx}
+\item{gdx}{a GDX object as created by readGDX,  or the path to a gdx}
 }
 \value{
 MAgPIE object - contains the capacity variables
 }
 \description{
-Read in capacity information from GDX file, information used in convGDX2MIF.R
+Read in capacity information from GDX file,  information used in convGDX2MIF.R
 for the reporting
 }
 \examples{
@@ -25,5 +25,5 @@ for the reporting
 \code{\link{convGDX2MIF}}
 }
 \author{
-Sebastian Osorio, Renato Rodrigues
+Sebastian Osorio,  Renato Rodrigues
 }
