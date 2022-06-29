@@ -24,10 +24,10 @@ reportCO2Price <- function(gdx) {
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #time set
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate
   p_ts <- readGDX(gdx,name="p_ts",field="l",format="first_found") #time step
-  c_emicappathscen <- readGDX(gdx,name="c_emicappathscen",field="l",format="first_found") #control variable for emission cap (per country)
+  c_emicappathscen <- readGDX(gdx,name=c("c_emicappathscen","cm_emicappathscen"),field="l",format="first_found") #control variable for emission cap (per country)
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #time step
   p_co2price <- readGDX(gdx,name="p_co2price",field="l",format="first_found") #exogenous co2 prices (for electricity)
-  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
+  v_emi <- readGDX(gdx,name=c("v_emi","vm_emi"),field="l",format="first_found",restore_zeros = FALSE)
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   if(c_LIMESversion >= 2.27) {
     c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
@@ -69,8 +69,8 @@ reportCO2Price <- function(gdx) {
   #2) CO2 PRICE RESULTING FROM EMISSION CAP MARGINAL VALUES PER REGION
 
   # read marginal values
-  m_emicappath1 <- readGDX(gdx,name="q_emicappath1",field="m",format="first_found")
-  m_emicappath2 <- readGDX(gdx,name="q_emicappath2",field="m",format="first_found")
+  m_emicappath1 <- readGDX(gdx,name=c("q_emicappath1","q30_emicappath1"),field="m",format="first_found")
+  m_emicappath2 <- readGDX(gdx,name=c("q_emicappath2","q30_emicappath2"),field="m",format="first_found")
   m_emicappath_DE <- readGDX(gdx,name="q_emicappath_DE",field="m",format="first_found")
   
   if(c_LIMESversion < 2.38) {

@@ -1,30 +1,30 @@
 #' Read in GDX and calculate emissions, used in convGDX2MIF.R for the reporting
-#' 
+#'
 #' Read in emissions data from GDX file, information used in convGDX2MIF.R
 #' for the reporting
-#' 
-#' 
+#'
+#'
 #' @param gdx a GDX object as created by readGDX, or the path to a gdx
 #' @return MAgPIE object - contains the emission variables
 #' @author Sebastian Osorio, Renato Rodrigues
 #' @seealso \code{\link{convGDX2MIF}}
 #' @examples
-#' 
+#'
 #' \dontrun{reportEmissions(gdx)}
 #'
 #' @importFrom gdx readGDX
 #' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
 #' @export
-#' 
+#'
 reportEmissions <- function(gdx) {
-  
+
   # read sets
   te <- readGDX(gdx,name="te")
   teel <- readGDX(gdx,name="teel")
   ter <- readGDX(gdx,name="ter")
-  tecoal <- readGDX(gdx,name="tecoal") 
-  telig <- readGDX(gdx,name="telig") 
-  tegas <- readGDX(gdx,name="tegas") 
+  tecoal <- readGDX(gdx,name="tecoal")
+  telig <- readGDX(gdx,name="telig")
+  tegas <- readGDX(gdx,name="tegas")
   tengcc <- readGDX(gdx,name="tengcc")
   tefossil <- readGDX(gdx,name="tefossil") #set of fossil-based generation technologies
   teccs <- readGDX(gdx,name="teccs") #set of generation technologies with CCS
@@ -33,27 +33,27 @@ reportEmissions <- function(gdx) {
   teothers <- readGDX(gdx,name="teothers") #set of other gases generation technologies
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
-  
+
   # read parameters
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #conversion factor C -> CO2
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
-  
+
   # read variables
-  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found",restore_zeros = FALSE)
+  v_emi <- readGDX(gdx,name=c("v_emi","vm_emi"),field="l",format="first_found",restore_zeros = FALSE)
   #v_emi <- readGDX(gdx,name="v_emi",field="l",format="simple",restore_zeros = FALSE, types = "variables")
-  
+
   # create MagPie object of v_emi with iso3 regions
   v_emi <- limesMapping(v_emi)
-  
+
   #take only the co2 and convert from GtC to MtCO2
   v_emi_ccs <- v_emi[,,"cco2"]*as.numeric(s_c2co2)*1000
   v_emi <- v_emi[,,"co2"]*as.numeric(s_c2co2)*1000
   v_emi_el <- v_emi
-  
+
   #Read and transform the v_emifloor; read v_bankemi
   #v_emifloor <- readGDX(gdx,name="v_emifloor",field="l",format="first_found")
   #v_emifloor <- limesMapping(v_emifloor)
-  
+
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
     #v_emi_el <- v_emi
@@ -61,20 +61,20 @@ reportEmissions <- function(gdx) {
     v_emi_el <- v_emi[,,"seel"]
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     #if(c_heating == 1) {
-    #  
+    #
     #}
-  } 
-  
+  }
+
   #annual emissions per primary energy type
   tmp1 <- NULL
   #for (petyex2 in petyex) {
   #  if(petyex2 != "pebio" & petyex2 != "peur" & petyex2 != "pehgen") #keeping only the fossil-fuels
   #  tmp1 <- mbind(tmp1,setNames(dimSums(v_emi[,,petyex2]*s_c2co2*1000,3),paste("Emissions|CO2|Energy|Supply|Electricity|",petyex2,"(Mt CO2/yr)")))
   #}
-  
+
   #annual emissions per country
   tmp2 <- NULL
-  
+
   varList_el <- list(
     #Conventional
     "Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"                        ="seel",
@@ -98,34 +98,46 @@ reportEmissions <- function(gdx) {
     "Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"                  =intersect(teel,c(teothers)),
     "Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"                  =intersect(teel,c("waste")),
     "Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"           =intersect(teel,c(teothers,"waste",teoil)),
-    
+
     #general aggregation
     "Emissions|CO2|Energy|Supply|Electricity|Fossil (Mt CO2/yr)"                 =intersect(teel,c(tefossil)),
     "Emissions|CO2|Energy|Supply|Electricity|Fossil|w/o CCS (Mt CO2/yr)"         =intersect(teel,setdiff(tefossil,teccs)),
     "Emissions|CO2|Energy|Supply|Electricity|Fossil|w/ CCS (Mt CO2/yr)"          =intersect(teel,intersect(tefossil,teccs))
   )
-  
+
+  # helper function: checks if the given entity exists in one of ('any') the dimensions of var
+  hasEnty <- function(enty, var){
+    any(grepl(pattern = paste0("(^|\\.)",enty,"(\\.|$)"),getNames(var)))
+    }
+
+
   for (var in names(varList_el)){
-    tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3,na.rm = T),var))
+    enty <- varList_el[[var]]
+    # execute onyl if all enties (e.g. "oil") exist in getNames(v_emi_el), skip otherwise
+    # This is necessary, because there are enties in varList_el that are not in getNames(v_emi_el) (e.g. "oil")
+    # which causes an error since non-existent elements cannot be selected via v_emi_el[,,enty]
+    if (all(vapply(enty,hasEnty,v_emi_el, FUN.VALUE = logical(1)))) {
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,enty],dim=3,na.rm = T),var))
+    }
   }
-  
+
   # concatenate vars
   tmp3 <- mbind(tmp1,tmp2)
-    
-  
+
+
   #annual emissions withdrawn from the EU ETS
   #If activate this, remember to activate the code in convGDX2MIF to erase the values for the countries for which this variable does not exist
   tmp4 <- NULL
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_emifloor[,,]*s_c2co2*1000,3),"Emissions withdrawn ETS|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
   if(c_LIMESversion >= 2.33) {
     tewaste <- readGDX(gdx,name="tewaste") #set of waste generation technologies
-    
+
     #Biomass related variables (because there are new biomass technologies from v2.33)
     #tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)")) #might be confusing the fact that is exactly the same as BECCS
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],dim=3,na.rm = T),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
-    
-    
+
+
     if(c_heating == 1) {
       #load heat-related sets
       techp <- readGDX(gdx,name="techp")
@@ -135,9 +147,9 @@ reportEmissions <- function(gdx) {
       tedhelec <- readGDX(gdx,name="tedhelec")
       ternofluc <- readGDX(gdx,name="ternofluc")
       tehgen <- readGDX(gdx,name="tehgen") #set of hydrogen generation technologies
-      
-      
-      #1) Emissions FROM DH: CHP AND Heat-only 
+
+
+      #1) Emissions FROM DH: CHP AND Heat-only
       varList_he <- list(
         #1.b) CHP
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP (Mt CO2/yr)"                         =setdiff(techp,c(ter,ternofluc,tedhelec,tehgen)),
@@ -151,7 +163,7 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other (Mt CO2/yr)"                   =intersect(techp,c(teothers)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil)),
-        
+
         #1.c) Only-heat (centralized boilers)
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only (Mt CO2/yr)"                   =setdiff(teohecen,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Coal (Mt CO2/yr)"              =intersect(teohecen,c(tecoal,telig)),
@@ -163,7 +175,7 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Waste (Mt CO2/yr)"             =intersect(teohecen,c(tewaste)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Other Fossil (Mt CO2/yr)"      =intersect(teohecen,c(teothers,tewaste,teoil)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Heat-only|Fossil (Mt CO2/yr)"            =intersect(teohecen,c(tefossil)),
-        
+
         #1.d) District Heating
         "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"                             =setdiff(tedh,c(ter,ternofluc,tedhelec,tehgen)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Coal (Mt CO2/yr)"                        =intersect(tedh,c(tecoal,telig)),
@@ -176,11 +188,14 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil (Mt CO2/yr)"                =intersect(tedh,c(teothers,tewaste,teoil)),
         "Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil (Mt CO2/yr)"                      =intersect(tedh,c(tefossil))
       )
-      
+
       for (var in names(varList_he)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,varList_he[[var]]],dim=3,na.rm = T),var))
+        enty <- varList_he[[var]]
+        if (all(vapply(enty,hasEnty,v_emi_he, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,enty],dim=3,na.rm = T),var))
+        }
       }
-      
+
       #Electricity and Heat
       varList <- list(
         #Conventional
@@ -194,15 +209,18 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Other (Mt CO2/yr)"            =intersect(te,c(teothers)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Waste (Mt CO2/yr)"            =intersect(te,c(tewaste)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Other Fossil (Mt CO2/yr)"     =intersect(te,c(teothers,tewaste,teoil)),
-        
+
         #general aggregation
         "Emissions|CO2|Energy|Supply|Electricity and Heat|Fossil (Mt CO2/yr)"           =intersect(te,c(tefossil))
       )
-      
+
       for (var in names(varList)){
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim=3,na.rm = T),var))
+        enty <- varList[[var]]
+        if (all(vapply(enty,hasEnty,v_emi, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,enty],dim=3,na.rm = T),var))
+        }
       }
-      
+
       #Electricity emissions
       varList_el<- list(
         #1.b) CHP
@@ -217,7 +235,7 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Other (Mt CO2/yr)"                   =intersect(techp,c(teothers)),
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
         "Emissions|CO2|Energy|Supply|Electricity|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil)),
-        
+
         #Electricity-only
         "Emissions|CO2|Energy|Supply|Electricity|Electricity-only (Mt CO2/yr)"                        =intersect(teoel,c(tefossil,intersect(tebio,teccs))),
         "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Coal (Mt CO2/yr)"                   =intersect(teoel,c(tecoal,telig)),
@@ -245,11 +263,14 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Fossil|w/ CCS (Mt CO2/yr)"          =intersect(teoel,intersect(tefossil,teccs)),
         "Emissions|CO2|Energy|Supply|Electricity|Electricity-only|Biomass|w/ CCS (Mt CO2/yr)"         =intersect(teoel,intersect(tebio,teccs))
       )
-      
+
       for (var in names(varList_el)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim=3,na.rm = T),var))
+        enty <- varList_el[[var]]
+        if (all(vapply(enty,hasEnty,v_emi_el, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,enty],dim=3,na.rm = T),var))
+        }
       }
-      
+
       #CHP emissions
       varList<- list(
         #1.b) CHP
@@ -265,16 +286,19 @@ reportEmissions <- function(gdx) {
         "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Other Fossil (Mt CO2/yr)"            =intersect(techp,c(teothers,tewaste,teoil)),
         "Emissions|CO2|Energy|Supply|Electricity and Heat|CHP|Fossil (Mt CO2/yr)"                  =intersect(techp,c(tefossil))
       )
-      
+
       for (var in names(varList)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim=3,na.rm = T),var))
+        enty <- varList[[var]]
+        if (all(vapply(enty,hasEnty,v_emi, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,enty],dim=3,na.rm = T),var))
+        }
       }
     }
-  } 
-  
+  }
+
   # concatenate data
   tmp5 <- mbind(tmp3,tmp4)
-  
+
   #Carbon sequestration
   tmp6 <- NULL
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
@@ -282,10 +306,10 @@ reportEmissions <- function(gdx) {
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],dim=3,na.rm = T),"Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
-  
+
   # concatenate data
   tmp <- mbind(tmp5,tmp6)
 
   return(tmp)
 }
-  
+

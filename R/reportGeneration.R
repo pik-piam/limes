@@ -59,7 +59,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # read parameters
   c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") # interest rate
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") # time-step
-  p_taulength <- readGDX(gdx, name = "p_taulength", field = "l", format = "first_found")[, , tau] # number of hours/year per tau
+  p_taulength <- readGDX(gdx, name = c("p_taulength","pm_taulength"), field = "l", format = "first_found")[, , tau] # number of hours/year per tau
   p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found") # parameter per technology
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
 
@@ -559,7 +559,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         # H2 production
         # Internal hydrogen (produced through electrolysis)
         tmp4 <- mbind(tmp4, setNames(setNames(tmp4[, , "Secondary Energy|Hydrogen|Electricity (TWh/yr)"], NULL), "Primary Energy|Hydrogen [electrolysis] (TWh/yr)"))
-        v_demP2XSe_4el <- readGDX(gdx, name = c("v_demP2XSe_4el", "v_p2xse", "v_pedem"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
+        v_demP2XSe_4el <- readGDX(gdx, name = c("v_demP2XSe_4el", "v_p2xse", "v_pedem", "vm_pedem"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
         if (length(grep("pehgen.seel", getNames(v_demP2XSe_4el))) > 0) {
           v_demP2XSe_4el <- v_demP2XSe_4el[, , paste0("pehgen.seel.", tehgen)] # In the case of 'v_p2xse' and v_pedem, it was technology-dependent
         }

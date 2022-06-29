@@ -19,7 +19,7 @@
 reportExchange <- function(gdx) {
   
   # read parameters and sets
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found") #number of hours/year per tau
   trans <- readGDX(gdx,name="trans") #set of cross-border transmission lines (numeric)
   tau <- readGDX(gdx,name="tau") #set of tau
   regi <- readGDX(gdx,name="regi") #set of countries
