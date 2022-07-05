@@ -20,7 +20,7 @@
 reportElectricityPrices <- function(gdx) {
   
   # read sets and parameters
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found") #number of hours/year per tau
   tt <- readGDX(gdx,name="t",field="l",format="first_found") #time set
   t0 <- readGDX(gdx,name="t0",field="l",format="first_found") #initial year
   c_esmdisrate <- readGDX(gdx,name="c_esmdisrate",field="l",format="first_found") #interest rate

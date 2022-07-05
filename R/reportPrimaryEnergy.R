@@ -41,9 +41,9 @@ reportPrimaryEnergy <- function(gdx) {
   
   # read parameters and variables
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found")[,,tau]
+  p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found")[,,tau]
   #v_pedem <- readGDX(gdx,name="v_pedem",field="l",format="first_found")[,,tau]
-  v_pedem <- readGDX(gdx,name="v_pedem",field="l",format="first_found",restore_zeros = FALSE)
+  v_pedem <- readGDX(gdx,name=c("v_pedem","vm_pedem"),field="l",format="first_found",restore_zeros = FALSE)
   #v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
   
   #Make sure only the "right" sets are taken -> to avoid info from gdx that might be stuck in the file

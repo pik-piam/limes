@@ -49,7 +49,7 @@ reportAdequacyContribution <- function(gdx) {
   
   # read variables and marginal values
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE) #demand
-  v_cap <- readGDX(gdx,name="v_cap",field="l",format="first_found",restore_zeros = FALSE)
+  v_cap <- readGDX(gdx,name=c("v_cap","vm_cap"),field="l",format="first_found",restore_zeros = FALSE)
   v_seprodmax <- readGDX(gdx,name="v_seprodmax",field="l",format="first_found",restore_zeros = FALSE)
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found",restore_zeros = FALSE)
   v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found",restore_zeros = FALSE)
