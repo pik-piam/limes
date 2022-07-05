@@ -454,6 +454,3 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
 
 }
-
-
-
