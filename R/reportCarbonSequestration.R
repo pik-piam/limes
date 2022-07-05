@@ -24,7 +24,7 @@ reportCarbonSequestration <- function(gdx) {
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found") #conversion factor C -> CO2
   
   # read variables
-  v_emi <- readGDX(gdx,name="v_emi",field="l",format="first_found") #both emitted and sequestred emissions
+  v_emi <- readGDX(gdx,name=c("v_emi","vm_emi"),field="l",format="first_found") #both emitted and sequestred emissions
 
   # create MagPie object of v_emi with iso3 regions
   v_emi <- limesMapping(v_emi)

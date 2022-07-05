@@ -39,7 +39,7 @@ reportInput <- function(gdx,mappingPath=NULL) {
   f_capmax <- readGDX(gdx,name="f_capmax",field="l",format="first_found") #capacity potential (per grade)
   ter <- readGDX(gdx,name="ter") #set of variable renewable generation technologies
   grade <- readGDX(gdx,name="grade") #set of grades (quality of RES potential)
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found") #number of hours/year per tau
   #p_nuren_adj <- readGDX(gdx,name="p_nuren_adj",field="l",format="first_found") #availability factor for RES
   #tau <- readGDX(gdx,name="tau") #set of time slices
   
@@ -89,7 +89,7 @@ reportInput <- function(gdx,mappingPath=NULL) {
   # read parameters
   p_incoall <- readGDX(gdx,name="p_incoall",field="l",format="first_found") #investment costs for power capacity
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found") #technology data
-  p_emifac <- readGDX(gdx,name="p_emifac",field="l",format="first_found") #emissions factors
+  p_emifac <- readGDX(gdx,name=c("p_emifac","p30_emifac"),field="l",format="first_found") #emissions factors
   p_incostall <- readGDX(gdx,name="p_incostall",field="l",format="first_found") #investment costs for reservoir capacity
   
   # create MagPie object of demand with iso3 regions

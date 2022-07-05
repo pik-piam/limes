@@ -16,7 +16,7 @@
 importParameters <- function(gdx) {
   
   # read parameters
-  p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found")
+  p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found")
   p_exdemand <- readGDX(gdx,name="p_exdemand",field="l",format="first_found")
   c_demandscale <- readGDX(gdx,name="c_demandscale",field="l",format="first_found")
   s_c2co2 <- readGDX(gdx,name="s_c2co2",field="l",format="first_found")
