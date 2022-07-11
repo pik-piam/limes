@@ -29,7 +29,6 @@ reportExchange <- function(gdx) {
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
   p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found")[, , tau] #number of hours/year per tau
 
-
   # read variables
   v_transflow1 <- readGDX(gdx, name = "v_transflow1", field = "l", format = "first_found")
   v_transflow2 <- readGDX(gdx, name = "v_transflow2", field = "l", format = "first_found")
@@ -70,7 +69,7 @@ reportExchange <- function(gdx) {
 
   #----------------------------------------------------------------------------------
   #EXPORTS
-  exports<-NULL
+  exports <- NULL
   capexports <- NULL
   valueexports <- NULL
   expo_regi <- NULL
@@ -146,9 +145,9 @@ reportExchange <- function(gdx) {
     }
 
     #initialize variables to aggregate negative flows
-    partMagPie2<-0
-    cap2<-0
-    value2<-0
+    partMagPie2 <- 0
+    cap2 <- 0
+    value2 <- 0
     expo2 <- NULL
     netexpo2 <- NULL
     cap_regi2 <- NULL
@@ -272,7 +271,7 @@ reportExchange <- function(gdx) {
 
   #----------------------------------------------------------------------------------
   #IMPORTS
-  imports<-NULL
+  imports <- NULL
   capimports <- NULL
   valueimports <- NULL
   impo_regi <- NULL
@@ -282,7 +281,7 @@ reportExchange <- function(gdx) {
   for (regi2 in regi) {
 
     #initialize variables to aggregate positive flows
-    partMagPie1<-0
+    partMagPie1 <- 0
     cap1 <- 0
     value1 <- 0
     impo1 <- NULL
@@ -324,7 +323,7 @@ reportExchange <- function(gdx) {
     }
 
     #initialize variables to aggregate negative flows
-    partMagPie2<-0
+    partMagPie2 <- 0
     cap2 <- 0
     value2 <- 0
     impo2 <- NULL

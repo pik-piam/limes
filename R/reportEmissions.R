@@ -58,6 +58,7 @@ reportEmissions <- function(gdx) {
   if(c_LIMESversion >=  2.28) {
     v_emi_he <- v_emi[,,"sehe"]
     v_emi_el <- v_emi[,,"seel"]
+
     c_heating <- readGDX(gdx,name = "c_heating",field = "l",format = "first_found")
 
   }
@@ -98,8 +99,20 @@ reportEmissions <- function(gdx) {
     "Emissions|CO2|Energy|Supply|Electricity|Fossil|w/ CCS (Mt CO2/yr)"           = intersect(teel,intersect(tefossil,teccs))
   )
 
+  # helper function: checks if the given entity exists in one of ('any') the dimensions of var
+  hasEnty <- function(enty, var){
+    any(grepl(pattern = paste0("(^|\\.)",enty,"(\\.|$)"),getNames(var)))
+    }
+
+
   for (var in names(varList_el)){
-    tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim = 3,na.rm  =  T),var))
+    enty <- varList_el[[var]]
+    # execute onyl if all enties (e.g. "oil") exist in getNames(v_emi_el), skip otherwise
+    # This is necessary, because there are enties in varList_el that are not in getNames(v_emi_el) (e.g. "oil")
+    # which causes an error since non-existent elements cannot be selected via v_emi_el[,,enty]
+    if (all(vapply(enty,hasEnty,v_emi_el, FUN.VALUE = logical(1)))) {
+      tmp2 <- mbind(tmp2,setNames(dimSums(v_emi_el[,,enty],dim=3,na.rm = T),var))
+    }
   }
 
   # concatenate vars
@@ -110,6 +123,7 @@ reportEmissions <- function(gdx) {
   #If activate this, remember to activate the code in convGDX2MIF to erase the values for the countries for which this variable does not exist
   tmp4 <- NULL
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_emifloor[,,]*s_c2co2*1000,3),"Emissions withdrawn ETS|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
+
   if(c_LIMESversion >=  2.33) {
     tewaste <- readGDX(gdx,name = "tewaste") #set of waste generation technologies
 
@@ -171,7 +185,10 @@ reportEmissions <- function(gdx) {
       )
 
       for (var in names(varList_he)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,varList_he[[var]]],dim = 3,na.rm  =  T),var))
+        enty <- varList_he[[var]]
+        if (all(vapply(enty,hasEnty,v_emi_he, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_he[,,enty],dim=3,na.rm = T),var))
+        }
       }
 
       #Electricity and Heat
@@ -193,7 +210,10 @@ reportEmissions <- function(gdx) {
       )
 
       for (var in names(varList)){
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim = 3,na.rm  =  T),var))
+        enty <- varList[[var]]
+        if (all(vapply(enty,hasEnty,v_emi, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,enty],dim=3,na.rm = T),var))
+        }
       }
 
       #Electricity emissions
@@ -240,7 +260,10 @@ reportEmissions <- function(gdx) {
       )
 
       for (var in names(varList_el)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,varList_el[[var]]],dim = 3,na.rm  =  T),var))
+        enty <- varList_el[[var]]
+        if (all(vapply(enty,hasEnty,v_emi_el, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,enty],dim=3,na.rm = T),var))
+        }
       }
 
       #CHP emissions
@@ -260,7 +283,10 @@ reportEmissions <- function(gdx) {
       )
 
       for (var in names(varList)) {
-        tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,varList[[var]]],dim = 3,na.rm  =  T),var))
+        enty <- varList[[var]]
+        if (all(vapply(enty,hasEnty,v_emi, FUN.VALUE = logical(1)))) {
+          tmp4 <- mbind(tmp4,setNames(dimSums(v_emi[,,enty],dim=3,na.rm = T),var))
+        }
       }
     }
   }
@@ -270,7 +296,7 @@ reportEmissions <- function(gdx) {
 
   #Carbon sequestration
   tmp6 <- NULL
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim = 3,na.rm = T),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
   tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))

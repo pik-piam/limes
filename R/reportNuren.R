@@ -19,7 +19,7 @@
 reportNuren <- function(gdx) {
   
   # read parameters and sets
-  #p_taulength <- readGDX(gdx,name="p_taulength",field="l",format="first_found") #number of hours/year per tau
+  #p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found") #number of hours/year per tau
   #p_nuren_adj <- readGDX(gdx,name="p_nuren_adj",field="l",format="first_found") #availability factor for RES
   p_nurenannual_adj <- readGDX(gdx,name="p_nurenannual_adj",field="l",format="first_found") #annual availability factor for RES (per grade)
   p_nurenannual_adj2 <- readGDX(gdx,name="p_nurenannual_adj2",field="l",format="first_found") #annual availability factor for RES

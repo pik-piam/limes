@@ -559,7 +559,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         # H2 production
         # Internal hydrogen (produced through electrolysis)
         tmp4 <- mbind(tmp4, setNames(setNames(tmp4[, , "Secondary Energy|Hydrogen|Electricity (TWh/yr)"], NULL), "Primary Energy|Hydrogen [electrolysis] (TWh/yr)"))
-        v_demP2XSe_4el <- readGDX(gdx, name = c("v_demP2XSe_4el", "v_p2xse", "v_pedem"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
+        v_demP2XSe_4el <- readGDX(gdx, name = c("v_demP2XSe_4el", "v_p2xse", "v_pedem", "vm_pedem"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh] - in Robert's version, there is no specific variable for H2 produced from electrolysis used in generation, so we take it directly from pedem (no imports allowed)
         if (length(grep("pehgen.seel", getNames(v_demP2XSe_4el))) > 0) {
           v_demP2XSe_4el <- v_demP2XSe_4el[, , paste0("pehgen.seel.", tehgen)] # In the case of 'v_p2xse' and v_pedem, it was technology-dependent
         }

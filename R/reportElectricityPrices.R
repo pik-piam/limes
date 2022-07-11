@@ -116,11 +116,11 @@ reportElectricityPrices <- function(gdx) {
   }
 
   #Collapse names of demand (just in case)
-  p_eldemand <- collapseDim(p_eldemand,  dim  =  3.2)
+  p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
 
   # calculate marginal value per tau
-  m_elecprices <- collapseDim(m_elecprices,  dim  =  3.2)/p_taulength
-  m_fullelecprices <- collapseDim(m_fullelecprices,  dim  =  3.2)/p_taulength
+  m_elecprices <- collapseDim(m_elecprices, dim  = 3.2)/p_taulength
+  m_fullelecprices <- collapseDim(m_fullelecprices, dim  = 3.2)/p_taulength
 
 
   ##Create variables to allocate marginal values
@@ -388,4 +388,5 @@ reportElectricityPrices <- function(gdx) {
   tmp <- mbind(tmp3, tmp4)
 
   return(tmp)
+
 }

@@ -13,6 +13,3 @@
 #' 
 #' Maintainer: Sebastian Osorio <sebastian.osorio@pik-potsdam.de>
 NULL
-
-
-

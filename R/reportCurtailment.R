@@ -22,7 +22,6 @@ reportCurtailment <- function(gdx) {
   tau <- readGDX(gdx,name="tau") #set of time slices
   ter <- readGDX(gdx,name="ter") #set of variable renewable generation technologies
   pety <- readGDX(gdx,name="pety") #set of primary energies
-
   p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found")[,,tau] #number of hours/year per tau
 
   # read variables
