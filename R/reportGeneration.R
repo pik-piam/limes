@@ -59,7 +59,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # read parameters
   c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") # interest rate
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") # time-step
-  p_taulength <- readGDX(gdx, name = "p_taulength", field = "l", format = "first_found")[, , tau] # number of hours/year per tau
+  p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found")[, , tau] # number of hours/year per tau
   p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found") # parameter per technology
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
 
@@ -80,9 +80,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   v_storein <- limesMapping(v_storein)
   v_exdemand <- limesMapping(v_exdemand)
   p_autocons <- limesMapping(p_autocons)
-  
+
   # give explicit set names
-  
+
   getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
   getSets(v_storein) <- c("region", "t", "tau", "enty2", "te")
 
@@ -191,14 +191,14 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     "Secondary Energy|Electricity|Solar|CSP (TWh/yr)"    = intersect(teel, c("csp")),
     "Secondary Energy|Electricity|Hydro (TWh/yr)"        = intersect(teel, c(tehydro))
   )
-  
+
   varList_stGen <- list(
     "Secondary Energy|Electricity|Storage (TWh/yr)"                       = setdiff(testore, c("heat_sto")),
     "Secondary Energy|Electricity|Storage|Pump Hydro (TWh/yr)"            = "psp",
     "Secondary Energy|Electricity|Storage|Stat Batteries (TWh/yr)"        = "batteries",
     "Secondary Energy|Electricity|Storage|Hydrogen electrolysis (TWh/yr)" = "helec"
   )
-  
+
   varList_stCons <- list(
     "Secondary Energy|Electricity|Storage Consumption (TWh/yr)"                       = setdiff(testore, c("heat_sto")),
     "Secondary Energy|Electricity|Storage Consumption|Pump Hydro (TWh/yr)"            = "psp",
@@ -206,7 +206,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     "Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis (TWh/yr)" = "helec",
     "Primary Energy|Electricity|Hydrogen (TWh/yr)"                                    = "helec"
   )
-  
+
 
   if (!reporting_tau) { # for normal reporting
 
@@ -424,7 +424,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp4 <- NULL
 
     # Storage generation
-   
+
 
     for (var in names(varList_stGen)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storeout_el[, , varList_stGen[[var]]], dim = c(3.2))
@@ -434,7 +434,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     }
 
     # Storage consumption
-    
+
 
     for (var in names(varList_stCons)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storein_el[, , varList_stCons[[var]]], dim = c(3.2))
@@ -973,29 +973,29 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   } else {
 
     f_renameTau <- function(vecOriginal){
-      
+
       vecModif <- vecOriginal
       names(vecModif) <- gsub("Secondary Energy", "Load", names(vecModif))
       names(vecModif) <- gsub("TWh/yr", "GW", names(vecModif))
       return(vecModif)
-    
+
     }
-    
+
     f_computeTauVec <- function(varName, varList, data) {
-      
+
       sets2Sum <- setdiff(getSets(data), c("region", "t", "tau"))
       .tmp <- dimSums(data[, , varList[[varName]]],
                       dim = sets2Sum
       )
-      
+
       .nm <- paste(varName, getNames(.tmp), sep = "___")
       .nm <- gsub("^(.*)( \\(.*\\))___(.*)$", "\\1|\\3\\2", .nm)
       .tmp <- setNames(.tmp, .nm)
       return(.tmp)
     }
-    
+
     f_computeTau <- function(varList, data) {
-      
+
       out <- do.call('mbind',
                      lapply(names(varList), f_computeTauVec, varList, data))
       return(out)
@@ -1005,15 +1005,15 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     varList_elTau <- f_renameTau(varList_el)
     varList_stGenTau <- f_renameTau(varList_stGen)
     varList_stConsTau <- f_renameTau(varList_stCons)
-    varList_stLoss <- list("Load|Electricity|Storage Losses (GW)" 
+    varList_stLoss <- list("Load|Electricity|Storage Losses (GW)"
                            = setdiff(testore, c("heat_sto")))
-    
+
     tmp1 <- mbind(
       f_computeTau(varList_elTau, v_seprod_el),
       f_computeTau(varList_stGenTau, v_storeout_el),
       f_computeTau(varList_stConsTau, v_storein_el),
       f_computeTau(varList_stLoss, v_storein_el - v_storeout_el)
-      
+
     )
 
 

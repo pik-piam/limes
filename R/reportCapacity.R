@@ -45,7 +45,7 @@ reportCapacity <- function(gdx) {
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
 
   # read variables
-  v_cap <- readGDX(gdx, name = "v_cap", field = "l", format = "first_found")
+  v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found")
   v_capreserve <- readGDX(gdx, name = "v_capreserve", field = "l", format = "first_found")
 
   # create MagPie object of v_cap with iso3 regions

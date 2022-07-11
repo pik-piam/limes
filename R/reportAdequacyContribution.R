@@ -1,15 +1,15 @@
 #' Read in GDX and calculate capacities, used in convGDX2MIF.R for the reporting
-#' 
+#'
 #' Read in Capacity Adequacy information from GDX file, information used in convGDX2MIF.R
 #' for the reporting
-#' 
-#' 
+#'
+#'
 #' @param gdx a GDX object as created by readGDX, or the path to a gdx
 #' @return MAgPIE object - contains the Capacity Adequacy variables
 #' @author Sebastian Osorio, Renato Rodrigues
 #' @seealso \code{\link{convGDX2MIF}}
 #' @examples
-#' 
+#'
 #' \dontrun{reportCapacity Adequacy(gdx)}
 #'
 #' @importFrom gdx readGDX
@@ -18,7 +18,7 @@
 #'
 
 reportAdequacyContribution <- function(gdx) {
-  
+
   # read sets and parameters
   te <- readGDX(gdx,name="te")
   tentra <- readGDX(gdx,name="tentra")
@@ -41,25 +41,25 @@ reportAdequacyContribution <- function(gdx) {
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
   ter_el <- intersect(teel,ter)
-  
+
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
   p_adeq_te <- readGDX(gdx,name="p_adeq_te",field="l",format="first_found") #adequacy factor for each technology
   p_adeq_imp <- readGDX(gdx,name="p_adeq_imp",field="l",format="first_found") #adequacy factor for net imports
-  
+
   # read variables and marginal values
   v_exdemand <- readGDX(gdx,name="v_exdemand",field="l",format="first_found",restore_zeros = FALSE) #demand
-  v_cap <- readGDX(gdx,name="v_cap",field="l",format="first_found",restore_zeros = FALSE)
+  v_cap <- readGDX(gdx,name=c("v_cap","vm_cap"),field="l",format="first_found",restore_zeros = FALSE)
   v_seprodmax <- readGDX(gdx,name="v_seprodmax",field="l",format="first_found",restore_zeros = FALSE)
   v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found",restore_zeros = FALSE)
   v_storeout <- readGDX(gdx,name="v_storeout",field="l",format="first_found",restore_zeros = FALSE)
   v_storein <- readGDX(gdx,name="v_storein",field="l",format="first_found",restore_zeros = FALSE)
   v_capreserve <- readGDX(gdx,name="v_capreserve",field="l",format="first_found",restore_zeros = FALSE)
   m_robuststrategy2 <- readGDX(gdx,name="q_robuststrategy2",field="m",format="first_found",restore_zeros = FALSE)
-  
+
   #Take only certain parameters
   p_tedata_nu <- p_tedata[,,"nu"]
-  
+
   # create MagPie object with iso3 regions
   v_exdemand <- limesMapping(v_exdemand)[,,tau]
   p_tedata_nu <- limesMapping(p_tedata_nu)
@@ -71,7 +71,7 @@ reportAdequacyContribution <- function(gdx) {
   v_storeout <- limesMapping(v_storeout)[,,tau]
   v_storein <- limesMapping(v_storein)[,,tau]
   v_capreserve <- limesMapping(v_capreserve)
-  
+
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >= 2.28) {
     if(length(grep("seel",getNames(v_exdemand))) > 0) {
@@ -79,19 +79,19 @@ reportAdequacyContribution <- function(gdx) {
     } else {
       p_eldemand <- v_exdemand
     }
-    
+
     v_seprod <- v_seprod[,,"seel"]
-    
+
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
     if(c_heating == 1) {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
-      
+
     }
-    
+
   } else {
     p_eldemand <- v_exdemand
   }
-  
+
   if(c_LIMESversion >= 2.37) { #First version with heat storage: Robert's version had it. The official does not
     if(length(grep("heat_sto",getNames(v_storein))) > 0) {
       v_storein_el <- v_storein[,,"seel"]
@@ -100,7 +100,7 @@ reportAdequacyContribution <- function(gdx) {
     } else {
       v_storein_el <- v_storein
     }
-    
+
     if(length(grep("heat_sto",getNames(v_storeout))) > 0) {
       v_storeout_el <- v_storeout[,,"seel"]
       v_storeout_el <- v_storeout_el[,,setdiff(testore,c("heat_sto"))]
@@ -108,28 +108,28 @@ reportAdequacyContribution <- function(gdx) {
     } else {
       v_storeout_el <- v_storeout
     }
-    
+
     #Redefine testore set -> only electricity-related sets make sense in this function
     testore_el <- setdiff(testore,c("heat_sto"))
-    
+
   } else {
     v_storein_el <- v_storein
     v_storeout_el <- v_storeout
-    
+
     #Redefine testore set -> only electricity-related sets make sense in this function
     testore_el <- setdiff(testore,c("heat_sto"))
   }
-  
-  
-  
-  
+
+
+
+
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks
   #Need a magpie variable with regi and year
   taumax <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   taumax <- setNames(taumax, NULL)
   taupeak <- taumax
-  
+
   for (regi2 in getItems(m_robuststrategy2, dim = 1)) {
     for (year2 in getYears(m_robuststrategy2)) { #2010 and 2015 should remain as zeros
       taupeak[regi2,year2,] <- match(as.magpie(apply(p_eldemand[regi2,year2,],1:2,max)),p_eldemand[regi2,year2,])
@@ -138,17 +138,17 @@ reportAdequacyContribution <- function(gdx) {
         taumax[regi2,year2,] <- match(as.magpie(apply(m_robuststrategy2[regi2,year2,],1:2,max)),m_robuststrategy2[regi2,year2,])
     }
   }
-  
+
   #Capacity Adequacy FOR CONVENTIONAL TECHNOLOGIES AND STORAGE
-  
+
   #Need a magpie variable with the same sets as v_cap
   capadeq <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tentra,
                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-  
+
   for (tentra2 in tentra) {
     capadeq[,,tentra2] <- v_cap[,getYears(capadeq),tentra2]*p_tedata_nu[,,tentra2]*as.numeric(p_adeq_te[,,tentra2])
   }
-  
+
   #Contribution of aggregate technologies (most challenging)
   tmp1 <- NULL
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c("tnr")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Nuclear (GW)"))
@@ -162,7 +162,7 @@ reportAdequacyContribution <- function(gdx) {
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c("waste")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Waste (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tehgen)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hydrogen (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(teothers)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Other (GW)"))
-  
+
   #Discard the capacity when there is no marginal value
   for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) { #2010 and 2015 should remain as zeros
@@ -170,7 +170,7 @@ reportAdequacyContribution <- function(gdx) {
         tmp1[regi2,year2,] = 0
     }
   }
-  
+
   #Contribution of aggregate technologies (peak demand)
   tmp2 <- NULL
   names_tmp <- getNames(tmp1)
@@ -188,7 +188,7 @@ reportAdequacyContribution <- function(gdx) {
   #tmp2 <- mbind(tmp2,setNames(dimSums(capadeq[,,c("waste")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Waste (GW)"))
   #tmp2 <- mbind(tmp2,setNames(dimSums(capadeq[,,c("hcc","hct","hfc")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Hydrogen (GW)"))
   #tmp2 <- mbind(tmp2,setNames(dimSums(capadeq[,,c("others")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Other (GW)"))
-  
+
   #Discard the capacity when there is no marginal value
   for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) { #2010 and 2015 should remain as zeros
@@ -196,31 +196,31 @@ reportAdequacyContribution <- function(gdx) {
         tmp2[regi2,year2,] = 0
     }
   }
-  
-  
+
+
   #Capacity Adequacy FOR CONVENTIONAL vRES
-  
+
   #create the variables according to the needed indexes
   capadeq_vres_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = ter_el,
                                                  fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   capadeq_vres_peak <- capadeq_vres_marg
-  
+
   capadeq_stor_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = testore_el,
                                                      fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
-  
+
   demand_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   demand_peak <- demand_marg
-  
+
   netimports_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
   netimports_peak <- netimports_marg
-  
+
   #consider ONLY vRES, imports and demand for the tau in which the marginal value for the robust constraint peaks and when demand peaks
   for (regi2 in getItems(p_eldemand, dim = 1)) {
-    for (year2 in getYears(p_eldemand)) { 
+    for (year2 in getYears(p_eldemand)) {
       if (taupeak[regi2,year2,] == 0) {
         capadeq_vres_peak[regi2,year2,] <- 0
         demand_peak[regi2,year2,] <- 0
@@ -233,7 +233,7 @@ reportAdequacyContribution <- function(gdx) {
         netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
         capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseDim(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
       }
-      
+
       if (taumax[regi2,year2,] == 0) {
         capadeq_vres_marg[regi2,year2,] <- 0
         demand_marg[regi2,year2,] <- 0
@@ -248,22 +248,22 @@ reportAdequacyContribution <- function(gdx) {
       }
     }
   }
-  
+
   #Contribution of vRES (most challenging)
   tmp3 <- NULL
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_marg[,,c("spv","csp")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Solar (GW)"))
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_marg[,,c("windon","windoff")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Wind (GW)"))
-  
+
   #Contribution of vRES (peak demand)
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_peak[,,c("spv","csp")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Solar (GW)"))
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_peak[,,c("windon","windoff")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Wind (GW)"))
-  
+
   #Contribution of storage (most challenging)
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,c(testore_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Storage (GW)"))
-  
+
   #Contribution of storage (peak demand)
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,c(testore_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Storage (GW)"))
-  
+
   #Concatenating variables
   tmp4 <- mbind(tmp1,tmp2,tmp3)
 
@@ -291,7 +291,7 @@ reportAdequacyContribution <- function(gdx) {
   #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(tebio)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass (GW)"))
   #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil (GW)"))
   #tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,c(teoil)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil (GW)"))
-  
+
   varList_el <- list(
     #Most challenging
     "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants (GW)"                  =c(tereserve),
@@ -303,7 +303,7 @@ reportAdequacyContribution <- function(gdx) {
     "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Gas OC (GW)"        =intersect(tereserve,setdiff(tegas,tengcc)),
     "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Biomass (GW)"        =intersect(tereserve,c(tebio)),
     "Capacity Adequacy|Most Challenging|Contribution|Reserve Plants|Oil (GW)"        =intersect(tereserve,c(tebio)),
-    
+
     #Peak demand
     "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants (GW)"                  =c(tereserve),
     "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Hard Coal (GW)"        =intersect(tereserve,c(tecoal)),
@@ -315,15 +315,15 @@ reportAdequacyContribution <- function(gdx) {
     "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Biomass (GW)"        =intersect(tereserve,c(tebio)),
     "Capacity Adequacy|Peak Demand|Contribution|Reserve Plants|Oil (GW)"        =intersect(tereserve,c(tebio))
   )
-  
+
   for (var in names(varList_el)){
     tmp5 <- mbind(tmp5,setNames(dimSums(v_capreserve[,,varList_el[[var]]],dim=3),var))
   }
-  
-  
+
+
   #combine aggregated Capacity Adequacy with brake-down of technologies
   tmp <- mbind(tmp4,tmp5)
 
   return(tmp)
 }
-  
+
