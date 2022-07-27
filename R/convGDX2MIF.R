@@ -37,6 +37,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding fuel costs to report output
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
 
+  #adding capital costs to report output
+  output <- mbind(output,reportCapitalCosts(gdx)[,time,])
+
   #adding electricity generation info to report output
   output <- mbind(output,reportGeneration(gdx,output)[,time,]) #dependent on primary energy and fuel costs
 
@@ -203,7 +206,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   # settings mapping path
   mappingvarsPath <- system.file("extdata","MappingVars.csv",package="limes")
   # reading mapping file
-  mappingvars <- read.csv(mappingvarsPath,sep=";")
+  mappingvars <- read.csv(mappingvarsPath,sep=";", dec = ".")
   #   write the *.mif or give back the magpie opject output
   finalvars <- paste0(as.vector(mappingvars$LIMES)," (",as.vector(mappingvars$UnitLIMES) , ")")
   output <- output[,,intersect(finalvars,getNames(output))]
@@ -310,7 +313,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
     output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
 
     #EU demand for hydrogen (not defined on a region basis)
-    if(sum(output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"]) == 0) {
+    if("Final Energy|Hydrogen|Other sectors (TWh/yr)" %in% getNames(output)) {
       p_demXSe_EU_exo <- readGDX(gdx,name="p_demXSe_EU_exo",field="l",format="first_found")
       output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] <- p_demXSe_EU_exo[,,"pehgen"]/1000
     }

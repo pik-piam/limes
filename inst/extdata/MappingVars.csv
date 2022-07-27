@@ -1231,3 +1231,68 @@ Capacity|Gross|Heat|District Heating|CHP|Other Fossil;Capacity|Gross|Heat|Distri
 Capacity|Gross|Heat|District Heating|CHP|Fossil;Capacity|Gross|Heat|District Heating|CHP|Fossil;GW;GW;1
 Capacity|Gross|Heat|District Heating|CHP|Renewable;Capacity|Gross|Heat|District Heating|CHP|Renewable;GW;GW;1
 Capacity|Gross|Heat|District Heating|CHP|Non-renewable;Capacity|Gross|Heat|District Heating|CHP|Non-renewable;GW;GW;1
+Capital Costs|Electricity|Biomass;Capital Costs|Electricity|Biomass;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Gas CC;Capital Costs|Electricity|Gas CC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Gas OC;Capital Costs|Electricity|Gas OC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hydro;Capital Costs|Electricity|Hydro;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hard Coal;Capital Costs|Electricity|Hard Coal;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Lignite;Capital Costs|Electricity|Lignite;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Nuclear;Capital Costs|Electricity|Nuclear;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Oil;Capital Costs|Electricity|Oil;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Other;Capital Costs|Electricity|Other;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Solar|CSP;Capital Costs|Electricity|Solar|CSP;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Solar|PV;Capital Costs|Electricity|Solar|PV;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Wind|Offshore;Capital Costs|Electricity|Wind|Offshore;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Wind|Onshore;Capital Costs|Electricity|Wind|Onshore;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hydrogen FC;Capital Costs|Electricity|Hydrogen FC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hydrogen OC;Capital Costs|Electricity|Hydrogen OC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hydrogen CC;Capital Costs|Electricity|Hydrogen CC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Hard Coal|w/ CCS;Capital Costs|Electricity|Hard Coal|w/ CCS;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Lignite|w/ CCS;Capital Costs|Electricity|Lignite|w/ CCS;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Biomass|w/ CCS;Capital Costs|Electricity|Biomass|w/ CCS;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Storage|Pump Hydro;Capital Costs|Electricity|Storage|Pump Hydro;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Storage|Stat Batteries;Capital Costs|Electricity|Storage|Stat Batteries;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Storage|Hydrogen electrolysis;Capital Costs|Electricity|Storage|Hydrogen electrolysis;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Waste;Capital Costs|Electricity|Waste;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Gas CC|w/ CCS;Capital Costs|Electricity|Gas CC|w/ CCS;Eur2010/kW;Eur2015/kW;1
+Power Costs|Electricity|Storage|Pump Hydro;Power Costs|Electricity|Storage|Pump Hydro;Eur2010/kW;Eur2015/kW;1
+Power Costs|Electricity|Storage|Stat Batteries;Power Costs|Electricity|Storage|Stat Batteries;Eur2010/kW;Eur2015/kW;1
+Power Costs|Electricity|Storage|Hydrogen electrolysis;Power Costs|Electricity|Storage|Hydrogen electrolysis;Eur2010/kW;Eur2015/kW;1
+Energy Costs|Electricity|Storage|Pump Hydro;Energy Costs|Electricity|Storage|Pump Hydro;Eur2010/kWh;Eur2015/kWh;1
+Energy Costs|Electricity|Storage|Stat Batteries;Energy Costs|Electricity|Storage|Stat Batteries;Eur2010/kWh;Eur2015/kWh;1
+Energy Costs|Electricity|Storage|Hydrogen electrolysis;Energy Costs|Electricity|Storage|Hydrogen electrolysis;Eur2010/kWh;Eur2015/kWh;1
+Capital Costs|Electricity|Electricity-only|Biomass;Capital Costs|Electricity|Electricity-only|Biomass;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Hard Coal;Capital Costs|Electricity|Electricity-only|Hard Coal;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Lignite;Capital Costs|Electricity|Electricity-only|Lignite;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Oil;Capital Costs|Electricity|Electricity-only|Oil;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Gas CC;Capital Costs|Electricity|Electricity-only|Gas CC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Gas OC;Capital Costs|Electricity|Electricity-only|Gas OC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Other;Capital Costs|Electricity|Electricity-only|Other;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|Electricity-only|Waste;Capital Costs|Electricity|Electricity-only|Waste;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Biomass;Capital Costs|Electricity|CHP|Biomass;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Waste;Capital Costs|Electricity|CHP|Waste;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Hard Coal;Capital Costs|Electricity|CHP|Hard Coal;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Lignite;Capital Costs|Electricity|CHP|Lignite;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Oil;Capital Costs|Electricity|CHP|Oil;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Gas CC;Capital Costs|Electricity|CHP|Gas CC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Gas OC;Capital Costs|Electricity|CHP|Gas OC;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Hydrogen;Capital Costs|Electricity|CHP|Hydrogen;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Electricity|CHP|Other;Capital Costs|Electricity|CHP|Other;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Biomass;Capital Costs|Heat|District Heating|Heat-only|Biomass;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Waste;Capital Costs|Heat|District Heating|Heat-only|Waste;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Hard Coal;Capital Costs|Heat|District Heating|Heat-only|Hard Coal;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Lignite;Capital Costs|Heat|District Heating|Heat-only|Lignite;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Oil;Capital Costs|Heat|District Heating|Heat-only|Oil;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Gas;Capital Costs|Heat|District Heating|Heat-only|Gas;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Other;Capital Costs|Heat|District Heating|Heat-only|Other;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Solar;Capital Costs|Heat|District Heating|Heat-only|Solar;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Geothermal;Capital Costs|Heat|District Heating|Heat-only|Geothermal;Eur2010/kW;Eur2015/kW;1
+Power Costs|Heat|Storage;Power Costs|Heat|Storage;Eur2010/kW;Eur2015/kW;1
+Energy Costs|Heat|Storage;Energy Costs|Heat|Storage;Eur2010/kWh;Eur2015/kWh;1
+Capital Costs|Heat|Decentralized|Heat Pump space heating;Capital Costs|Heat|Decentralized|Heat Pump space heating;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|Decentralized|Heat Pump water heating;Capital Costs|Heat|Decentralized|Heat Pump water heating;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|Decentralized|Resistance;Capital Costs|Heat|Decentralized|Resistance;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|Decentralized|Conventional space heater;Capital Costs|Heat|Decentralized|Conventional space heater;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|Decentralized|Conventional water heater;Capital Costs|Heat|Decentralized|Conventional water heater;Eur2010/kW;Eur2015/kW;1
