@@ -78,9 +78,6 @@ Capital Costs|Electricity|Hydrogen CC;Capacity Additions|Electricity|Hydrogen CC
 Capital Costs|Electricity|Hard Coal|w/ CCS;Capacity Additions|Electricity|Hard Coal|w/ CCS
 Capital Costs|Electricity|Lignite|w/ CCS;Capacity Additions|Electricity|Lignite|w/ CCS
 Capital Costs|Electricity|Biomass|w/ CCS;Capacity Additions|Electricity|Biomass|w/ CCS
-Capital Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro
-Capital Costs|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage|Stat Batteries
-Capital Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis
 Capital Costs|Electricity|Waste;Capacity Additions|Electricity|Waste
 Capital Costs|Electricity|Gas CC|w/ CCS;Capacity Additions|Electricity|Gas CC|w/ CCS
 Power Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro
