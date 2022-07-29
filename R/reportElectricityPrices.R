@@ -179,16 +179,26 @@ reportElectricityPrices <- function(gdx) {
   #weighted average marginal values per country (spot prices,  capacity adequacy and RES subsidy)
   #conversion from Geur/GWh -> eur/MWh
   tmp1 <- NULL
-  tmp1 <- mbind(tmp1, setNames(1e6*dimSums(o_elecprices_disc*p_taulength*p_eldemand, dim = 3)/dimSums(p_taulength*p_eldemand, 3), "Price|Secondary Energy|Electricity (Eur2010/MWh)"))
-  tmp1 <- mbind(tmp1, setNames(1e6*dimSums(o_heatprices_disc*p_taulength*p_hedemand, dim = 3)/dimSums(p_taulength*p_hedemand, 3), "Price|Secondary Energy|Heat (Eur2010/MWh)"))
-  tmp1 <- mbind(tmp1, setNames(1e6*dimSums((o_fullelecprices_disc - o_elecprices_disc)*p_taulength*p_eldemand, dim = 3)/dimSums(p_taulength*p_eldemand, 3), "Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
+  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_elecprices_disc * p_taulength * p_eldemand, dim = 3)
+                               /dimSums(p_taulength * p_eldemand, 3),
+                               "Price|Secondary Energy|Electricity (Eur2010/MWh)"))
+  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
+                               /dimSums(p_taulength * p_hedemand, 3),
+                               "Price|Secondary Energy|Heat (Eur2010/MWh)"))
+  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums((o_fullelecprices_disc - o_elecprices_disc) * p_taulength * p_eldemand, dim = 3)
+                               /dimSums(p_taulength * p_eldemand, 3),
+                               "Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
 
 
   #weighted average marginal values per country (spot+capacity adequacy)
   #conversion from Geur/GWh -> eur/MWh
   tmp2 <- NULL
-  tmp2 <- mbind(tmp2, setNames(1e6*dimSums(o_fullelecprices_disc*p_taulength*p_eldemand, dim = 3)/dimSums(p_taulength*p_eldemand, 3), "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
-  tmp2 <- mbind(tmp2, setNames(1e6*dimSums(o_fullheprices_disc*p_taulength*p_hedemand, dim = 3)/dimSums(p_taulength*p_hedemand, 3), "Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
+  tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullelecprices_disc * p_taulength * p_eldemand, dim = 3)
+                               /dimSums(p_taulength * p_eldemand, 3),
+                               "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
+  tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
+                               /dimSums(p_taulength * p_hedemand, 3),
+                               "Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
 
 
   # add global values
