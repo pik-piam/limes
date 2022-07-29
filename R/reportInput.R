@@ -89,7 +89,7 @@ reportInput <- function(gdx, mappingPath = NULL) {
   # read parameters
   p_incoall <- readGDX(gdx, name = "p_incoall", field = "l", format = "first_found") #investment costs for power capacity
   p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found") #technology data
-  p_emifac <- readGDX(gdx, name = "p_emifac", field = "l", format = "first_found") #emissions factors
+  p_emifac <- readGDX(gdx, name = c("p30_emifac","p_emifac"), field = "l", format = "first_found") #emissions factors
   p_incostall <- readGDX(gdx, name = "p_incostall", field = "l", format = "first_found") #investment costs for reservoir capacity
 
   # create MagPie object of demand with iso3 regions
