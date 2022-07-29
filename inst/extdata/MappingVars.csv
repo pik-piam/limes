@@ -1250,9 +1250,6 @@ Capital Costs|Electricity|Hydrogen CC;Capital Costs|Electricity|Hydrogen CC;Eur2
 Capital Costs|Electricity|Hard Coal|w/ CCS;Capital Costs|Electricity|Hard Coal|w/ CCS;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Electricity|Lignite|w/ CCS;Capital Costs|Electricity|Lignite|w/ CCS;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Electricity|Biomass|w/ CCS;Capital Costs|Electricity|Biomass|w/ CCS;Eur2010/kW;Eur2015/kW;1
-Capital Costs|Electricity|Storage|Pump Hydro;Capital Costs|Electricity|Storage|Pump Hydro;Eur2010/kW;Eur2015/kW;1
-Capital Costs|Electricity|Storage|Stat Batteries;Capital Costs|Electricity|Storage|Stat Batteries;Eur2010/kW;Eur2015/kW;1
-Capital Costs|Electricity|Storage|Hydrogen electrolysis;Capital Costs|Electricity|Storage|Hydrogen electrolysis;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Electricity|Waste;Capital Costs|Electricity|Waste;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Electricity|Gas CC|w/ CCS;Capital Costs|Electricity|Gas CC|w/ CCS;Eur2010/kW;Eur2015/kW;1
 Power Costs|Electricity|Storage|Pump Hydro;Power Costs|Electricity|Storage|Pump Hydro;Eur2010/kW;Eur2015/kW;1
