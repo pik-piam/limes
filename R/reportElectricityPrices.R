@@ -33,23 +33,12 @@ reportElectricityPrices <- function(gdx) {
   # read variables and make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
   v_exdemand <- readGDX(gdx, name = "v_exdemand", field = "l", format = "first_found", restore_zeros  =  FALSE)[, , tau] #demand
   m_sebal <- readGDX(gdx, name = "q_sebal", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
-  #m_elecprices <- m_sebal[, , "seel"]
-  #m_heatprices <- m_sebal[, , "sehe"]
   m_robuststrategy2 <- readGDX(gdx, name = "q_robuststrategy2", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
-  #v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found")[, , tau]
-  #v_seprod <- v_seprod[, , pety]
-  #v_storeout <- readGDX(gdx, name = "v_storeout", field = "l", format = "first_found")[, , tau]
-  #v_storein <- readGDX(gdx, name = "v_storein", field = "l", format = "first_found")[, , tau]
-
 
   # create MagPie object of m_elecprices with iso3 regions
   m_sebal <- limesMapping(m_sebal) #[Geur/GWh]
-  #m_elecprices <- limesMapping(m_elecprices) #[Geur/GWh]
   m_robuststrategy2 <- limesMapping(m_robuststrategy2) #[Geur/GWh]
   v_exdemand <- limesMapping(v_exdemand) #[GWh]
-  #v_seprod <- limesMapping(v_seprod) #[GWh]
-  #v_storeout <- limesMapping(v_storeout) #[GWh]
-  #v_storein <- limesMapping(v_storein) #[GWh]
 
 
   #Initialize heating price
@@ -121,18 +110,6 @@ reportElectricityPrices <- function(gdx) {
   # calculate marginal value per tau
   m_elecprices <- collapseDim(m_elecprices, dim  = 3.2)/p_taulength
   m_fullelecprices <- collapseDim(m_fullelecprices, dim  = 3.2)/p_taulength
-
-
-  ##Create variables to allocate marginal values
-  #o_fullelecprices <- new.magpie(cells_and_regions  =  getRegions(m_robuststrategy2),  years  =  getYears(m_robuststrategy2),  names  =  tau,
-  #                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
-  #o_fullheprices <- new.magpie(cells_and_regions  =  getRegions(m_robuststrategy2),  years  =  getYears(m_robuststrategy2),  names  =  tau,
-  #                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
-  #
-  #for (t2 in getYears(m_fullelecprices)) {
-  #  o_fullelecprices[, t2, ] <- m_fullelecprices[, t2, ]
-  #  o_fullheprices[, t2, ] <- m_fullheprices[, t2, ]
-  #}
 
   #compute factor to discount average marginal values
   f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
@@ -206,11 +183,6 @@ reportElectricityPrices <- function(gdx) {
 
   #CONSUMER AND PRODUCER SURPLUS CALCULATIONS
   tmp4 <- NULL
-  ##Consumer
-  #o_fullelecpricesyear_disc <- setNames(tmp2[, , "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"], NULL) #[Eur 2010/MWh]
-  ##Consumer costs: electricity price + subsidy
-  #tmp4 <- mbind(tmp4, setNames((o_fullelecpricesyear_disc*dimSums(p_taulength*p_eldemand, dim = 3))/1e6, "Consumer costs|Secondary Energy|Electricity (billion eur2010/yr)"))
-  #
 
 
   ##PRODUCER
@@ -239,13 +211,6 @@ reportElectricityPrices <- function(gdx) {
   tengcc_el <- intersect(tengcc, teel)
 
   #Load variables
-  #v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found")[, , tau]
-  #v_seprod <- v_seprod[, , pety]
-  #v_storeout <- readGDX(gdx, name = "v_storeout", field = "l", format = "first_found")[, , tau]
-  #v_storein <- readGDX(gdx, name = "v_storein", field = "l", format = "first_found")[, , tau]
-  #v_deltacap <- readGDX(gdx, name = "v_deltacap", field = "l", format = "first_found")
-  #p_omeg <- readGDX(gdx, name = "p_omeg", field = "l", format = "first_found")
-  #v_disinvest <- readGDX(gdx, name = "v_disinvest", field = "l", format = "first_found")
   if(c_LIMESversion  ==  2.36) {
     p_plantshortrunprofit <- readGDX(gdx, name = "p_plantshortrunprofit", field = "l", format = "first_found") #Short run profits [eur]
     p_plantshortrunprofit_w_fix <- readGDX(gdx, name = "p_plantshortrunprofit_w_fix", field = "l", format = "first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
@@ -317,82 +282,13 @@ reportElectricityPrices <- function(gdx) {
 
     tmp4 <- NULL
     for (var in names(varList_el)){
-      #revenues <- mbind(revenues, dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3))*p_taulength*o_fullelecprices_disc, dim = 3))
-      #tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3, 3.4))*p_taulength*o_fullelecprices_disc, dim = 3), paste0("Revenues|Electricity", var, "(billion eur2010/yr)")))
       tmp4 <- mbind(tmp4, setNames(dimSums(p_plantrevenues[, , varList_el[[var]]], dim = 3)/1e9, paste0("Revenues|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
       tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit_w_fix[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits [w adeq rev/fix costs]|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
-      #tmp4 <- mbind(tmp4, setNames(dimSums(p_plantprofit_t[, , varList_el[[var]]], dim = 3)/1e9, paste0("Profits plants built in t|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+
     }
 
-    #tmp4 <- mbind(tmp4, setNames(o_subsidRES_disc*1e6, "Subsidy for RES (Eur2010/MWh RES)")) #convert [eur/GWh RES] to [eur/MWh RES] - per unit of RES generated
-    #tmp4 <- mbind(tmp4, setNames(p_prodsubsidycosts/(dimSums(p_taulength*p_eldemand, 3)*1000), "Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)")) #convert eur/GWh to eur/MWh - per unit of demand
-    #tmp4 <- mbind(tmp4, setNames(p_prodsubsidycosts/1e9, "Subsidy costs|Electricity (billion eur2010/yr)")) #convert eur to billion eur
-
   }
-
-  # create MagPie object of m_elecprices with iso3 regions
-  #v_seprod <- limesMapping(v_seprod) #[GWh]
-  #v_seprod_el <- v_seprod[, , "seel"]
-  #v_storeout <- limesMapping(v_storeout) #[GWh]
-  #v_storein <- limesMapping(v_storein) #[GWh]
-  #v_deltacap <- limesMapping(v_deltacap) #[GW]
-  #v_disinvest <- limesMapping(v_disinvest) #[GW]
-
-
-  ##need to add the year 2010 to v_disinvest (depending on the scenario)
-  #if (length(getYears(v_disinvest)) < length(t)) {
-  #  for (t2 in setdiff(t, getYears(v_disinvest))) {
-  #    tmp<- v_disinvest[, 1, ]*0
-  #    getYears(tmp)<- t2
-  #    v_disinvest<-mbind(tmp, v_disinvest)
-  #  }
-  #}
-
-
-
-
-  #STILL NEED TO ADD ALL THE EQUATIONS RELATED TO SHARES OF RES!!!!!
-
-  #Report subsidies -> conversion from Geur/GWh -> eur/MWh
-  #tmp4 <- mbind(tmp4, setNames(o_subsidRES_disc*dimSums(dimSums(v_seprod_el[, , intersect(teel, c(ter, ternofluc))], dim = c(3.2, 3.3, 3.4))*p_taulength, dim = 3)*1e6/(dimSums(p_taulength*p_eldemand, 3)), "Price|Secondary Energy|Electricity|Other fees|RES subsidy (Eur2010/MWh)"))
-  #tmp4 <- mbind(tmp4, setNames(o_subsidRES_disc*dimSums(dimSums(v_seprod_el[, , intersect(teel, c(ter, ternofluc))], dim = c(3.2, 3.3, 3.4))*p_taulength, dim = 3), "Subsidy costs|Electricity (billion eur2010/yr)"))
-
-
-
-
-  ##Create a set of combined sets (t, te),  for the
-  #a <- expand.grid(getYears(v_seprod_el), te)
-  #combset <- apply(a,  1,  paste,  collapse = ".")
-  ##capacity built in t (in 'name') that is still available in t ('year')
-  #o_plantinst_t <- new.magpie(cells_and_regions  =  getRegions(v_seprod_el),  years  =  getYears(v_seprod_el),  names  =  combset,
-  #                            fill  =  0,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
-  #
-  #for (year_built in getYears(o_plantinst_t)) {
-  #  for (year_avail in getYears(o_plantinst_t)) {
-  #    years_operation <- which(getYears(o_plantinst_t)  =  =  year_avail) - which(getYears(o_plantinst_t)  =  =  year_built)
-  #    if(years_operation > =  0) {
-  #      o_plantinst_t[, year_avail, c(year_built)] <- (p_omeg[, , as.character(years_operation/p_ts+1)]*0+1)*(v_deltacap[, year_built, ])
-  #    }
-  #  }
-  #}
-
-  ##Initializing tau-dependent variables
-  #v_seprod_el_tau<-p_eldemand*0
-  #v_storeout_tau<-p_eldemand*0
-  #v_storein_tau<-p_eldemand*0
-  ##Sum for each tau
-  #for (tau2 in tau) {
-  #  v_seprod_el_tau[, , tau2] <- dimSums(v_seprod_el[, , tau2], 3)
-  #  v_storeout_tau[, , tau2] <- dimSums(v_storeout[, , tau2], 3)
-  #  v_storein_tau[, , tau2] <- dimSums(v_storein[, , tau2], 3)
-  #}
-  #
-  #tmp4 <- mbind(tmp4, setNames(dimSums(o_fullelecprices_disc*(v_seprod_el_tau+v_storeout_tau-v_storein_tau)*p_taulength, dim = 3)/1e6, "Producer revenues|Secondary Energy|Electricity (billion eur2010/yr)"))
-  #tmp4 <- mbind(tmp4, setNames(dimSums(o_fullelecprices_disc*(v_seprod_el_tau)*p_taulength, dim = 3)/1e6, "Producer revenues|Secondary Energy|Electricity|Generation (billion eur2010/yr)"))
-  #tmp4 <- mbind(tmp4, setNames(dimSums(o_fullelecprices_disc*(v_storeout_tau)*p_taulength, dim = 3), "Producer revenues|Secondary Energy|Electricity|Storage (billion eur2010/yr)"))
-  #tmp4 <- mbind(tmp4, setNames(dimSums(o_fullelecprices_disc*(v_storein_tau)*p_taulength, dim = 3), "Energy costs|Secondary Energy|Electricity|Storage (billion eur2010/yr)"))
-
 
   # add global values
   tmp <- mbind(tmp3, tmp4)
