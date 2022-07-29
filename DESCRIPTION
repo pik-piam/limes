@@ -1,20 +1,22 @@
-Package: limes
 Type: Package
+Package: limes
 Title: The liMES R package
 Version: 2.32.2
 Date: 2022-07-27
-Authors@R: as.person(c("Sebastian Osorio <sebastian.osorio@pik-potsdam.de> [aut,cre]"))
-Description: Contains the LIMES-specific routines for data and model output manipulation.
+Authors@R: 
+    person("Sebastian", "Osorio", , "sebastian.osorio@pik-potsdam.de", role = c("aut", "cre"))
+Description: Contains the LIMES-specific routines for data and model
+    output manipulation.
+License: LGPL-3
 Depends:
-    gdx(>= 1.29),
-    magclass(>= 3.37)
+    gdx (>= 1.29),
+    magclass (>= 3.37)
 Imports:
     luscale,
-    utils,
-    stringr
+    stringr,
+    utils
 Suggests: 
     covr,
     testthat
-License: LGPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.1
