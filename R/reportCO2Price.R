@@ -167,7 +167,13 @@ reportCO2Price <- function(gdx) {
     m_emiconstcum_regi <- limesMapping(m_emiconstcum_regi)
     m_emiconstcum_regi <- limesAllocateYears(m_emiconstcum_regi, gdx)
     for (t2 in c(1:length(tt))) {
-    o_marg_emicapcum_regi  =  mbind(o_marg_emicapcum_regi, (1/s_c2co2)*(-m_emiconstcum_regi[, t2, ]*p_ts/f_npv[t2])) #the f_npv considers the parameter p_ts,  but emicapcumscen_regi is a constraint for the 5 years
+    #the f_npv considers the parameter p_ts,  but emicapcumscen_regi is a constraint for the 5 years
+    o_marg_emicapcum_regi  =  mbind(o_marg_emicapcum_regi,
+                                    (1 / s_c2co2)
+                                    * (- m_emiconstcum_regi[, t2, ]
+                                       * p_ts/f_npv[t2]
+                                    )
+    )
     }
     o_marg_emicapcum_regi[, c(2010, 2015), ]<-0 #Ensuring the values for 2010 and 2015 are zero
     } else
@@ -255,7 +261,8 @@ reportCO2Price <- function(gdx) {
     #Unilateral cancellation
     o_selfcancelEUA_regi <- setNames(o_co2price_ETS*0,  NULL)
     if(length(regi_cancEUA) > 0) {
-      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled*p_shareEUA_auct[regi_cancEUA, , ]/dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
+      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * p_shareEUA_auct[regi_cancEUA, , ]
+                                                / dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
     }
     if(c_LIMESversion <=  2.30) {
       tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
