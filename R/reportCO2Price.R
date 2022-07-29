@@ -261,8 +261,7 @@ reportCO2Price <- function(gdx) {
     #Unilateral cancellation
     o_selfcancelEUA_regi <- setNames(o_co2price_ETS*0,  NULL)
     if(length(regi_cancEUA) > 0) {
-      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * p_shareEUA_auct[regi_cancEUA, , ]
-                                                / dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
+      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * p_shareEUA_auct[regi_cancEUA, , ] / dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
     }
     if(c_LIMESversion <=  2.30) {
       tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
