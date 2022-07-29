@@ -1,7 +1,7 @@
 {
   "title": "limes: The liMES R package",
-  "version": "2.32.2",
-  "description": "<p>Contains the LIMES-specific routines for data and model output manipulation.<\/p>",
+  "version": "2.32.3",
+  "description": "<p>Contains the LIMES-specific routines for data and model\n    output manipulation.<\/p>",
   "creators": [
     {
       "name": "Osorio, Sebastian"
