@@ -9,7 +9,7 @@
 #' @param reporting_tau boolean determining whether to provide the generation
 #'  reporting at the time slice level (TRUE) or at the yearly level (FALSE, default)
 #' @return MAgPIE object - contains the Generation variables
-#' @author Sebastian Osorio, Renato Rodrigues
+#' @author Sebastian Osorio, Renato Rodrigues, Antoine Levesque
 #' @seealso \code{\link{convGDX2MIF}}
 #' @examples
 #' \dontrun{

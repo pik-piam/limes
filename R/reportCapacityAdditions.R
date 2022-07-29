@@ -6,7 +6,7 @@
 #'
 #' @param gdx a GDX object as created by readGDX, or the path to a gdx
 #' @return MAgPIE object - contains the capacity variables
-#' @author Sebastian Osorio, Renato Rodrigues
+#' @author Sebastian Osorio
 #' @seealso \code{\link{convGDX2MIF}}
 #' @examples
 #'
