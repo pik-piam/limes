@@ -34,30 +34,9 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
     }
   }
 
-  # reading mapping file
-  mappingPath <- system.file("extdata","MappingVars.csv",package="limes")
-  mapping_vars <- read.csv(mappingPath,sep=";")
-
   #Load the data (output)
   var<-output
   var_names <- getNames(var)
-
-  ##Find the position of the desired variables in mapping variable list to add the units
-  #posint_tmp <- match(mapping_int2ext$int,mapping_vars$LIMES)
-  #posext_tmp <- match(mapping_int2ext$ext,mapping_vars$LIMES)
-  ##Make sure that only variables where corresponding "weighter" are kept
-  #pos_tmp <- intersect(which(!is.na(posint_tmp)),which(!is.na(posext_tmp)))
-  #posint_tmp <- posint_tmp[pos_tmp]
-  #posext_tmp <- posext_tmp[pos_tmp]
-  ##Concatenate the names of the intensive and extensive variables
-  #int_tmp <- paste0(mapping_vars$LIMES[posint_tmp]," (",mapping_vars$UnitLIMES[posint_tmp],")")
-  #ext_tmp <- paste0(mapping_vars$LIMES[posext_tmp]," (",mapping_vars$UnitLIMES[posext_tmp],")")
-  ##Check if the variables (intensive and corresponding extensive) were previously calculated (output)
-  #pos_int <- match(int_tmp, var_names)
-  #pos_ext <- match(ext_tmp, var_names)
-  #pos_tmp2 <- intersect(which(!is.na(pos_int)),which(!is.na(pos_ext)))
-  #int_tmp2 <- int_tmp[pos_tmp2]
-  #ext_tmp2 <- ext_tmp[pos_tmp2]
 
   #Keep only names in var_names, i.e., delete units
   var_names_tmp <- gsub(" [(].*", "", var_names)
@@ -83,7 +62,11 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
                            "EU28" = setdiff(getItems(var, dim = 1), c("CHE","NOR","BAL")),
                            "EUETS" = setdiff(getItems(var, dim = 1), c("CHE","BAL")))
 
-  tmp_RegAgg <- new.magpie(cells_and_regions = names(regionSubsetList), years = getYears(var), names = int, fill=0)
+  tmp_RegAgg <- new.magpie(cells_and_regions = names(regionSubsetList),
+                           years = getYears(var),
+                           names = int,
+                           fill=0)
+
   #Initialize the weighted intensive variables in case they cannot be calculated later (lack of the extensive variable used to weight it)
   tmp_RegAgg[,,int] <- NA
 
@@ -102,8 +85,6 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
                                 )
       tmp_RegAgg[region,,int] <- tmp_RegAgg_ie2[region,,int]
     }
-
-    #tmp_RegAgg[is.na(tmp_RegAgg)] <- 0  # tmp is NA if weight is zero for all regions within the GLO or the specific region aggregation. Therefore, we replace all NAs with zeros.
 
   }
 
