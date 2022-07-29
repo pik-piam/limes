@@ -59,3 +59,65 @@ Discharge duration|Pump Hydro;0
 Discharge duration|Stat Batteries;0
 Discharge duration|Hydrogen electrolysis;0
 Subsidy for RES;Secondary Energy|Electricity|Renewable
+Capital Costs|Electricity|Biomass;Capacity Additions|Electricity|Biomass
+Capital Costs|Electricity|Gas CC;Capacity Additions|Electricity|Gas CC
+Capital Costs|Electricity|Gas OC;Capacity Additions|Electricity|Gas OC
+Capital Costs|Electricity|Hydro;Capacity Additions|Electricity|Hydro
+Capital Costs|Electricity|Hard Coal;Capacity Additions|Electricity|Hard Coal
+Capital Costs|Electricity|Lignite;Capacity Additions|Electricity|Lignite
+Capital Costs|Electricity|Nuclear;Capacity Additions|Electricity|Nuclear
+Capital Costs|Electricity|Oil;Capacity Additions|Electricity|Oil
+Capital Costs|Electricity|Other;Capacity Additions|Electricity|Other
+Capital Costs|Electricity|Solar|CSP;Capacity Additions|Electricity|Solar|CSP
+Capital Costs|Electricity|Solar|PV;Capacity Additions|Electricity|Solar|PV
+Capital Costs|Electricity|Wind|Offshore;Capacity Additions|Electricity|Wind|Offshore
+Capital Costs|Electricity|Wind|Onshore;Capacity Additions|Electricity|Wind|Onshore
+Capital Costs|Electricity|Hydrogen FC;Capacity Additions|Electricity|Hydrogen FC
+Capital Costs|Electricity|Hydrogen OC;Capacity Additions|Electricity|Hydrogen OC
+Capital Costs|Electricity|Hydrogen CC;Capacity Additions|Electricity|Hydrogen CC
+Capital Costs|Electricity|Hard Coal|w/ CCS;Capacity Additions|Electricity|Hard Coal|w/ CCS
+Capital Costs|Electricity|Lignite|w/ CCS;Capacity Additions|Electricity|Lignite|w/ CCS
+Capital Costs|Electricity|Biomass|w/ CCS;Capacity Additions|Electricity|Biomass|w/ CCS
+Capital Costs|Electricity|Waste;Capacity Additions|Electricity|Waste
+Capital Costs|Electricity|Gas CC|w/ CCS;Capacity Additions|Electricity|Gas CC|w/ CCS
+Power Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro
+Power Costs|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage|Stat Batteries
+Power Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis
+Energy Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro
+Energy Costs|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries
+Energy Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis
+Capital Costs|Electricity|Electricity-only|Biomass;Capacity Additions|Electricity|Electricity-only|Biomass
+Capital Costs|Electricity|Electricity-only|Hard Coal;Capacity Additions|Electricity|Electricity-only|Hard Coal
+Capital Costs|Electricity|Electricity-only|Lignite;Capacity Additions|Electricity|Electricity-only|Lignite
+Capital Costs|Electricity|Electricity-only|Oil;Capacity Additions|Electricity|Electricity-only|Oil
+Capital Costs|Electricity|Electricity-only|Gas CC;Capacity Additions|Electricity|Electricity-only|Gas CC
+Capital Costs|Electricity|Electricity-only|Gas OC;Capacity Additions|Electricity|Electricity-only|Gas OC
+Capital Costs|Electricity|Electricity-only|Other;Capacity Additions|Electricity|Electricity-only|Other
+Capital Costs|Electricity|Electricity-only|Waste;Capacity Additions|Electricity|Electricity-only|Waste
+Capital Costs|Electricity|CHP|Biomass;Capacity Additions|Electricity|CHP|Biomass
+Capital Costs|Electricity|CHP|Waste;Capacity Additions|Electricity|CHP|Waste
+Capital Costs|Electricity|CHP|Hard Coal;Capacity Additions|Electricity|CHP|Hard Coal
+Capital Costs|Electricity|CHP|Lignite;Capacity Additions|Electricity|CHP|Lignite
+Capital Costs|Electricity|CHP|Oil;Capacity Additions|Electricity|CHP|Oil
+Capital Costs|Electricity|CHP|Gas CC;Capacity Additions|Electricity|CHP|Gas CC
+Capital Costs|Electricity|CHP|Gas OC;Capacity Additions|Electricity|CHP|Gas OC
+Capital Costs|Electricity|CHP|Hydrogen;Capacity Additions|Electricity|CHP|Hydrogen
+Capital Costs|Electricity|CHP|Other;Capacity Additions|Electricity|CHP|Other
+Capital Costs|Heat|District Heating|Heat-only|Biomass;Capacity Additions|Gross|Heat|District Heating|Heat-only|Biomass
+Capital Costs|Heat|District Heating|Heat-only|Waste;Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste
+Capital Costs|Heat|District Heating|Heat-only|Hard Coal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Hard Coal
+Capital Costs|Heat|District Heating|Heat-only|Lignite;Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite
+Capital Costs|Heat|District Heating|Heat-only|Oil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil
+Capital Costs|Heat|District Heating|Heat-only|Gas;Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas
+Capital Costs|Heat|District Heating|Heat-only|Other;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other
+Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Capacity Additions|Gross|Heat|District Heating|Heat-only|Heat Pump
+Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electric Boiler
+Capital Costs|Heat|District Heating|Heat-only|Solar;Capacity Additions|Gross|Heat|District Heating|Heat-only|Solar
+Capital Costs|Heat|District Heating|Heat-only|Geothermal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Geothermal
+Power Costs|Heat|Storage;Capacity Additions|Heat|Storage
+Energy Costs|Heat|Storage;Capacity Additions|Heat|Storage Reservoir
+Capital Costs|Heat|Decentralized|Heat Pump space heating;Capacity Additions|Heat|Decentralized|Heat Pump space heating
+Capital Costs|Heat|Decentralized|Heat Pump water heating;Capacity Additions|Heat|Decentralized|Heat Pump water heating
+Capital Costs|Heat|Decentralized|Resistance;Capacity Additions|Heat|Decentralized|Resistance
+Capital Costs|Heat|Decentralized|Conventional space heater;Capacity Additions|Heat|Decentralized|Conventional space heater
+Capital Costs|Heat|Decentralized|Conventional water heater;Capacity Additions|Heat|Decentralized|Conventional water heater

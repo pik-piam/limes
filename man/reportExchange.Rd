@@ -2,18 +2,18 @@
 % Please edit documentation in R/reportExchange.R
 \name{reportExchange}
 \alias{reportExchange}
-\title{Read in GDX and calculate electricity exchange, value of exchange and aggregated transmission capacites, used in convGDX2MIF.R for the reporting}
+\title{Read in GDX and calculate electricity exchange,  value of exchange and aggregated transmission capacites,  used in convGDX2MIF.R for the reporting}
 \usage{
 reportExchange(gdx)
 }
 \arguments{
-\item{gdx}{a GDX object as created by readGDX, or the path to a gdx}
+\item{gdx}{a GDX object as created by readGDX,  or the path to a gdx}
 }
 \value{
 MAgPIE object - contains the capacity variables
 }
 \description{
-Read in electricity exchange data from GDX file, information used in convGDX2MIF.R
+Read in electricity exchange data from GDX file,  information used in convGDX2MIF.R
 for the reporting
 }
 \examples{
@@ -25,5 +25,5 @@ for the reporting
 \code{\link{convGDX2MIF}}
 }
 \author{
-Sebastian Osorio, Renato Rodrigues
+Sebastian Osorio,  Renato Rodrigues
 }

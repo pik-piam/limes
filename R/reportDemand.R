@@ -30,7 +30,7 @@ reportDemand <- function(gdx, output = NULL) {
   te <- readGDX(gdx, name = "te") # set of technologies
 
   # Loading parameters and variables
-  p_taulength <- readGDX(gdx, name = c("p_taulength","pm_taulength"), field = "l", format = "first_found", restore_zeros = FALSE) # number of hours/year per tau
+  p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # number of hours/year per tau
   v_exdemand <- readGDX(gdx, name = "v_exdemand", field = "l", format = "first_found", restore_zeros = FALSE) # demand
 
   # Make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file

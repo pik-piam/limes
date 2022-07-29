@@ -2,12 +2,12 @@
 % Please edit documentation in R/reportInput.R
 \name{reportInput}
 \alias{reportInput}
-\title{Read in GDX and calculate availability factors, used in convGDX2MIF.R for the reporting}
+\title{Read in GDX and calculate availability factors,  used in convGDX2MIF.R for the reporting}
 \usage{
 reportInput(gdx, mappingPath = NULL)
 }
 \arguments{
-\item{gdx}{a GDX object as created by readGDX, or the path to a gdx}
+\item{gdx}{a GDX object as created by readGDX,  or the path to a gdx}
 
 \item{mappingPath}{path to mapping file}
 }
@@ -15,7 +15,7 @@ reportInput(gdx, mappingPath = NULL)
 MAgPIE object - contains the availability factors
 }
 \description{
-Read in availability factors information from GDX file, information used in convGDX2MIF.R
+Read in availability factors information from GDX file,  information used in convGDX2MIF.R
 for the reporting
 }
 \examples{
@@ -27,5 +27,5 @@ for the reporting
 \code{\link{convGDX2MIF}}
 }
 \author{
-Sebastian Osorio, Renato Rodrigues
+Sebastian Osorio,  Renato Rodrigues
 }

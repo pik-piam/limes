@@ -45,7 +45,7 @@ reportCapacity <- function(gdx) {
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
 
   # read variables
-  v_cap <- readGDX(gdx, name = c("v_cap","vm_cap"), field = "l", format = "first_found")
+  v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found")
   v_capreserve <- readGDX(gdx, name = "v_capreserve", field = "l", format = "first_found")
 
   # create MagPie object of v_cap with iso3 regions
@@ -131,7 +131,6 @@ reportCapacity <- function(gdx) {
 
     if(c_heating  ==  1) {
       #load some required sets
-      tedh <- readGDX(gdx, name = "tedh") #set of District Heating generation technologies
       techp <- readGDX(gdx, name = "techp")
       tedhelec <- readGDX(gdx, name = "tedhelec") #set of electric District Heating generation technologies
       teohecen <- readGDX(gdx, name = "teohecen") #set of centralized only-heating generation technologies
@@ -150,22 +149,22 @@ reportCapacity <- function(gdx) {
 
       varList_el <- list(
         #2.a) CHP
-        "Capacity|Electricity|CHP (TWh/yr)"                = c(techp),
-        "Capacity|Electricity|CHP|Biomass (TWh/yr)"        = intersect(techp, tebio),
-        "Capacity|Electricity|CHP|Waste (TWh/yr)"          = intersect(techp, tewaste),
-        "Capacity|Electricity|CHP|Coal (TWh/yr)"           = intersect(techp, c(tecoal, telig)),
-        "Capacity|Electricity|CHP|Hard Coal (TWh/yr)"      = intersect(techp, c(tecoal)),
-        "Capacity|Electricity|CHP|Lignite (TWh/yr)"        = intersect(techp, c(telig)),
-        "Capacity|Electricity|CHP|Oil (TWh/yr)"            = intersect(techp, c(teoil)),
-        "Capacity|Electricity|CHP|Gas (TWh/yr)"            = intersect(techp, c(tegas)),
-        "Capacity|Electricity|CHP|Gas CC (TWh/yr)"         = intersect(techp, c(tengcc_el)),
-        "Capacity|Electricity|CHP|Gas OC (TWh/yr)"         = intersect(techp, setdiff(tegas_el, tengcc_el)),
-        "Capacity|Electricity|CHP|Hydrogen (TWh/yr)"       = intersect(techp, tehgen),
-        "Capacity|Electricity|CHP|Other (TWh/yr)"          = intersect(techp, c(teothers)),
-        "Capacity|Electricity|CHP|Other Fossil (TWh/yr)"   = intersect(techp, c(teothers, tewaste, teoil)),
-        "Capacity|Electricity|CHP|Fossil (TWh/yr)"         = intersect(techp, c(tefossil)),
-        "Capacity|Electricity|CHP|Renewable (TWh/yr)"      = intersect(techp, c(ter, ternofluc)),
-        "Capacity|Electricity|CHP|Non-renewable (TWh/yr)"  = intersect(techp, tenr)
+        "Capacity|Electricity|CHP (GW)"                = c(techp),
+        "Capacity|Electricity|CHP|Biomass (GW)"        = intersect(techp, tebio),
+        "Capacity|Electricity|CHP|Waste (GW)"          = intersect(techp, tewaste),
+        "Capacity|Electricity|CHP|Coal (GW)"           = intersect(techp, c(tecoal, telig)),
+        "Capacity|Electricity|CHP|Hard Coal (GW)"      = intersect(techp, c(tecoal)),
+        "Capacity|Electricity|CHP|Lignite (GW)"        = intersect(techp, c(telig)),
+        "Capacity|Electricity|CHP|Oil (GW)"            = intersect(techp, c(teoil)),
+        "Capacity|Electricity|CHP|Gas (GW)"            = intersect(techp, c(tegas)),
+        "Capacity|Electricity|CHP|Gas CC (GW)"         = intersect(techp, c(tengcc_el)),
+        "Capacity|Electricity|CHP|Gas OC (GW)"         = intersect(techp, setdiff(tegas_el, tengcc_el)),
+        "Capacity|Electricity|CHP|Hydrogen (GW)"       = intersect(techp, tehgen),
+        "Capacity|Electricity|CHP|Other (GW)"          = intersect(techp, c(teothers)),
+        "Capacity|Electricity|CHP|Other Fossil (GW)"   = intersect(techp, c(teothers, tewaste, teoil)),
+        "Capacity|Electricity|CHP|Fossil (GW)"         = intersect(techp, c(tefossil)),
+        "Capacity|Electricity|CHP|Renewable (GW)"      = intersect(techp, c(ter, ternofluc)),
+        "Capacity|Electricity|CHP|Non-renewable (GW)"  = intersect(techp, tenr)
       )
 
       for (var in names(varList_el)){
@@ -174,33 +173,33 @@ reportCapacity <- function(gdx) {
 
       varList_el <- list(
         #2.b) Electricity-only
-        "Capacity|Electricity|Electricity-only (TWh/yr)"                   = c(teoel),
-        "Capacity|Electricity|Electricity-only|Biomass (TWh/yr)"           = intersect(teoel, tebio),
-        "Capacity|Electricity|Electricity-only|Biomass|w/o CCS (TWh/yr)"   = intersect(teoel, setdiff(tebio, teccs)),
-        "Capacity|Electricity|Electricity-only|Coal (TWh/yr)"              = intersect(teoel, c(tecoal, telig)),
-        "Capacity|Electricity|Electricity-only|Coal|w/o CCS (TWh/yr)"      = intersect(teoel, setdiff(c(tecoal, telig), teccs)),
-        "Capacity|Electricity|Electricity-only|Coal|w/ CCS (TWh/yr)"       = intersect(teoel, intersect(c(tecoal, telig), teccs)),
-        "Capacity|Electricity|Electricity-only|Hard Coal (TWh/yr)"         = intersect(teoel, c(tecoal)),
-        "Capacity|Electricity|Electricity-only|Hard Coal|w/o CCS (TWh/yr)" = intersect(teoel, setdiff(c(tecoal), teccs)),
-        "Capacity|Electricity|Electricity-only|Hard Coal|w/ CCS (TWh/yr)"  = intersect(teoel, intersect(c(tecoal), teccs)),
-        "Capacity|Electricity|Electricity-only|Lignite (TWh/yr)"           = intersect(teoel, c(telig)),
-        "Capacity|Electricity|Electricity-only|Lignite|w/o CCS (TWh/yr)"   = intersect(teoel, setdiff(c(telig), teccs)),
-        "Capacity|Electricity|Electricity-only|Lignite|w/ CCS (TWh/yr)"    = intersect(teoel, intersect(c(telig), teccs)),
-        "Capacity|Electricity|Electricity-only|Oil (TWh/yr)"               = intersect(teoel, c(teoil)),
-        "Capacity|Electricity|Electricity-only|Gas (TWh/yr)"               = intersect(teoel, c(tegas)),
-        "Capacity|Electricity|Electricity-only|Gas|w/o CCS (TWh/yr)"       = intersect(teoel, setdiff(tegas_el, teccs)),
-        "Capacity|Electricity|Electricity-only|Gas|w/ CCS (TWh/yr)"        = intersect(teoel, intersect(tegas_el, teccs)),
-        "Capacity|Electricity|Electricity-only|Gas CC (TWh/yr)"            = intersect(teoel, c(tengcc_el)),
-        "Capacity|Electricity|Electricity-only|Gas OC (TWh/yr)"            = intersect(teoel, setdiff(tegas_el, tengcc_el)),
-        "Capacity|Electricity|Electricity-only|Other (TWh/yr)"             = intersect(teoel, c(teothers)),
-        "Capacity|Electricity|Electricity-only|Hydrogen (TWh/yr)"          = intersect(teoel, c(tehgen)),
-        "Capacity|Electricity|Electricity-only|Waste (TWh/yr)"             = intersect(teoel, c(tewaste)),
-        "Capacity|Electricity|Electricity-only|Other Fossil (TWh/yr)"      = intersect(teoel, c(teothers, tewaste, teoil)),
-        "Capacity|Electricity|Electricity-only|Fossil (TWh/yr)"            = intersect(teoel, c(tefossil)),
-        "Capacity|Electricity|Electricity-only|Fossil|w/o CCS (TWh/yr)"    = intersect(teoel, setdiff(tefossil, teccs)),
-        "Capacity|Electricity|Electricity-only|Fossil|w/ CCS (TWh/yr)"     = intersect(teoel, intersect(tefossil, teccs)),
-        "Capacity|Electricity|Electricity-only|Renewable (TWh/yr)"         = intersect(teoel, c(ter, ternofluc)),
-        "Capacity|Electricity|Electricity-only|Non-renewable (TWh/yr)"     = intersect(teoel, tenr) #this does not include storage
+        "Capacity|Electricity|Electricity-only (GW)"                   = c(teoel),
+        "Capacity|Electricity|Electricity-only|Biomass (GW)"           = intersect(teoel, tebio),
+        "Capacity|Electricity|Electricity-only|Biomass|w/o CCS (GW)"   = intersect(teoel, setdiff(tebio, teccs)),
+        "Capacity|Electricity|Electricity-only|Coal (GW)"              = intersect(teoel, c(tecoal, telig)),
+        "Capacity|Electricity|Electricity-only|Coal|w/o CCS (GW)"      = intersect(teoel, setdiff(c(tecoal, telig), teccs)),
+        "Capacity|Electricity|Electricity-only|Coal|w/ CCS (GW)"       = intersect(teoel, intersect(c(tecoal, telig), teccs)),
+        "Capacity|Electricity|Electricity-only|Hard Coal (GW)"         = intersect(teoel, c(tecoal)),
+        "Capacity|Electricity|Electricity-only|Hard Coal|w/o CCS (GW)" = intersect(teoel, setdiff(c(tecoal), teccs)),
+        "Capacity|Electricity|Electricity-only|Hard Coal|w/ CCS (GW)"  = intersect(teoel, intersect(c(tecoal), teccs)),
+        "Capacity|Electricity|Electricity-only|Lignite (GW)"           = intersect(teoel, c(telig)),
+        "Capacity|Electricity|Electricity-only|Lignite|w/o CCS (GW)"   = intersect(teoel, setdiff(c(telig), teccs)),
+        "Capacity|Electricity|Electricity-only|Lignite|w/ CCS (GW)"    = intersect(teoel, intersect(c(telig), teccs)),
+        "Capacity|Electricity|Electricity-only|Oil (GW)"               = intersect(teoel, c(teoil)),
+        "Capacity|Electricity|Electricity-only|Gas (GW)"               = intersect(teoel, c(tegas)),
+        "Capacity|Electricity|Electricity-only|Gas|w/o CCS (GW)"       = intersect(teoel, setdiff(tegas_el, teccs)),
+        "Capacity|Electricity|Electricity-only|Gas|w/ CCS (GW)"        = intersect(teoel, intersect(tegas_el, teccs)),
+        "Capacity|Electricity|Electricity-only|Gas CC (GW)"            = intersect(teoel, c(tengcc_el)),
+        "Capacity|Electricity|Electricity-only|Gas OC (GW)"            = intersect(teoel, setdiff(tegas_el, tengcc_el)),
+        "Capacity|Electricity|Electricity-only|Other (GW)"             = intersect(teoel, c(teothers)),
+        "Capacity|Electricity|Electricity-only|Hydrogen (GW)"          = intersect(teoel, c(tehgen)),
+        "Capacity|Electricity|Electricity-only|Waste (GW)"             = intersect(teoel, c(tewaste)),
+        "Capacity|Electricity|Electricity-only|Other Fossil (GW)"      = intersect(teoel, c(teothers, tewaste, teoil)),
+        "Capacity|Electricity|Electricity-only|Fossil (GW)"            = intersect(teoel, c(tefossil)),
+        "Capacity|Electricity|Electricity-only|Fossil|w/o CCS (GW)"    = intersect(teoel, setdiff(tefossil, teccs)),
+        "Capacity|Electricity|Electricity-only|Fossil|w/ CCS (GW)"     = intersect(teoel, intersect(tefossil, teccs)),
+        "Capacity|Electricity|Electricity-only|Renewable (GW)"         = intersect(teoel, c(ter, ternofluc)),
+        "Capacity|Electricity|Electricity-only|Non-renewable (GW)"     = intersect(teoel, tenr) #this does not include storage
       )
 
       for (var in names(varList_el)){
@@ -365,7 +364,7 @@ reportCapacity <- function(gdx) {
 
     varList_st <- list(
       "Capacity|Electricity|Storage Reservoir (GWh)"                        = setdiff(testore, c("heat_sto")),
-      "Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"              = "psp",
+      "Capacity|Electricity|Storage Reservoir|Intra-day (GWh)"              = c("psp","batteries"),
       "Capacity|Electricity|Storage Reservoir|Pump Hydro (GWh)"             = "psp",
       "Capacity|Electricity|Storage Reservoir|Stat Batteries (GWh)"         = "batteries",
       "Capacity|Electricity|Storage Reservoir|Hydrogen electrolysis (GWh)"  = "helec"
@@ -382,6 +381,7 @@ reportCapacity <- function(gdx) {
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("helec")]/v_cap[, , c("helec")], "Discharge duration|Hydrogen electrolysis (h)"))
 
     if(c_heating  ==  1) {
+      tmp8 <- mbind(tmp8, setNames(dimSums(v_cap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage (GW)"))
       tmp8 <- mbind(tmp8, setNames(dimSums(v_storecap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage Reservoir (GWh)"))
     }
 

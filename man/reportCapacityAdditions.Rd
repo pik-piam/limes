@@ -25,5 +25,5 @@ for the reporting
 \code{\link{convGDX2MIF}}
 }
 \author{
-Sebastian Osorio, Renato Rodrigues
+Sebastian Osorio
 }
