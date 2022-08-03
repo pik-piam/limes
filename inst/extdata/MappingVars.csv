@@ -79,7 +79,6 @@ Primary Energy|Biomass|Electricity;Primary Energy|Biomass|Electricity;TWh/yr;PJ/
 Primary Energy|Coal|Electricity;Primary Energy|Coal|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Fossil|Electricity;Primary Energy|Fossil|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Gas|Electricity;Primary Energy|Gas|Electricity;TWh/yr;PJ/yr;3.6
-Primary Energy|Hydrogen|Electricity;Primary Energy|Hydrogen|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Nuclear|Electricity;Primary Energy|Nuclear|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Oil|Electricity;Primary Energy|Oil|Electricity;TWh/yr;PJ/yr;3.6
 Primary Energy|Other|Electricity;Primary Energy|Other|Electricity;TWh/yr;PJ/yr;3.6
@@ -927,7 +926,6 @@ Emissions|CO2|Energy|Supply|Heat|District Heating|Other;Emissions|CO2|Energy|Sup
 Emissions|CO2|Energy|Supply|Heat|District Heating|Waste;Emissions|CO2|Energy|Supply|Heat|District Heating|Waste;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Other Fossil;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Emissions|CO2|Energy|Supply|Heat|District Heating|Fossil;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Energy|Supply|Heat|District Heating;Emissions|CO2|Energy|Supply|Heat|District Heating;Mt CO2/yr;Mt CO2/yr;1
 Primary Energy|Exhaustible resources|CHP;Primary Energy|Exhaustible resources|CHP;TWh/yr;PJ/yr;3.6
 Primary Energy|Biomass|CHP;Primary Energy|Biomass|CHP;TWh/yr;PJ/yr;3.6
 Primary Energy|Coal|CHP;Primary Energy|Coal|CHP;TWh/yr;PJ/yr;3.6
@@ -1293,3 +1291,77 @@ Capital Costs|Heat|Decentralized|Heat Pump water heating;Capital Costs|Heat|Dece
 Capital Costs|Heat|Decentralized|Resistance;Capital Costs|Heat|Decentralized|Resistance;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|Decentralized|Conventional space heater;Capital Costs|Heat|Decentralized|Conventional space heater;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|Decentralized|Conventional water heater;Capital Costs|Heat|Decentralized|Conventional water heater;Eur2010/kW;Eur2015/kW;1
+Capacity Additions|Electricity|CHP;Capacity Additions|Electricity|CHP;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Biomass;Capacity Additions|Electricity|CHP|Biomass;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Waste;Capacity Additions|Electricity|CHP|Waste;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Coal;Capacity Additions|Electricity|CHP|Coal;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Hard Coal;Capacity Additions|Electricity|CHP|Hard Coal;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Lignite;Capacity Additions|Electricity|CHP|Lignite;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Oil;Capacity Additions|Electricity|CHP|Oil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Gas;Capacity Additions|Electricity|CHP|Gas;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Gas CC;Capacity Additions|Electricity|CHP|Gas CC;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Gas OC;Capacity Additions|Electricity|CHP|Gas OC;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Hydrogen;Capacity Additions|Electricity|CHP|Hydrogen;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Other;Capacity Additions|Electricity|CHP|Other;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Other Fossil;Capacity Additions|Electricity|CHP|Other Fossil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Fossil;Capacity Additions|Electricity|CHP|Fossil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Renewable;Capacity Additions|Electricity|CHP|Renewable;GW/yr;GW/yr;1
+Capacity Additions|Electricity|CHP|Non-renewable;Capacity Additions|Electricity|CHP|Non-renewable;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only;Capacity Additions|Electricity|Electricity-only;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Biomass;Capacity Additions|Electricity|Electricity-only|Biomass;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Biomass|w/o CCS;Capacity Additions|Electricity|Electricity-only|Biomass|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Coal;Capacity Additions|Electricity|Electricity-only|Coal;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Coal|w/o CCS;Capacity Additions|Electricity|Electricity-only|Coal|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Coal|w/ CCS;Capacity Additions|Electricity|Electricity-only|Coal|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Hard Coal;Capacity Additions|Electricity|Electricity-only|Hard Coal;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Hard Coal|w/o CCS;Capacity Additions|Electricity|Electricity-only|Hard Coal|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Hard Coal|w/ CCS;Capacity Additions|Electricity|Electricity-only|Hard Coal|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Lignite;Capacity Additions|Electricity|Electricity-only|Lignite;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Lignite|w/o CCS;Capacity Additions|Electricity|Electricity-only|Lignite|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Lignite|w/ CCS;Capacity Additions|Electricity|Electricity-only|Lignite|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Oil;Capacity Additions|Electricity|Electricity-only|Oil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Gas;Capacity Additions|Electricity|Electricity-only|Gas;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Gas|w/o CCS;Capacity Additions|Electricity|Electricity-only|Gas|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Gas|w/ CCS;Capacity Additions|Electricity|Electricity-only|Gas|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Gas CC;Capacity Additions|Electricity|Electricity-only|Gas CC;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Gas OC;Capacity Additions|Electricity|Electricity-only|Gas OC;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Other;Capacity Additions|Electricity|Electricity-only|Other;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Hydrogen;Capacity Additions|Electricity|Electricity-only|Hydrogen;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Waste;Capacity Additions|Electricity|Electricity-only|Waste;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Other Fossil;Capacity Additions|Electricity|Electricity-only|Other Fossil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Fossil;Capacity Additions|Electricity|Electricity-only|Fossil;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Fossil|w/o CCS;Capacity Additions|Electricity|Electricity-only|Fossil|w/o CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Fossil|w/ CCS;Capacity Additions|Electricity|Electricity-only|Fossil|w/ CCS;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Renewable;Capacity Additions|Electricity|Electricity-only|Renewable;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Electricity-only|Non-renewable;Capacity Additions|Electricity|Electricity-only|Non-renewable;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only;Capacity Additions|Gross|Heat|District Heating|Heat-only;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Biomass;Capacity Additions|Gross|Heat|District Heating|Heat-only|Biomass;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Coal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Coal;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Hard Coal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Hard Coal;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite;Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas;Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Other;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste;Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Other Fossil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other Fossil;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Solar;Capacity Additions|Gross|Heat|District Heating|Heat-only|Solar;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Geothermal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Geothermal;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Fossil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Fossil;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Renewable;Capacity Additions|Gross|Heat|District Heating|Heat-only|Renewable;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Non-renewable;Capacity Additions|Gross|Heat|District Heating|Heat-only|Non-renewable;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|P2H;Capacity Additions|Heat|Decentralized|P2H;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Heat Pump;Capacity Additions|Heat|Decentralized|Heat Pump;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Heat Pump space heating;Capacity Additions|Heat|Decentralized|Heat Pump space heating;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Heat Pump water heating;Capacity Additions|Heat|Decentralized|Heat Pump water heating;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Resistance;Capacity Additions|Heat|Decentralized|Resistance;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Conventional;Capacity Additions|Heat|Decentralized|Conventional;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Conventional space heater;Capacity Additions|Heat|Decentralized|Conventional space heater;GW/yr;GW/yr;1
+Capacity Additions|Heat|Decentralized|Conventional water heater;Capacity Additions|Heat|Decentralized|Conventional water heater;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir;Capacity Additions|Electricity|Storage Reservoir;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Intra-day;Capacity Additions|Electricity|Storage Reservoir|Intra-day;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;GW/yr;GW/yr;1
