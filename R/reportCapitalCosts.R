@@ -130,7 +130,7 @@ reportCapitalCosts <- function(gdx) {
         "Capital Costs|Heat|District Heating|Heat-only|Hard Coal (Eur2010/kW)"        = "pc_heat",
         "Capital Costs|Heat|District Heating|Heat-only|Lignite (Eur2010/kW)"          = "lpc_heat",
         "Capital Costs|Heat|District Heating|Heat-only|Oil (Eur2010/kW)"              = "oil_heat",
-        "Capital Costs|Heat|District Heating|Heat-only|Gas (Eur2010/kW)"              = "ngcc_heat",
+        "Capital Costs|Heat|District Heating|Heat-only|Gas (Eur2010/kW)"              = "gas_heat",
         "Capital Costs|Heat|District Heating|Heat-only|Other (Eur2010/kW)"            = "others_heat",
         "Capital Costs|Heat|District Heating|Heat-only|Heat Pump (Eur2010/kW)"        = "hp_large",
         "Capital Costs|Heat|District Heating|Heat-only|Electric Boiler (Eur2010/kW)"  = "elboil_large",
@@ -142,7 +142,7 @@ reportCapitalCosts <- function(gdx) {
       )
 
       for (var in names(varList_he)) {
-        tmp1 <- mbind(tmp1, setNames(p_incoall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
+        tmp2 <- mbind(tmp2, setNames(p_incoall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
       }
 
       varList_he <- list(
@@ -151,7 +151,7 @@ reportCapitalCosts <- function(gdx) {
       )
 
       for (var in names(varList_he)) {
-        tmp1 <- mbind(tmp1, setNames(p_incostall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
+        tmp2 <- mbind(tmp2, setNames(p_incostall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
       }
 
     }
@@ -167,7 +167,7 @@ reportCapitalCosts <- function(gdx) {
       )
 
       for (var in names(varList_he)) {
-        tmp1 <- mbind(tmp1, setNames(p_incoall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
+        tmp2 <- mbind(tmp2, setNames(p_incoall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
       }
 
     }
