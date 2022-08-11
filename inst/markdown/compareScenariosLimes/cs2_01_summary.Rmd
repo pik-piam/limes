@@ -25,13 +25,13 @@ showAreaAndBarPlots(data, items, tot)
 ```{r}
 items <- c(
   "Final Energy|Heat|District Heating|Biomass",
-  "Final Energy|Heat|District Heating|Electricity|Electric Boiler", 
+  "Final Energy|Heat|District Heating|Electricity|Electric Boiler",
   "Final Energy|Heat|District Heating|Electricity|Heat Pump",
   "Final Energy|Heat|District Heating|Gas",
-  "Final Energy|Heat|District Heating|Geothermal", 
+  "Final Energy|Heat|District Heating|Geothermal",
   "Final Energy|Heat|District Heating|Lignite",
   "Final Energy|Heat|District Heating|Oil",
-  "Final Energy|Heat|District Heating|Other", 
+  "Final Energy|Heat|District Heating|Other",
   "Final Energy|Heat|District Heating|Solar",
   "Final Energy|Heat|District Heating|Waste")
 
