@@ -30,7 +30,7 @@ params:
   modelsHistExclude: !r c()
   sections: "all"
   userSectionPath: null
-  mainReg: "EUR"
+  mainReg: "EU28"
   figWidth: 15 
   figHeight: 10
   warning: yes

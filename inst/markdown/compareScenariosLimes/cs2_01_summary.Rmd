@@ -1,0 +1,51 @@
+# Summary
+
+
+
+## GHG Emissions
+
+```{r}
+tot <- "Emissions|CO2|Energy|Supply|Electricity"
+items <- c(
+  "Emissions|CO2|Energy|Supply|Electricity|Coal",
+  "Emissions|CO2|Energy|Supply|Electricity|Gas",
+  "Emissions|CO2|Energy|Supply|Electricity|Oil",
+  "Emissions|CO2|Energy|Supply|Electricity|Other",
+  "Emissions|CO2|Energy|Supply|Electricity|Waste"
+  )
+showAreaAndBarPlots(data, items, tot)
+```
+
+
+## FE by sector
+
+
+## FE DH by carrier
+
+```{r}
+items <- c(
+  "Final Energy|Heat|District Heating|Biomass",
+  "Final Energy|Heat|District Heating|Electricity|Electric Boiler", 
+  "Final Energy|Heat|District Heating|Electricity|Heat Pump",
+  "Final Energy|Heat|District Heating|Gas",
+  "Final Energy|Heat|District Heating|Geothermal", 
+  "Final Energy|Heat|District Heating|Lignite",
+  "Final Energy|Heat|District Heating|Oil",
+  "Final Energy|Heat|District Heating|Other", 
+  "Final Energy|Heat|District Heating|Solar",
+  "Final Energy|Heat|District Heating|Waste")
+
+# Variables not available for runs without heating
+if (all(items %in% data$variable)) {
+showAreaAndBarPlots(data, items)
+}
+```
+
+
+## Carbon Price
+
+```{r}
+showLinePlots(data, "Price|Carbon|ETS")
+```
+
+
