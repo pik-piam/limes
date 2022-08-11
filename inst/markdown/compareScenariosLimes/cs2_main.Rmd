@@ -1,0 +1,262 @@
+---
+title: "Compare Scenarios 2"
+date: "`r format(Sys.Date())`"
+output:
+  pdf_document:
+    toc: yes
+    number_sections: yes
+    toc_depth: 6
+    keep_tex: false
+    template: cs2_latex_template.tex
+    extra_dependencies: ["float"]
+    includes: 
+      in_header: cs2_pdf_header_include.tex
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 6
+    number_sections: yes
+geometry: "a4paper,landscape,left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm,footnotesep=0.0cm,footskip=0.1cm"
+params:
+  mifScen: ""
+  mifScenNames: null
+  cfgScen: null
+  cfgDefault: null
+  mifHist: ""
+  yearsScen: !r seq(2005, 2050, 5)
+  yearsBarPlot: !r c(2015, 2030, 2050)
+  yearRef: 2020
+  reg: null
+  modelsHistExclude: !r c()
+  sections: "all"
+  userSectionPath: null
+  mainReg: "EUR"
+  figWidth: 15 
+  figHeight: 10
+  warning: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  error = TRUE,
+  message = FALSE,
+  warning = params$warning,
+  fig.width = params$figWidth,
+  fig.height = params$figHeight,
+  fig.pos = "H")
+```
+
+
+```{r fix interactive plot size}
+# Hack to use the same fig.width and fig.height as described in previous chunk
+# for chunks in RStudio Notebook mode.
+if (interactive()) {
+  insertExprAtStartOfFun <- function(fun, funName, env, expr) {
+    body(env[[funName]]) <- call("{", expr, body(fun))
+  }
+  fn <- ".rs.setNotebookGraphicsOption"
+  envToolsRstudio <- as.environment("tools:rstudio")
+  if (!exists(".old.rs.setNotebookGraphicsOption"))
+    oldRsSetNotebookGraphicsOption <- envToolsRstudio[[fn]]
+  insertExprAtStartOfFun(
+    oldRsSetNotebookGraphicsOption,
+    fn,
+    envToolsRstudio,
+    rlang::expr({
+      width <- !!knitr::opts_chunk$get()$fig.width
+      height <- !!knitr::opts_chunk$get()$fig.height
+      units <- "in"
+    })
+  )
+}
+```
+
+
+```{r libraries, include=FALSE}
+# kableExtra must not be loaded before the call of library(kableExtra) below,
+# as its .onLoad() function must be called to tell knitr about add necessary
+# LaTeX libraries needed for tables.
+# If the following line is not included, successive calls to compareScenariosLimes()
+# may cause "Undefined control sequence" errors in LaTeX.
+try(unloadNamespace("kableExtra"), silent = TRUE)
+
+library(gridExtra) # nolint
+options(tidyverse.quiet = TRUE) # nolint
+library(tidyverse) # nolint
+library(kableExtra) # nolint
+library(quitte) # nolint
+library(mip) # nolint
+library(limes) # nolint
+```
+
+
+```{r read config files}
+if (!is.null(params$cfgScen)) {
+  loadCfg <- function(path) {
+    env <- new.env()
+    load(path, envir = env)
+    return(env$cfg)
+  }
+  cfgs <-
+    tibble(path = unname(params$cfgScen)) %>%
+    rowid_to_column("fileid") %>%
+    mutate(cfg = map(path, loadCfg)) %>%
+    unnest(cfg) %>%
+    mutate(
+      name = names(cfg),
+      value = unname(cfg),
+      cfg = NULL)
+  cfgGms <-
+    cfgs %>%
+    filter(name == "gms") %>%
+    unnest(value) %>%
+    mutate(name = names(value))
+  cfgTopLevel <-
+    cfgs %>%
+    filter(name != "gms")
+  rm(cfgs)
+}
+if (!is.null(params$cfgDefault)) {
+  env <- new.env()
+  source(params$cfgDefault, local = env, echo = FALSE) # nolint
+  cfgDefault <- env$cfg
+}
+```
+
+
+```{r read scenario mifs}
+# Read *.mif-files as nested tibble.
+dataScenNested <-
+  tibble(path = unname(params$mifScen)) %>%
+  rowid_to_column("fileid") %>%
+  mutate(data = map(
+    path,
+    read.quitte,
+    factors = TRUE,
+    # read.quitte() default NA-strings and Inf, -Inf
+    na.strings = c("UNDF", "NA", "N/A", "n_a", "Inf", "-Inf"))) %>%
+  unnest(data) %>%
+  nest(data = -c(fileid, path, scenario))
+# Add column character column "newScenarioName",
+# either with contents of params$mifScenNames or copy names from column scenario.
+if (is.null(params$mifScenNames)) {
+  dataScenNested <-
+    dataScenNested %>%
+    mutate(newScenarioName = as.character(scenario))
+} else {
+  dataScenNested <-
+    dataScenNested %>%
+    left_join(
+      tibble(
+        fileid = seq_along(params$mifScen),
+        newScenarioName = params$mifScenNames),
+      by = "fileid")
+}
+# Check for duplicated scenario names.
+if (anyDuplicated(dataScenNested$newScenarioName)) {
+  warning("There are duplicated scenario names. They will be renamed.")
+  dataScenNested <-
+    dataScenNested %>%
+    mutate(newScenarioName = make.unique(newScenarioName))
+}
+# Retrieve data for reference table to be shown at the beginning of the document.
+fileReference <-
+  dataScenNested %>%
+  select(fileid, path, scenario, newScenarioName)
+
+# Apply renaming of scenario, unnest, and select only relevant columns.
+dataScen <-
+  dataScenNested %>%
+  mutate(scenario = factor(newScenarioName, levels = newScenarioName)) %>%
+  unnest(data) %>%
+  select(model, scenario, region, variable, unit, period, value)
+```
+
+```{r define scenario colors}
+# Get colors of scenarios to be used, e.g., in the info sections.
+# They will coincide with the colors of the scenarios in line plots.
+scenarioColors <- plotstyle(fileReference$newScenarioName)
+lightenColor <- function(clr, by) {
+  colRGB <- colorRamp(c(clr, "white"))(by)
+  rgb(colRGB[1], colRGB[2], colRGB[3], maxColorValue = 255)
+}
+bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
+```
+
+
+
+```{r preprocess}
+# Filter years and NA.
+dataScen <-
+  dataScen %>%
+  filter(period %in% params$yearsScen)
+
+# Combine into one data frame and remove old.
+data <- dataScen
+rm(dataScen, dataScenNested)
+
+# Filter regions.
+if (!is.null(params$reg)) {
+  data <-
+    data %>%
+    filter(region %in% params$reg) %>%
+    droplevels()
+}
+```
+
+
+```{r quitte}
+data <- as.quitte(data)
+```
+
+
+```{r global variables}
+# Set global variables for use in plotting.
+options(mip.mainReg = params$mainReg) # nolint
+options(mip.yearsBarPlot = params$yearsBarPlot) # nolint
+
+```
+
+
+
+```{r sectionPaths}
+matches <-
+  dir() %>%
+  str_match("^cs2_([0-9]+).+\\.Rmd$")
+availableSections <-
+  tibble(
+    files = matches[, 1],
+    nums = as.numeric(matches[, 2])
+  ) %>%
+  drop_na() %>%
+  arrange(files)
+if (length(params$sections) == 1 && params$sections == "all") {
+  sectionPaths <- availableSections$files
+} else if (is.numeric(params$sections)) {
+  sectionPaths <-
+    tibble(nums = params$sections) %>%
+    left_join(availableSections, by = "nums") %>%
+    drop_na() %>%
+    pull(files)
+} else {
+  if (length(params$sections) > 0) {
+    sectionPaths <- paste0("cs2_", params$sections, ".Rmd")
+  } else {
+    sectionPaths <- character(0)
+  }
+}
+```
+
+
+```{r prepare mark}
+# CLICK "RUN ALL CHUNKS ABOVE" HERE TO PREPARE THE ENVIRONMENT
+```
+
+
+```{r include sections, child = sectionPaths}
+```
+
+
+```{r include user section, child = params$userSectionPath}
+```
