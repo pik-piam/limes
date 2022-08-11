@@ -12,6 +12,7 @@ Depends:
     gdx (>= 1.29),
     magclass (>= 3.37)
 Imports:
+    knitr,
     luscale,
     rlang,
     rmarkdown,
