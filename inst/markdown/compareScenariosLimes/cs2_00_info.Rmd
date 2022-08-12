@@ -1,0 +1,46 @@
+## File Reference Table
+
+```{r}
+fileReference %>%
+  select(fileid, newScenarioName, scenario, path) %>%
+  # WORKAROUND:
+  # Windows file paths may contain backslashes.
+  # But knitr::kable(x, "html"), which will be called by kbl() below,
+  # does not handle backslashes well. => Replace them with forward slashes.
+  mutate(path = str_replace_all(path, fixed("\\"), "/")) %>%
+  kbl(
+    booktabs = TRUE,
+    col.names = c("ID", "Name Used Here", "Original Name", "Path")) %>%
+  kable_styling(
+    bootstrap_options = c("condensed"),
+    latex_options = c("HOLD_position")) %>%
+  column_spec(1:4, background = bkgndColors) %>%
+  column_spec(2:3, width = "5.5cm") %>%
+  column_spec(4, width = "15.5cm")
+```
+
+
+```{r results='asis'}
+# If paths to config files are provided in the parameter cfgScen, their
+# content is written to the objects cfgGms and cfgTopLevel in cs2main.Rmd. Here
+# and in the next chunks, relevant parts of these configs are displayed.
+
+# Show cfgTopLevel$description (originally cfg$description).
+if (exists("cfgTopLevel") && !is.null(cfgTopLevel)) {
+
+  cat("## Descriptions\n\n")
+
+  for (i in 1:max(fileReference$fileid)) {
+    cat("### ", as.character(fileReference$newScenarioName[i]), "\n\n")
+
+    description <-
+      cfgTopLevel %>%
+      filter(fileid == i, name == "description") %>%
+      pull(value) %>%
+      pluck(1)
+    cat(description, "\n\n")
+  }
+}
+```
+
+\newpage
