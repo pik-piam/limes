@@ -168,7 +168,7 @@ reportCapacity <- function(gdx) {
       )
 
       for (var in names(varList_el)){
-        tmp2 <- mbind(tmp2, setNames(dimSums((v_cap[, , varList_el[[var]]]*(1-o_autocons[, , varList_el[[var]]])), dim = 3), var)) #In limes CHP capacities are gross,  need to estimate net capacities
+        tmp2 <- mbind(tmp2, setNames(dimSums(v_cap[, , varList_el[[var]]], dim = 3), var)) #In limes CHP capacities are gross,  need to estimate net capacities
       }
 
       varList_el <- list(

@@ -163,7 +163,7 @@ reportCapacityAdditions <- function(gdx) {
       )
 
       for (var in names(varList_el)){
-        tmp2 <- mbind(tmp2, setNames(dimSums((v_deltacap[, , varList_el[[var]]]*(1-o_autocons[, , varList_el[[var]]])), dim = 3), var)) #In limes CHP capacities are gross,  need to estimate net capacities
+        tmp2 <- mbind(tmp2, setNames(dimSums((v_deltacap[, , varList_el[[var]]]), dim = 3), var)) #In limes CHP capacities are gross,  need to estimate net capacities
       }
 
       varList_el <- list(
@@ -226,6 +226,36 @@ reportCapacityAdditions <- function(gdx) {
 
       for (var in names(varList_he)){
         tmp2 <- mbind(tmp2, setNames(dimSums(v_deltacap[, , varList_he[[var]]], dim = 3), var))
+      }
+
+      varList_he <- list(
+        #1.b) CHP
+        "Capacity Additions|Gross|Heat|District Heating|CHP (GW)"                                          = c(techp),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Biomass (GW)"                                  = intersect(techp, tebio),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Waste (GW)"                                    = intersect(techp, tewaste),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Coal (GW)"                                     = intersect(techp, c(tecoal, telig)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Hard Coal (GW)"                                = intersect(techp, c(tecoal)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Lignite (GW)"                                  = intersect(techp, c(telig)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Oil (GW)"                                      = intersect(techp, c(teoil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas (GW)"                                      = intersect(techp, c(tegas)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas CC (GW)"                                   = intersect(techp, c(tengcc_el)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas OC (GW)"                                   = intersect(techp, setdiff(tegas_el, tengcc_el)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen (GW)"                                 = intersect(techp, c(tehgen)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Other (GW)"                                    = intersect(techp, c(teothers)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil (GW)"                             = intersect(techp, c(teothers, tewaste, teoil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Fossil (GW)"                                   = intersect(techp, c(tefossil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Renewable (GW)"                                = intersect(techp, c(ter, ternofluc)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable (GW)"                            = intersect(techp, tenr)
+      )
+
+      for (var in names(varList_he)){
+        tmp2 <- mbind(tmp2, setNames(
+          dimSums(
+          (v_deltacap[, , varList_he[[var]]] / (1 - o_autocons[, , varList_he[[var]]]))
+          *(1 / (o_cb_coeff[, , varList_he[[var]]] + o_cv_coeff[, , varList_he[[var]]]))
+          , dim = 3)
+          , var)
+          )
       }
 
       c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
