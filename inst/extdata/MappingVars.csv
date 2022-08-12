@@ -1365,3 +1365,19 @@ Capacity Additions|Electricity|Storage Reservoir|Intra-day;Capacity Additions|El
 Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;GW/yr;GW/yr;1
 Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP;Capacity Additions|Gross|Heat|District Heating|CHP;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen;Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Biomass;Capacity Additions|Gross|Heat|District Heating|CHP|Biomass;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Coal;Capacity Additions|Gross|Heat|District Heating|CHP|Coal;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Gas CC;Capacity Additions|Gross|Heat|District Heating|CHP|Gas CC;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Gas OC;Capacity Additions|Gross|Heat|District Heating|CHP|Gas OC;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Gas;Capacity Additions|Gross|Heat|District Heating|CHP|Gas;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Hard Coal;Capacity Additions|Gross|Heat|District Heating|CHP|Hard Coal;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Lignite;Capacity Additions|Gross|Heat|District Heating|CHP|Lignite;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Oil;Capacity Additions|Gross|Heat|District Heating|CHP|Oil;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Other;Capacity Additions|Gross|Heat|District Heating|CHP|Other;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Waste;Capacity Additions|Gross|Heat|District Heating|CHP|Waste;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil;Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Fossil;Capacity Additions|Gross|Heat|District Heating|CHP|Fossil;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Renewable;Capacity Additions|Gross|Heat|District Heating|CHP|Renewable;GWh/yr;GWh/yr;1
+Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable;Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable;GWh/yr;GWh/yr;1
