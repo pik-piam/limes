@@ -230,22 +230,22 @@ reportCapacityAdditions <- function(gdx) {
 
       varList_he <- list(
         #1.b) CHP
-        "Capacity Additions|Gross|Heat|District Heating|CHP (GW)"                                          = c(techp),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Biomass (GW)"                                  = intersect(techp, tebio),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Waste (GW)"                                    = intersect(techp, tewaste),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Coal (GW)"                                     = intersect(techp, c(tecoal, telig)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Hard Coal (GW)"                                = intersect(techp, c(tecoal)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Lignite (GW)"                                  = intersect(techp, c(telig)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Oil (GW)"                                      = intersect(techp, c(teoil)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas (GW)"                                      = intersect(techp, c(tegas)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas CC (GW)"                                   = intersect(techp, c(tengcc_el)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas OC (GW)"                                   = intersect(techp, setdiff(tegas_el, tengcc_el)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen (GW)"                                 = intersect(techp, c(tehgen)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Other (GW)"                                    = intersect(techp, c(teothers)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil (GW)"                             = intersect(techp, c(teothers, tewaste, teoil)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Fossil (GW)"                                   = intersect(techp, c(tefossil)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Renewable (GW)"                                = intersect(techp, c(ter, ternofluc)),
-        "Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable (GW)"                            = intersect(techp, tenr)
+        "Capacity Additions|Gross|Heat|District Heating|CHP (GW/yr)"                                          = c(techp),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Biomass (GW/yr)"                                  = intersect(techp, tebio),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Waste (GW/yr)"                                    = intersect(techp, tewaste),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Coal (GW/yr)"                                     = intersect(techp, c(tecoal, telig)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Hard Coal (GW/yr)"                                = intersect(techp, c(tecoal)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Lignite (GW/yr)"                                  = intersect(techp, c(telig)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Oil (GW/yr)"                                      = intersect(techp, c(teoil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas (GW/yr)"                                      = intersect(techp, c(tegas)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas CC (GW/yr)"                                   = intersect(techp, c(tengcc_el)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Gas OC (GW/yr)"                                   = intersect(techp, setdiff(tegas_el, tengcc_el)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen (GW/yr)"                                 = intersect(techp, c(tehgen)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Other (GW/yr)"                                    = intersect(techp, c(teothers)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil (GW/yr)"                             = intersect(techp, c(teothers, tewaste, teoil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Fossil (GW/yr)"                                   = intersect(techp, c(tefossil)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Renewable (GW/yr)"                                = intersect(techp, c(ter, ternofluc)),
+        "Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable (GW/yr)"                            = intersect(techp, tenr)
       )
 
       for (var in names(varList_he)){
