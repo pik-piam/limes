@@ -1,0 +1,63 @@
+# Electricity
+
+## Final Energy
+```{r FE_Elec}
+showLinePlots(data, "Final Energy|Electricity")
+```
+
+
+
+## Capacity
+
+```{r Cap_Elec}
+items <- c(
+  "Capacity|Electricity|Nuclear",
+  "Capacity|Electricity|Lignite",
+  "Capacity|Electricity|Hard Coal",
+  "Capacity|Electricity|Gas",
+  #"Capacity|Electricity|Oil",
+  #"Capacity|Electricity|Other",
+  #"Capacity|Electricity|Waste",
+  "Capacity|Electricity|Other Fossil", #Either include the three above or this
+  "Capacity|Electricity|Hydrogen",
+  "Capacity|Electricity|Biomass",
+  "Capacity|Electricity|Hydro",
+  "Capacity|Electricity|Wind|Onshore",
+  "Capacity|Electricity|Wind|Offshore",
+  "Capacity|Electricity|Solar|PV",
+  "Capacity|Electricity|Solar|CSP",
+  "Capacity|Electricity|Storage|Stat Batteries",
+  "Capacity|Electricity|Storage|Pump Hydro",
+  "Capacity|Electricity|Storage|Hydrogen electrolysis [input]"
+)
+
+showAreaAndBarPlots(data, items)
+```
+
+
+## Generation
+```{r Gen_Elec}
+items <- c(
+  "Secondary Energy|Electricity|Nuclear",
+  "Secondary Energy|Electricity|Lignite",
+  "Secondary Energy|Electricity|Hard Coal",
+  "Secondary Energy|Electricity|Gas",
+  #"Secondary Energy|Electricity|Oil",
+  #"Secondary Energy|Electricity|Other",
+  #"Secondary Energy|Electricity|Waste",
+  "Secondary Energy|Electricity|Other Fossil", #Either include the three above or this
+  "Secondary Energy|Electricity|Hydrogen",
+  "Secondary Energy|Electricity|Biomass",
+  "Secondary Energy|Electricity|Hydro",
+  "Secondary Energy|Electricity|Wind|Onshore",
+  "Secondary Energy|Electricity|Wind|Offshore",
+  "Secondary Energy|Electricity|Solar|PV",
+  "Secondary Energy|Electricity|Solar|CSP",
+  "Secondary Energy|Electricity|Storage|Stat Batteries",
+  "Secondary Energy|Electricity|Storage|Pump Hydro",
+  "Secondary Energy|Electricity|Net Imports"
+)
+
+showAreaAndBarPlots(data, items)
+```
+
