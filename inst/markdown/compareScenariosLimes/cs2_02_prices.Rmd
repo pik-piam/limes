@@ -4,27 +4,27 @@
 
 ```{r Price_EC}
 items <- c("Price|Primary Energy|Lignite",
-                    "Price|Primary Energy|Hard Coal",
-                    "Price|Primary Energy|Gas",
-                    "Price|Primary Energy|Oil",
-                    "Price|Primary Energy|Biomass",
-                    "Price|Primary Energy|Hydrogen [external]")
+           "Price|Primary Energy|Hard Coal",
+           "Price|Primary Energy|Gas",
+           "Price|Primary Energy|Oil",
+           "Price|Primary Energy|Biomass",
+           "Price|Primary Energy|Hydrogen [external]")
 
-showMultiLinePlots(data, items)
+showMultiLinePlots(largeRegions(data), items)
 ```
 
 ## Electricity Prices
+### Electricity Price
 
 ```{r Price_Elec}
-items <- c(
-  "Price|Secondary Energy|Electricity",
-  "Price Full|Secondary Energy|Electricity"
-)
-
-showMultiLinePlots(data, items)
+showLinePlots(data,  "Price|Secondary Energy|Electricity")
 ```
 
+### Electricity Full Price
 
+```{r Price_Elec_Full}
+showLinePlots(data,  "Price Full|Secondary Energy|Electricity")
+```
 
 ## Carbon Price
 

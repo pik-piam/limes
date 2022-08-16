@@ -183,6 +183,29 @@ lightenColor <- function(clr, by) {
 bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
 ```
 
+```{r Large Regions Subset}
+
+largeRegions <- function(df){
+  large_regions_vec <- c(
+  params$mainReg,
+  "EUETS",
+  "DEU",
+  "FRA",
+  "GBR",
+  "ESP",
+  "ITA",
+  "POL",
+  "NLD",
+  "SWE",
+  "NOR",
+  "BEL",
+  "AUT"
+)
+  return(df %>% filter(region %in% large_regions_vec ))
+}
+
+```
+
 
 
 ```{r preprocess}
