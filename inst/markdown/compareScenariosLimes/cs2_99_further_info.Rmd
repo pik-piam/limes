@@ -1,0 +1,145 @@
+# Further Information
+
+```{r}
+# varsPerTable # Number of variable columns in table.
+# firstColumnWidth  # in mm; first column shows the scenario title.
+# pageTextWidth <- # in mm; DIN A4 landscape minus margins.
+# cellMargin # i
+showInTables <- function(
+  data,
+  background = NULL,
+  varsPerTable = 5,
+  firstColumnWidth = 50,
+  pageTextWidth = 287,
+  cellMargin = 5
+) {
+  nDiffVars <- ncol(data) - 1 # number of different variables without title
+  nTables <- ceiling(nDiffVars / varsPerTable)
+  for (i in seq_len(nTables)) {
+    # number of variable columns (i.e., without title column) in current table
+    if (i == nTables && nDiffVars %% varsPerTable != 0) {
+      nVarCols <- nDiffVars %% varsPerTable
+    } else {
+      nVarCols <- varsPerTable
+    }
+    colIdx <- 1 + 1:nVarCols + (i - 1) * varsPerTable
+    tbl <- data[, c(1, colIdx)]
+    out <-
+      tbl %>%
+      kbl(booktabs = TRUE, align = "c")
+    if (is.null(background)) {
+      out <-
+        out %>%
+        kable_styling(
+          bootstrap_options = c("striped", "condensed"),
+          latex_options = c("striped", "HOLD_position")
+        )
+    } else {
+      out <-
+        out %>%
+        column_spec(
+          seq_len(nVarCols + 1),
+          background = background
+        ) %>%
+        kable_styling(
+          bootstrap_options = c("condensed"),
+          latex_options = c("HOLD_position")
+        )
+    }
+    out <-
+      out %>%
+      column_spec(
+        1,
+        width = paste0(firstColumnWidth, "mm"),
+        bold = TRUE,
+      ) %>%
+      column_spec(
+        1 + 1:nVarCols,
+        width = paste0((pageTextWidth - firstColumnWidth) / varsPerTable - cellMargin, "mm"),
+      ) %>%
+      row_spec(
+        0,
+        monospace = TRUE,
+        bold = TRUE
+      )
+    out %>%
+      cat("\n\n")
+  }
+}
+```
+
+```{r}
+# Get config options where scenarios differ and where all scenarios are the same.
+if (exists("cfgGms") && !is.null(cfgGms)) {
+  cfgGmsWide <-
+    cfgGms %>%
+    left_join(select(fileReference, fileid, newScenarioName), by = "fileid") %>%
+    select(-path, -fileid) %>%
+    rename(scenario = newScenarioName) %>%
+    filter(!name %in% c("c_expname", "c_description")) %>%
+    pivot_wider(names_from = name, values_from = value) %>%
+    mutate(across(-scenario, unlist))
+  cfgGmsWideDiff <-
+    cfgGmsWide %>%
+    select(-where(~ length(unique(.)) == 1)) %>%
+    select(scenario, everything())
+  cfgGmsWideSame <-
+    cfgGmsWide %>%
+    select(where(~ length(unique(.)) == 1)) %>%
+    distinct()
+}
+```
+
+
+```{r results='asis'}
+# Show all gms config option that is the same in all scenarios but differs from the default.
+if (exists("cfgDefault") && !is.null(cfgDefault) &&
+    exists("cfgGmsWideSame") && !is.null(cfgGmsWideSame)) {
+  colNames <- intersect(names(cfgGmsWideSame), names(cfgDefault$gms))
+  # the types may differ between the two lists, so convert to character
+  isSameAsDefault <- vapply(
+    colNames,
+    function(nm) {
+      identical(
+        as.character(cfgDefault$gms[[nm]]),
+        as.character(unname(cfgGmsWideSame[[nm]])))
+    },
+    logical(1)
+  )
+  cfgGmsWideSameDiffDefault <-
+    bind_rows(
+      lapply(cfgGmsWideSame[colNames[!isSameAsDefault]], as.character),
+      lapply(cfgDefault$gms[colNames[!isSameAsDefault]], as.character))
+
+  cat("## GAMS Config Non-Default\n\n")
+
+  cat("Following GAMS settings are the same in all scenarios but different from the default settings.\n\n")
+
+  bind_cols(
+    Source = c("Scenarios", "Default"),
+    cfgGmsWideSameDiffDefault
+  ) %>%
+    showInTables()
+
+  cat(
+    "Following GAMS settings are the same in all scenarios and not present in the default file:\n\n")
+
+  bind_cols(
+    Source = "Scenarios",
+    cfgGmsWideSame[setdiff(names(cfgGmsWideSame), names(cfgDefault$gms))]
+  ) %>%
+  showInTables()
+}
+```
+
+
+```{r results='asis'}
+# Show all gms config options that differ between scenarios.
+if (exists("cfgGmsWideDiff") && !is.null(cfgGmsWideDiff)) {
+  cat("## GAMS Config Differences\n\n")
+
+  cat("Following GAMS settings are different among the sceanrios:\n\n")
+
+  showInTables(cfgGmsWideDiff, bkgndColors)
+}
+```

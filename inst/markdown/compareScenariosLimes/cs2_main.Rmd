@@ -94,9 +94,8 @@ library(limes) # nolint
 ```{r read config files}
 if (!is.null(params$cfgScen)) {
   loadCfg <- function(path) {
-    env <- new.env()
-    load(path, envir = env)
-    return(env$cfg)
+    cfg <- yaml::read_yaml(path)
+    return(cfg)
   }
   cfgs <-
     tibble(path = unname(params$cfgScen)) %>%

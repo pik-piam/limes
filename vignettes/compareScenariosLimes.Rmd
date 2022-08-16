@@ -203,7 +203,7 @@ If `compareScenariosLimes()` is provided with paths to the `config.Rdata` files 
 ```{r}
 compareScenariosLimes(
   mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"),
-  cfgScen = c("path/to/scen1/config.RData", "path/to/scen2/config.RData"),
+  cfgScen = c("path/to/scen1/config.yml", "path/to/scen2/config.yml"),
   cfgDefault = "path/to/default.cfg",
   ...)
 ```
