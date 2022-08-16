@@ -15,7 +15,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval=FALSE
+  eval = FALSE
 )
 ```
 
@@ -52,26 +52,25 @@ keyfile <- "path/to/ssh/private/key/.ssh/id_rsa"
 username <- "username"
 out_path <- "path/to/where/mifs/will/be/downloaded/"
 # path on the cluster where to search for mifs:
-path <- "/p/projects/remind/modeltests/output/" 
+path <- "/p/projects/remind/modeltests/output/"
 # Connect to the cluster and get the file names of the newest modeltest mifs.
-session <- ssh_connect(paste0(username, "@cluster.pik-potsdam.de"), keyfile=keyfile)
+session <- ssh_connect(paste0(username, "@cluster.pik-potsdam.de"), keyfile = keyfile)
 out <- ssh_exec_internal(session, paste("ls", path))
-out$stdout %>%
+filenames <- out$stdout %>%
   rawToChar() %>%
   str_split("\n", simplify = TRUE) %>%
-  str_subset("^[a-zA-Z0-9-]+_\\d{4}-\\d{2}-\\d{2}_\\d{2}\\.\\d{2}\\.\\d{2}$") ->
-  filenames
-filenames %>%
+  str_subset("^[a-zA-Z0-9-]+_\\d{4}-\\d{2}-\\d{2}_\\d{2}\\.\\d{2}\\.\\d{2}$")
+new_file_data <- filenames %>%
   str_split("_", simplify = TRUE) %>%
-  matrix(ncol=3, dimnames=list(NULL, c("name", "date", "time"))) %>%
+  matrix(ncol = 3, dimnames = list(NULL, c("name", "date", "time"))) %>%
   as_tibble() %>%
   bind_cols(filename = filenames) %>%
   mutate(date = as.Date(date)) %>%
-  filter(date >= max(date)-2) ->
-  new_file_data
+  filter(date >= max(date) - 2)
+  
 new_files <- paste0(path, new_file_data$filename, "/LIMES_generic_", new_file_data$name, ".mif")
 walk(new_files, scp_download, session = session, to = out_path) # download scenario mifs
-hist_path <- paste0(path, new_file_data$filename[1], "/historical.mif") 
+hist_path <- paste0(path, new_file_data$filename[1], "/historical.mif")
 scp_download(session = session, hist_path, to = out_path) # download historical.mif
 ssh_disconnect(session)
 ```
@@ -90,7 +89,7 @@ compareScenariosLimes(
   outputDir = "path/to/where/rmds/should/be/copied/to", # TODO.
   outputFormat = "Rmd",
   # Add current time as output name to not overwrite other things:
-  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S")) 
+  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S"))
 ```
 
 The code in these Rmd-files is structured in chunks and each chunk can be run separately by clicking on its play-button. We first open `cs2_main.Rmd`. At the end of the file, there is a chunk

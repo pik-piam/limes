@@ -35,7 +35,7 @@ items <- c("Emissions|CO2|Energy|Supply|Electricity",
            "Emissions|CO2|Energy|Supply|Heat|District Heating",
            "Emissions|CO2|Industry",
            "Emissions|CO2|Cap|Stationary"
-)  
+)
 
 showAreaAndBarPlots(data, items)
 ```

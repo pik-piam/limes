@@ -185,8 +185,8 @@ bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
 
 ```{r Large Regions Subset}
 
-largeRegions <- function(df){
-  large_regions_vec <- c(
+largeRegions <- function(df) {
+  largeRegionsVec <- c(
   params$mainReg,
   "EUETS",
   "DEU",
@@ -201,7 +201,7 @@ largeRegions <- function(df){
   "BEL",
   "AUT"
 )
-  return(df %>% filter(region %in% large_regions_vec ))
+  return(df %>% filter(region %in% largeRegionsVec))
 }
 
 ```

@@ -10,3 +10,4 @@
 ^tests/.lintr$
 ^doc$
 ^Meta$
+^vignettes/.lintr$
