@@ -49,8 +49,7 @@ limesMapping <- function(var,mappingPath=NULL){
   var_names <- NULL
   k <- 0
   for (regi in region_var) {
-    # AL: there would be more efficient ways but I do not know cases
-    # where the variable k matters, so I keep the `for(){}` loop
+
     tmp <- namesWOregi(var, regi)
 
     #Aggregate the new elements
