@@ -24,7 +24,7 @@
 reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
   if (is.null(output) & !reporting_tau) {
-    stop("please provide a file containing all needed information")
+    stop("argument `output` is NULL. Please provide a file containing all needed information")
   }
 
   # read sets
