@@ -23,14 +23,13 @@
 #'
 reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
-  if (is.null(output) & !reporting_tau) {
+  if (is.null(output) && !reporting_tau) {
     stop("argument `output` is NULL. Please provide a file containing all needed information")
   }
 
   # read sets
   tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") # time set
   t0 <- readGDX(gdx, name = "t0", field = "l", format = "first_found") # initial year
-  tehe <- readGDX(gdx, name = "tehe")
   teel <- readGDX(gdx, name = "teel") # set of electricity generation technologies (non-storage)
   ter <- readGDX(gdx, name = "ter") # set of variable renewable electricity generation technologies
   ternofluc <- readGDX(gdx, name = "ternofluc") # set of non-variable (non-fluctuating) renewable electricity generation technologies
