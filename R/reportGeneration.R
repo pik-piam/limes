@@ -61,6 +61,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") # time-step
   p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found")[, , tau] # number of hours/year per tau
   p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found") # parameter per technology
+  o_netimports_tau <- readGDX(gdx, name = "o_netimports_tau", format = "first_found", react = 'silent') # electricity net imports
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
 
   # read variables
@@ -80,6 +81,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   v_storein <- limesMapping(v_storein)
   v_exdemand <- limesMapping(v_exdemand)
   p_autocons <- limesMapping(p_autocons)
+  if (!is.null(o_netimports_tau)) {
+    o_netimports_tau <- limesMapping(o_netimports_tau)
+  }
 
   # give explicit set names
 
@@ -207,6 +211,11 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     "Primary Energy|Electricity|Hydrogen (TWh/yr)"                                    = "helec"
   )
 
+  varList_Imports <- list("Secondary Energy|Electricity|Net Imports (TWh/yr)" = NULL)
+
+
+# Standard Reporting ------------------------------------------------------
+
 
   if (!reporting_tau) { # for normal reporting
 
@@ -228,7 +237,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
                                          - dimSums(v_storein_el, dim = c(3.2)))
                                         * p_taulength, dim = 3)
                                 / 1000,
-                                "Secondary Energy||Electricity|w/o losses (TWh/yr)"))
+                                "Secondary Energy|Electricity|w/o losses (TWh/yr)"))
 
     tmp2 <- NULL
     # when there is endogenous heating switch
@@ -342,20 +351,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
             tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_he[, , varList_he[[var]]], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000, var))
           }
 
-          ## Final energy
-          # varList_he2 <- list(
-          #  "Final Energy|Electricity|Heat (TWh/yr)"                                           =intersect(tehe, c(teheelec)),
-          #  "Final Energy|Electricity|Decentralized|Heat (TWh/yr)"                             =intersect(tehedec, teheelec),
-          #  "Final Energy|Electricity|Decentralized|Heat Pump|Heat (TWh/yr)"                   =intersect(tehedec, c("hp_sh_dec","hp_wh_dec")),
-          #  "Final Energy|Electricity|Decentralized|Resistive electric heater|Heat (TWh/yr)"   =intersect(tehedec,"resheat_dec"),
-          #  "Final Energy|Electricity|Decentralized|Conventional heater|Heat (TWh/yr)"         =intersect(tehedec,"convheat_dec"),
-          #  "Final Energy|Electricity|Decentralized|Conventional water heater|Heat (TWh/yr)"   =intersect(tehedec,"convwh_dec")
-          # )
-          #
-          # for (var in names(varList_he2)){
-          #  tmp2 <- mbind(tmp2, setNames(dimSums(o_finalenergy_he[,, varList_he2[[var]]], dim=3), var))
-          # }
-
         }
 
         # 2. ELECTRICITY FROM CHP AND ELECTRICITY-ONLY PLANTS
@@ -425,7 +420,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     # Storage generation
 
-
     for (var in names(varList_stGen)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storeout_el[, , varList_stGen[[var]]], dim = c(3.2))
                                           * p_taulength, dim = 3)
@@ -434,7 +428,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     }
 
     # Storage consumption
-
 
     for (var in names(varList_stCons)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storein_el[, , varList_stCons[[var]]], dim = c(3.2))
@@ -451,6 +444,15 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       tmp4 <- mbind(tmp4, setNames(dimSums(v_storeout_he[, , ] * p_taulength, dim = 3) / 1000, "Useful Energy|Heat|Storage (TWh/yr)"))
       tmp4 <- mbind(tmp4, setNames(dimSums(v_storein_he[, , ] * p_taulength, dim = 3) / 1000, "Useful Energy|Heat|Storage Consumption (TWh/yr)"))
       tmp4 <- mbind(tmp4, setNames(dimSums((v_storein_he - v_storeout_he) * p_taulength / 1000, dim = 3), "Useful Energy|Heat|Storage Losses (TWh/yr)"))
+    }
+
+    # Net Electricity imports
+    if (! is.null(o_netimports_tau)){
+      tmp4 <- mbind(tmp4, setNames(dimSums(o_netimports_tau * p_taulength
+                                           , dim = 3)
+                                   / 1000,
+                                   names(varList_Imports))
+      )
     }
 
 
@@ -852,7 +854,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     # Net imports
     o_netimpots <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(p_eldemand), names = tau,
                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
-    o_netimpots <- dimSums(p_eldemand * p_taulength / 1000, dim = 3) - setNames(tmp1[, , "Secondary Energy||Electricity|w/o losses (TWh/yr)"], NULL)
+    o_netimpots <- dimSums(p_eldemand * p_taulength / 1000, dim = 3) - setNames(tmp1[, , "Secondary Energy|Electricity|w/o losses (TWh/yr)"], NULL)
 
     # Gross demand (gross electricity production + net imports), following official german statistics procedure
     o_grossdem <- dimSums(o_grossprod, dim = c(3.1)) + o_netimpots
@@ -874,6 +876,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
   } else {
 
+# Tau reporting -----------------------------------------------------------
     f_renameTau <- function(vecOriginal){
 
       vecModif <- vecOriginal
@@ -886,9 +889,14 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     f_computeTauVec <- function(varName, varList, data) {
 
       sets2Sum <- setdiff(getSets(data), c("region", "t", "tau"))
-      .tmp <- dimSums(data[, , varList[[varName]]],
-                      dim = sets2Sum
-      )
+      if (!is.null(varList[[varName]])){
+        .tmp <- dimSums(data[, , varList[[varName]]],
+                        dim = sets2Sum)
+      } else {
+        .tmp <- dimSums(data,
+                        dim = sets2Sum)
+      }
+
 
       .nm <- paste(varName, getNames(.tmp), sep = "___")
       .nm <- gsub("^(.*)( \\(.*\\))___(.*)$", "\\1|\\3\\2", .nm)
@@ -915,8 +923,13 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       f_computeTau(varList_stGenTau, v_storeout_el),
       f_computeTau(varList_stConsTau, v_storein_el),
       f_computeTau(varList_stLoss, v_storein_el - v_storeout_el)
-
     )
+
+    if (!is.null(o_netimports_tau)){
+      varList_Imports <- f_renameTau(varList_Imports)
+      tmp1 = mbind(tmp1,
+                   f_computeTau(varList_Imports, o_netimports_tau))
+    }
 
 
     x <- new.magpie(getRegions(tmp1), getYears(tmp1), getNames(p_taulength))
