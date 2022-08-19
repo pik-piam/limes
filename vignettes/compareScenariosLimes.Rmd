@@ -1,0 +1,229 @@
+---
+title: "compareScenariosLimes"
+author: "Christof Schötz"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{compareScenariosLimes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+The function `compareScenariosLimes()` of the `limes` package is based on the `compareScenariosLimes()` function from the `remind2` [package](https://github.com/pik-piam/remind2/) and adapts it to the needs of the **LIMES** model. It can be used to visually compare the results of multiple runs of the **LIMES** model. See also `vignette("compareScenarios2")` from which this vignette is largely copied. 
+
+It can be called via the `output.R` script in the **LIMES** model: Execute `Rscript output.R` in the **LIMES** folder, select `Comparison across runs` and then `compareScenariosLimes`.
+
+The function reads the results from the output-mif-files (in the **LIMES** folder after runs are completed, i.e., the files `output/<scenario_folder>/LIMES_generic_<scenario>.mif`). Using this data, a document containing many plots is created and written as a PDF- or HTML-file. See `?limes::compareScenariosLimes` for information on how to call the function with the appropriate arguments.
+
+Internally, `compareScenariosLimes()` calls `rmarkdown::render()` on certain Rmarkdown-files (Rmd-files). Rmd-files may contain R-code (e.g., for creating plots) as well as descriptive text (in this case, mostly section titles). The Rmd-files to be rendered are part of the limes-package. In the development state of the package, they can be found in the folder `inst/markdown/compareScenariosLimes/`. 
+To be more precise, `rmarkdown::render()` is called on `cs2_main.Rmd` in this folder, which includes other Rmd-files - one for each section of the output document.
+The loading and preprocessing of data happens in `cs2_main.Rmd`; the section Rmd-files mostly call plot functions.
+
+Aside from HTML- and PDF-documents as output, `compareScenariosLimes()` also allows to obtain a copy of the Rmd-files needed to create these outputs (by setting the argument `outputFormat = "Rmd"`). Rendering the resulting Rmd-files to PDF or HTML yields the same documents as calls to `compareScenariosLimes()` with `outputFormat = "PDF"` or `"HTML"`. The advantage of being able to access these Rmd-files is the possibility to change the plotting code without changing the code of the `limes`-package. Moreover, Rmd-files can be used interactively in RStudio.
+
+# Local Use and mif-Files
+
+`compareScenariosLimes()` with default settings can be called automatically after a bundle of runs on the cluster has finished or manually via `Rscript output.R`. It can also be called directly as a function of the R-package `limes`, e.g.,
+
+```{r}
+library(limes)
+compareScenariosLimes(
+  mifScen = c("path/to/Base.mif", "path/to/NDC.mif"),
+  outputFile = "compareScenariosLimesExample")
+```
+
+To do this locally on our computer, we need some mif files to compare. One possibility is to adapt and execute the following script to download the newest *modeltest* files.
+
+```{r eval=FALSE}
+library(tidyverse)
+library(ssh)
+# TODO: Adapt the following three lines!
+keyfile <- "path/to/ssh/private/key/.ssh/id_rsa"
+username <- "username"
+out_path <- "path/to/where/mifs/will/be/downloaded/"
+# path on the cluster where to search for mifs:
+path <- "/p/projects/remind/modeltests/output/"
+# Connect to the cluster and get the file names of the newest modeltest mifs.
+session <- ssh_connect(paste0(username, "@cluster.pik-potsdam.de"), keyfile = keyfile)
+out <- ssh_exec_internal(session, paste("ls", path))
+filenames <- out$stdout %>%
+  rawToChar() %>%
+  str_split("\n", simplify = TRUE) %>%
+  str_subset("^[a-zA-Z0-9-]+_\\d{4}-\\d{2}-\\d{2}_\\d{2}\\.\\d{2}\\.\\d{2}$")
+new_file_data <- filenames %>%
+  str_split("_", simplify = TRUE) %>%
+  matrix(ncol = 3, dimnames = list(NULL, c("name", "date", "time"))) %>%
+  as_tibble() %>%
+  bind_cols(filename = filenames) %>%
+  mutate(date = as.Date(date)) %>%
+  filter(date >= max(date) - 2)
+  
+new_files <- paste0(path, new_file_data$filename, "/LIMES_generic_", new_file_data$name, ".mif")
+walk(new_files, scp_download, session = session, to = out_path) # download scenario mifs
+hist_path <- paste0(path, new_file_data$filename[1], "/historical.mif")
+scp_download(session = session, hist_path, to = out_path) # download historical.mif
+ssh_disconnect(session)
+```
+
+
+# Interactive Use of the Rmd-files
+
+In this section, we assume that we do not want to change the package `limes`. But we may want to make changes to the compareScenarios output locally.
+
+We call `limes::compareScenariosLimes()` with `outputFormat = "Rmd"` to obtain a (modified) copy of the Rmd-files.
+
+```{r eval=FALSE}
+library(limes)
+compareScenariosLimes(
+  mifScen = c("path/to/scen1.mif", "path/to/scen2.mif", "path/to/scen3.mif"), # TODO.
+  outputDir = "path/to/where/rmds/should/be/copied/to", # TODO.
+  outputFormat = "Rmd",
+  # Add current time as output name to not overwrite other things:
+  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S"))
+```
+
+The code in these Rmd-files is structured in chunks and each chunk can be run separately by clicking on its play-button. We first open `cs2_main.Rmd`. At the end of the file, there is a chunk
+````
+```{r prepare mark}
+# CLICK "RUN ALL CHUNKS ABOVE" HERE TO PREPARE THE ENVIRONMENT
+```
+```` 
+Clicking on the *triangle above bar*-button on the right executes all chunks above and by that loads and prepares the data for plotting. After that one can open any section-Rmd-file and execute a chunk to create the respective plots. The plots should appear in RStudio inside the Rmd-file below the chunk.
+
+# Workflow for Adding a new Plot to compareScenariosLimes
+
+1. If not done already, fork <https://github.com/pik-piam/limes>.
+2. In your personal github limes repository, create a new branch.
+3. Clone the repository and switch to the newly created branch to get your local copy.
+4. In your local copy, open `limes.Rproj` in RStudio.
+5. Press `CTRL+SHIFT+L` to call `devtools::load_all(".")`, which loads `limes` from your local copy.
+6. Assuming you have some mifs available for testing, call
+
+```{r eval=FALSE}
+compareScenariosLimes(
+  mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"), # TODO.
+  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S"),
+  sections = NULL,
+  envir = globalenv())
+```
+
+This executes the code in `cs2_main.Rmd` without creating any plots (a mostly empty PDF-file will still be created). This will take some seconds, but it should not take minutes. Type `data` into the RStudio console and hit enter. This should show you the first rows of a table that contains all the loaded data (`ènvir = globalenv()` leads `render` to write all the variables to the environment available in the interactive session (the global environment)).
+
+7. Open the section file in which you want to add the plot. The files are in the folder `inst/markdown/compareScenariosLimes/` and have names of the form `c2_NN_XXXX.Rmd`, where `NN` is a two digit number and `XXXX` resembles the section title.
+8. You should be able to execute any chunk in the section Rmd by clicking the play button in its top right corner.
+9. Insert a new chunk by copying an old one or by pressing `CTRL+ALT+I`.
+10. Add a new plot inside the chunk, e.g., `showLinePlots(data, "Your|Variable|Name")`. See [Plot Functions] below.
+11. Run your newly created chunk to see the plot.
+12. Run the following code to see your new plot in a PDF.
+
+```{r eval=FALSE}
+compareScenariosLimes(
+  mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"), # TODO.
+  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S"),
+  outputFormat = "PDF", # PDF is the default, so you can leave that line out. Or change it to html to get a html-version.
+  sections = <NN>) # TODO: Replace <NN> by the number of the section you changed (or by "all" to build the whole compare scenarios file, which will take a while)
+```
+
+13. Save the file. Commit your changes. In the commit message, you may use the shorthand `cs2` to indicate that you made a change to compareScenariosLimes, e.g., `cs2: added plot of My|Variable`.
+14. Make sure you fetched and pulled all recent changes to limes. Then, call `lucode2::buildLibrary()`. Commit again with the commit message `` `lucode2::buildLibrary()` ``. Push your commits to github.
+15. Create a pull request.
+
+# cs2_main.Rmd
+
+This file loads the data from the mif-files, preprocesses the data, and includes the section-Rmd-files at the very end (and optionally further Rmd-files provided by the user, see YAML-parameter `userSectionPath`).
+
+## YAML-header
+
+The file `cs2_main.Rmd` starts with a YAML header marked by `---`. This header declares some basic information of the report, like its title and the output format. Furthermore, it contains a list `params`, which parameterizes the report. Among others, such parameters are the paths to the mif-files and certain properties that are shared for all plots in the report. Each such parameter can be changed by a respective argument in the call of `compareScenariosLimes()`, see section *YAML Parameters* in the documentation of the function.
+
+## Loading
+
+The mif-files are loaded using `quitte::read.quitte()`. This function names the global region `"World"` (not `"GLO"` as `magclass::read.report()`). For each file, we obtain one data-frame with columns `model, scenario, region, variable, unit, period, value`. During preprocessing the data-frames are concatenated into one quitte object named `data`. In the sections, `data` is used to provide the data necessary for the plots.
+
+If provided, also config files are loaded.
+
+## Preprocessing
+
+* Scenarios are renamed if the user specifies new names (using a named vector for the argument `mifScen` of `compareScenariosLimes()` or by setting the parameter `mifScenNames` in the Rmd-files) or if scenario names are duplicate.
+* The columns `period` (years) and `region` are filtered according to the parameters `yearsScen`, `yearsHist`, and `reg`.
+
+## Global Variables 
+
+Global variables are created in `cs2_main.Rmd` and are intended to be used in the plot functions of the section-Rmd-files.
+
+The quitte-object (data frame) `data` with columns `model, scenario, region, variable, unit, period, value, varplus` provides all data that may be plotted.
+It has mostly factor-columns. Thus, a vector of all available regions can be obtained by `levels(data$region)`.
+
+Some arguments of the `mip::show...()` plot functions use the functionality provided by the base-R functions `options()` and `getOption()`. In `cs2_main.Rmd` there are calls to `options()`, setting values of the global options `mip.mainReg`, `mip.yearsBarPlot`, and `mip.histRefModel`. The plotting functions may have an argument, e.g., `mainReg` with default value `getOption("mip.mainReg")`. Thus, this argument does not have to be stated for each call of the plot function (assuming the respective call of `options()` sets it to the right value).
+
+# Section-Rmd-files
+
+The section-Rmd-files follow the naming pattern `cs2_NN_XXXX.Rmd`, where `NN` is replaced by a two digit number and `XXXX` is replaced by a short name of the section. If the YAML-parameter `sections` is set to `"all"`, the default, all sections of this naming pattern are included in `cs2_main.Rmd`. Alternatively, `sections` can be set to a vector of individual sections in the form of `"NN_XXXX"` to only render these sections.
+
+The section-Rmd-files consist of section and sub-section titles, marked by `#`, `##`, `###`, ..., and R-code chunks which create plots, usually by calling one of the `show...()`-functions in the `mip` package.
+
+## userSectionPath
+
+The user can provide one or more additional Rmd-files that are appended after the sections provided by the package. Setting `sections` to `NULL` and `userSectionPath` to a character-vector of paths to Rmd-files creates a fully user-defined report.
+
+## Special Sections
+
+There is a first section (section number 0) and a last section in the files `cs2_00_info.Rmd` and `cs2_99_further_info.Rmd`, respectively. 
+
+### 0 Info
+
+This section contains a file reference table with scenario names and the paths to the respective mif files. It also show if a scenario is renamed. Renaming can be forced by the user by using a named character vector as argument `mifScen` where the names indicate the new scenario name, e.g.,
+
+```{r}
+compareScenariosLimes(
+  mifScen = c(newName1 = "path/to/scen1.mif", newName2 = "path/to/scen2.mif"),
+  ...)
+```
+
+Or, if two scenarios have the same name, they are renamed automatically.
+
+Furthermore, this section displays a description of each scenario. This requires the YAML-parameter `cfgScen` to be set (see also [99 Further Info]). The description can be set in the `secenario_config*.csv`-file via a column `description`.
+
+
+### 99 Further Info
+
+If `compareScenariosLimes()` is provided with paths to the `config.Rdata` files of the scenarios via the YAML-parameter `cfgScen` and the path to `default.cfg` via `cfgDefault` an analysis of the configurations of the scenarios is shown.
+
+```{r}
+compareScenariosLimes(
+  mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"),
+  cfgScen = c("path/to/scen1/config.yml", "path/to/scen2/config.yml"),
+  cfgDefault = "path/to/default.cfg",
+  ...)
+```
+
+
+# Plot Functions
+
+The section Rmd-files mostly consists of simple calls of a `show...()`-function from the the [mip](https://github.com/pik-piam/mip) package. These functions are designed to make the creation of re-occurring kinds of plots in comapreSceanrios2 simple. Alternatively, one can build custom plots using `ggplot2`.
+
+The `mip`-package contains following default plot functions for comapareScenarios2: 
+
+* `showAreaAndBarPlots()`
+* `showAreaAndBarPlotsPlus()`
+* `showLinePlots()`
+* `showLinePlotsWithTarget()`
+* `showMultiLinePlots`
+* `showMultiLinePlotsByVariable()`
+* `showRegiLinePlots()`
+
+All but `showLinePlotsWithTarget()` can use the global option `mip.mainReg`.
+`showAreaAndBarPlots()` and `showAreaAndBarPlotsPlus()` can use `mip.yearsBarPlot`.
+`showMultiLinePlotsByVariable()` uses `mip.histRefModel`.
+
+See the respective function documentation for more information and example plots.

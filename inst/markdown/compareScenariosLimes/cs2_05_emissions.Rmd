@@ -1,0 +1,44 @@
+# Emissions
+
+## CO2 Emissions Electricity
+
+```{r Emi_CO2_Elec}
+tot <- "Emissions|CO2|Energy|Supply|Electricity"
+items <- c(
+  "Emissions|CO2|Energy|Supply|Electricity|Coal",
+  "Emissions|CO2|Energy|Supply|Electricity|Gas",
+  "Emissions|CO2|Energy|Supply|Electricity|Oil",
+  "Emissions|CO2|Energy|Supply|Electricity|Other",
+  "Emissions|CO2|Energy|Supply|Electricity|Waste"
+)
+showAreaAndBarPlots(data, items, tot)
+```
+
+## Emissions Aggregate 
+```{r Emi_Agg}
+#Emissions in EU ETS - not always accounted at country level
+items <- c("Emissions|CO2|Energy|Supply|Electricity",
+           "Emissions|CO2|Industry",
+           "Emissions|CO2|Energy|Supply|Heat|District Heating"
+)
+showAreaAndBarPlots(data, items)
+```
+
+
+
+
+## EU ETS Emissions
+### EU ETS Emissions | Area plot
+
+```{r Emi_CO2}
+items <- c("Emissions|CO2|Energy|Supply|Electricity",
+           "Emissions|CO2|Energy|Supply|Heat|District Heating",
+           "Emissions|CO2|Industry",
+           "Emissions|CO2|Cap|Stationary"
+)
+
+showAreaAndBarPlots(data, items)
+```
+
+
+

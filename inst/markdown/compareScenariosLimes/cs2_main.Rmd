@@ -94,9 +94,8 @@ library(limes) # nolint
 ```{r read config files}
 if (!is.null(params$cfgScen)) {
   loadCfg <- function(path) {
-    env <- new.env()
-    load(path, envir = env)
-    return(env$cfg)
+    cfg <- yaml::read_yaml(path)
+    return(cfg)
   }
   cfgs <-
     tibble(path = unname(params$cfgScen)) %>%
@@ -182,6 +181,29 @@ lightenColor <- function(clr, by) {
   rgb(colRGB[1], colRGB[2], colRGB[3], maxColorValue = 255)
 }
 bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
+```
+
+```{r Large Regions Subset}
+
+largeRegions <- function(df) {
+  largeRegionsVec <- c(
+  params$mainReg,
+  "EUETS",
+  "DEU",
+  "FRA",
+  "GBR",
+  "ESP",
+  "ITA",
+  "POL",
+  "NLD",
+  "SWE",
+  "NOR",
+  "BEL",
+  "AUT"
+)
+  return(df %>% filter(region %in% largeRegionsVec))
+}
+
 ```
 
 

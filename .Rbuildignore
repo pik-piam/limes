@@ -8,3 +8,6 @@
 ^workflow$
 ^.lintr$
 ^tests/.lintr$
+^doc$
+^Meta$
+^vignettes/.lintr$

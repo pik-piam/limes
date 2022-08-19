@@ -1,0 +1,95 @@
+# Heating
+
+## Final Energy District Heating
+
+```{r FE_DH}
+items <- c(
+  "Final Energy|Heat|District Heating|Biomass",
+  "Final Energy|Heat|District Heating|Electricity|Electric Boiler",
+  "Final Energy|Heat|District Heating|Electricity|Heat Pump",
+  "Final Energy|Heat|District Heating|Gas",
+  "Final Energy|Heat|District Heating|Geothermal",
+  "Final Energy|Heat|District Heating|Lignite",
+  "Final Energy|Heat|District Heating|Oil",
+  "Final Energy|Heat|District Heating|Other",
+  "Final Energy|Heat|District Heating|Solar",
+  "Final Energy|Heat|District Heating|Waste")
+
+# Variables not available for runs without heating
+showAreaAndBarPlots(data, items)
+```
+
+## Capacity District Heating
+```{r Cap_DH}
+items <- c(
+  "Capacity|Gross|Heat|District Heating|CHP|Hard Coal",
+  "Capacity|Gross|Heat|District Heating|CHP|Lignite",
+  "Capacity|Gross|Heat|District Heating|CHP|Gas",
+  "Capacity|Gross|Heat|District Heating|CHP|Hydrogen",
+  #"Capacity|Gross|Heat|District Heating|CHP|Oil",
+  #"Capacity|Gross|Heat|District Heating|CHP|Waste",
+  #"Capacity|Gross|Heat|District Heating|CHP|Other",
+  "Capacity|Gross|Heat|District Heating|CHP|Other Fossil", #Either include the three above or this
+  "Capacity|Gross|Heat|District Heating|CHP|Biomass",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Hard Coal",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Lignite",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Gas",
+  #"Capacity|Gross|Heat|District Heating|Heat-only|Oil",
+  #"Capacity|Gross|Heat|District Heating|Heat-only|Other",
+  #"Capacity|Gross|Heat|District Heating|Heat-only|Waste",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil", #Either include the three above or this
+  "Capacity|Gross|Heat|District Heating|Heat-only|Biomass",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Solar",
+  "Capacity|Gross|Heat|District Heating|Heat-only|Geothermal"
+)
+showAreaAndBarPlots(data, items)
+```
+
+
+
+## Generation District Heating
+```{r Gen_DH}
+items <- c(
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Hard Coal",
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Lignite",
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Gas",
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Hydrogen",
+  #"Secondary Energy|Gross|Heat|District Heating|CHP|Oil",
+  #"Secondary Energy|Gross|Heat|District Heating|CHP|Waste",
+  #"Secondary Energy|Gross|Heat|District Heating|CHP|Other",
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Other Fossil", #Either include the three above or this
+  "Secondary Energy|Gross|Heat|District Heating|CHP|Biomass",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Hard Coal",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas",
+  #"Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil",
+  #"Secondary Energy|Gross|Heat|District Heating|Heat-only|Other",
+  #"Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil", #Either include the three above or this
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Biomass",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Solar",
+  "Secondary Energy|Gross|Heat|District Heating|Heat-only|Geothermal"
+)
+showAreaAndBarPlots(data, items)
+```
+
+
+
+## Buildings Useful Energy
+
+```{r UE_Buil}
+items <- c("Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating",
+                   "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating",
+                   "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating",
+                   "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating")
+showAreaAndBarPlots(data, items)
+```
+
+
+
+## Heat demand covered by each system
+

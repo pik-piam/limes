@@ -1,0 +1,35 @@
+# Prices
+
+## Fuel Prices
+
+```{r Price_EC}
+items <- c("Price|Primary Energy|Lignite",
+           "Price|Primary Energy|Hard Coal",
+           "Price|Primary Energy|Gas",
+           "Price|Primary Energy|Oil",
+           "Price|Primary Energy|Biomass",
+           "Price|Primary Energy|Hydrogen [external]")
+
+showMultiLinePlots(largeRegions(data), items)
+```
+
+## Electricity Prices
+### Electricity Price
+
+```{r Price_Elec}
+showLinePlots(data,  "Price|Secondary Energy|Electricity")
+```
+
+### Electricity Full Price
+
+```{r Price_Elec_Full}
+showLinePlots(data,  "Price Full|Secondary Energy|Electricity")
+```
+
+## Carbon Price
+
+```{r Price_Carbon}
+showLinePlots(data, "Price|Carbon|ETS")
+```
+
+
