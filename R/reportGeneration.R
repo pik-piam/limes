@@ -445,14 +445,14 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       tmp4 <- mbind(tmp4, setNames(dimSums((v_storein_he - v_storeout_he) * p_taulength / 1000, dim = 3), "Useful Energy|Heat|Storage Losses (TWh/yr)"))
     }
 
-    # Net Electricity imports
-    if (! is.null(o_netimports_tau)){
-      tmp4 <- mbind(tmp4, setNames(dimSums(o_netimports_tau * p_taulength
-                                           , dim = 3)
-                                   / 1000,
-                                   names(varList_Imports))
-      )
-    }
+    ## Net Electricity imports
+    #if (! is.null(o_netimports_tau)){
+    #  tmp4 <- mbind(tmp4, setNames(dimSums(o_netimports_tau * p_taulength
+    #                                       , dim = 3)
+    #                               / 1000,
+    #                               names(varList_Imports))
+    #  )
+    #}
 
 
     # Hydrogen (from electrolysis) used in hydrogen-based generation plants
