@@ -37,9 +37,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding fuel costs to report output
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
 
-  #adding capital costs to report output
-  output <- mbind(output,reportCapitalCosts(gdx)[,time,])
-
   #adding electricity generation info to report output
   output <- mbind(output,reportGeneration(gdx,output)[,time,]) #dependent on primary energy and fuel costs
 
@@ -63,6 +60,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
+
+  #adding capital costs to report output
+  output <- mbind(output,reportCapitalCosts(gdx)[,time,])
 
   #adding peak demand to report output (now included in reportDemand)
   #output <- mbind(output,reportPeakDemand(gdx)[,time,])
@@ -312,11 +312,27 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
     output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
 
-    #EU demand for hydrogen (not defined on a region basis)
-    if("Final Energy|Hydrogen|Other sectors (TWh/yr)" %in% getNames(output)) {
-      p_demXSe_EU_exo <- readGDX(gdx,name="p_demXSe_EU_exo",field="l",format="first_found")
-      output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] <- p_demXSe_EU_exo[,,"pehgen"]/1000
-    }
+    ##EU demand for hydrogen (not defined on a region basis)
+    #if(sum(output[,,"Final Energy|Hydrogen|Other sectors (TWh/yr)"]) == 0) {
+#
+    #  #Filter variables reporting to hydrogen in other sectors
+    #  var_names <- getNames(output)[intersect(grep("Hydrogen",getNames(output)),grep("Other sectors",getNames(output)))]
+#
+    #  #Make sure they are not reported
+    #  output[,,var_names] <- NA
+    #  p_demXSe_EU_exo <- readGDX(gdx,name="p_demXSe_EU_exo",field="l",format="first_found")
+    #  output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] <- p_demXSe_EU_exo[,,"pehgen"]/1000
+#
+    #  #Recalculate aggregate vars
+    #  output["EU28",,"Final Energy|Hydrogen (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] +
+    #    output["EU28",,"Final Energy|Hydrogen|Power Sector (TWh/yr)"]
+#
+    #  #Split PE|Hydrogen between external and electrolysis depending on the share
+    #  c_sharehgen <- readGDX(gdx, name = "c_sharehgen", field = "l", format = "first_found")
+    #  output["EU28",,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] * c_sharehgen
+    #  output["EU28",,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] * (1 - c_sharehgen)
+#
+    #}
 
   }
 

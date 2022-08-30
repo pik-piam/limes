@@ -108,7 +108,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       v_storeout_el <- v_storeout
     }
 
-  } else {
+  } else { #=if c_LIMESversion < 2.26
     p_eldemand <- v_exdemand
     v_seprod_el <- v_seprod
   }
@@ -134,6 +134,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       # v_storeout_he <- v_storeout_he[,,"heat_sto"] #then filter by technology
     }
 
+  #End of if c_LIMESversion >= 2.37
   }
 
   # Collapse names to avoid some problems
@@ -350,6 +351,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
             tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_he[, , varList_he[[var]]], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000, var))
           }
 
+        #End of if c_buildings == 1
         }
 
         # 2. ELECTRICITY FROM CHP AND ELECTRICITY-ONLY PLANTS
@@ -406,8 +408,10 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000, var))
         }
 
+        #End of if c_heating == 1
       }
 
+      #End of if c_LIMESversion >= 2.33
     }
 
     # add global values
@@ -544,18 +548,12 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           (setNames(tmp4[, , "Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"], NULL) + setNames(tmp4[, , "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"], NULL))
         tmp4 <- mbind(tmp4, setNames(o_pricehgen_weighted, "Price|Primary Energy|Hydrogen (Eur2010/MWh)"))
 
+        #End of if c_LIMESversion == 2.36
       }
 
 
       # Hydrogen could be produced internally (electrolysis) or externally (imported at fixed price) and used in the power sector or in other sectors, without specifying the exact supply chain, e.g., not clear whether hydrogen produced from electrolysis is used in electricity generation
       if (c_LIMESversion >= 2.37) {
-        # H2 demand
-        # Hydrogen sold to other sectors (i.e., not used for electricity generation) - exogenous
-        p_demXSe_exo <- readGDX(gdx, name = c("p_demXSe_exo", "p_hgen_othersec"), field = "l", format = "first_found")[, , "pehgen"] # [GWh]
-        p_demXSe_exo <- limesMapping(p_demXSe_exo)
-        tmp4 <- mbind(tmp4, setNames(p_demXSe_exo / 1000, "Final Energy|Hydrogen|Other sectors (TWh/yr)"))
-        tmp4 <- mbind(tmp4, setNames(setNames(output[, , "Primary Energy|Hydrogen|Electricity (TWh/yr)"], NULL), "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
-        tmp4 <- mbind(tmp4, setNames(setNames(tmp4[, , "Final Energy|Hydrogen|Other sectors (TWh/yr)"], NULL) + setNames(tmp4[, , "Final Energy|Hydrogen|Power Sector (TWh/yr)"], NULL), "Final Energy|Hydrogen (TWh/yr)"))
 
         # H2 production
         # Internal hydrogen (produced through electrolysis)
@@ -568,7 +566,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         if (length(grep("[.]hct", getNames(v_demP2XSe_4el))) > 0) { # In the case of 'v_p2xse' and v_pedem, it was technology-dependent
           v_demP2XSe_4el <- dimSums(v_demP2XSe_4el, dim = 3.2)
         }
-        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4el * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [electrolysis]|Electricity (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4el * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [electrolysis]|Power Sector (TWh/yr)"))
         v_demP2XSe_4nel <- readGDX(gdx, name = c("v_demP2XSe_4nel", "v_hgen_othersec"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
         v_demP2XSe_4nel <- limesMapping(v_demP2XSe_4nel)
         tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4nel * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
@@ -588,10 +586,38 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           v_imp_XSe_4nel <- limesMapping(v_imp_XSe_4nel)
         }
 
-        tmp4 <- mbind(tmp4, setNames(dimSums(v_imp_XSe_4el_tau * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(v_imp_XSe_4el_tau * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"))
         tmp4 <- mbind(tmp4, setNames(v_imp_XSe_4nel / 1000, "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"))
-        tmp4 <- mbind(tmp4, setNames(collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Electricity (TWh/yr)"], dim = 3.1) +
-                                      collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], dim = 3.1), "Primary Energy|Hydrogen [external] (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"], dim = 3.1) +
+                                      collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], dim = 3.1)
+                                     , "Primary Energy|Hydrogen [external] (TWh/yr)"))
+
+        # H2 demand
+        # Hydrogen sold to other sectors (i.e., not used for electricity generation) - exogenous
+        #p_demXSe_exo <- readGDX(gdx, name = c("p_demXSe_exo", "p_hgen_othersec"), field = "l", format = "first_found")[, , "pehgen"] # [GWh]
+        #p_demXSe_exo <- limesMapping(p_demXSe_exo)
+        #tmp4 <- mbind(tmp4, setNames(p_demXSe_exo / 1000, "Final Energy|Hydrogen|Other sectors (TWh/yr)"))
+        #if(c_heating == 1) { #hydrogen for both electricity and heat generation should be considered
+        #  tmp4 <- mbind(tmp4, setNames(setNames(output[, , "Primary Energy|Hydrogen|Electricity and Heat (TWh/yr)"], NULL), "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
+        #} else { #only electricity is modelled
+        #  tmp4 <- mbind(tmp4, setNames(setNames(output[, , "Primary Energy|Hydrogen|Electricity (TWh/yr)"], NULL), "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
+        #}
+        #tmp4 <- mbind(tmp4, setNames(
+        #  setNames(tmp4[, , "Final Energy|Hydrogen|Other sectors (TWh/yr)"], NULL) + setNames(tmp4[, , "Final Energy|Hydrogen|Power Sector (TWh/yr)"], NULL)
+        #  , "Final Energy|Hydrogen (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(
+                        setNames(tmp4[,, "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], NULL) +
+                          setNames(tmp4[,, "Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"], NULL),
+                         "Final Energy|Hydrogen|Other sectors (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(
+          setNames(tmp4[,, "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"], NULL) +
+            setNames(tmp4[,, "Primary Energy|Hydrogen [electrolysis]|Power Sector (TWh/yr)"], NULL),
+                         "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(
+          setNames(tmp4[,, "Primary Energy|Hydrogen [external] (TWh/yr)"], NULL) +
+            setNames(tmp4[,, "Primary Energy|Hydrogen [electrolysis] (TWh/yr)"], NULL),
+                          "Final Energy|Hydrogen (TWh/yr)"))
+
 
         # Total hydrogen used in the model
         tmp4 <- mbind(tmp4, setNames(setNames(tmp4[, , "Final Energy|Hydrogen (TWh/yr)"], NULL), "Primary Energy|Hydrogen (TWh/yr)"))
@@ -602,6 +628,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           setNames(tmp4[, , "Primary Energy|Hydrogen (TWh/yr)"], NULL)
         tmp4 <- mbind(tmp4, setNames(o_pricehgen_weighted, "Price|Primary Energy|Hydrogen (Eur2010/MWh)"))
 
+        #End of if c_LIMESversion >= 2.37
       }
 
       # Seasonal storage of hydrogen -> input and output in electrolysers
@@ -626,6 +653,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         }
       }
 
+    #End of if c_LIMESversion >= 2.36
     }
 
     # aggregate tmp
@@ -873,7 +901,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     # merge tmp's
     tmp <- mbind(tmp7, tmp8)
 
-  } else {
+  } else { #if not the reportTau
 
 # Tau reporting -----------------------------------------------------------
     f_renameTau <- function(vecOriginal){
