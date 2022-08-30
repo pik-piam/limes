@@ -75,13 +75,11 @@ reportDemand <- function(gdx, output = NULL) {
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
 
   # Load also the storage consumption
-  o_storecons <- output[, , which(getNames(output) == "Secondary Energy|Electricity|Storage Consumption (TWh/yr)")]
+  o_storecons <- output[, , "Secondary Energy|Electricity|Storage Consumption (TWh/yr)"]
   getNames(o_storecons) <- NULL
 
   # electricity-related
   tmp1 <- NULL
-  # tmp1 <- mbind(tmp1,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000,"Gross Energy|Electricity (TWh/yr)")) I do not think this is the definition of gross demand
-  tmp1 <- mbind(tmp1, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) / 1000, "Final Energy|Electricity (TWh/yr)"))
 
   # Peak demand countries
   tmp1 <- mbind(tmp1, setNames(as.magpie(apply(p_eldemand, 1:2, max)), "Capacity|Electricity|Peak Demand (GW)"))
@@ -94,20 +92,32 @@ reportDemand <- function(gdx, output = NULL) {
       # Heat-related
       c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") # switch on buildings module
       v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found") # Waste heat
-
       v_heatwaste <- limesMapping(v_heatwaste)
 
       tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
       # tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_DH_losses))/1000,"Final Energy|Heat (TWh/yr)")
 
-      if (c_buildings == 1) {
+      if (c_buildings == 0) {
+        #Electricity demand in this case comprises all consumption
+        tmp2 <- mbind(tmp2, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) / 1000, "Final Energy|Electricity (TWh/yr)"))
 
+      } else if(c_LIMESversion >= 2.38 & c_buildings == 1) {
         # Use of electricity in heating
-        o_elecheat <- output[, , which(getNames(output) == "Secondary Energy Input|Electricity|Heat (TWh/yr)")] # from reportGeneration
-        getNames(o_elecheat) <- NULL
+        tmp2 <- mbind(tmp2, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) / 1000, "Final Energy|Electricity [w/o Hydrogen production] (TWh/yr)"))
 
-        # tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 + o_storecons,"Gross Energy|Electricity|w/ Storage (TWh/yr)"))
-        # tmp2 <- mbind(tmp2,setNames(dimSums(p_eldemand*p_taulength,dim=3)/1000 - o_elecheat,"Gross Energy|Electricity|w/o electric heating (TWh/yr)"))
+        #Use of electricity for cooling
+        p_exdem_cool <- readGDX(gdx, name = "p_exdem_cool", field = "l", format = "first_found")
+        p_exdem_cool <- limesMapping(p_exdem_cool)
+        tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(p_exdem_cool, dim = 3.2) * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Cooling (TWh/yr)"))
+
+        #Use of electricity for transport
+        p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")
+        p_exdem_trans <- limesMapping(p_exdem_trans)
+        tmp2 <- mbind(tmp2, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
+
+        #Use of electricity for Hydrogen production
+        tmp2 <- mbind(tmp2, setNames(output[,, "Primary Energy|Electricity|Hydrogen (TWh/yr)"], "Secondary Energy Input|Electricity|Hydrogen (TWh/yr)"))
+
 
       }
     }

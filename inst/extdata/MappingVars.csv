@@ -1381,3 +1381,8 @@ Capacity Additions|Gross|Heat|District Heating|CHP|Other Fossil;Capacity Additio
 Capacity Additions|Gross|Heat|District Heating|CHP|Fossil;Capacity Additions|Gross|Heat|District Heating|CHP|Fossil;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|CHP|Renewable;Capacity Additions|Gross|Heat|District Heating|CHP|Renewable;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable;Capacity Additions|Gross|Heat|District Heating|CHP|Non-renewable;GW/yr;GW/yr;1
+Secondary Energy Input|Electricity|Cooling;Secondary Energy Input|Electricity|Cooling;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Transport;Secondary Energy Input|Electricity|Transport;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Hydrogen;Secondary Energy Input|Electricity|Hydrogen;TWh/yr;TWh/yr;1
+Net Imports from RUS|Electricity;Net Imports from RUS|Electricity;TWh/yr;TWh/yr;1
+Net Exports to RUS|Electricity;Net Exports to RUS|Electricity;TWh/yr;TWh/yr;1

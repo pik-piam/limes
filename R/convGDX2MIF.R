@@ -44,7 +44,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output <- mbind(output,reportElectricityPrices(gdx)[,time,])
 
   #adding demand info to report output
-  output <- mbind(output,reportDemand(gdx,output)[,time,]) #dependent on generation
+  output <- mbind(output,reportDemand(gdx,output)[,time,]) #dependent on generation and primary energy
 
   #adding availability factors to report output
   output <- mbind(output,reportLoadFactor(gdx,output)[,time,])
@@ -311,28 +311,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
     #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
     output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
-
-    ##EU demand for hydrogen (not defined on a region basis)
-    #if(sum(output[,,"Final Energy|Hydrogen|Other sectors (TWh/yr)"]) == 0) {
-#
-    #  #Filter variables reporting to hydrogen in other sectors
-    #  var_names <- getNames(output)[intersect(grep("Hydrogen",getNames(output)),grep("Other sectors",getNames(output)))]
-#
-    #  #Make sure they are not reported
-    #  output[,,var_names] <- NA
-    #  p_demXSe_EU_exo <- readGDX(gdx,name="p_demXSe_EU_exo",field="l",format="first_found")
-    #  output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] <- p_demXSe_EU_exo[,,"pehgen"]/1000
-#
-    #  #Recalculate aggregate vars
-    #  output["EU28",,"Final Energy|Hydrogen (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] +
-    #    output["EU28",,"Final Energy|Hydrogen|Power Sector (TWh/yr)"]
-#
-    #  #Split PE|Hydrogen between external and electrolysis depending on the share
-    #  c_sharehgen <- readGDX(gdx, name = "c_sharehgen", field = "l", format = "first_found")
-    #  output["EU28",,"Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] * c_sharehgen
-    #  output["EU28",,"Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"] <- output["EU28",,"Final Energy|Hydrogen|Other sectors (TWh/yr)"] * (1 - c_sharehgen)
-#
-    #}
 
   }
 

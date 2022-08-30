@@ -414,9 +414,19 @@ reportExchange <- function(gdx) {
 
 
   #----------------------------------------------------------------------------------
-  #NET EXPORTS
-  tmp4 <- setNames(exports-imports, "Secondary Energy|Electricity|Net Exports (TWh/yr)")
-  tmp4 <- mbind(tmp4, setNames(imports-exports, "Secondary Energy|Electricity|Net Imports (TWh/yr)"))
+  #NET EXPORTS/IMPORTS
+  tmp4 <- NULL
+  #Net imports to/from Russia
+  v_netimports_ru <- readGDX(gdx, name = "v_netimports_ru", field = "l", format = "first_found")
+  v_netimports_ru <- limesMapping(v_netimports_ru)
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_netimports_ru * p_taulength, dim = 3) / 1000, "Net Imports from RUS|Electricity (TWh/yr)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(-v_netimports_ru * p_taulength, dim = 3) / 1000, "Net Exports to RUS|Electricity (TWh/yr)"))
+
+  #Aggregate
+  tmp4 <- mbind(tmp4, setNames(exports - imports - dimSums(v_netimports_ru * p_taulength, dim = 3) / 1000, "Secondary Energy|Electricity|Net Exports (TWh/yr)"))
+  tmp4 <- mbind(tmp4, setNames(imports - exports + dimSums(v_netimports_ru * p_taulength, dim = 3) / 1000, "Secondary Energy|Electricity|Net Imports (TWh/yr)"))
+
+
 
   # add exchange values
   tmp5 <- mbind(tmp3, tmp4)

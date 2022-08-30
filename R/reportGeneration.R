@@ -594,17 +594,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
         # H2 demand
         # Hydrogen sold to other sectors (i.e., not used for electricity generation) - exogenous
-        #p_demXSe_exo <- readGDX(gdx, name = c("p_demXSe_exo", "p_hgen_othersec"), field = "l", format = "first_found")[, , "pehgen"] # [GWh]
-        #p_demXSe_exo <- limesMapping(p_demXSe_exo)
-        #tmp4 <- mbind(tmp4, setNames(p_demXSe_exo / 1000, "Final Energy|Hydrogen|Other sectors (TWh/yr)"))
-        #if(c_heating == 1) { #hydrogen for both electricity and heat generation should be considered
-        #  tmp4 <- mbind(tmp4, setNames(setNames(output[, , "Primary Energy|Hydrogen|Electricity and Heat (TWh/yr)"], NULL), "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
-        #} else { #only electricity is modelled
-        #  tmp4 <- mbind(tmp4, setNames(setNames(output[, , "Primary Energy|Hydrogen|Electricity (TWh/yr)"], NULL), "Final Energy|Hydrogen|Power Sector (TWh/yr)"))
-        #}
-        #tmp4 <- mbind(tmp4, setNames(
-        #  setNames(tmp4[, , "Final Energy|Hydrogen|Other sectors (TWh/yr)"], NULL) + setNames(tmp4[, , "Final Energy|Hydrogen|Power Sector (TWh/yr)"], NULL)
-        #  , "Final Energy|Hydrogen (TWh/yr)"))
         tmp4 <- mbind(tmp4, setNames(
                         setNames(tmp4[,, "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], NULL) +
                           setNames(tmp4[,, "Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"], NULL),
