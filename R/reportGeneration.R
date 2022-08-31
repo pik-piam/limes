@@ -574,19 +574,19 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         # External hydrogen, i.e., imported hydrogen (H2 demand - H2 produced by electrolysers)
         c_sharehgen <- readGDX(gdx, name = "c_sharehgen", field = "l", format = "first_found")
         if (c_sharehgen == 1) {
-          v_imp_XSe_4el_tau <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
+          v_imp_XSe_4el <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
                                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
           v_imp_XSe_4nel <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
                                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
         } else {
-          v_imp_XSe_4el_tau <- readGDX(gdx, name = "v_imp_XSe_4el_tau", field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
-          v_imp_XSe_4el_tau <- limesMapping(v_imp_XSe_4el_tau)
+          v_imp_XSe_4el <- readGDX(gdx, name = c("v_imp_XSe_4el","v_imp_XSe_4el_tau"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
+          v_imp_XSe_4el <- limesMapping(v_imp_XSe_4el)
 
           v_imp_XSe_4nel <- readGDX(gdx, name = "v_imp_XSe_4nel", field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
           v_imp_XSe_4nel <- limesMapping(v_imp_XSe_4nel)
         }
 
-        tmp4 <- mbind(tmp4, setNames(dimSums(v_imp_XSe_4el_tau * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(v_imp_XSe_4el / 1000, "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"))
         tmp4 <- mbind(tmp4, setNames(v_imp_XSe_4nel / 1000, "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"))
         tmp4 <- mbind(tmp4, setNames(collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Power Sector (TWh/yr)"], dim = 3.1) +
                                       collapseDim(tmp4[, , "Primary Energy|Hydrogen [external]|Other sectors (TWh/yr)"], dim = 3.1)
