@@ -62,6 +62,8 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found") # parameter per technology
   o_netimports_tau <- readGDX(gdx, name = "o_netimports_tau", format = "first_found", react = 'silent') # electricity net imports
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
 
   # read variables
   v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
@@ -330,7 +332,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
 
         # 1 (cont) Decentralized heat
-        c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") # switch on buildings module
         if (c_buildings == 1) {
 
           # Useful energy

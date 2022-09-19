@@ -90,7 +90,8 @@ reportDemand <- function(gdx, output = NULL) {
     if (c_heating == 1) {
 
       # Heat-related
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") # switch on buildings module
+      c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                             field = "l", format = "first_found") #switch on buildings module
       v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found") # Waste heat
       v_heatwaste <- limesMapping(v_heatwaste)
 

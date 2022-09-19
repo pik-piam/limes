@@ -25,7 +25,8 @@ reportCapitalCosts <- function(gdx) {
 
   if(c_LIMESversion >= 2.38) {
     c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found") #switch heating
-    c_buildings <- readGDX(gdx,name="c_buildings",field="l",format="first_found") #switch buildings
+    c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                           field = "l", format = "first_found") #switch on buildings module
   }
 
   # create MagPie object of demand with iso3 regions
