@@ -42,6 +42,8 @@ reportCapacityAdditions <- function(gdx) {
 
   # Read parameters
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
 
   # read variables
   v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
@@ -258,7 +260,6 @@ reportCapacityAdditions <- function(gdx) {
           )
       }
 
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
       if(c_buildings  ==  1) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)

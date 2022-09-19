@@ -41,6 +41,8 @@ reportPrimaryEnergy <- function(gdx) {
 
   # read parameters and variables
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
   p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found")[, , tau]
   v_pedem <- readGDX(gdx, name = c("v_pedem", "vm_pedem"), field = "l", format = "first_found", restore_zeros  =  FALSE)
 
@@ -216,7 +218,6 @@ reportPrimaryEnergy <- function(gdx) {
           tmp2 <- mbind(tmp2, setNames(dimSums(v_pedem_he[, , varList_he[[var]]], dim = 3)/1000, var))
         }
 
-        c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
         if(c_buildings  ==  1) {
           varList_he <- list(
 

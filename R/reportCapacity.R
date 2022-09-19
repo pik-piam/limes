@@ -43,6 +43,8 @@ reportCapacity <- function(gdx) {
 
   # Read parameters
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
 
   # read variables
   v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found")
@@ -278,7 +280,6 @@ reportCapacity <- function(gdx) {
         tmp2 <- mbind(tmp2, setNames(dimSums((v_cap[, , varList_he[[var]]]/(1-o_autocons[, , varList_he[[var]]]))*(1/(o_cb_coeff[, , varList_he[[var]]] + o_cv_coeff[, , varList_he[[var]]])), dim = 3), var))
       }
 
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
       if(c_buildings  ==  1) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)
