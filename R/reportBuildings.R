@@ -40,14 +40,14 @@ reportBuildings <- function(gdx, output=NULL) {
 
     if (c_buildings == 1) {
       # Loading parameters and variables
-      p_bd_heatdem_ue <- readGDX(gdx, name = "p_bd_heatdem_ue", field = "l", format = "first_found", restore_zeros = FALSE) # heat demand per sector
+
+      p_bd_heatdem_ue <- readGDX(gdx, name = "p_bd_heatdem_ue", field = "l", format = "first_found", restore_zeros = TRUE) # heat demand per sector
       p_othersec_demDH_sec_ue <- readGDX(gdx, name = "p_othersec_demDH_sec_ue", field = "l", format = "first_found", restore_zeros = T) # heat demand per sector
       p_bd_area <- readGDX(gdx, name = "p_bd_area", field = "l", format = "first_found", restore_zeros = FALSE) # heat demand per sector
       v_bd_heatdem_ESR <- readGDX(gdx, name = "v_bd_heatdem_ESR", field = "l", format = "first_found") # heat that is covered by the ESR [annual data per sector]
       v_bd_heatdem_ETS <- readGDX(gdx, name = "v_bd_heatdem_ETS", field = "l", format = "first_found") # heat that is covered by the ETS [annual data per sector]
       p_othersec_demDH_ue <- readGDX(gdx, name = "p_othersec_demDH_ue", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
       p_bd_ratio_ue2fe_DH <- readGDX(gdx, name = "p_bd_ratio_ue2fe_DH", field = "l", format = "first_found") # Ratio useful energy to final energy [--] - same for all DH technologies
-
       # create MagPie object of demand with iso3 regions
       p_bd_heatdem_ue <- limesMapping(p_bd_heatdem_ue)
       p_othersec_demDH_sec_ue <- limesMapping(p_othersec_demDH_sec_ue)
@@ -56,6 +56,10 @@ reportBuildings <- function(gdx, output=NULL) {
       v_bd_heatdem_ETS <- limesMapping(v_bd_heatdem_ETS)
       p_othersec_demDH_ue <- limesMapping(p_othersec_demDH_ue)
       p_bd_ratio_ue2fe_DH <- limesMapping(p_bd_ratio_ue2fe_DH)
+
+      # Restrict years
+      y <- getYears(output)
+      p_bd_heatdem_ue <- p_bd_heatdem_ue[,y,]
 
       #Estimate derived heat (DH) that is used in buildings
       o_demDH_ue <- output[, , "Useful Energy|Heat|District Heating (TWh/yr)"]
