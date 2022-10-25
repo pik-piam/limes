@@ -62,7 +62,7 @@ reportPrimaryEnergy <- function(gdx) {
 
   #create magpie for PE for heating purposes
   v_pedem_he <- new.magpie(cells_and_regions  =  getItems(v_pedem,  dim  =  1),  years  =  getYears(v_pedem),  names  =  NULL,
-             fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+             fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
 
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {

@@ -43,11 +43,11 @@ reportElectricityPrices <- function(gdx) {
 
   #Initialize heating price
   m_fullheprices <- new.magpie(cells_and_regions  =  getItems(m_robuststrategy2,  dim  =  1),  years  =  getYears(m_robuststrategy2),  names  =  tau,
-                                              fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+                                              fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
   m_heatprices <- new.magpie(cells_and_regions  =  getItems(m_sebal,  dim  =  1),  years  =  getYears(m_sebal),  names  =  tau,
-                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
   p_hedemand <- new.magpie(cells_and_regions  =  getItems(v_exdemand,  dim  =  1),  years  =  getYears(v_exdemand),  names  =  tau,
-                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+                               fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
 
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {
@@ -89,7 +89,7 @@ reportElectricityPrices <- function(gdx) {
       m_restarget <- limesMapping(m_restarget)
     } else {
       m_restarget <- new.magpie(cells_and_regions  =  getItems(m_restargetrelativedem_tech,  dim  =  1),  years  =  getYears(m_restargetrelativedem_tech),  names  =  NULL,
-                                fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+                                fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
     }
 
 

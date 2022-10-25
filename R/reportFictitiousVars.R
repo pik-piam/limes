@@ -28,7 +28,7 @@ reportFictitiousVars <- function(gdx,output=NULL) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
   o_fictitious <- new.magpie(cells_and_regions = getItems(output, dim = 1), years = getYears(output), names = NULL,
-                             fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                             fill = 0, sort = FALSE, sets = NULL)
   
   tmp1 <- NULL
   

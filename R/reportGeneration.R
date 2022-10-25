@@ -474,7 +474,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       m_p2x <- readGDX(gdx, name = c("q_p2x", "q_aggdemXSE_el_year", "q_balP2XSe"), field = "m", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [Geur/GWh]
       m_p2x <- limesMapping(m_p2x)
       m_p2x_year <- new.magpie(cells_and_regions = getItems(m_p2x, dim = 1), years = getYears(m_p2x), names = NULL,
-                               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                               fill = NA, sort = FALSE, sets = NULL)
       if (length(grep("1", getNames(m_p2x))) > 0) { # In some versions q_p2x is tau-dependent
         m_p2x <- m_p2x[, , tau] / p_taulength
         for (regi2 in getItems(m_p2x, dim = 1)) {
@@ -493,7 +493,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
       ## Create magpie to save marginal value to compute required calculations
       o_p2x_disc <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = NULL,
-                               fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                               fill = NA, sort = FALSE, sets = NULL)
 
 
       for (t2 in getYears(o_p2x_disc)) {
@@ -576,9 +576,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         c_sharehgen <- readGDX(gdx, name = "c_sharehgen", field = "l", format = "first_found")
         if (c_sharehgen == 1) {
           v_imp_XSe_4el <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
-                                          fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                          fill = 0, sort = FALSE, sets = NULL)
           v_imp_XSe_4nel <- new.magpie(cells_and_regions = getItems(v_demP2XSe_4el, dim = 1), years = getYears(v_demP2XSe_4el), names = NULL,
-                                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                       fill = 0, sort = FALSE, sets = NULL)
         } else {
           v_imp_XSe_4el <- readGDX(gdx, name = c("v_imp_XSe_4el","v_imp_XSe_4el_tau"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
           v_imp_XSe_4el <- limesMapping(v_imp_XSe_4el)
@@ -628,9 +628,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         taus <- c(tau2season$tau[tau2season$season == seasons[i]])
         if (length(taus) == 0) {
           o_outputhelec <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = paste0("Output|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
-                                      fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                                      fill = NA, sort = FALSE, sets = NULL)
           o_inputhelec <- new.magpie(cells_and_regions = getItems(v_storein_el, dim = 1), years = getYears(v_storein_el), names = paste0("Input|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
-                                     fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                                     fill = NA, sort = FALSE, sets = NULL)
           tmp4 <- mbind(tmp4, o_outputhelec)
           tmp4 <- mbind(tmp4, o_inputhelec)
         } else {
@@ -653,7 +653,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp6 <- NULL
     # Need to create a variable with t, regi, te for gross production (v_seprod has these indexes)
     o_grossprod <- new.magpie(cells_and_regions = getItems(v_seprod_el, dim = 1), years = getYears(v_seprod_el), names = c(teel),
-                              fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                              fill = 0, sort = FALSE, sets = NULL)
     # Estimate annual gross production for different technologies (in TWh/yr)
     for (teel2 in teel) {
       o_grossprod[, , teel2] <- dimSums(collapseDim(dimSums(v_seprod_el[, , teel2], dim = c(3.2)), dim = 3.2) * p_taulength / 1000, dim = 3) / (1 - p_autocons[, , teel2])
@@ -782,9 +782,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       p_bd_ratio_ue2fe_DH <- limesMapping(p_bd_ratio_ue2fe_DH)
       # Need to create a variable with t, regi, te for gross production (v_seprod has these indexes)
       o_gross2ue <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = NULL,
-                               fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                               fill = 0, sort = FALSE, sets = NULL)
       o_grossprod_he <- new.magpie(cells_and_regions = getItems(v_seprod_he, dim = 1), years = getYears(v_seprod_he), names = c(tedh),
-                                   fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                   fill = 0, sort = FALSE, sets = NULL)
       # Value from 2015 is used to scale the heat efficiency (etah), then we need a matrix with the same sets as v_seprod_he to estimate gross heat later
       o_gross2ue[, as.numeric(tt), ] <- ((1 - p_DH_losses) * p_bd_ratio_ue2fe_DH)
       # Estimate annual gross production for different technologies (in TWh/yr)
@@ -870,7 +870,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     # Net imports
     o_netimpots <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(p_eldemand), names = tau,
-                              fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                              fill = 0, sort = FALSE, sets = NULL)
     o_netimpots <- dimSums(p_eldemand * p_taulength / 1000, dim = 3) - setNames(tmp1[, , "Secondary Energy|Electricity|w/o losses (TWh/yr)"], NULL)
 
     # Gross demand (gross electricity production + net imports), following official german statistics procedure

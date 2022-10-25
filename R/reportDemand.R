@@ -40,13 +40,13 @@ reportDemand <- function(gdx, output = NULL) {
   # create MagPie object of demand with iso3 regions
   v_exdemand <- limesMapping(v_exdemand)
   p_hedemand <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tau,
-                           fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = NA, sort = FALSE, sets = NULL)
   o_elecheat <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = 0, sort = FALSE, sets = NULL)
   p_DH_losses <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = NULL,
-                           fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = NA, sort = FALSE, sets = NULL)
   p_etah <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = te,
-                       fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                       fill = NA, sort = FALSE, sets = NULL)
 
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.28) {

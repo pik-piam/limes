@@ -408,10 +408,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #  for (var_name in getNames(output)) {
   #    #Create array to save whether the number is duplicated for all REGI in one YEAR
   #    dup_year <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
-  #                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #                           fill = 0, sort = FALSE, sets = NULL)
   #    #Create array to save duplicated values in just one ("GLO") array
   #    #output_tmp <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
-  #    #                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #    #                       fill = 0, sort = FALSE, sets = NULL)
   #
   #    for (tt in getYears(output)) {
   #      #Check if the value is duplicated for all REGI in one YEAR

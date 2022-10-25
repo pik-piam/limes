@@ -70,7 +70,7 @@ limesMapping <- function(var,mappingPath=NULL){
   } else {
     #Create an array with all the possible names (i.e., tech combinations)
     output <- new.magpie(cells_and_regions = mapping$LIMES_ISO3[match(region_var,mapping$LIMES_ISO2)], years = getYears(var), names = c(var_names),
-                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                         fill = 0, sort = FALSE, sets = NULL)
   }
 
 
