@@ -95,9 +95,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   if (c_LIMESversion >= 2.28) {
 
     v_seprod_el <- v_seprod[, , "seel"]
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
       v_seprod_he <- v_seprod[, , "sehe"]
       v_seprod_he <- collapseDim(v_seprod_he, dim = 3.3)
       p_eldemand <- v_exdemand[, , "seel"]
@@ -249,7 +249,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       # Electricity (new technologies)
       tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_el[, , intersect(tebio, teccs)], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000, "Secondary Energy|Electricity|Biomass|w/ CCS (TWh/yr)"))
 
-      if (c_heating == 1) {
+      if (heating == "fullDH") {
         # Additional sets needed
         teoel <- readGDX(gdx, name = "teoel") # set of electricity-only generation technologies
         tedh <- readGDX(gdx, name = "tedh") # set of District Heating generation technologies
@@ -409,7 +409,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000, var))
         }
 
-        #End of if c_heating == 1
+        #End of if heating == "fullDH"
       }
 
       #End of if c_LIMESversion >= 2.33
@@ -444,7 +444,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp4 <- mbind(tmp4, setNames(dimSums((dimSums(v_storein_el, dim = c(3.2)) - dimSums(v_storeout_el, dim = c(3.2))) * p_taulength / 1000, dim = 3), "Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
 
     # Heat storage
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
       tmp4 <- mbind(tmp4, setNames(dimSums(v_storeout_he[, , ] * p_taulength, dim = 3) / 1000, "Useful Energy|Heat|Storage (TWh/yr)"))
       tmp4 <- mbind(tmp4, setNames(dimSums(v_storein_he[, , ] * p_taulength, dim = 3) / 1000, "Useful Energy|Heat|Storage Consumption (TWh/yr)"))
       tmp4 <- mbind(tmp4, setNames(dimSums((v_storein_he - v_storeout_he) * p_taulength / 1000, dim = 3), "Useful Energy|Heat|Storage Losses (TWh/yr)"))
@@ -718,7 +718,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     }
 
 
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
 
       # Gross electricity (disaggregated between electricity-only and CHP technologies)
       varList_elGrEoChp <- list(

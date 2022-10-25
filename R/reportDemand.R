@@ -50,8 +50,8 @@ reportDemand <- function(gdx, output = NULL) {
 
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.28) {
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
-    if (c_heating == 1) {
+    heating <- .readHeatingCfg(gdx)
+    if (heating == "fullDH") {
       p_eldemand <- v_exdemand[, , "seel"]
       p_hedemand <- v_exdemand[, , "sehe"] # This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
       p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
@@ -87,7 +87,7 @@ reportDemand <- function(gdx, output = NULL) {
   # heating-related
   tmp2 <- NULL
   if (c_LIMESversion >= 2.28) {
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
 
       # Heat-related
       c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),

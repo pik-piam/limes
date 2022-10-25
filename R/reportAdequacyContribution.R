@@ -82,8 +82,8 @@ reportAdequacyContribution <- function(gdx) {
 
     v_seprod <- v_seprod[,,"seel"]
 
-    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    if(c_heating == 1) {
+   heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
 
     }

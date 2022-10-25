@@ -33,7 +33,7 @@ reportBuildings <- function(gdx, output=NULL) {
   if (c_LIMESversion >= 2.38) {
 
     # Loading sets and switches from convGDX2MIF parent function
-    # c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+    #heating <- .readHeatingCfg(gdx)
     c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
                            field = "l", format = "first_found") #switch on buildings module
 

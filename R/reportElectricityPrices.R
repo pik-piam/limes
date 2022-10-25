@@ -52,9 +52,9 @@ reportElectricityPrices <- function(gdx) {
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {
     #v_seprod_el <- v_seprod[, , "seel"]
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       p_eldemand <- v_exdemand[, , "seel"]
       p_hedemand <- v_exdemand[, , "sehe"]
       p_hedemand <- collapseDim(p_hedemand,  dim  =  3.2)
