@@ -28,7 +28,7 @@ reportFictitiousVars <- function(gdx,output=NULL) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   
   o_fictitious <- new.magpie(cells_and_regions = getItems(output, dim = 1), years = getYears(output), names = NULL,
-                             fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                             fill = 0, sort = FALSE, sets = NULL)
   
   tmp1 <- NULL
   
@@ -40,8 +40,8 @@ reportFictitiousVars <- function(gdx,output=NULL) {
   
   #Check the version: When there is endogenous heating, related emissions should not appear here (to avoid duplicates)
   if(c_LIMESversion >= 2.28) {
-    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    if(c_heating == 1) {
+   heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
       AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))]
     }
   } 

@@ -129,9 +129,9 @@ reportCapacity <- function(gdx) {
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
     tewaste <- readGDX(gdx, name = "tewaste") #set of waste generation technologies
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #load some required sets
       techp <- readGDX(gdx, name = "techp")
       tedhelec <- readGDX(gdx, name = "tedhelec") #set of electric District Heating generation technologies
@@ -328,7 +328,7 @@ reportCapacity <- function(gdx) {
 
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #CHP
       tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP (GW)"))
       tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Coal (GW)"))
@@ -381,7 +381,7 @@ reportCapacity <- function(gdx) {
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("batteries")]/v_cap[, , c("batteries")], "Discharge duration|Stat Batteries (h)"))
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("helec")]/v_cap[, , c("helec")], "Discharge duration|Hydrogen electrolysis (h)"))
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       tmp8 <- mbind(tmp8, setNames(dimSums(v_cap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage (GW)"))
       tmp8 <- mbind(tmp8, setNames(dimSums(v_storecap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage Reservoir (GWh)"))
     }

@@ -109,7 +109,7 @@ reportInput <- function(gdx, mappingPath = NULL) {
   o_emifac_tmp <- limesAllocateYears(p_emifac[, , "co2"], gdx)
   o_emifac_tmp <- collapseDim(o_emifac_tmp,  dim  =  3.2)
   o_emifac <- new.magpie(cells_and_regions  =  getItems(p_incoall,  dim  =  1),  years  =  getYears(p_incoall),  names  =  getNames(o_emifac_tmp),
-                         fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+                         fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
   for (regi in getItems(p_incoall,  dim  =  1)) {
     o_emifac[regi, , ] <- o_emifac_tmp["GLO", , ]
   }

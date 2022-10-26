@@ -105,10 +105,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
         tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000/(1-p_shareheating_EUETS),"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
       } else {
         #Load switch for heating
-        c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
+       heating <- .readHeatingCfg(gdx)
         p_certificates_cancelled <- readGDX(gdx,name="p_certificates_cancelled",field="l",format="first_found")
         
-        if(c_heating != 1 & c_bankemi_EU == 1) { #heating included and model version >2.27
+        if(heating != "fullDH" & c_bankemi_EU == 1) { #heating included and model version >2.27
           
           #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
           if(c_LIMESversion <= 2.30) {
@@ -123,11 +123,11 @@ reportEUETSvars <- function(gdx,output=NULL) {
               tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
             }
             
-          } else {#c_heating == 0 and c_LIMESversion > 2.30
+          } else {#heating == "off" and c_LIMESversion > 2.30
             
             #Previous version did not have endogenous heating 
             #-> with endogenous this variable will be calculated from the region-based heating
-            if(c_heating == 0) {
+            if(heating == "off") {
               p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found") #exogenous emissions from heating (share of cap)
               #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
               p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
@@ -166,9 +166,9 @@ reportEUETSvars <- function(gdx,output=NULL) {
             
           }
           
-        } else {#c_heating == 1 or (c_heating == 0 and c_bankemi_EU == 0)... in the latter case, there is no need to report any of the variables below
+        } else {#heating == "fullDH" or (heating == "off" and c_bankemi_EU == 0)... in the latter case, there is no need to report any of the variables below
           
-          if(c_heating == 1) {
+          if(heating == "fullDH") {
             o_emi_heat <- NULL
             if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)")) > 0) {
               o_emi_heat <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
@@ -176,7 +176,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
             }
           }
           
-          if(c_heating == 1 & c_bankemi_EU == 1) {
+          if(heating == "fullDH" & c_bankemi_EU == 1) {
             if(c_LIMESversion <= 2.33) {
               tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
             } else {

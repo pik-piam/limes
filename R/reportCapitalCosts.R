@@ -24,7 +24,7 @@ reportCapitalCosts <- function(gdx) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found") #energy storage costs
 
   if(c_LIMESversion >= 2.38) {
-    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found") #switch heating
+   heating <- .readHeatingCfg(gdx) #switch heating
     c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
                            field = "l", format = "first_found") #switch on buildings module
   }
@@ -37,7 +37,7 @@ reportCapitalCosts <- function(gdx) {
   #original data in [Geur/GWh]. Convert to €/GJ
   tmp1 <- NULL
 
-  if (c_heating != 1 || c_LIMESversion < 2.38) {
+  if (heating != "fullDH" || c_LIMESversion < 2.38) {
     varList_el <- list(
       #Electricity-only
       "Capital Costs|Electricity|Biomass (Eur2010/kW)"      = "biolcigcc",
@@ -102,7 +102,7 @@ reportCapitalCosts <- function(gdx) {
   tmp2 <- NULL
 
   if(c_LIMESversion >= 2.38) {
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
       varList_he <- list(
         #Electricity-only
         "Capital Costs|Electricity|Electricity-only|Biomass (Eur2010/kW)"          = "biolcigcc",

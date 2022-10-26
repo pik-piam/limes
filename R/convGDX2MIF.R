@@ -289,8 +289,8 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #Check the version: When there is endogenous heating, related emissions should not appear here (to avoid duplicates)
   if(c_LIMESversion >= 2.28) {
-    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    if(c_heating == 1) {
+   heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
       AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))]
     }
   }
@@ -408,10 +408,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #  for (var_name in getNames(output)) {
   #    #Create array to save whether the number is duplicated for all REGI in one YEAR
   #    dup_year <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
-  #                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #                           fill = 0, sort = FALSE, sets = NULL)
   #    #Create array to save duplicated values in just one ("GLO") array
   #    #output_tmp <- new.magpie(cells_and_regions = "GLO", years = getYears(output), names = NULL,
-  #    #                       fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+  #    #                       fill = 0, sort = FALSE, sets = NULL)
   #
   #    for (tt in getYears(output)) {
   #      #Check if the value is duplicated for all REGI in one YEAR

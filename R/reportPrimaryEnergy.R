@@ -62,14 +62,14 @@ reportPrimaryEnergy <- function(gdx) {
 
   #create magpie for PE for heating purposes
   v_pedem_he <- new.magpie(cells_and_regions  =  getItems(v_pedem,  dim  =  1),  years  =  getYears(v_pedem),  names  =  NULL,
-             fill  =  NA,  sort  =  FALSE,  sets  =  NULL,  unit  =  "unknown")
+             fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
 
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {
     v_pedem_el <- v_pedem[, , "seel"]
 
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
-    if(c_heating  ==  1) {
+    heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
       v_pedem_he <- v_pedem[, , "sehe"]
       v_pedem_he <- collapseDim(v_pedem_he,  dim  =  3.2)
     }
@@ -129,7 +129,7 @@ reportPrimaryEnergy <- function(gdx) {
   #when there is endogenous heating
   if(c_LIMESversion >=  2.38) {
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
 
       #Load additional sets
       techp <- readGDX(gdx, name = "techp") #set of chp generation technologies
