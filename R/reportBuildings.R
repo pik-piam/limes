@@ -19,34 +19,35 @@
 #' @export
 #'
 reportBuildings <- function(gdx, output=NULL) {
-  
+
   if(is.null(output)){
     stop("please provide a file containing all needed information")
   }
 
   # Loading parameters from convGDX2MIF parent function
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
-  
+
   tmp1 <- NULL
   tmp2 <- NULL
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.38) {
 
     # Loading sets and switches from convGDX2MIF parent function
-    # c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") # switch on buildings module
+    #heating <- .readHeatingCfg(gdx)
+    c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                           field = "l", format = "first_found") #switch on buildings module
 
 
     if (c_buildings == 1) {
       # Loading parameters and variables
-      p_bd_heatdem_ue <- readGDX(gdx, name = "p_bd_heatdem_ue", field = "l", format = "first_found", restore_zeros = FALSE) # heat demand per sector
+
+      p_bd_heatdem_ue <- readGDX(gdx, name = "p_bd_heatdem_ue", field = "l", format = "first_found", restore_zeros = TRUE) # heat demand per sector
       p_othersec_demDH_sec_ue <- readGDX(gdx, name = "p_othersec_demDH_sec_ue", field = "l", format = "first_found", restore_zeros = T) # heat demand per sector
       p_bd_area <- readGDX(gdx, name = "p_bd_area", field = "l", format = "first_found", restore_zeros = FALSE) # heat demand per sector
       v_bd_heatdem_ESR <- readGDX(gdx, name = "v_bd_heatdem_ESR", field = "l", format = "first_found") # heat that is covered by the ESR [annual data per sector]
       v_bd_heatdem_ETS <- readGDX(gdx, name = "v_bd_heatdem_ETS", field = "l", format = "first_found") # heat that is covered by the ETS [annual data per sector]
       p_othersec_demDH_ue <- readGDX(gdx, name = "p_othersec_demDH_ue", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
       p_bd_ratio_ue2fe_DH <- readGDX(gdx, name = "p_bd_ratio_ue2fe_DH", field = "l", format = "first_found") # Ratio useful energy to final energy [--] - same for all DH technologies
-
       # create MagPie object of demand with iso3 regions
       p_bd_heatdem_ue <- limesMapping(p_bd_heatdem_ue)
       p_othersec_demDH_sec_ue <- limesMapping(p_othersec_demDH_sec_ue)
@@ -55,7 +56,11 @@ reportBuildings <- function(gdx, output=NULL) {
       v_bd_heatdem_ETS <- limesMapping(v_bd_heatdem_ETS)
       p_othersec_demDH_ue <- limesMapping(p_othersec_demDH_ue)
       p_bd_ratio_ue2fe_DH <- limesMapping(p_bd_ratio_ue2fe_DH)
-      
+
+      # Restrict years
+      y <- getYears(output)
+      p_bd_heatdem_ue <- p_bd_heatdem_ue[,y,]
+
       #Estimate derived heat (DH) that is used in buildings
       o_demDH_ue <- output[, , "Useful Energy|Heat|District Heating (TWh/yr)"]
       o_bd_demDH_ue <- o_demDH_ue - p_othersec_demDH_ue/1000 #'p_othersec_demDH_ue' in GWh
@@ -76,22 +81,14 @@ reportBuildings <- function(gdx, output=NULL) {
       tmp1 <- mbind(tmp1, setNames((dimSums(v_bd_heatdem_ETS, dim = 3) + dimSums(v_bd_heatdem_ESR, dim = 3)) / 1000, "Useful Energy Available for Final Consumption|Heat|Buildings (TWh/yr)"))
       tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_ue / 1000, "Useful Energy Available for Final Consumption|Heat|Other sectors|District heating (TWh/yr)"))
       tmp1 <- mbind(tmp1, setNames(o_bd_demDH_ue, "Useful Energy Available for Final Consumption|Heat|Buildings|District heating (TWh/yr)"))
-      
-      
+
+
       ## Final energy
       #Take estimations from above, divide by the ue2fe factor, and change name
       items <- getItems(tmp1, dim = 3)[grep("Useful Energy Available for Final Consumption", getItems(tmp1, dim = 3))]
       for(var_name in items) {
         #tmp2 <- mbind(tmp2, setNames(tmp1[, , var_name] / p_bd_ratio_ue2fe_DH, str_replace(var_name, "Useful Energy Available for Final Consumption", "Final Energy")))
       }
-      
-      #tmp1 <- mbind(tmp1, setNames(tmp1[, , "Useful Energy Available for Final Consumption|Heat|Buildings (TWh/yr)"] / p_bd_ratio_ue2fe, "Final Energy|Heat|Buildings (TWh/yr)"))
-      #tmp1 <- mbind(tmp1, setNames(tmp1[, , "Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered (TWh/yr)"] / p_bd_ratio_ue2fe, "Final Energy|Heat|Buildings|ETS-covered (TWh/yr)"))
-      #tmp1 <- mbind(tmp1, setNames(tmp1[, , "Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered (TWh/yr)"] / p_bd_ratio_ue2fe, "Final Energy|Heat|Buildings|non-ETS-covered (TWh/yr)"))
-      #tmp1 <- mbind(tmp1, setNames(tmp1[, , "Useful Energy Available for Final Consumption|Heat|Other sectors|District heating (TWh/yr)"] / p_bd_ratio_ue2fe, "Final Energy|Heat|Other sectors|District heating (TWh/yr)"))
-      #tmp1 <- mbind(tmp1, setNames(tmp1[, , "Useful Energy Available for Final Consumption|Heat|Other sectors|District heating (TWh/yr)"] / p_bd_ratio_ue2fe, "Final Energy|Heat|Other sectors|District heating (TWh/yr)"))
-      
-      
 
 
     }

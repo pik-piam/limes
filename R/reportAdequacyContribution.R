@@ -82,8 +82,8 @@ reportAdequacyContribution <- function(gdx) {
 
     v_seprod <- v_seprod[,,"seel"]
 
-    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found")
-    if(c_heating == 1) {
+   heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
       m_robuststrategy2 <- m_robuststrategy2[,,"seel"]
 
     }
@@ -126,7 +126,7 @@ reportAdequacyContribution <- function(gdx) {
   #Identify the 'tau' in which the marginal value for the robust constraint peaks and when demand peaks
   #Need a magpie variable with regi and year
   taumax <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                                         fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                         fill = 0, sort = FALSE, sets = NULL)
   taumax <- setNames(taumax, NULL)
   taupeak <- taumax
 
@@ -143,7 +143,7 @@ reportAdequacyContribution <- function(gdx) {
 
   #Need a magpie variable with the same sets as v_cap
   capadeq <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tentra,
-                        fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                        fill = 0, sort = FALSE, sets = NULL)
 
   for (tentra2 in tentra) {
     capadeq[,,tentra2] <- v_cap[,getYears(capadeq),tentra2]*p_tedata_nu[,,tentra2]*as.numeric(p_adeq_te[,,tentra2])
@@ -202,20 +202,20 @@ reportAdequacyContribution <- function(gdx) {
 
   #create the variables according to the needed indexes
   capadeq_vres_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = ter_el,
-                                                 fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                                 fill = 0, sort = FALSE, sets = NULL)
   capadeq_vres_peak <- capadeq_vres_marg
 
   capadeq_stor_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = testore_el,
-                                                     fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                                     fill = 0, sort = FALSE, sets = NULL)
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
 
   demand_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                                              fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                              fill = 0, sort = FALSE, sets = NULL)
   demand_peak <- demand_marg
 
   netimports_marg <- new.magpie(cells_and_regions = getItems(p_eldemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                                fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                                fill = 0, sort = FALSE, sets = NULL)
   netimports_peak <- netimports_marg
 
   #consider ONLY vRES, imports and demand for the tau in which the marginal value for the robust constraint peaks and when demand peaks

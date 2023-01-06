@@ -40,18 +40,18 @@ reportDemand <- function(gdx, output = NULL) {
   # create MagPie object of demand with iso3 regions
   v_exdemand <- limesMapping(v_exdemand)
   p_hedemand <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tau,
-                           fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = NA, sort = FALSE, sets = NULL)
   o_elecheat <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                           fill = 0, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = 0, sort = FALSE, sets = NULL)
   p_DH_losses <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = NULL,
-                           fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                           fill = NA, sort = FALSE, sets = NULL)
   p_etah <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = te,
-                       fill = NA, sort = FALSE, sets = NULL, unit = "unknown")
+                       fill = NA, sort = FALSE, sets = NULL)
 
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.28) {
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
-    if (c_heating == 1) {
+    heating <- .readHeatingCfg(gdx)
+    if (heating == "fullDH") {
       p_eldemand <- v_exdemand[, , "seel"]
       p_hedemand <- v_exdemand[, , "sehe"] # This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
       p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
@@ -101,10 +101,11 @@ reportDemand <- function(gdx, output = NULL) {
   # heating-related
   tmp2 <- NULL
   if (c_LIMESversion >= 2.28) {
-    if (c_heating == 1) {
+    if (heating == "fullDH") {
 
       # Heat-related
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") # switch on buildings module
+      c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                             field = "l", format = "first_found") #switch on buildings module
       v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found") # Waste heat
       v_heatwaste <- limesMapping(v_heatwaste)
 

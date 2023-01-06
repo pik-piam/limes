@@ -43,6 +43,8 @@ reportCapacity <- function(gdx) {
 
   # Read parameters
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
 
   # read variables
   v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found")
@@ -127,9 +129,9 @@ reportCapacity <- function(gdx) {
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
     tewaste <- readGDX(gdx, name = "tewaste") #set of waste generation technologies
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #load some required sets
       techp <- readGDX(gdx, name = "techp")
       tedhelec <- readGDX(gdx, name = "tedhelec") #set of electric District Heating generation technologies
@@ -278,7 +280,6 @@ reportCapacity <- function(gdx) {
         tmp2 <- mbind(tmp2, setNames(dimSums((v_cap[, , varList_he[[var]]]/(1-o_autocons[, , varList_he[[var]]]))*(1/(o_cb_coeff[, , varList_he[[var]]] + o_cv_coeff[, , varList_he[[var]]])), dim = 3), var))
       }
 
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
       if(c_buildings  ==  1) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)
@@ -327,7 +328,7 @@ reportCapacity <- function(gdx) {
 
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #CHP
       tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP (GW)"))
       tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Coal (GW)"))
@@ -380,7 +381,7 @@ reportCapacity <- function(gdx) {
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("batteries")]/v_cap[, , c("batteries")], "Discharge duration|Stat Batteries (h)"))
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("helec")]/v_cap[, , c("helec")], "Discharge duration|Hydrogen electrolysis (h)"))
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       tmp8 <- mbind(tmp8, setNames(dimSums(v_cap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage (GW)"))
       tmp8 <- mbind(tmp8, setNames(dimSums(v_storecap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage Reservoir (GWh)"))
     }

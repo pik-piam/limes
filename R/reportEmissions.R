@@ -58,7 +58,7 @@ reportEmissions <- function(gdx) {
     v_emi_he <- v_emi[,,"sehe"]
     v_emi_el <- v_emi[,,"seel"]
 
-    c_heating <- readGDX(gdx,name = "c_heating",field = "l",format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
   }
 
@@ -132,7 +132,7 @@ reportEmissions <- function(gdx) {
     tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
 
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #load heat-related sets
       techp <- readGDX(gdx,name = "techp")
       teoel <- readGDX(gdx,name = "teoel")

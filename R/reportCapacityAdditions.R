@@ -42,6 +42,8 @@ reportCapacityAdditions <- function(gdx) {
 
   # Read parameters
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
+  c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                         field = "l", format = "first_found") #switch on buildings module
 
   # read variables
   v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
@@ -122,9 +124,9 @@ reportCapacityAdditions <- function(gdx) {
 
   if(c_LIMESversion >=  2.33) {
     tewaste <- readGDX(gdx, name = "tewaste") #set of waste generation technologies
-    c_heating <- readGDX(gdx, name = "c_heating", field = "l", format = "first_found")
+    heating <- .readHeatingCfg(gdx)
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       #load some required sets
       techp <- readGDX(gdx, name = "techp")
       tedhelec <- readGDX(gdx, name = "tedhelec") #set of electric District Heating generation technologies
@@ -258,7 +260,6 @@ reportCapacityAdditions <- function(gdx) {
           )
       }
 
-      c_buildings <- readGDX(gdx, name = "c_buildings", field = "l", format = "first_found") #switch on buildings module
       if(c_buildings  ==  1) {
         varList_he <- list(
           #1.c) Decentralized heating (only electricity-based)
@@ -300,7 +301,7 @@ reportCapacityAdditions <- function(gdx) {
       tmp2 <- mbind(tmp2, setNames(dimSums(v_deltastorecap[, , varList_st[[var]]], dim = 3), var))
     }
 
-    if(c_heating  ==  1) {
+    if(heating == "fullDH") {
       tmp2 <- mbind(tmp2, setNames(dimSums(v_deltacap[, , c("heat_sto")], dim = 3), "Capacity Additions|Heat|Storage (GW/yr)"))
       tmp2 <- mbind(tmp2, setNames(dimSums(v_deltastorecap[, , c("heat_sto")], dim = 3), "Capacity Additions|Heat|Storage Reservoir (GWh/yr)"))
     }
