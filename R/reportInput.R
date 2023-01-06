@@ -118,28 +118,34 @@ reportInput <- function(gdx, mappingPath = NULL) {
   tmp2 <- NULL
 
   #adding the name of the variable and the technology
-  for (te2 in te) { #ignoring the transmission data
+  for (te2 in setdiff(te,("hvacline"))) { #ignoring the transmission data
     tech_name <- as.character(mapping_tech[mapping_tech$LIMES_tech  ==  te2, ]$Report_tech)
-    tmp2 <- mbind(tmp2, setNames(p_incoall[, , te2]*1000, paste0("Investment costs|", tech_name, " (eur/kW)")))
+
     tmp2 <- mbind(tmp2, setNames(p_incoall[, , te2]*1000*p_tedata[, , paste0("omf.", te2)], paste0("Fixed O&M costs|", tech_name, " (eur/kW-yr)")))
     tmp2 <- mbind(tmp2, setNames(o_omv[, , te2]*1e6, paste0("Variable O&M costs|", tech_name, " (eur/MWh)")))
-    tmp2 <- mbind(tmp2, setNames(o_eta[, , te2], paste0("Electrical efficiency|", tech_name, " (--)")))
     tmp2 <- mbind(tmp2, setNames(o_lifetime[, , te2], paste0("Lifetime|", tech_name, " (yr)")))
     tmp2 <- mbind(tmp2, setNames(o_buildtime[, , te2], paste0("Buildtime|", tech_name, " (yr)")))
-    tmp2 <- mbind(tmp2, setNames(o_autocons[, , te2], paste0("Autoconsumption|", tech_name, " (--)")))
+
+
+    if(!(te2 %in% testore)) {
+      tmp2 <- mbind(tmp2, setNames(p_incoall[, , te2]*1000, paste0("Investment costs|", tech_name, " (eur/kW)")))
+      tmp2 <- mbind(tmp2, setNames(o_eta[, , te2], paste0("Electrical efficiency|", tech_name, " (--)")))
+      tmp2 <- mbind(tmp2, setNames(o_autocons[, , te2], paste0("Autoconsumption|", tech_name, " (--)")))
+    }
 
     if(te2 %in% ter) {
       tmp2 <- mbind(tmp2, setNames(p_nurenannual_adj2[, , te2], as.character(paste0("Annual availability factor|Electricity|", tech_name, " (--)"))))
     } else {
-      tmp2 <- mbind(tmp2, setNames(o_nu2[, , te2]*1e6, paste0("Annual availability factor|", tech_name, " (--)")))
+      tmp2 <- mbind(tmp2, setNames(o_nu2[, , te2], paste0("Annual availability factor|", tech_name, " (--)")))
     }
 
     if(te2 %in% testore) {
-      tmp2 <- mbind(tmp2, setNames(p_incostall[, , te2]*1000, as.character(paste0("Investment costs|Storage|", tech_name, " (eur/kWh)"))))
+      tmp2 <- mbind(tmp2, setNames(p_incoall[, , te2]*1000, as.character(paste0("Investment costs|Power|", tech_name, " (eur/kW)"))))
+      tmp2 <- mbind(tmp2, setNames(p_incostall[, , te2]*1000, as.character(paste0("Investment costs|Energy|", tech_name, " (eur/kWh)"))))
     }
 
-    if(sum(o_emifac[, , te2]) !=  0) { #Convert from [Gt/GWh] to [eur/kWh]
-      tmp2 <- mbind(tmp2, setNames(o_emifac[, , te2]*(44/12)*1e9/(o_eta[, , te2]*(1-o_autocons[, , te2])), as.character(paste0("Emission factor|", tech_name, " (eur/kWh)"))))
+    if(sum(o_emifac[, , te2]) !=  0) { #Convert from [GtC/GWh] to [gCO2/kWh]
+      tmp2 <- mbind(tmp2, setNames(o_emifac[, , te2]*(44/12)*1e9/(o_eta[, , te2]*(1-o_autocons[, , te2])), as.character(paste0("Emission factor|", tech_name, " (gCO2/kWh-output)"))))
     }
 
   }
@@ -149,7 +155,7 @@ reportInput <- function(gdx, mappingPath = NULL) {
   # read parameters
   p_exdemand <- readGDX(gdx, name = "p_exdemand", field = "l", format = "first_found") #electricity and heat demand
   c_demandscale <- readGDX(gdx, name = "c_demandscale", field = "l", format = "first_found") #factor for scaling electricity demand
-  p_losses_heat <- readGDX(gdx, name = c("f_losses_heat", "p_losses_DH"), field = "l", format = "first_found")
+  p_losses_heat <- readGDX(gdx, name = c("p_DH_losses","f_losses_heat", "p_losses_DH"), field = "l", format = "first_found")
 
   # create MagPie object of demand with iso3 regions
   p_exdemand <- limesMapping(p_exdemand)
@@ -160,12 +166,12 @@ reportInput <- function(gdx, mappingPath = NULL) {
   o_hedemand <- p_exdemand[, , "sehe"]
 
   tmp3 <- NULL
-  tmp3 <- mbind(tmp3, setNames((dimSums(o_eldemand*p_taulength, dim = 3)/(c_demandscale))/1000, "Final energy|Electricity [exogenous] (TWh)"))
-  tmp3 <- mbind(tmp3, setNames((dimSums(o_eldemand*p_taulength, dim = 3))/1000, "Final energy|Electricity|w/ losses [exogenous] (TWh)"))
+  tmp3 <- mbind(tmp3, setNames((dimSums(o_eldemand*p_taulength, dim = 3)/(c_demandscale))/1000, "Final energy|Electricity [exogenous] (TWh/yr)"))
+  tmp3 <- mbind(tmp3, setNames((dimSums(o_eldemand*p_taulength, dim = 3))/1000, "Final energy|Electricity|w/ losses [exogenous] (TWh/yr)"))
 
   if(c_reportheating  ==  1) {
-    tmp3 <- mbind(tmp3, setNames((dimSums(o_hedemand*p_taulength, dim = 3)/(1+p_losses_heat))/1000, "Final energy|Heat [exogenous] (TWh)"))
-    tmp3 <- mbind(tmp3, setNames((dimSums(o_hedemand*p_taulength, dim = 3))/1000, "Final energy|Heat|w/ losses [exogenous] (TWh)"))
+    tmp3 <- mbind(tmp3, setNames((dimSums(o_hedemand*p_taulength, dim = 3)/(1+p_losses_heat))/1000, "Final energy|Heat [exogenous] (TWh/yr)"))
+    tmp3 <- mbind(tmp3, setNames((dimSums(o_hedemand*p_taulength, dim = 3))/1000, "Final energy|Heat|w/ losses [exogenous] (TWh/yr)"))
   }#
 
   # add global values
