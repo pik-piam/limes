@@ -70,8 +70,8 @@ reportCO2Price <- function(gdx) {
   #2) CO2 PRICE RESULTING FROM EMISSION CAP MARGINAL VALUES PER REGION
 
   # read marginal values
-  m_emicappath1 <- readGDX(gdx, name = c("q_emicappath1", "q30_emicappath1"), field = "m", format = "first_found")
-  m_emicappath2 <- readGDX(gdx, name = c("q_emicappath2", "q30_emicappath2"), field = "m", format = "first_found")
+  #m_emicappath1 <- readGDX(gdx, name = c("q_emicappath1", "q30_emicappath1"), field = "m", format = "first_found")
+  #m_emicappath2 <- readGDX(gdx, name = c("q_emicappath2", "q30_emicappath2"), field = "m", format = "first_found")
   m_emicappath_DE <- readGDX(gdx, name = "q_emicappath_DE", field = "m", format = "first_found")
 
   if(c_LIMESversion < 2.38) {
@@ -88,9 +88,9 @@ reportCO2Price <- function(gdx) {
   if (as.numeric(c_emicappathscen)  ==  0) {
     o_marg_emicap_regi  =  0
       } else if (c_emicappathscen  ==  1) {
-        o_marg_emicap_regi  =  (1/s_c2co2)*(-m_emicappath1)
+        #o_marg_emicap_regi  =  (1/s_c2co2)*(-m_emicappath1)
       } else if (c_emicappathscen  ==  2) {
-        o_marg_emicap_regi  =  (1/s_c2co2)*(-m_emicappath2)
+        #o_marg_emicap_regi  =  (1/s_c2co2)*(-m_emicappath2)
       } else if (c_emicappathscen  ==  3) {
         o_marg_emicap_regi  =  (1/s_c2co2)*(-m_emicappath3)
       } else {
