@@ -1360,11 +1360,11 @@ Capacity Additions|Heat|Decentralized|Resistance;Capacity Additions|Heat|Decentr
 Capacity Additions|Heat|Decentralized|Conventional;Capacity Additions|Heat|Decentralized|Conventional;GW/yr;GW/yr;1
 Capacity Additions|Heat|Decentralized|Conventional space heater;Capacity Additions|Heat|Decentralized|Conventional space heater;GW/yr;GW/yr;1
 Capacity Additions|Heat|Decentralized|Conventional water heater;Capacity Additions|Heat|Decentralized|Conventional water heater;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage Reservoir;Capacity Additions|Electricity|Storage Reservoir;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage Reservoir|Intra-day;Capacity Additions|Electricity|Storage Reservoir|Intra-day;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;GW/yr;GW/yr;1
-Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;GW/yr;GW/yr;1
+Capacity Additions|Electricity|Storage Reservoir;Capacity Additions|Electricity|Storage Reservoir;GWh/yr;GWh/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Intra-day;Capacity Additions|Electricity|Storage Reservoir|Intra-day;GWh/yr;GWh/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro;GWh/yr;GWh/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries;GWh/yr;GWh/yr;1
+Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis;GWh/yr;GWh/yr;1
 Capacity Additions|Gross|Heat|District Heating|CHP;Capacity Additions|Gross|Heat|District Heating|CHP;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen;Capacity Additions|Gross|Heat|District Heating|CHP|Hydrogen;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|CHP|Biomass;Capacity Additions|Gross|Heat|District Heating|CHP|Biomass;GW/yr;GW/yr;1

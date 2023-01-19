@@ -82,7 +82,7 @@ Capital Costs|Electricity|Waste;Capacity Additions|Electricity|Waste
 Capital Costs|Electricity|Gas CC|w/ CCS;Capacity Additions|Electricity|Gas CC|w/ CCS
 Power Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage|Pump Hydro
 Power Costs|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage|Stat Batteries
-Power Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis
+Power Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage|Hydrogen electrolysis [input]
 Energy Costs|Electricity|Storage|Pump Hydro;Capacity Additions|Electricity|Storage Reservoir|Pump Hydro
 Energy Costs|Electricity|Storage|Stat Batteries;Capacity Additions|Electricity|Storage Reservoir|Stat Batteries
 Energy Costs|Electricity|Storage|Hydrogen electrolysis;Capacity Additions|Electricity|Storage Reservoir|Hydrogen electrolysis
