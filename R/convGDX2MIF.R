@@ -123,6 +123,13 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   getItems(output_EU, dim = 1) <- "EU28"
   output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU28",,]
 
+  #aggregating only EU-27
+  EU27<-which(getItems(output, dim = 1) != "GBR" & getItems(output, dim = 1) != "NOR" & getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  output_EU27<-NULL
+  output_EU27<-dimSums(output[EU27,,],dim=1, na.rm = T)
+  getItems(output_EU27, dim = 1) <- "EU27"
+  output_EU27[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
+
   #aggregating only EU-ETS
   EUETS<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
   output_EUETS<-NULL
@@ -197,7 +204,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
 
   #CONCATENATING OUTPUT FROM REGIONS AND AGGREGATED DATA
-  output <- mbind(output,output_tot,output_EU,output_EUETS,output_EUETS_nonDE)
+  output <- mbind(output,output_tot,output_EU,output_EU27,output_EUETS,output_EUETS_nonDE)
   #totals concerning countries implementing min CO2 price is done above
   #totals concerning countries KdW is done above
 
@@ -247,6 +254,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   if (length(intersect(getNames(output),IntVars)) > 0) {
     output["GLO",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EU28",,intersect(getNames(output),IntVars_noweight)] <- NA
+    output["EU27",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EUETS",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EUETS_nonDE",,intersect(getNames(output),IntVars)] <- NA
 
@@ -269,8 +277,8 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #Transmission capacity aggregated (special case)
   if(length(intersect(getNames(output),"Capacity|Electricity|Transmission Grid (GW)")) > 0) {
-    output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
-    output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
+    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
+    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
   }
 
 
@@ -331,14 +339,15 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
     #To avoid confusion, make sure that industry-related values are not reported for the EU28
     output["EU28",c(2010,2015),"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
-    #output["EU28",2015,"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
+    output["EU27",c(2010,2015),"Emissions|CO2|Industry (Mt CO2/yr)"] <- NA
+
     output["EU28",c(2010,2015),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
-    #output["EU28",2015,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
+    output["EU27",c(2010,2015),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"] <- NA
 
     #Add NA for 2010. Because the MAC industry only applies from 2015, the reported price is the sum
     if(is.na(output[c("GLO"),c(2010),"Emissions|CO2|Industry (Mt CO2/yr)"])) {
-      output[c("EU28","EUETS","GLO"),c(2010),"Price|Carbon|Net|Industry (Eur2010/t CO2)"] <- NA
-      output[c("EU28","EUETS","GLO"),c(2010),"Price|Carbon|National Climate Target|Industry (Eur2010/t CO2)"] <- NA
+      output[c("EU28","EUETS","EU27","GLO"),c(2010),"Price|Carbon|Net|Industry (Eur2010/t CO2)"] <- NA
+      output[c("EU28","EUETS","EU27","GLO"),c(2010),"Price|Carbon|National Climate Target|Industry (Eur2010/t CO2)"] <- NA
     }
   }
 

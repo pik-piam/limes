@@ -1,8 +1,8 @@
 # The liMES R package
 
-R package **limes**, version **2.43.2**
+R package **limes**, version **2.44.0**
 
-[![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)  [![R build status](https://github.com/pik-piam/limes/workflows/check/badge.svg)](https://github.com/pik-piam/limes/actions) [![codecov](https://codecov.io/gh/pik-piam/limes/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/limes) [![r-universe](https://pik-piam.r-universe.dev/badges/limes)](https://pik-piam.r-universe.dev/ui#builds)
+[![CRAN status](https://www.r-pkg.org/badges/version/limes)](https://cran.r-project.org/package=limes)  [![R build status](https://github.com/pik-piam/limes/workflows/check/badge.svg)](https://github.com/pik-piam/limes/actions) [![codecov](https://codecov.io/gh/pik-piam/limes/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/limes) [![r-universe](https://pik-piam.r-universe.dev/badges/limes)](https://pik-piam.r-universe.dev/builds)
 
 ## Purpose and Functionality
 
@@ -47,7 +47,7 @@ In case of questions / problems please contact Sebastian Osorio <sebastian.osori
 
 To cite package **limes** in publications use:
 
-Osorio S (2023). _limes: The liMES R package_. R package version 2.43.2.
+Osorio S (2023). _limes: The liMES R package_. R package version 2.44.0.
 
 A BibTeX entry for LaTeX users is
 
@@ -56,6 +56,6 @@ A BibTeX entry for LaTeX users is
   title = {limes: The liMES R package},
   author = {Sebastian Osorio},
   year = {2023},
-  note = {R package version 2.43.2},
+  note = {R package version 2.44.0},
 }
 ```

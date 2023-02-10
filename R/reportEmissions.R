@@ -33,6 +33,7 @@ reportEmissions <- function(gdx) {
   teothers <- readGDX(gdx,name = "teothers") #set of other gases generation technologies
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
+  sety <- readGDX(gdx,name = "sety") #set secondary energy
 
   # read parameters
   s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
@@ -49,13 +50,12 @@ reportEmissions <- function(gdx) {
   v_emi <- v_emi[,,"co2"]*as.numeric(s_c2co2)*1000
   v_emi_el <- v_emi
 
-  #Read and transform the v_emifloor; read v_bankemi
-  #v_emifloor <- readGDX(gdx,name = "v_emifloor",field = "l",format = "first_found")
-  #v_emifloor <- limesMapping(v_emifloor)
-
   #Check the version so to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {
-    v_emi_he <- v_emi[,,"sehe"]
+    if("sehe" %in% sety) {
+      v_emi_he <- v_emi[,,"sehe"]
+    }
+
     v_emi_el <- v_emi[,,"seel"]
 
     heating <- .readHeatingCfg(gdx)

@@ -60,6 +60,7 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   #Create a magpie object for each intensive variable
   regionSubsetList <- list("GLO" = getItems(var, dim = 1),
                            "EU28" = setdiff(getItems(var, dim = 1), c("CHE","NOR","BAL")),
+                           "EU27" = setdiff(getItems(var, dim = 1), c("GBR","CHE","NOR","BAL")),
                            "EUETS" = setdiff(getItems(var, dim = 1), c("CHE","BAL")))
 
   tmp_RegAgg <- new.magpie(cells_and_regions = names(regionSubsetList),

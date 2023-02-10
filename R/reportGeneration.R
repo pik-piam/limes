@@ -48,11 +48,12 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   teccs <- readGDX(gdx, name = "teccs")
   teothers <- readGDX(gdx, name = "teothers")
   tau <- readGDX(gdx, name = "tau") # set of time slices
-  pety <- readGDX(gdx, name = "pety") # set of primary energies
   tegas_el <- intersect(tegas, teel)
   tengcc_el <- intersect(tengcc, teel)
   testore <- readGDX(gdx, name = "testore")
   pe2se <- readGDX(gdx, name = "pe2se")
+  #pety <- readGDX(gdx, name = "pety") # set of primary energies
+  pety <- unique(pe2se[, 1])
   pe2se <- paste0(pe2se[, 1], ".", pe2se[, 2], ".", pe2se[, 3])
 
   # read parameters

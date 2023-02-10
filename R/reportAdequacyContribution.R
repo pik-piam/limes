@@ -153,15 +153,15 @@ reportAdequacyContribution <- function(gdx) {
   tmp1 <- NULL
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c("tnr")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Nuclear (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tehydro)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hydro (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tecoal,telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Coal (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tecoal)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hard Coal (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(telig)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Lignite (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tegas_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Gas (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tebio)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Biomass (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(teoil)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Oil (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c("waste")],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Waste (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(tehgen)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hydrogen (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,c(teothers)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Other (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tecoal,telig))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Coal (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tecoal))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hard Coal (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(telig))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Lignite (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tegas_el))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Gas (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tebio))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Biomass (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(teoil))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Oil (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c("waste"))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Waste (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tehgen))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hydrogen (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(teothers))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Other (GW)"))
 
   #Discard the capacity when there is no marginal value
   for (regi2 in getItems(p_eldemand, dim = 1)) {
