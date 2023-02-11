@@ -143,14 +143,14 @@ reportCO2Price <- function(gdx) {
 
   #b) End of EU ETS (zero emissions after 2057) - only after v2.32
   o_marg_end_EUETS <- p_co2price*0 #to create a vector with the same lenght and properties (magpie)
-  if(c_LIMESversion >=  2.32) {
+  if(c_LIMESversion >=  2.32) { #temporary solution. This equation disappeared. Not sure if it was actually used in previous versions
     # read marginal values
-    m_end_EUETS <- readGDX(gdx, name = "q_end_EUETS", field = "m", format = "first_found")
+    #m_end_EUETS <- readGDX(gdx, name = "q_end_EUETS", field = "m", format = "first_found")
 
-    #allocating the ETS prices only to counties belonging to the EU ETS
-    for (EUETS2 in EUETS) {
-      o_marg_end_EUETS[EUETS2, , ] <- (1/s_c2co2)*(-m_end_EUETS/f_npv)
-    }
+    ##allocating the ETS prices only to counties belonging to the EU ETS
+    #for (EUETS2 in EUETS) {
+    #  o_marg_end_EUETS[EUETS2, , ] <- (1/s_c2co2)*(-m_end_EUETS/f_npv)
+    #}
   }
 
 
