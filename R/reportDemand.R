@@ -89,7 +89,7 @@ reportDemand <- function(gdx, output = NULL) {
 
   if(c_LIMESversion >= 2.38) {
     #Use of electricity for transport
-    p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")
+    p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")[,getYears(tmp1),]
     p_exdem_trans <- limesMapping(p_exdem_trans)
     tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
 

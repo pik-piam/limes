@@ -23,7 +23,8 @@ reportExchange <- function(gdx) {
   tau <- readGDX(gdx, name = "tau") #set of tau
   regi <- readGDX(gdx, name = "regi") #set of countries
   tt <- readGDX(gdx, name = "t") #set of time
-  t0 <- readGDX(gdx, name = "t0", field = "l", format = "first_found") #initial year
+  tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") # time set
+  t0 <- tt[1]
   c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") #interest rate
   p_tedataconn <- readGDX(gdx, name = "p_tedataconn", field = "l", format = "first_found") #technical parameters of transmission
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step

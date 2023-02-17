@@ -318,7 +318,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   if(c_LIMESversion >= 2.38) {
     #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
-    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS*1000*44/12
+    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS[, getYears(output), ]*1000*44/12
 
   }
 

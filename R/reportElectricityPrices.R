@@ -21,7 +21,7 @@ reportElectricityPrices <- function(gdx) {
 
   # read sets and parameters
   tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") #time set
-  t0 <- readGDX(gdx, name = "t0", field = "l", format = "first_found") #initial year
+  t0 <- tt[1]
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
   tau <- readGDX(gdx, name = "tau") #set of time slices
   ter <- readGDX(gdx, name = "ter") #set of variable renewable electricity generation technologies

@@ -60,6 +60,8 @@ reportBuildings <- function(gdx, output=NULL) {
       # Restrict years
       y <- getYears(output)
       p_bd_heatdem_ue <- p_bd_heatdem_ue[,y,]
+      p_othersec_demDH_ue <- p_othersec_demDH_ue[,y,]
+      p_othersec_demDH_sec_ue <- p_othersec_demDH_sec_ue[,y,]
 
       #Estimate derived heat (DH) that is used in buildings
       o_demDH_ue <- output[, , "Useful Energy|Heat|District Heating (TWh/yr)"]

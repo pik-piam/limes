@@ -21,7 +21,7 @@ reportCO2Price <- function(gdx) {
 
   # read sets and parameters
   tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") #time set
-  t0 <- readGDX(gdx, name = "t0", field = "l", format = "first_found") #time set
+  t0 <- tt[1]
   c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") #interest rate
   p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
   c_emicappathscen <- readGDX(gdx, name = c("c_emicappathscen", "cm_emicappathscen"), field = "l", format = "first_found") #control variable for emission cap (per country)
@@ -29,6 +29,10 @@ reportCO2Price <- function(gdx) {
   p_co2price <- readGDX(gdx, name = "p_co2price", field = "l", format = "first_found") #exogenous co2 prices (for electricity)
   v_emi <- readGDX(gdx,name = c("v_emi", "vm_emi"),field = "l",format = "first_found",restore_zeros  =  FALSE)
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+
+  # reduce parameters to years actually used (t in the model)
+  y <- getYears(v_emi)
+  p_co2price <- p_co2price[, y, ]
 
   if(c_LIMESversion >=  2.27) {
     c_industry_ETS <- readGDX(gdx, name = "c_industry_ETS", field = "l", format = "first_found")
@@ -59,7 +63,7 @@ reportCO2Price <- function(gdx) {
 
   #b) Industry sector
   if(c_LIMESversion >=  2.29) {
-  p_ind_co2price <- readGDX(gdx, name = "p_ind_co2price", field = "l", format = "first_found") #exogenous co2 prices (for industry)
+  p_ind_co2price <- readGDX(gdx, name = "p_ind_co2price", field = "l", format = "first_found")[, y,] #exogenous co2 prices (for industry)
   p_ind_co2price <- p_ind_co2price/s_c2co2
 
   # create MagPie object of variables with iso3 regions
@@ -118,7 +122,7 @@ reportCO2Price <- function(gdx) {
   regipol <- regipol_iso3 #Better to take it directly from the GDX file
 
   #allocating the ETS prices only to counties belonging to the EU ETS
-  o_marg_emicap_EU <- p_co2price*0 #to create a vector with the same lenght and properties (magpie)
+  o_marg_emicap_EU <- p_co2price*0 #to create a vector with the same length and properties (magpie)
   for (regipol2 in regipol) {
     o_marg_emicap_EU[regipol2, , ] <- (1/s_c2co2)*(-m_emicappath_EU/f_npv)
   }
@@ -288,13 +292,13 @@ reportCO2Price <- function(gdx) {
       } else {
 
         #Preliminary auction of EUA
-        p_prelauction_EUETS <- readGDX(gdx, name = "p_prelauction_EUETS", field = "l", format = "first_found")
+        p_prelauction_EUETS <- readGDX(gdx, name = "p_prelauction_EUETS", field = "l", format = "first_found")[, y, ]
         o_prelauction_EUETS_regi <- p_prelauction_EUETS*p_shareEUA_auct
         tmp4 <- mbind(tmp4, setNames(o_prelauction_EUETS_regi*s_c2co2*1000, "Emissions|CO2|Preliminary auction ETS (Mt CO2/yr)"))
         #Available for auction before unilateral cancellation
         #o_auction_preunicanc is indeed what is allocated to different countries,  and then they could decide to cancel unilaterally
         #i.e.,  they do not auction these EUA and delete them from the EU log
-        o_auction_preunicanc <- p_auction_EUETS + dimSums(o_selfcancelEUA_regi, dim = 1)
+        o_auction_preunicanc <- p_auction_EUETS[, y, ] + dimSums(o_selfcancelEUA_regi, dim = 1)
         o_auction_preunicanc_regi <- o_auction_preunicanc*p_shareEUA_auct
         tmp4 <- mbind(tmp4, setNames(o_auction_preunicanc_regi*s_c2co2*1000, "Emissions|CO2|Certificates for auction - before unilateral cancellation (Mt CO2/yr)"))
         o_auctionEUA_regi <- o_auction_preunicanc_regi - o_selfcancelEUA_regi
