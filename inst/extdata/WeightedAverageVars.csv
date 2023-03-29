@@ -110,8 +110,8 @@ Capital Costs|Heat|District Heating|Heat-only|Lignite;Capacity Additions|Gross|H
 Capital Costs|Heat|District Heating|Heat-only|Oil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil
 Capital Costs|Heat|District Heating|Heat-only|Gas;Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas
 Capital Costs|Heat|District Heating|Heat-only|Other;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other
-Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Capacity Additions|Gross|Heat|District Heating|Heat-only|Heat Pump
-Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electric Boiler
+Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Heat Pump
+Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Capacity Additions|Gross|Heat|District Heating|Heat-only|Electricity|Electric Boiler
 Capital Costs|Heat|District Heating|Heat-only|Solar;Capacity Additions|Gross|Heat|District Heating|Heat-only|Solar
 Capital Costs|Heat|District Heating|Heat-only|Geothermal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Geothermal
 Power Costs|Heat|Storage;Capacity Additions|Heat|Storage
