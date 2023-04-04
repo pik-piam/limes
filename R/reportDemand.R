@@ -41,8 +41,6 @@ reportDemand <- function(gdx, output = NULL) {
   v_exdemand <- limesMapping(v_exdemand)
   p_hedemand <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = tau,
                            fill = NA, sort = FALSE, sets = NULL)
-  o_elecheat <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = NULL,
-                           fill = 0, sort = FALSE, sets = NULL)
   p_DH_losses <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = NULL,
                            fill = NA, sort = FALSE, sets = NULL)
   p_etah <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = NULL, names = te,
@@ -73,10 +71,6 @@ reportDemand <- function(gdx, output = NULL) {
 
   # Collapse names of demand (just in case)
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
-
-  # Load also the storage consumption
-  o_storecons <- output[, , "Secondary Energy|Electricity|Storage Consumption (TWh/yr)"]
-  getNames(o_storecons) <- NULL
 
   # electricity-related
   tmp1 <- NULL
@@ -110,31 +104,7 @@ reportDemand <- function(gdx, output = NULL) {
       v_heatwaste <- limesMapping(v_heatwaste)
 
       tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
-      # tmp2 <- mbind(tmp2,setNames(dimSums(p_hedemand*p_taulength,dim=3)/(1+p_DH_losses))/1000,"Final Energy|Heat (TWh/yr)")
 
-
-
-      if (c_buildings == 0) {
-
-
-
-      } else if(c_LIMESversion >= 2.38 & c_buildings == 1) {
-        ## Use of electricity in heating
-        #tmp2 <- mbind(tmp2, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) / 1000, "Final Energy|Electricity [w/o Hydrogen production] (TWh/yr)"))
-        #tmp2 <- mbind(tmp2, setNames(
-        #  tmp2[,,"Final Energy|Electricity [w/o Hydrogen production] (TWh/yr)"] + output[,,"Secondary Energy|Electricity|Storage Consumption|Hydrogen electrolysis (TWh/yr)"],
-        #  "Final Energy|Electricity (TWh/yr)"))
-
-
-        ##Use of electricity for cooling
-        #p_exdem_cool <- readGDX(gdx, name = "p_exdem_cool", field = "l", format = "first_found")
-        #p_exdem_cool <- limesMapping(p_exdem_cool)
-        #tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(p_exdem_cool, dim = 3.2) * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Cooling (TWh/yr)"))
-
-
-
-
-      }
     }
   }
 
