@@ -451,16 +451,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       tmp4 <- mbind(tmp4, setNames(dimSums((v_storein_he - v_storeout_he) * p_taulength / 1000, dim = 3), "Useful Energy|Heat|Storage Losses (TWh/yr)"))
     }
 
-    ## Net Electricity imports
-    #if (! is.null(o_netimports_tau)){
-    #  tmp4 <- mbind(tmp4, setNames(dimSums(o_netimports_tau * p_taulength
-    #                                       , dim = 3)
-    #                               / 1000,
-    #                               names(varList_Imports))
-    #  )
-    #}
-
-
     # Hydrogen (from electrolysis) used in hydrogen-based generation plants
     if (c_LIMESversion >= 2.36) {
 
@@ -895,7 +885,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   } else { #if not the reportTau
 
 # Tau reporting -----------------------------------------------------------
-    f_renameTau <- function(vecOriginal){
+    f_renameTau <- function(vecOriginal) {
 
       vecModif <- vecOriginal
       names(vecModif) <- gsub("Secondary Energy", "Load", names(vecModif))
@@ -907,7 +897,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     f_computeTauVec <- function(varName, varList, data) {
 
       sets2Sum <- setdiff(getSets(data), c("region", "t", "tau"))
-      if (!is.null(varList[[varName]])){
+      if (!is.null(varList[[varName]])) {
         .tmp <- dimSums(data[, , varList[[varName]]],
                         dim = sets2Sum)
       } else {
@@ -924,7 +914,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     f_computeTau <- function(varList, data) {
 
-      out <- do.call('mbind',
+      out <- do.call("mbind",
                      lapply(names(varList), f_computeTauVec, varList, data))
       return(out)
     }
@@ -947,9 +937,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       f_computeTau(varList_stLoss, v_storein_el - v_storeout_el)
     )
 
-    if (!is.null(o_netimports_tau)){
+    if (!is.null(o_netimports_tau)) {
       varList_Imports <- f_renameTau(varList_Imports)
-      tmp1 = mbind(tmp1,
+      tmp1 <- mbind(tmp1,
                    f_computeTau(varList_Imports, o_netimports_tau))
     }
 

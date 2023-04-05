@@ -12,3 +12,4 @@
 ^Meta$
 ^vignettes/.lintr$
 ^Makefile$
+^.*CITATION.cff$
