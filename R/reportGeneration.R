@@ -933,8 +933,12 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     varList_elTau <- f_renameTau(varList_el)
     varList_stGenTau <- f_renameTau(varList_stGen)
     varList_stConsTau <- f_renameTau(varList_stCons)
-    varList_stLoss <- list("Load|Electricity|Storage Losses (GW)"
-                           = setdiff(testore, c("heat_sto")))
+    varList_stLoss <- list("Load|Electricity|Storage Net Charging (GW)"
+                           = setdiff(testore, c("heat_sto")),
+                           "Load|Electricity|Storage Net Charging|Pump Hydro (GW)" = "psp",
+                           "Load|Electricity|Storage Net Charging|Stat Batteries (GW)" = "batteries",
+                           "Load|Electricity|Storage Net Charging|Hydrogen electrolysis (GW)" = "helec"
+                           )
 
     tmp1 <- mbind(
       f_computeTau(varList_elTau, v_seprod_el),

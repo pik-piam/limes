@@ -33,6 +33,11 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
                                            output,
                                            reporting_tau = TRUE)[, time, ]
   )
+  # adding demand
+  output <- mbind(output, reportDemand(gdx,
+                                       output,
+                                       reporting_tau = TRUE)[, time, ]
+  )
 
   # WRITE REPORT
   # load the model version

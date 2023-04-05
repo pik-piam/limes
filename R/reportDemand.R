@@ -119,6 +119,17 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
   } else { #if not the reportTau
     # TAU reporting -----------------------------------------------------------
+
+    rename_tau <- function(name, data) {
+      .tau_nb <- getNames(data)
+      .nm <- paste0(name, "|", .tau_nb," (GW)")
+      out <- setNames(data, .nm)
+      return(out)
+    }
+
+    tmp <- mbind(rename_tau("Demand Load|Electricity", p_eldemand),
+                 rename_tau("Demand Load|Heat", p_hedemand)
+    )
   }
 
   return(tmp)
