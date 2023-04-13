@@ -127,9 +127,13 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
       return(out)
     }
 
-    tmp <- mbind(rename_tau("Demand Load|Electricity", p_eldemand),
+    tmp <- rename_tau("Demand Load|Electricity", p_eldemand)
+
+    if (heating == "fullDH"){
+    tmp <- mbind(tmp,
                  rename_tau("Demand Load|Heat", p_hedemand)
-    )
+                 )
+    }
   }
 
   return(tmp)
