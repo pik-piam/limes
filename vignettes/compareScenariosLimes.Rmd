@@ -1,6 +1,6 @@
 ---
 title: "compareScenariosLimes"
-author: "Christof Schötz"
+author: "Christof Schötz, Antoine Levesque"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The function `compareScenariosLimes()` of the `limes` package is based on the `compareScenariosLimes()` function from the `remind2` [package](https://github.com/pik-piam/remind2/) and adapts it to the needs of the **LIMES** model. It can be used to visually compare the results of multiple runs of the **LIMES** model. See also `vignette("compareScenarios2")` from which this vignette is largely copied. 
+The function `compareScenariosLimes()` of the `limes` package is based on the `compareScenarios()` function from the `remind2` [package](https://github.com/pik-piam/remind2/) and adapts it to the needs of the **LIMES** model [NB: `compareScenarios()` has now been updated to `compareScenarios2()`]. It can be used to visually compare the results of multiple runs of the **LIMES** model. See also `vignette("compareScenarios2")` from which this vignette is largely copied. 
 
-It can be called via the `output.R` script in the **LIMES** model: Execute `Rscript output.R` in the **LIMES** folder, select `Comparison across runs` and then `compareScenariosLimes`.
+It can be called via the `output.R` script in the **LIMES** model: Execute `Rscript output.R` in the **LIMES** folder, select the scenarios you are interested in, then select `extra` and  `scenarioComparison`.
 
 The function reads the results from the output-mif-files (in the **LIMES** folder after runs are completed, i.e., the files `output/<scenario_folder>/LIMES_generic_<scenario>.mif`). Using this data, a document containing many plots is created and written as a PDF- or HTML-file. See `?limes::compareScenariosLimes` for information on how to call the function with the appropriate arguments.
 
