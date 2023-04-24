@@ -268,6 +268,21 @@ if (length(params$sections) == 1 && params$sections == "all") {
     sectionPaths <- character(0)
   }
 }
+
+# Restrictions on heating configuration
+heatingCfg <- 
+  cfgGms %>% 
+  filter(name == "heating") %>%
+  pull("value") %>%
+  unlist()
+
+if (length(heatingCfg) > 0){
+  if (! "fullDH" %in% heatingCfg){
+    sectionPaths <-
+      setdiff(sectionPaths, "cs2_04_heating.Rmd")
+  }
+}
+  
 ```
 
 
