@@ -38,6 +38,8 @@ reportPrimaryEnergy <- function(gdx) {
   tau <- readGDX(gdx, name = "tau") #set of time slices
   pe2se <- readGDX(gdx, name = "pe2se")
   pe2se <- paste0(pe2se[, 1], ".", pe2se[, 2], ".", pe2se[, 3])
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   # read parameters and variables
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
@@ -110,7 +112,7 @@ reportPrimaryEnergy <- function(gdx) {
     "Primary Energy|Other|Electricity (TWh/yr)"                    = intersect(teel, c(teothers)),
     "Primary Energy|Hydrogen|Electricity (TWh/yr)"                 = intersect(teel, c(tehgen)),
     "Primary Energy|Nuclear|Electricity (TWh/yr)"                  = intersect(teel, c("tnr")),
-    "Primary Energy|Waste|Electricity (TWh/yr)"                    = intersect(teel, c("waste"))
+    "Primary Energy|Waste|Electricity (TWh/yr)"                    = intersect(teel, c(tewaste))
   )
 
   for (var in names(varList_el)) {
@@ -198,7 +200,7 @@ reportPrimaryEnergy <- function(gdx) {
         "Primary Energy|Gas|Electricity-only|Gas OC (TWh/yr)"               = intersect(teoel, setdiff(tegas, tengcc)),
         "Primary Energy|Fossil|Electricity-only (TWh/yr)"                   = intersect(teoel, tefossil),
         "Primary Energy|Other|Electricity-only (TWh/yr)"                    = intersect(teoel, teothers),
-        "Primary Energy|Waste|Electricity-only (TWh/yr)"                    = intersect(teoel, "waste"),
+        "Primary Energy|Waste|Electricity-only (TWh/yr)"                    = intersect(teoel, tewaste),
         "Primary Energy|Hydrogen|Electricity-only (TWh/yr)"                 = intersect(teoel, tehgen)
 
       )

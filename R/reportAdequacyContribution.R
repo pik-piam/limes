@@ -41,6 +41,8 @@ reportAdequacyContribution <- function(gdx) {
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
   ter_el <- intersect(teel,ter)
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   p_tedata <- readGDX(gdx,name="p_tedata",field="l",format="first_found")
@@ -159,7 +161,7 @@ reportAdequacyContribution <- function(gdx) {
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tegas_el))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Gas (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tebio))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Biomass (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(teoil))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Oil (GW)"))
-  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c("waste"))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Waste (GW)"))
+  tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tewaste))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Waste (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(tehgen))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Hydrogen (GW)"))
   tmp1 <- mbind(tmp1,setNames(dimSums(capadeq[,,intersect(teel,c(teothers))],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Other (GW)"))
 

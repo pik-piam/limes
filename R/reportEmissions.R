@@ -34,6 +34,8 @@ reportEmissions <- function(gdx) {
   tegas_el <- intersect(tegas,teel)
   tengcc_el <- intersect(tengcc,teel)
   sety <- readGDX(gdx,name = "sety") #set secondary energy
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   # read parameters
   s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
@@ -89,8 +91,8 @@ reportEmissions <- function(gdx) {
     "Emissions|CO2|Energy|Supply|Electricity|Gas CC (Mt CO2/yr)"                  = intersect(teel,c(tengcc_el)),
     "Emissions|CO2|Energy|Supply|Electricity|Gas OC (Mt CO2/yr)"                  = intersect(teel,setdiff(tegas_el,tengcc_el)),
     "Emissions|CO2|Energy|Supply|Electricity|Other (Mt CO2/yr)"                   = intersect(teel,c(teothers)),
-    "Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"                   = intersect(teel,c("waste")),
-    "Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"            = intersect(teel,c(teothers,"waste",teoil)),
+    "Emissions|CO2|Energy|Supply|Electricity|Waste (Mt CO2/yr)"                   = intersect(teel,c(tewaste)),
+    "Emissions|CO2|Energy|Supply|Electricity|Other Fossil (Mt CO2/yr)"            = intersect(teel,c(teothers,tewaste,teoil)),
 
     #general aggregation
     "Emissions|CO2|Energy|Supply|Electricity|Fossil (Mt CO2/yr)"                  = intersect(teel,c(tefossil)),
