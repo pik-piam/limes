@@ -10,6 +10,7 @@ items <- c(
   "Final Energy|Heat|District Heating|Gas",
   "Final Energy|Heat|District Heating|Geothermal",
   "Final Energy|Heat|District Heating|Lignite",
+  "Final Energy|Heat|District Heating|Hard Coal",
   "Final Energy|Heat|District Heating|Oil",
   "Final Energy|Heat|District Heating|Other",
   "Final Energy|Heat|District Heating|Solar",
