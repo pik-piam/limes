@@ -94,3 +94,10 @@ showAreaAndBarPlots(data, items)
 
 ## Heat demand covered by each system
 
+```{r Heat_Syst}
+items <- c("Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered",
+           "Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered") 
+showAreaAndBarPlots(data, items, mainReg = "EUETS")
+```
+
+
