@@ -807,58 +807,7 @@ Secondary Energy Input|Electricity|Decentralized|Resistance|Heat;Secondary Energ
 Secondary Energy Input|Electricity|Decentralized|Conventional|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional|Heat;TWh/yr;TWh/yr;1
 Secondary Energy Input|Electricity|Decentralized|Conventional space heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional space heater|Heat;TWh/yr;TWh/yr;1
 Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;Secondary Energy Input|Electricity|Decentralized|Conventional water heater|Heat;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP;Useful Energy|Heat|District Heating|CHP;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Hydrogen;Useful Energy|Heat|District Heating|CHP|Hydrogen;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Biomass;Useful Energy|Heat|District Heating|CHP|Biomass;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Coal;Useful Energy|Heat|District Heating|CHP|Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Gas CC;Useful Energy|Heat|District Heating|CHP|Gas CC;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Gas OC;Useful Energy|Heat|District Heating|CHP|Gas OC;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Gas;Useful Energy|Heat|District Heating|CHP|Gas;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Hard Coal;Useful Energy|Heat|District Heating|CHP|Hard Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Lignite;Useful Energy|Heat|District Heating|CHP|Lignite;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Oil;Useful Energy|Heat|District Heating|CHP|Oil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Other;Useful Energy|Heat|District Heating|CHP|Other;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Waste;Useful Energy|Heat|District Heating|CHP|Waste;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Other Fossil;Useful Energy|Heat|District Heating|CHP|Other Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Fossil;Useful Energy|Heat|District Heating|CHP|Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Renewable;Useful Energy|Heat|District Heating|CHP|Renewable;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|CHP|Non-renewable;Useful Energy|Heat|District Heating|CHP|Non-renewable;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only;Useful Energy|Heat|District Heating|Heat-only;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Biomass;Useful Energy|Heat|District Heating|Heat-only|Biomass;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Coal;Useful Energy|Heat|District Heating|Heat-only|Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Hard Coal;Useful Energy|Heat|District Heating|Heat-only|Hard Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Lignite;Useful Energy|Heat|District Heating|Heat-only|Lignite;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Oil;Useful Energy|Heat|District Heating|Heat-only|Oil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Gas;Useful Energy|Heat|District Heating|Heat-only|Gas;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Other;Useful Energy|Heat|District Heating|Heat-only|Other;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Waste;Useful Energy|Heat|District Heating|Heat-only|Waste;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Other Fossil;Useful Energy|Heat|District Heating|Heat-only|Other Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Electricity;Useful Energy|Heat|District Heating|Heat-only|Electricity;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump;Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler;Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Solar;Useful Energy|Heat|District Heating|Heat-only|Solar;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Geothermal;Useful Energy|Heat|District Heating|Heat-only|Geothermal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Fossil;Useful Energy|Heat|District Heating|Heat-only|Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Renewable;Useful Energy|Heat|District Heating|Heat-only|Renewable;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Heat-only|Non-renewable;Useful Energy|Heat|District Heating|Heat-only|Non-renewable;TWh/yr;TWh/yr;1
 Useful Energy|Heat|District Heating;Useful Energy|Heat|District Heating;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Biomass;Useful Energy|Heat|District Heating|Biomass;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Coal;Useful Energy|Heat|District Heating|Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Gas;Useful Energy|Heat|District Heating|Gas;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Hard Coal;Useful Energy|Heat|District Heating|Hard Coal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Lignite;Useful Energy|Heat|District Heating|Lignite;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Oil;Useful Energy|Heat|District Heating|Oil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Other;Useful Energy|Heat|District Heating|Other;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Fossil;Useful Energy|Heat|District Heating|Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Renewable;Useful Energy|Heat|District Heating|Renewable;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Non-renewable;Useful Energy|Heat|District Heating|Non-renewable;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Waste;Useful Energy|Heat|District Heating|Waste;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Solar;Useful Energy|Heat|District Heating|Solar;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Geothermal;Useful Energy|Heat|District Heating|Geothermal;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Other Fossil;Useful Energy|Heat|District Heating|Other Fossil;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Electricity;Useful Energy|Heat|District Heating|Electricity;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Electricity|Heat Pump;Useful Energy|Heat|District Heating|Electricity|Heat Pump;TWh/yr;TWh/yr;1
-Useful Energy|Heat|District Heating|Electricity|Electric Boiler;Useful Energy|Heat|District Heating|Electricity|Electric Boiler;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Electricity;Useful Energy|Heat|Electricity;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Buildings|Decentralized|Electricity;Useful Energy|Heat|Buildings|Decentralized|Electricity;TWh/yr;TWh/yr;1
 Useful Energy|Heat|Buildings|Decentralized|Electricity|Heat Pump;Useful Energy|Heat|Buildings|Decentralized|Electricity|Heat Pump;TWh/yr;TWh/yr;1
