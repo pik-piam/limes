@@ -31,7 +31,7 @@ items <- c(
   "Capacity|Electricity|Storage|Hydrogen electrolysis [input]"
 )
 
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(data, items, orderVars = "userRev")
 ```
 
 
@@ -58,6 +58,6 @@ items <- c(
   "Secondary Energy|Electricity|Net Imports"
 )
 
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(data, items, orderVars = "userRev")
 ```
 
