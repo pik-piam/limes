@@ -240,17 +240,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #Make sure this variable was indeed calculated
   IntVars_noweight <- intersect(finalvars,IntVars_noweight)
   IntVars_noweight <- setdiff(IntVars_noweight,c("Capacity|Electricity|Transmission Grid (GW)","Capacity|Electricity|Transmission Grid-km (GWkm)"))
-  #
-  #
-  ## settings mapping path
-  #IntVarPath <- system.file("extdata","IntensiveVariables.csv",package="limes")
-  ## reading mapping file
-  #IntVarfile <- read.csv(IntVarPath,sep=";")
-  ## Identify the intensive variables that were not averaged
-  #pos_tmp <- setdiff(c(1:length(IntVarfile$LIMES)),match(mapping_int2ext$int,IntVarfile$LIMES))
-  ## Write the 2 sets: all intensive variables and those that were  averaged
-  #IntVars <- paste0(as.vector(IntVarfile$LIMES)," (",as.vector(IntVarfile$UnitLIMES) , ")")
-  #IntVars_noweight <- paste0(as.vector(IntVarfile$LIMES[pos_tmp])," (",as.vector(IntVarfile$UnitLIMES[pos_tmp]) , ")")
+
   if (length(intersect(getNames(output),IntVars)) > 0) {
     output["GLO",,intersect(getNames(output),IntVars_noweight)] <- NA
     output["EU28",,intersect(getNames(output),IntVars_noweight)] <- NA
