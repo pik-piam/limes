@@ -125,7 +125,6 @@ reportCapacityAdditions <- function(gdx) {
   }
 
   if(c_LIMESversion >=  2.33) {
-    tewaste <- readGDX(gdx, name = "tewaste") #set of waste generation technologies
     heating <- .readHeatingCfg(gdx)
 
     if(heating == "fullDH") {

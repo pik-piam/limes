@@ -108,7 +108,7 @@ reportEmissions <- function(gdx) {
 
   for (var in names(varList_el)){
     enty <- varList_el[[var]]
-    # execute onyl if all enties (e.g. "oil") exist in getNames(v_emi_el), skip otherwise
+    # execute only if all enties (e.g. "oil") exist in getNames(v_emi_el), skip otherwise
     # This is necessary, because there are enties in varList_el that are not in getNames(v_emi_el) (e.g. "oil")
     # which causes an error since non-existent elements cannot be selected via v_emi_el[,,enty]
     if (all(vapply(enty,hasEnty,v_emi_el, FUN.VALUE = logical(1)))) {
@@ -126,7 +126,6 @@ reportEmissions <- function(gdx) {
   #tmp4 <- mbind(tmp4,setNames(dimSums(v_emifloor[,,]*s_c2co2*1000,3),"Emissions withdrawn ETS|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
 
   if(c_LIMESversion >=  2.33) {
-    tewaste <- readGDX(gdx,name = "tewaste") #set of waste generation technologies
 
     #Biomass related variables (because there are new biomass technologies from v2.33)
     #tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)")) #might be confusing the fact that is exactly the same as BECCS
@@ -305,6 +304,9 @@ reportEmissions <- function(gdx) {
 
   # concatenate data
   tmp <- mbind(tmp5,tmp6)
+
+  ##Additional estimations
+
 
   return(tmp)
 }

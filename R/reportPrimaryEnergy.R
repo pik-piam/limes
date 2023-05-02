@@ -120,7 +120,6 @@ reportPrimaryEnergy <- function(gdx) {
   }
 
   if(c_LIMESversion >=  2.33) {
-    tewaste <- readGDX(gdx, name = "tewaste") #set of|waste generation technologies from this version
 
     #Electricity (new technologies)
     tmp1 <- mbind(tmp1, setNames(dimSums(v_pedem_el[, , intersect(tebio, teccs)], dim = 3)/1000, "Primary Energy|Biomass|Electricity|w/ CCS (TWh/yr)"))
