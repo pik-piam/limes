@@ -614,26 +614,29 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       }
 
       # Seasonal storage of hydrogen -> input and output in electrolysers
-      tau2season <- readGDX(gdx, name = "tau2season") # mapping of tau's belonging to each season
-      seasons <- c("winter", "spring", "summer", "autumn")
-      for (i in seq_len(length(seasons))) {
-        taus <- c(tau2season$tau[tau2season$season == seasons[i]])
-        if (length(taus) == 0) {
-          o_outputhelec <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = paste0("Output|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
-                                      fill = NA, sort = FALSE, sets = NULL)
-          o_inputhelec <- new.magpie(cells_and_regions = getItems(v_storein_el, dim = 1), years = getYears(v_storein_el), names = paste0("Input|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
-                                     fill = NA, sort = FALSE, sets = NULL)
-          tmp4 <- mbind(tmp4, o_outputhelec)
-          tmp4 <- mbind(tmp4, o_inputhelec)
-        } else {
-          tmp4 <- mbind(tmp4, setNames(dimSums(v_prodP2XSe[, , taus] * p_taulength[, , taus], dim = 3) / 1000, paste0("Output|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)")))
-          p_eta_helec <- p_tedata[, , "eta.helec"]
-          p_eta_helec <- limesMapping(p_eta_helec)
-          o_inputhelec <- v_storein_el[, , "helec"]
-          o_inputhelec <- collapseDim(o_inputhelec, dim = 3.2)
-          tmp4 <- mbind(tmp4, setNames(dimSums(o_inputhelec[, , taus] * p_taulength[, , taus], dim = 3) * p_eta_helec / 1000, paste0("Input|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)")))
+      tau2season <- readGDX(gdx, name = "tau2season", format = "first_found", react = 'silent') # mapping of tau's belonging to each season
+      if(is.null(tewaste)) { #this set disappeared by April 2023
+        seasons <- c("winter", "spring", "summer", "autumn")
+        for (i in seq_len(length(seasons))) {
+          taus <- c(tau2season$tau[tau2season$season == seasons[i]])
+          if (length(taus) == 0) {
+            o_outputhelec <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = paste0("Output|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
+                                        fill = NA, sort = FALSE, sets = NULL)
+            o_inputhelec <- new.magpie(cells_and_regions = getItems(v_storein_el, dim = 1), years = getYears(v_storein_el), names = paste0("Input|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)"),
+                                       fill = NA, sort = FALSE, sets = NULL)
+            tmp4 <- mbind(tmp4, o_outputhelec)
+            tmp4 <- mbind(tmp4, o_inputhelec)
+          } else {
+            tmp4 <- mbind(tmp4, setNames(dimSums(v_prodP2XSe[, , taus] * p_taulength[, , taus], dim = 3) / 1000, paste0("Output|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)")))
+            p_eta_helec <- p_tedata[, , "eta.helec"]
+            p_eta_helec <- limesMapping(p_eta_helec)
+            o_inputhelec <- v_storein_el[, , "helec"]
+            o_inputhelec <- collapseDim(o_inputhelec, dim = 3.2)
+            tmp4 <- mbind(tmp4, setNames(dimSums(o_inputhelec[, , taus] * p_taulength[, , taus], dim = 3) * p_eta_helec / 1000, paste0("Input|Hydrogen|Electrolysis|", seasons[i], " (TWh/yr)")))
+          }
         }
       }
+
 
     #End of if c_LIMESversion >= 2.36
     }
