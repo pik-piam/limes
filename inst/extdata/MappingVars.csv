@@ -1335,3 +1335,10 @@ Secondary Energy Input|Electricity|Transport;Secondary Energy Input|Electricity|
 Secondary Energy Input|Electricity|Hydrogen;Secondary Energy Input|Electricity|Hydrogen;TWh/yr;TWh/yr;1
 Net Imports from RUS|Electricity;Net Imports from RUS|Electricity;TWh/yr;TWh/yr;1
 Net Exports to RUS|Electricity;Net Exports to RUS|Electricity;TWh/yr;TWh/yr;1
+Emissions|CO2|Energy|Supply|Electricity|Emission factor;Emissions|CO2|Energy|Supply|Electricity|Emission factor;gCO2/kWh;gCO2/kWh;1
+Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;gCO2/kWh;gCO2/kWh;1
+Emissions|Indirect|CO2|Energy|Supply|Power to heat;Emissions|Indirect|CO2|Energy|Supply|Power to heat;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;gCO2/kWh;gCO2/kWh;1
+Useful Energy|Heat|Buildings|Peak Demand;Useful Energy|Heat|Buildings|Peak Demand;GW;GW;1
+Capacity|Electricity|Peak Demand|Power to heat;Capacity|Electricity|Peak Demand|Power to heat;GW;GW;1
+Capacity|Electricity|Power to heat when peak demand;Capacity|Electricity|Power to heat when peak demand;GW;GW;1

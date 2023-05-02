@@ -121,3 +121,6 @@ Capital Costs|Heat|Decentralized|Heat Pump water heating;Capacity Additions|Heat
 Capital Costs|Heat|Decentralized|Resistance;Capacity Additions|Heat|Decentralized|Resistance
 Capital Costs|Heat|Decentralized|Conventional space heater;Capacity Additions|Heat|Decentralized|Conventional space heater
 Capital Costs|Heat|Decentralized|Conventional water heater;Capacity Additions|Heat|Decentralized|Conventional water heater
+Emissions|CO2|Energy|Supply|Electricity|Emission factor;Secondary Energy|Electricity
+Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;Useful Energy|Heat|District Heating
+Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;Secondary Energy Input|Electricity|Heat

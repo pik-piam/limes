@@ -74,6 +74,8 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # Collapse names of demand (just in case)
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
 
+  #Years
+  y <- getYears(p_eldemand)
 
   # Standard Reporting ------------------------------------------------------
   if (!reporting_tau) { # for normal reporting
@@ -81,7 +83,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
     # electricity-related
     tmp1 <- NULL
 
-    # Peak demand countries
+    # Peak demand
     tmp1 <- mbind(tmp1, setNames(as.magpie(apply(p_eldemand, 1:2, max)), "Capacity|Electricity|Peak Demand (GW)"))
 
     #Electricity demand in this case comprises all consumption
@@ -89,7 +91,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     if(c_LIMESversion >= 2.38) {
       #Use of electricity for transport
-      p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")[,getYears(tmp1),]
+      p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")[,y,]
       p_exdem_trans <- limesMapping(p_exdem_trans)
       tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
 
@@ -104,12 +106,33 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
       if (heating == "fullDH") {
 
         # Heat-related
-        c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
-                               field = "l", format = "first_found") #switch on buildings module
         v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found") # Waste heat
         v_heatwaste <- limesMapping(v_heatwaste)
 
         tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
+
+        c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
+                               field = "l", format = "first_found") #switch on buildings module
+
+        #Peak demand
+        if(c_buildings == 1) {
+          p_bd_peakdemand <- readGDX(gdx, name = c("p_bd_peakdemand"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+          p_bd_peakdemand <- limesMapping(p_bd_peakdemand)[ ,y,"sehe"]
+          tmp2 <- mbind(tmp2, setNames(p_bd_peakdemand, "Useful Energy|Heat|Buildings|Peak Demand (GW)"))
+        }
+
+        #Electricity peak demand due to P2H
+        o_PeakDemP2H <- readGDX(gdx, name = "o_PeakDemP2H", field = "l", format = "first_found", react = 'silent') #electricity peak demand from P2H
+
+        if(!is.null(o_PeakDemP2H)) {
+          o_PeakDemP2H <- limesMapping(o_PeakDemP2H)[ ,y,"seel"]
+          tmp2 <- mbind(tmp2, setNames(p_bd_peakdemand, "Capacity|Electricity|Peak Demand|Power to heat (GW)"))
+
+          o_demP2H_PeakElec <- readGDX(gdx, name = c("o_demP2H_PeakElec"), field = "l", format = "first_found", react = 'silent') #P2H  demand when peak
+          o_demP2H_PeakElec <- limesMapping(o_demP2H_PeakElec)[ ,y,"seel"]
+          tmp2 <- mbind(tmp2, setNames(o_demP2H_PeakElec, "Capacity|Electricity|Power to heat when peak demand (GW)"))
+        }
+
 
       }
     }

@@ -56,7 +56,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output <- mbind(output,reportCO2Price(gdx)[,time,])
 
   #adding emissions info to report output
-  output <- mbind(output,reportEmissions(gdx)[,time,])
+  output <- mbind(output,reportEmissions(gdx,output)[,time,])
 
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions

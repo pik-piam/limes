@@ -48,6 +48,7 @@ reportBuildings <- function(gdx, output=NULL) {
       v_bd_heatdem_ETS <- readGDX(gdx, name = "v_bd_heatdem_ETS", field = "l", format = "first_found") # heat that is covered by the ETS [annual data per sector]
       p_othersec_demDH_ue <- readGDX(gdx, name = "p_othersec_demDH_ue", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
       p_bd_ratio_ue2fe_DH <- readGDX(gdx, name = "p_bd_ratio_ue2fe_DH", field = "l", format = "first_found") # Ratio useful energy to final energy [--] - same for all DH technologies
+
       # create MagPie object of demand with iso3 regions
       p_bd_heatdem_ue <- limesMapping(p_bd_heatdem_ue)
       p_othersec_demDH_sec_ue <- limesMapping(p_othersec_demDH_sec_ue)
@@ -91,7 +92,6 @@ reportBuildings <- function(gdx, output=NULL) {
       for(var_name in items) {
         #tmp2 <- mbind(tmp2, setNames(tmp1[, , var_name] / p_bd_ratio_ue2fe_DH, str_replace(var_name, "Useful Energy Available for Final Consumption", "Final Energy")))
       }
-
 
     }
 
