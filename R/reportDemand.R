@@ -126,7 +126,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
         if(!is.null(o_PeakDemP2H)) {
           o_PeakDemP2H <- limesMapping(o_PeakDemP2H)[ ,y,"seel"]
-          tmp2 <- mbind(tmp2, setNames(p_bd_peakdemand, "Capacity|Electricity|Peak Demand|Power to heat (GW)"))
+          tmp2 <- mbind(tmp2, setNames(o_PeakDemP2H, "Capacity|Electricity|Peak Demand|Power to heat (GW)"))
 
           o_demP2H_PeakElec <- readGDX(gdx, name = c("o_demP2H_PeakElec"), field = "l", format = "first_found", react = 'silent') #P2H  demand when peak
           o_demP2H_PeakElec <- limesMapping(o_demP2H_PeakElec)[ ,y,"seel"]

@@ -342,6 +342,9 @@ reportEmissions <- function(gdx, output=NULL) {
     }
   }
 
+  # concatenate data
+  tmp <- mbind(tmp,tmp7)
+
 
   return(tmp)
 }
