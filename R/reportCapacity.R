@@ -40,6 +40,8 @@ reportCapacity <- function(gdx) {
   tenr <- readGDX(gdx, name = "tenr")
   tegas_el <- intersect(tegas, teel)
   tengcc_el <- intersect(tengcc, teel)
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   # Read parameters
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
@@ -89,8 +91,8 @@ reportCapacity <- function(gdx) {
     "Capacity|Electricity|Hydrogen OC (GW)"       = intersect(teel, c("hct")),
     "Capacity|Electricity|Hydrogen CC (GW)"       = intersect(teel, c("hcc")),
     "Capacity|Electricity|Nuclear (GW)"           = intersect(teel, c("tnr")),
-    "Capacity|Electricity|Waste (GW)"             = intersect(teel, c("waste")),
-    "Capacity|Electricity|Other Fossil (GW)"      = intersect(teel, c(teothers, "waste", teoil)),
+    "Capacity|Electricity|Waste (GW)"             = intersect(teel, c(tewaste)),
+    "Capacity|Electricity|Other Fossil (GW)"      = intersect(teel, c(teothers, tewaste, teoil)),
 
     #general aggregation
     "Capacity|Electricity|Fossil (GW)"                  = intersect(teel, c(tefossil)),
@@ -128,7 +130,6 @@ reportCapacity <- function(gdx) {
 
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
-    tewaste <- readGDX(gdx, name = "tewaste") #set of waste generation technologies
     heating <- .readHeatingCfg(gdx)
 
     if(heating == "fullDH") {
