@@ -209,6 +209,8 @@ reportElectricityPrices <- function(gdx) {
   teothers <- readGDX(gdx, name = "teothers")
   tegas_el <- intersect(tegas, teel)
   tengcc_el <- intersect(tengcc, teel)
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   #Load variables
   if(c_LIMESversion  ==  2.36) {
@@ -258,8 +260,8 @@ reportElectricityPrices <- function(gdx) {
       "|Hydrogen OC "      		 = intersect(teel, c("hct")),
       "|Hydrogen CC "      		 = intersect(teel, c("hcc")),
       "|Nuclear "          		 = intersect(teel, c("tnr")),
-      "|Waste "            		 = intersect(teel, c("waste")),
-      "|Other Fossil "     		 = intersect(teel, c(teothers, "waste", teoil)),
+      "|Waste "            		 = intersect(teel, c(tewaste)),
+      "|Other Fossil "     		 = intersect(teel, c(teothers, tewaste, teoil)),
 
       #general aggregation
       "|Fossil "                  = intersect(teel, c(tefossil)),
