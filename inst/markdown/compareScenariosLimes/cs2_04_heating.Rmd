@@ -17,7 +17,7 @@ items <- c(
   "Final Energy|Heat|District Heating|Waste")
 
 # Variables not available for runs without heating
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(removeAggRegions(data), items)
 ```
 
 ## Capacity District Heating
@@ -45,7 +45,7 @@ items <- c(
   "Capacity|Gross|Heat|District Heating|Heat-only|Solar",
   "Capacity|Gross|Heat|District Heating|Heat-only|Geothermal"
 )
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(removeAggRegions(data), items)
 ```
 
 
@@ -75,7 +75,7 @@ items <- c(
   "Secondary Energy|Gross|Heat|District Heating|Heat-only|Solar",
   "Secondary Energy|Gross|Heat|District Heating|Heat-only|Geothermal"
 )
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(removeAggRegions(data), items)
 ```
 
 
@@ -87,7 +87,7 @@ items <- c("Useful Energy Available for Final Consumption|Heat|Non-residential|S
                    "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating",
                    "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating",
                    "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating")
-showAreaAndBarPlots(data, items)
+showAreaAndBarPlots(removeAggRegions(data), items)
 ```
 
 
@@ -97,7 +97,7 @@ showAreaAndBarPlots(data, items)
 ```{r Heat_Syst}
 items <- c("Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered",
            "Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered") 
-showAreaAndBarPlots(data, items, mainReg = "EUETS")
+showAreaAndBarPlots(removeAggRegions(data, except = "EUETS"), items, mainReg = "EUETS")
 ```
 
 
