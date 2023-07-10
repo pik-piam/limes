@@ -204,6 +204,19 @@ largeRegions <- function(df) {
   return(df %>% filter(region %in% largeRegionsVec))
 }
 
+removeAggRegions <- function(df, except = NULL){
+  regsToRemove <- 
+    c("EU27",
+      "EUETS",
+      "EUETS_nonDE",
+      "World")
+  return(df %>%
+           filter(! region %in% setdiff(regsToRemove,
+                                        except)
+                  )
+         )
+}
+
 ```
 
 
