@@ -88,6 +88,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     #Electricity demand in this case comprises all consumption
     tmp1 <- mbind(tmp1, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) / 1000, "Final Energy|Electricity (TWh/yr)"))
+    tmp1 <- mbind(tmp1, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) * (c_demandscale - 1) / 1000, "Final Energy|Electricity|Losses (TWh/yr)"))
 
     if(c_LIMESversion >= 2.38) {
       #Use of electricity for transport

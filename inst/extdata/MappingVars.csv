@@ -70,6 +70,7 @@ Price|Carbon|ETS;Price|Carbon|ETS;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|Net|Industry;Price|Carbon|Net|Industry;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|National Climate Target|Industry;Price|Carbon|National Climate Target|Industry;Eur2010/t CO2;Eur2015/t CO2;1
 Final Energy|Electricity;Final Energy|Electricity;TWh/yr;TWh/yr;1
+Final Energy|Electricity|Losses;Final Energy|Electricity|Losses;TWh/yr;TWh/yr;1
 Gross Energy|Electricity;Gross Energy|Electricity;TWh/yr;TWh/yr;1
 Gross Energy|Electricity|w/ Storage;Gross Energy|Electricity|w/ Storage;TWh/yr;TWh/yr;1
 Gross Energy|Electricity|w/o electric heating;Gross Energy|Electricity|w/o electric heating;TWh/yr;TWh/yr;1
