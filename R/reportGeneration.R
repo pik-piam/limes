@@ -732,7 +732,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     if (heating == "fullDH") {
 
-      # Gross electricity (disaggregated between electricity-only and CHP technologies)
+      # Gross electricity (split between electricity-only and CHP technologies)
       varList_elGrEoChp <- list(
         # 2.a) CHP
         "Secondary Energy|Gross|Electricity|CHP (TWh/yr)"               = c(techp),
