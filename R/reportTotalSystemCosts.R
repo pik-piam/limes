@@ -36,8 +36,13 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
   v_costfu <- readGDX(gdx,name="v_costfu",field="l",format="first_found")
   v_costom <- readGDX(gdx,name="v_costom",field="l",format="first_found")
   v_costin <- readGDX(gdx,name="v_costin",field="l",format="first_found")
-  v_costintrans <- readGDX(gdx,name="v_costintrans",field="l",format="first_found")
   v_deltacap <- readGDX(gdx,name="v_deltacap",field="l",format="first_found")
+  v_costintrans <- readGDX(gdx,name="v_costintrans",field="l",format="first_found")
+  if(is.null(getNames(v_costintrans))) { #Sets of v_costintrans changed and are not per conn anymore, so we included an additional variable in LIMES, but keep if working for the previous one
+    o_costintrans <- readGDX(gdx,name="o_costintrans",field="l",format="first_found")
+  } else {
+    o_costintrans <- v_costintrans
+  }
 
   # read variables that have been already calculated in other functions
   o_costtrade <- output[,,"Total Energy System Cost|Power Sector|Trade Costs (billion eur2010/yr)"] #From Exchange
@@ -74,7 +79,7 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
 
 
   #TRANSMISSION INVESTMENT COSTS
-  o_costintrans <- NULL
+  o_costintrans_regi <- NULL
   #estimate aggregated (total) exports from each country
   for (regi2 in regi) {
 
@@ -85,7 +90,7 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
     } else {
       cost1<-0
       for (conns_tmp in conns1) {
-        cost1 <- cost1 + setNames(v_costintrans[,,conns_tmp]/2,NULL)
+        cost1 <- cost1 + setNames(o_costintrans[,,conns_tmp]/2,NULL)
       }
     }
 
@@ -96,7 +101,7 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
     } else {
       cost2<-0
       for (conns_tmp in conns2) {
-        cost2 <- cost2 + setNames(v_costintrans[,,conns_tmp]/2,NULL)
+        cost2 <- cost2 + setNames(o_costintrans[,,conns_tmp]/2,NULL)
       }
     }
     #sum positive and negative flows
@@ -104,20 +109,20 @@ reportTotalSystemCosts <- function(gdx,output=NULL) {
     #add country to the names
     getNames(cost)<-regi2
     #concatenate data from different countries (regi)
-    o_costintrans <- mbind(o_costintrans,cost)
+    o_costintrans_regi <- mbind(o_costintrans_regi,cost)
   }
 
   # create MagPie object of exports volume and transmission capacity with iso3 regions
-  o_costintrans<-limesMapping(o_costintrans)
+  o_costintrans_regi <- limesMapping(o_costintrans_regi)
   #investment costs (assuming they are allocated by half to each country)
-  tmp1 <- mbind(tmp1,setNames(o_costintrans,"Total Energy System Cost|Power Sector|Transmission Investment Costs (billion eur2010/yr)"))
+  tmp1 <- mbind(tmp1,setNames(o_costintrans_regi,"Total Energy System Cost|Power Sector|Transmission Investment Costs (billion eur2010/yr)"))
 
   #TOTAL SYSTEM COSTS
   tmp2 <- NULL
-  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans,"Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs (billion eur2010/yr)"))
-  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costtrade,"Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs (billion eur2010/yr)"))
-  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costtrade + o_costco2,"Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs (billion eur2010/yr)"))
-  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans + o_costco2,"Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs (billion eur2010/yr)"))
+  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans_regi,"Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs (billion eur2010/yr)"))
+  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans_regi + o_costtrade,"Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs (billion eur2010/yr)"))
+  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans_regi + o_costtrade + o_costco2,"Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs (billion eur2010/yr)"))
+  tmp2 <- mbind(tmp2,setNames(v_costfu + v_costom + v_costin + o_costintrans_regi + o_costco2,"Total Energy System Cost|Power Sector|w/o trade and w/ CO2 costs (billion eur2010/yr)"))
 
 
   # concatenating costs
