@@ -262,64 +262,8 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
         # 1) HEAT FROM DH: CHP AND Heat-only
         varList_he <- list(
-          # 1.b) CHP
-          "Useful Energy|Heat|District Heating|CHP (TWh/yr)"                                         = c(techp),
-          "Useful Energy|Heat|District Heating|CHP|Biomass (TWh/yr)"                                 = intersect(techp, tebio),
-          "Useful Energy|Heat|District Heating|CHP|Waste (TWh/yr)"                                   = intersect(techp, tewaste),
-          "Useful Energy|Heat|District Heating|CHP|Coal (TWh/yr)"                                    = intersect(techp, c(tecoal, telig)),
-          "Useful Energy|Heat|District Heating|CHP|Hard Coal (TWh/yr)"                               = intersect(techp, c(tecoal)),
-          "Useful Energy|Heat|District Heating|CHP|Lignite (TWh/yr)"                                 = intersect(techp, c(telig)),
-          "Useful Energy|Heat|District Heating|CHP|Oil (TWh/yr)"                                     = intersect(techp, c(teoil)),
-          "Useful Energy|Heat|District Heating|CHP|Gas (TWh/yr)"                                     = intersect(techp, c(tegas)),
-          "Useful Energy|Heat|District Heating|CHP|Gas CC (TWh/yr)"                                  = intersect(techp, c(tengcc_el)),
-          "Useful Energy|Heat|District Heating|CHP|Gas OC (TWh/yr)"                                  = intersect(techp, setdiff(tegas_el, tengcc_el)),
-          "Useful Energy|Heat|District Heating|CHP|Hydrogen (TWh/yr)"                                = intersect(techp, c(tehgen)),
-          "Useful Energy|Heat|District Heating|CHP|Other (TWh/yr)"                                   = intersect(techp, c(teothers)),
-          "Useful Energy|Heat|District Heating|CHP|Other Fossil (TWh/yr)"                            = intersect(techp, c(teothers, tewaste, teoil)),
-          "Useful Energy|Heat|District Heating|CHP|Fossil (TWh/yr)"                                  = intersect(techp, c(tefossil)),
-          "Useful Energy|Heat|District Heating|CHP|Renewable (TWh/yr)"                               = intersect(techp, c(ter, ternofluc)),
-          "Useful Energy|Heat|District Heating|CHP|Non-renewable (TWh/yr)"                           = intersect(techp, tenr),
-
-          # 1.c) Only-heat (centralized boilers)
-          "Useful Energy|Heat|District Heating|Heat-only (TWh/yr)"                                = c(teohecen),
-          "Useful Energy|Heat|District Heating|Heat-only|Biomass (TWh/yr)"                        = intersect(teohecen, tebio),
-          "Useful Energy|Heat|District Heating|Heat-only|Coal (TWh/yr)"                           = intersect(teohecen, c(tecoal, telig)),
-          "Useful Energy|Heat|District Heating|Heat-only|Hard Coal (TWh/yr)"                      = intersect(teohecen, c(tecoal)),
-          "Useful Energy|Heat|District Heating|Heat-only|Lignite (TWh/yr)"                        = intersect(teohecen, c(telig)),
-          "Useful Energy|Heat|District Heating|Heat-only|Oil (TWh/yr)"                            = intersect(teohecen, c(teoil)),
-          "Useful Energy|Heat|District Heating|Heat-only|Gas (TWh/yr)"                            = intersect(teohecen, c(tegas)),
-          "Useful Energy|Heat|District Heating|Heat-only|Other (TWh/yr)"                          = intersect(teohecen, c(teothers)),
-          "Useful Energy|Heat|District Heating|Heat-only|Waste (TWh/yr)"                          = intersect(teohecen, c(tewaste)),
-          "Useful Energy|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                   = intersect(teohecen, c(teothers, tewaste, teoil)),
-          "Useful Energy|Heat|District Heating|Heat-only|Electricity (TWh/yr)"                    = intersect(teohecen, c(tedhelec)),
-          "Useful Energy|Heat|District Heating|Heat-only|Electricity|Heat Pump (TWh/yr)"          = intersect(teohecen, "hp_large"),
-          "Useful Energy|Heat|District Heating|Heat-only|Electricity|Electric Boiler (TWh/yr)"    = intersect(teohecen, "elboil_large"),
-          "Useful Energy|Heat|District Heating|Heat-only|Solar (TWh/yr)"                          = intersect(teohecen, c("sol_heat")),
-          "Useful Energy|Heat|District Heating|Heat-only|Geothermal (TWh/yr)"                     = intersect(teohecen, c("geo_heat")),
-          "Useful Energy|Heat|District Heating|Heat-only|Fossil (TWh/yr)"                         = intersect(teohecen, c(tefossil)),
-          "Useful Energy|Heat|District Heating|Heat-only|Renewable (TWh/yr)"                      = intersect(teohecen, c(ter, ternofluc)),
-          "Useful Energy|Heat|District Heating|Heat-only|Non-renewable (TWh/yr)"                  = intersect(teohecen, tenr),
-
           # 1.d) District Heating
-          "Useful Energy|Heat|District Heating (TWh/yr)"                             = c(tedh),
-          "Useful Energy|Heat|District Heating|Biomass (TWh/yr)"                     = intersect(tedh, tebio),
-          "Useful Energy|Heat|District Heating|Coal (TWh/yr)"                        = intersect(tedh, c(tecoal, telig)),
-          "Useful Energy|Heat|District Heating|Hard Coal (TWh/yr)"                   = intersect(tedh, c(tecoal)),
-          "Useful Energy|Heat|District Heating|Lignite (TWh/yr)"                     = intersect(tedh, c(telig)),
-          "Useful Energy|Heat|District Heating|Oil (TWh/yr)"                         = intersect(tedh, c(teoil)),
-          "Useful Energy|Heat|District Heating|Gas (TWh/yr)"                         = intersect(tedh, c(tegas)),
-          "Useful Energy|Heat|District Heating|Hydrogen (TWh/yr)"                    = intersect(tedh, c(teothers)),
-          "Useful Energy|Heat|District Heating|Other (TWh/yr)"                       = intersect(tedh, c(teothers)),
-          "Useful Energy|Heat|District Heating|Waste (TWh/yr)"                       = intersect(tedh, c(tewaste)),
-          "Useful Energy|Heat|District Heating|Other Fossil (TWh/yr)"                = intersect(tedh, c(teothers, tewaste, teoil)),
-          "Useful Energy|Heat|District Heating|Electricity (TWh/yr)"                 = intersect(tedh, c(tedhelec)),
-          "Useful Energy|Heat|District Heating|Electricity|Heat Pump (TWh/yr)"       = intersect(tedh, "hp_large"),
-          "Useful Energy|Heat|District Heating|Electricity|Electric Boiler (TWh/yr)" = intersect(tedh, "elboil_large"),
-          "Useful Energy|Heat|District Heating|Solar (TWh/yr)"                       = intersect(tedh, c("sol_heat")),
-          "Useful Energy|Heat|District Heating|Geothermal (TWh/yr)"                  = intersect(tedh, c("geo_heat")),
-          "Useful Energy|Heat|District Heating|Fossil (TWh/yr)"                      = intersect(tedh, c(tefossil)),
-          "Useful Energy|Heat|District Heating|Renewable (TWh/yr)"                   = intersect(tedh, c(ter, ternofluc)),
-          "Useful Energy|Heat|District Heating|Non-renewable (TWh/yr)"               = intersect(tedh, tenr)
+          "Useful Energy|Heat|District Heating (TWh/yr)"                             = c(tedh)
         )
 
         for (var in names(varList_he)) {
@@ -832,6 +776,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite (TWh/yr)"                        = intersect(teohecen, c(telig)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil (TWh/yr)"                            = intersect(teohecen, c(teoil)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas (TWh/yr)"                            = intersect(teohecen, c(tegas)),
+        "Secondary Energy|Gross|Heat|District Heating|Heat-only|Hydrogen (TWh/yr)"                       = intersect(teohecen, c(tehgen)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Other (TWh/yr)"                          = intersect(teohecen, c(teothers)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste (TWh/yr)"                          = intersect(teohecen, c(tewaste)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                   = intersect(teohecen, c(teothers, tewaste, teoil)),
@@ -852,6 +797,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         "Secondary Energy|Gross|Heat|District Heating|Lignite (TWh/yr)"                     = intersect(tedh, c(telig)),
         "Secondary Energy|Gross|Heat|District Heating|Oil (TWh/yr)"                         = intersect(tedh, c(teoil)),
         "Secondary Energy|Gross|Heat|District Heating|Gas (TWh/yr)"                         = intersect(tedh, c(tegas)),
+        "Secondary Energy|Gross|Heat|District Heating|Hydrogen (TWh/yr)"                    = intersect(tedh, c(tehgen)),
         "Secondary Energy|Gross|Heat|District Heating|Other (TWh/yr)"                       = intersect(tedh, c(teothers)),
         "Secondary Energy|Gross|Heat|District Heating|Waste (TWh/yr)"                       = intersect(tedh, c(tewaste)),
         "Secondary Energy|Gross|Heat|District Heating|Other Fossil (TWh/yr)"                = intersect(tedh, c(teothers, tewaste, teoil)),
