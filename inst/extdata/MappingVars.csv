@@ -823,6 +823,7 @@ Capacity|Gross|Heat|District Heating|Heat-only|Hard Coal;Capacity|Gross|Heat|Dis
 Capacity|Gross|Heat|District Heating|Heat-only|Lignite;Capacity|Gross|Heat|District Heating|Heat-only|Lignite;GW;GW;1
 Capacity|Gross|Heat|District Heating|Heat-only|Oil;Capacity|Gross|Heat|District Heating|Heat-only|Oil;GW;GW;1
 Capacity|Gross|Heat|District Heating|Heat-only|Gas;Capacity|Gross|Heat|District Heating|Heat-only|Gas;GW;GW;1
+Capacity|Gross|Heat|District Heating|Heat-only|Hydrogen;Capacity|Gross|Heat|District Heating|Heat-only|Hydrogen;GW;GW;1
 Capacity|Gross|Heat|District Heating|Heat-only|Other;Capacity|Gross|Heat|District Heating|Heat-only|Other;GW;GW;1
 Capacity|Gross|Heat|District Heating|Heat-only|Waste;Capacity|Gross|Heat|District Heating|Heat-only|Waste;GW;GW;1
 Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil;Capacity|Gross|Heat|District Heating|Heat-only|Other Fossil;GW;GW;1
@@ -999,6 +1000,7 @@ Secondary Energy|Gross|Heat|District Heating|Heat-only|Hard Coal;Secondary Energ
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite;Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil;Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas;Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas;TWh/yr;TWh/yr;1
+Secondary Energy|Gross|Heat|District Heating|Heat-only|Hydrogen;Secondary Energy|Gross|Heat|District Heating|Heat-only|Hydrogen;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Other;Secondary Energy|Gross|Heat|District Heating|Heat-only|Other;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste;Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil;Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil;TWh/yr;TWh/yr;1
@@ -1128,6 +1130,7 @@ Final Energy|Heat|District Heating|Heat-only|Hard Coal;Final Energy|Heat|Distric
 Final Energy|Heat|District Heating|Heat-only|Lignite;Final Energy|Heat|District Heating|Heat-only|Lignite;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only|Oil;Final Energy|Heat|District Heating|Heat-only|Oil;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only|Gas;Final Energy|Heat|District Heating|Heat-only|Gas;TWh/yr;TWh/yr;1
+Final Energy|Heat|District Heating|Heat-only|Hydrogen;Final Energy|Heat|District Heating|Heat-only|Hydrogen;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only|Other;Final Energy|Heat|District Heating|Heat-only|Other;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only|Waste;Final Energy|Heat|District Heating|Heat-only|Waste;TWh/yr;TWh/yr;1
 Final Energy|Heat|District Heating|Heat-only|Other Fossil;Final Energy|Heat|District Heating|Heat-only|Other Fossil;TWh/yr;TWh/yr;1
@@ -1229,6 +1232,7 @@ Capital Costs|Heat|District Heating|Heat-only|Hard Coal;Capital Costs|Heat|Distr
 Capital Costs|Heat|District Heating|Heat-only|Lignite;Capital Costs|Heat|District Heating|Heat-only|Lignite;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|District Heating|Heat-only|Oil;Capital Costs|Heat|District Heating|Heat-only|Oil;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|District Heating|Heat-only|Gas;Capital Costs|Heat|District Heating|Heat-only|Gas;Eur2010/kW;Eur2015/kW;1
+Capital Costs|Heat|District Heating|Heat-only|Hydrogen;Capital Costs|Heat|District Heating|Heat-only|Hydrogen;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|District Heating|Heat-only|Other;Capital Costs|Heat|District Heating|Heat-only|Other;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Capital Costs|Heat|District Heating|Heat-only|Heat Pump;Eur2010/kW;Eur2015/kW;1
 Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Capital Costs|Heat|District Heating|Heat-only|Electric Boiler;Eur2010/kW;Eur2015/kW;1
@@ -1291,6 +1295,7 @@ Capacity Additions|Gross|Heat|District Heating|Heat-only|Hard Coal;Capacity Addi
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite;Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas;Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas;GW/yr;GW/yr;1
+Capacity Additions|Gross|Heat|District Heating|Heat-only|Hydrogen;Capacity Additions|Gross|Heat|District Heating|Heat-only|Hydrogen;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Other;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste;Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste;GW/yr;GW/yr;1
 Capacity Additions|Gross|Heat|District Heating|Heat-only|Other Fossil;Capacity Additions|Gross|Heat|District Heating|Heat-only|Other Fossil;GW/yr;GW/yr;1

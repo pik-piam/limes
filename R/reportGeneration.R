@@ -776,7 +776,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Lignite (TWh/yr)"                        = intersect(teohecen, c(telig)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Oil (TWh/yr)"                            = intersect(teohecen, c(teoil)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Gas (TWh/yr)"                            = intersect(teohecen, c(tegas)),
-        "Secondary Energy|Gross|Heat|District Heating|Heat-only|Hydrogen (TWh/yr)"                       = intersect(teohecen, c(tehgen)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Other (TWh/yr)"                          = intersect(teohecen, c(teothers)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Waste (TWh/yr)"                          = intersect(teohecen, c(tewaste)),
         "Secondary Energy|Gross|Heat|District Heating|Heat-only|Other Fossil (TWh/yr)"                   = intersect(teohecen, c(teothers, tewaste, teoil)),
@@ -810,6 +809,13 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         "Secondary Energy|Gross|Heat|District Heating|Renewable (TWh/yr)"                   = intersect(tedh, c(ter, ternofluc)),
         "Secondary Energy|Gross|Heat|District Heating|Non-renewable (TWh/yr)"               = intersect(tedh, tenr)
       )
+
+      if("hgen_heat" %in% tehgen) { #Hydrogen is a new technology, need to ensure it works with older versions
+        varList_he <- c(
+          varList_he,
+          list("Secondary Energy|Gross|Heat|District Heating|Heat-only|Hydrogen (TWh/yr)"                       = intersect(teohecen, c(tehgen)))
+        )
+      }
 
       for (var in names(varList_he)) {
         tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod_he[, , varList_he[[var]]], 3), var)) # o_grossprod_he is already in TWh/yr

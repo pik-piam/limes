@@ -253,6 +253,13 @@ reportCapacity <- function(gdx) {
 
       )
 
+      if("hgen_heat" %in% tehgen) { #Hydrogen is a new technology, need to ensure it works with older versions
+        varList_he <- c(
+          varList_he,
+          list("Capacity|Gross|Heat|District Heating|Heat-only|Hydrogen (GW)"                       = intersect(teohecen, c(tehgen)))
+        )
+      }
+
       for (var in names(varList_he)){
         tmp2 <- mbind(tmp2, setNames(dimSums(v_cap[, , varList_he[[var]]], dim = 3), var))
       }

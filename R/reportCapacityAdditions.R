@@ -214,6 +214,7 @@ reportCapacityAdditions <- function(gdx) {
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Lignite (GW/yr)"                        = intersect(teohecen, c(telig)),
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Oil (GW/yr)"                            = intersect(teohecen, c(teoil)),
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Gas (GW/yr)"                            = intersect(teohecen, c(tegas)),
+
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Other (GW/yr)"                          = intersect(teohecen, c(teothers)),
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Waste (GW/yr)"                          = intersect(teohecen, c(tewaste)),
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Other Fossil (GW/yr)"                   = intersect(teohecen, c(teothers, tewaste, teoil)),
@@ -226,6 +227,12 @@ reportCapacityAdditions <- function(gdx) {
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Renewable (GW/yr)"                      = intersect(teohecen, c(ter, ternofluc)),
         "Capacity Additions|Gross|Heat|District Heating|Heat-only|Non-renewable (GW/yr)"                  = intersect(teohecen, tenr)
       )
+      if("hgen_heat" %in% tehgen) { #Hydrogen is a new technology, need to ensure it works with older versions
+        varList_he <- c(
+          varList_he,
+          list("Capacity Additions|Gross|Heat|District Heating|Heat-only|Hydrogen (GW/yr)"                       = intersect(teohecen, c(tehgen)))
+        )
+      }
 
       for (var in names(varList_he)){
         tmp2 <- mbind(tmp2, setNames(dimSums(v_deltacap[, , varList_he[[var]]], dim = 3), var))

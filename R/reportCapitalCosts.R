@@ -40,7 +40,7 @@ reportCapitalCosts <- function(gdx) {
   if (heating != "fullDH" || c_LIMESversion < 2.38) {
     varList_el <- list(
       #Electricity-only
-      "Capital Costs|Electricity|Biomass (Eur2010/kW)"      = "biolcigcc",
+      "Capital Costs|Electricity|Biomass (Eur2010/kW)"          = "biolcigcc",
       "Capital Costs|Electricity|Hard Coal (Eur2010/kW)"        = "pc",
       "Capital Costs|Electricity|Lignite (Eur2010/kW)"          = "lpc",
       "Capital Costs|Electricity|Oil (Eur2010/kW)"              = "oil",
@@ -141,6 +141,13 @@ reportCapitalCosts <- function(gdx) {
         #Storage
         "Power Costs|Heat|Storage (Eur2010/kW)"     = "heat_sto"
       )
+
+      if("hgen_heat" %in% getNames(p_incoall)) { #Hydrogen is a new technology, need to ensure it works with older versions
+        varList_he <- c(
+          varList_he,
+          list("Capital Costs|Heat|District Heating|Heat-only|Hydrogen (Eur2010/kW)"                       = "hgen_heat")
+        )
+      }
 
       for (var in names(varList_he)) {
         tmp2 <- mbind(tmp2, setNames(p_incoall[, , varList_he[[var]]] * 1000, var)) #convert from GEur/GWh to eur/kWh
