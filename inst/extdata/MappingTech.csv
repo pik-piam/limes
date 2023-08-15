@@ -38,12 +38,14 @@ pc_chp;CHP|Hard Coal
 lpc_chp;CHP|Lignite
 ngcc_chp;CHP|Gas CC
 ngt_chp;CHP|Gas OC
+hgen_chp;CHP|Hydrogen
 bio_chp;CHP|Biomass
 others_chp;CHP|Other gases
 oil_chp;CHP|Oil
 pc_heat;District Heating|Hard Coal
 lpc_heat;District Heating|Lignite
 gas_heat;District Heating|Gas
+hgen_heat;District Heating|Hydrogen
 bio_heat;District Heating|Biomass
 oil_heat;District Heating|Oil
 others_heat;District Heating|Other gases
