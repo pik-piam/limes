@@ -39,6 +39,32 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
                                        reporting_tau = TRUE)[, time, ]
   )
 
+  #Grouping countries
+  #aggregating all countries
+  output_tot <- dimSums(output,dim=1, na.rm = T)
+  getItems(output_tot, dim = 1) <- "GLO"
+
+  #aggregating only EU-28
+  EU<-which(getItems(output, dim = 1) != "NOR" & getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  output_EU<-NULL
+  output_EU<-dimSums(output[EU,,],dim=1, na.rm = T)
+  getItems(output_EU, dim = 1) <- "EU28"
+
+  #aggregating only EU-27
+  EU27<-which(getItems(output, dim = 1) != "GBR" & getItems(output, dim = 1) != "NOR" & getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  output_EU27<-NULL
+  output_EU27<-dimSums(output[EU27,,],dim=1, na.rm = T)
+  getItems(output_EU27, dim = 1) <- "EU27"
+
+  #aggregating only EU-ETS
+  EUETS<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  output_EUETS<-NULL
+  output_EUETS<-dimSums(output[EUETS,,],dim=1, na.rm = T)
+  getItems(output_EUETS, dim = 1)<-"EUETS"
+
+  #Concatenate options
+  output <- mbind(output,output_tot,output_EU,output_EU27,output_EUETS)
+
   # WRITE REPORT
   # load the model version
   c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found") # model version
