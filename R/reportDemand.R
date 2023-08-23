@@ -74,6 +74,20 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # Collapse names of demand (just in case)
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
 
+  #Use of electricity for transport
+  p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found", react = 'silent')[,y,]
+  if(!is.null(p_exdem_trans)) {
+    p_exdem_trans <- limesMapping(p_exdem_trans)
+  }
+
+  #Electricity input for heating
+  o_seprodinputP2H <- readGDX(gdx, name = "o_seprodinputP2H", field = "l", format = "first_found", react = 'silent')[,y,"seel"]
+  if(!is.null(o_seprodinputP2H)) {
+    o_seprodinputP2H <- limesMapping(o_seprodinputP2H)
+    o_seprodinputP2H <- collapseDim(o_seprodinputP2H)
+  }
+
+
   #Years
   y <- getYears(p_eldemand)
 
@@ -91,10 +105,11 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp1 <- mbind(tmp1, setNames(dimSums(p_eldemand * p_taulength / c_demandscale, dim = 3) * (c_demandscale - 1) / 1000, "Final Energy|Electricity|Losses (TWh/yr)"))
 
     if(c_LIMESversion >= 2.38) {
-      #Use of electricity for transport
-      p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found")[,y,]
-      p_exdem_trans <- limesMapping(p_exdem_trans)
-      tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
+
+      if(!is.null(p_exdem_trans)) {
+        #Use of electricity for transport
+        tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
+      }
 
       #Use of electricity for Hydrogen production
       tmp1 <- mbind(tmp1, setNames(output[,, "Primary Energy|Electricity|Hydrogen (TWh/yr)"], "Secondary Energy Input|Electricity|Hydrogen (TWh/yr)"))
@@ -153,10 +168,19 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     tmp <- rename_tau("Demand Load|Electricity", p_eldemand)
 
+    if(!is.null(o_seprodinputP2H)) {
+      tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|Transport", p_exdem_trans) )
+    }
+
+    #Heating
     if (heating == "fullDH") {
-    tmp <- mbind(tmp,
-                 rename_tau("Demand Load|Heat", p_hedemand)
-                 )
+      tmp <- mbind(tmp, rename_tau("Demand Load|Heat", p_hedemand) )
+
+      if(!is.null(o_seprodinputP2H)) {
+        tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|Heating", o_seprodinputP2H) )
+
+        tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|non-Heating", p_eldemand - o_seprodinputP2H) )
+      }
     }
   }
 
