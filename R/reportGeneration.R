@@ -892,6 +892,13 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       return(out)
     }
 
+    #Add BECCS to the list
+    if(!is.null((intersect(tebio, teccs)))) {
+      varList_el <- c(varList_el,
+                         "Secondary Energy|Electricity|Biomass|w/ CCS (TWh/yr)"  = intersect(teel, intersect(tebio, teccs))
+                      )
+    }
+
     # Reporting tau
     varList_elTau <- f_renameTau(varList_el)
     varList_stGenTau <- f_renameTau(varList_stGen)
