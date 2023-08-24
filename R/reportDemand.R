@@ -74,6 +74,9 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # Collapse names of demand (just in case)
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
 
+  #Years
+  y <- getYears(p_eldemand)
+
   #Use of electricity for transport
   p_exdem_trans <- readGDX(gdx, name = "p_exdem_trans", field = "l", format = "first_found", react = 'silent')[,y,]
   if(!is.null(p_exdem_trans)) {
@@ -87,9 +90,6 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
     o_seprodinputP2H <- collapseDim(o_seprodinputP2H)
   }
 
-
-  #Years
-  y <- getYears(p_eldemand)
 
   # Standard Reporting ------------------------------------------------------
   if (!reporting_tau) { # for normal reporting
