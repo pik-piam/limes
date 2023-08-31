@@ -28,15 +28,21 @@ reportEUETSvars <- function(gdx,output=NULL) {
   c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
 
   #read variables
-  v_bankemi <- readGDX(gdx,name="v_bankemi",field="l",format="first_found")
-  y <- getYears(v_bankemi)
-
+  v_bankemi <- readGDX(gdx,name="v_bankemi",field="l",format="first_found", react = 'silent')
+  if(!is.null(v_bankemi)) { #This variable only existed until 20230831
+    o_bankemi_EUETS <- v_bankemi
+  }
+  v_bankemi_EUETS <- readGDX(gdx,name="v_bankemi_EUETS",field="l",format="first_found", react = 'silent')
+  if(!is.null(v_bankemi_EUETS)) { #This variable exists since 20230831
+    o_bankemi_EUETS <- v_bankemi_EUETS
+  }
+  y <- getYears(o_bankemi_EUETS)
   p_emicappath_EUETS <- readGDX(gdx,name="p_emicappath_EUETS",field="l",format="first_found")[, y, ]
 
 
   #If variables should not exist (equations are off), write NA
   if(c_bankemi_EU == 0) {
-    v_bankemi[] <- NA
+    o_bankemi_EUETS[] <- NA
     p_emicappath_EUETS[] <- NA
   }
 
@@ -53,7 +59,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
   c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   #until version 2.26 LIMES only included electricity
   if(c_LIMESversion <= 2.26) {
-    tmp2 <- mbind(tmp2,setNames(v_bankemi*s_c2co2*1000,"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
+    tmp2 <- mbind(tmp2,setNames(o_bankemi_EUETS*s_c2co2*1000,"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
     tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS*s_c2co2*1000,"EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
   } else {
 
@@ -61,10 +67,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
     c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
     #distinguish the cap (for the whole EU ETS (stationary), electricity and industry or only electricity)
     if(c_industry_ETS == 0) {
-      tmp2 <- mbind(tmp2,setNames(v_bankemi*s_c2co2*1000,"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
+      tmp2 <- mbind(tmp2,setNames(o_bankemi_EUETS*s_c2co2*1000,"Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
       tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS*s_c2co2*1000,"EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
     } else {
-      tmp2 <- mbind(tmp2,setNames(v_bankemi[,,]*s_c2co2*1000,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"))
+      tmp2 <- mbind(tmp2,setNames(o_bankemi_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"))
 
       #include the aviation variables (only available from 2.28)
       if (c_LIMESversion >= 2.28 & c_bankemi_EU == 1) { #aviation-related variables are only required when modelling the EU ETS
