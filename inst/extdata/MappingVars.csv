@@ -1348,3 +1348,4 @@ Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;Emissions|Ind
 Useful Energy|Heat|Buildings|Peak Demand;Useful Energy|Heat|Buildings|Peak Demand;GW;GW;1
 Capacity|Electricity|Peak Demand|Power to heat;Capacity|Electricity|Peak Demand|Power to heat;GW;GW;1
 Capacity|Electricity|Power to heat when peak demand;Capacity|Electricity|Power to heat when peak demand;GW;GW;1
+Emissions|CO2|Joint TNAC with linked systems;Emissions|CO2|Joint TNAC with linked systems;Mt CO2;Mt CO2;1

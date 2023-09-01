@@ -232,7 +232,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
   var_names <- c(
     "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)",
-    "Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)",
     "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"
   )
 
@@ -241,6 +240,21 @@ reportEUETSvars <- function(gdx,output=NULL) {
       tmp[, c(2010), var] <- NA
     }
   }
+
+  tmp3 <- NULL
+  c_linkEUETS_UK <- readGDX(gdx, name = "c_linkEUETS_UK", format = "first_found", react = 'silent')
+  if(!is.null(c_linkEUETS_UK)) {
+    if(c_linkEUETS_UK == 1) {
+      v_bankemi_EUETSlinked <- readGDX(gdx, name = "v_bankemi_EUETSlinked", format = "first_found", react = 'silent')
+      o_bankemi_EUETSlinked <- new.magpie(cells_and_regions = getItems(v_bankemi_EUETSlinked, dim = 1), years = y, names = NA,
+                               fill = NA, sort = FALSE, sets = NULL)
+      o_bankemi_EUETSlinked[,getYears(v_bankemi_EUETSlinked),] <- v_bankemi_EUETSlinked[,,"l"]
+      tmp3 <- mbind(tmp3,setNames(o_bankemi_EUETSlinked*s_c2co2*1000,"Emissions|CO2|Joint TNAC with linked systems (Mt CO2)"))
+    }
+  }
+
+  # concatenate data
+  tmp <- mbind(tmp,tmp3)
 
 
   return(tmp)

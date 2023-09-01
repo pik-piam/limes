@@ -63,11 +63,11 @@ reportCO2Price <- function(gdx) {
 
   #b) Industry sector
   if(c_LIMESversion >=  2.29) {
-  p_ind_co2price <- readGDX(gdx, name = "p_ind_co2price", field = "l", format = "first_found")[, y,] #exogenous co2 prices (for industry)
-  p_ind_co2price <- p_ind_co2price/s_c2co2
+    p_ind_co2price <- readGDX(gdx, name = "p_ind_co2price", field = "l", format = "first_found")[, y,] #exogenous co2 prices (for industry)
+    p_ind_co2price <- p_ind_co2price/s_c2co2
 
-  # create MagPie object of variables with iso3 regions
-  p_ind_co2price <- limesMapping(p_ind_co2price)
+    # create MagPie object of variables with iso3 regions
+    p_ind_co2price <- limesMapping(p_ind_co2price)
   }
 
 
@@ -140,22 +140,18 @@ reportCO2Price <- function(gdx) {
   EUETS <- EUETS_iso3 #Better to take it directly from the GDX file
 
   #allocating the ETS prices only to counties belonging to the EU ETS
-  o_marg_bankemi_EU <- p_co2price*0 #to create a vector with the same lenght and properties (magpie)
+  o_marg_bankemi_EU <- new.magpie(cells_and_regions = getItems(p_co2price, dim = 1), years = getYears(p_co2price), names = getItems(p_co2price, dim = 3),
+                           fill = NA, sort = FALSE, sets = NULL)
   for (EUETS2 in EUETS) {
     o_marg_bankemi_EU[EUETS2, , ] <- (1/s_c2co2)*(-m_bankemi_EU*p_ts/f_npv)
   }
 
-  #b) End of EU ETS (zero emissions after 2057) - only after v2.32
-  o_marg_end_EUETS <- p_co2price*0 #to create a vector with the same lenght and properties (magpie)
-  if(c_LIMESversion >=  2.32) { #temporary solution. This equation disappeared. Not sure if it was actually used in previous versions
-    # read marginal values
-    #m_end_EUETS <- readGDX(gdx, name = "q_end_EUETS", field = "m", format = "first_found")
+  #b) banking constraint UK ETS
+  m_bankemi_UK <- readGDX(gdx, name = "q_bankemi_UK", field = "m", format = "first_found", react = 'silent')
+  o_marg_bankemi_UK <- (1/s_c2co2)*(-m_bankemi_UK*p_ts/f_npv)
 
-    ##allocating the ETS prices only to counties belonging to the EU ETS
-    #for (EUETS2 in EUETS) {
-    #  o_marg_end_EUETS[EUETS2, , ] <- (1/s_c2co2)*(-m_end_EUETS/f_npv)
-    #}
-  }
+  #Update value in data frame
+  o_marg_bankemi_EU["GBR",seq(2025,2070,5),] <- o_marg_bankemi_UK[,seq(2025,2070,5),]
 
 
   #5) CO2 PRICE RESULTING FROM EMISSION CUMULATIVE CAP (PER REGION)
@@ -206,9 +202,9 @@ reportCO2Price <- function(gdx) {
   #--------------------------------------------------------------------------------------------------------------------
   # AGGREGATING ALL CO2 PRICE COMPONENTS
   #CO2 price for single regions resulting from the different constraints (exogen co2 price,  emission cap,  emission budget)
-  o_co2price <- p_co2price + o_marg_emicap_regi + o_marg_emicap_EU + o_marg_bankemi_EU + o_marg_end_EUETS + o_marg_emicapcum_regi + o_marg_emicapcum_EU
+  o_co2price <- p_co2price + o_marg_emicap_regi + o_marg_emicap_EU + o_marg_bankemi_EU + o_marg_emicapcum_regi + o_marg_emicapcum_EU
   if(c_LIMESversion >=  2.29) {
-  o_ind_co2price <- p_ind_co2price + o_marg_bankemi_EU + o_marg_end_EUETS
+  o_ind_co2price <- p_ind_co2price + o_marg_bankemi_EU
   }
 
   # writing the co2 price
@@ -218,7 +214,7 @@ reportCO2Price <- function(gdx) {
   tmp2 <- NULL
 
   #CO2 price for single regions resulting from national policies (exogen co2 price,  emission cap,  emission budget)
-  o_co2price_nat <- p_co2price + o_marg_emicap_regi + o_marg_emicapcum_regi + o_marg_end_EUETS
+  o_co2price_nat <- p_co2price + o_marg_emicap_regi + o_marg_emicapcum_regi
   tmp2<-setNames(o_co2price_nat, "Price|Carbon|National Climate Target|Power Sector (Eur2010/t CO2)")
 
   #CO2 price for single regions resulting from aggregated policies - ETS (banking,  emission cap,  emission budget)
