@@ -39,6 +39,11 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
                                        reporting_tau = TRUE)[, time, ]
   )
 
+  # adding electricity prices
+  output <- mbind(output, reportElectricityPrices(gdx,
+                                                  reporting_tau = TRUE)[, time, ]
+  )
+
   #Grouping countries
   #aggregating all countries
   output_tot <- dimSums(output,dim=1, na.rm = T)

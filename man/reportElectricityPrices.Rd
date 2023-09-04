@@ -4,10 +4,12 @@
 \alias{reportElectricityPrices}
 \title{Read in GDX and calculate electricity prices,  used in convGDX2MIF.R for the reporting}
 \usage{
-reportElectricityPrices(gdx)
+reportElectricityPrices(gdx, reporting_tau = FALSE)
 }
 \arguments{
-\item{gdx}{a GDX object as created by readGDX,  or the path to a gdx}
+\item{gdx}{a GDX object as created by readGDX, or the path to a gdx}
+
+\item{reporting_tau}{boolean determining whether to generate the tau report}
 }
 \value{
 MAgPIE object - contains the capacity variables

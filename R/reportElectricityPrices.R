@@ -4,7 +4,8 @@
 #' for the reporting
 #'
 #'
-#' @param gdx a GDX object as created by readGDX,  or the path to a gdx
+#' @param gdx a GDX object as created by readGDX, or the path to a gdx
+#' @param reporting_tau boolean determining whether to generate the tau report
 #' @return MAgPIE object - contains the capacity variables
 #' @author Sebastian Osorio,  Renato Rodrigues
 #' @seealso \code{\link{convGDX2MIF}}
@@ -17,7 +18,7 @@
 #' @export
 #'
 
-reportElectricityPrices <- function(gdx) {
+reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
   # read sets and parameters
   tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") #time set
@@ -152,148 +153,169 @@ reportElectricityPrices <- function(gdx) {
     o_subsidRES_disc <- (o_restarget_disc + o_restargetrelative_DE_disc + o_restargetrelative_disc) #[Geur/GWh]
   }
 
-
-  #weighted average marginal values per country (spot prices,  capacity adequacy and RES subsidy)
-  #conversion from Geur/GWh -> eur/MWh
-  tmp1 <- NULL
-  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_elecprices_disc * p_taulength * p_eldemand, dim = 3)
-                               /dimSums(p_taulength * p_eldemand, 3),
-                               "Price|Secondary Energy|Electricity (Eur2010/MWh)"))
-  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
-                               /dimSums(p_taulength * p_hedemand, 3),
-                               "Price|Secondary Energy|Heat (Eur2010/MWh)"))
-  tmp1 <- mbind(tmp1, setNames(1e6 * dimSums((o_fullelecprices_disc - o_elecprices_disc) * p_taulength * p_eldemand, dim = 3)
-                               /dimSums(p_taulength * p_eldemand, 3),
-                               "Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
-
-
-  #weighted average marginal values per country (spot+capacity adequacy)
-  #conversion from Geur/GWh -> eur/MWh
-  tmp2 <- NULL
-  tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullelecprices_disc * p_taulength * p_eldemand, dim = 3)
-                               /dimSums(p_taulength * p_eldemand, 3),
-                               "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
-  tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
-                               /dimSums(p_taulength * p_hedemand, 3),
-                               "Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
+  # Standard Reporting ------------------------------------------------------
+  if (!reporting_tau) { # for normal reporting}
+    #weighted average marginal values per country (spot prices,  capacity adequacy and RES subsidy)
+    #conversion from Geur/GWh -> eur/MWh
+    tmp1 <- NULL
+    tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_elecprices_disc * p_taulength * p_eldemand, dim = 3)
+                                 /dimSums(p_taulength * p_eldemand, 3),
+                                 "Price|Secondary Energy|Electricity (Eur2010/MWh)"))
+    tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
+                                 /dimSums(p_taulength * p_hedemand, 3),
+                                 "Price|Secondary Energy|Heat (Eur2010/MWh)"))
+    tmp1 <- mbind(tmp1, setNames(1e6 * dimSums((o_fullelecprices_disc - o_elecprices_disc) * p_taulength * p_eldemand, dim = 3)
+                                 /dimSums(p_taulength * p_eldemand, 3),
+                                 "Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
 
 
-  # add global values
-  tmp3 <- mbind(tmp1, tmp2)
-
-  #CONSUMER AND PRODUCER SURPLUS CALCULATIONS
-  tmp4 <- NULL
-
-
-  ##PRODUCER
-
-  #Load sets
-  te <- readGDX(gdx, name = "te")
-  tehe <- readGDX(gdx, name = "tehe")
-  teel <- readGDX(gdx, name = "teel") #set of electricity generation technologies (non-storage)
-  ter <- readGDX(gdx, name = "ter") #set of variable renewable electricity generation technologies
-  ternofluc <- readGDX(gdx, name = "ternofluc") #set of non-variable (non-fluctuating) renewable electricity generation technologies
-  tefossil <- readGDX(gdx, name = "tefossil") #set of fossil-based electricity generation technologies
-  tenr <- readGDX(gdx, name = "tenr") #set of non-renewable electricity generation technologies (includes storage)
-  tegas <- readGDX(gdx, name = "tegas") #set of gas generation technologies
-  telig <- readGDX(gdx, name = "telig") #set of lignite generation technologies
-  tecoal <- readGDX(gdx, name = "tecoal") #set of hard coal generation technologies
-  tengcc <- readGDX(gdx, name = "tengcc") #set of NGCC generation technologies
-  tehydro <- readGDX(gdx, name = "tehydro") #set of hydropower generation technologies
-  tehgen <- readGDX(gdx, name = "tehgen")
-  tehydro <- readGDX(gdx, name = "tehydro")
-  tebio <- readGDX(gdx, name = "tebio")
-  teoil <- readGDX(gdx, name = "teoil")
-  techp <- readGDX(gdx, name = "techp")
-  teccs <- readGDX(gdx, name = "teccs")
-  teothers <- readGDX(gdx, name = "teothers")
-  tegas_el <- intersect(tegas, teel)
-  tengcc_el <- intersect(tengcc, teel)
-  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
-  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
-
-  #Load variables
-  if(c_LIMESversion  ==  2.36) {
-    p_plantshortrunprofit <- readGDX(gdx, name = "p_plantshortrunprofit", field = "l", format = "first_found") #Short run profits [eur]
-    p_plantshortrunprofit_w_fix <- readGDX(gdx, name = "p_plantshortrunprofit_w_fix", field = "l", format = "first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
-    p_plantprofit_t <- readGDX(gdx, name = "p_plantprofit_t", field = "l", format = "first_found") #short-run profits for plants built in t [eur]
-    p_prodsubsidy <- readGDX(gdx, name = "p_prodsubsidy", field = "l", format = "first_found") #subsidy to RES [eur/GWh RES]
-    p_prodsubsidycosts <- readGDX(gdx, name = "p_prodsubsidycosts", field = "l", format = "first_found") #cost of subsidies to RES per country [eur]
-    p_plantrevenues <- readGDX(gdx, name = "p_plantrevenues", field = "l", format = "first_found") #plant revenues (sales and subsidies) [eur]
+    #weighted average marginal values per country (spot+capacity adequacy)
+    #conversion from Geur/GWh -> eur/MWh
+    tmp2 <- NULL
+    tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullelecprices_disc * p_taulength * p_eldemand, dim = 3)
+                                 /dimSums(p_taulength * p_eldemand, 3),
+                                 "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
+    tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
+                                 /dimSums(p_taulength * p_hedemand, 3),
+                                 "Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
 
 
-    #create MagPie object of m_elecprices with iso3 regions
-    p_plantshortrunprofit <- limesMapping(p_plantshortrunprofit)
-    p_plantshortrunprofit_w_fix <- limesMapping(p_plantshortrunprofit_w_fix)
-    p_plantprofit_t <- limesMapping(p_plantprofit_t)
-    p_prodsubsidy <- limesMapping(p_prodsubsidy)
-    p_prodsubsidycosts <- limesMapping(p_prodsubsidycosts)
-    p_plantrevenues <- limesMapping(p_plantrevenues)
+    # add global values
+    tmp3 <- mbind(tmp1, tmp2)
 
-
-    #List of technologies
-    varList_el <- list(
-      #Conventional
-      " "                   = c(teel),
-      "|Biomass "          		 = intersect(teel, tebio),
-      "|Biomass|w/o CCS "  		 = intersect(teel, setdiff(tebio, teccs)),
-      "|Coal "             		 = intersect(teel, c(tecoal, telig)),
-      "|Coal|w/o CCS "     		 = intersect(teel, setdiff(c(tecoal, telig), teccs)),
-      "|Coal|w/ CCS "      		 = intersect(teel, intersect(c(tecoal, telig), teccs)),
-      "|Hard Coal "        		 = intersect(teel, c(tecoal)),
-      "|Hard Coal|w/o CCS "		 = intersect(teel, setdiff(c(tecoal), teccs)),
-      "|Hard Coal|w/ CCS " 		 = intersect(teel, intersect(c(tecoal), teccs)),
-      "|Lignite "          		 = intersect(teel, c(telig)),
-      "|Lignite|w/o CCS "  		 = intersect(teel, setdiff(c(telig), teccs)),
-      "|Lignite|w/ CCS "   		 = intersect(teel, intersect(c(telig), teccs)),
-      "|Oil "              		 = intersect(teel, c(teoil)),
-      "|Gas "              		 = intersect(teel, c(tegas)),
-      "|Gas|w/o CCS "      		 = intersect(teel, setdiff(tegas_el, teccs)),
-      "|Gas|w/ CCS "       		 = intersect(teel, intersect(tegas_el, teccs)),
-      "|Gas CC|w/o CCS "   		 = intersect(teel, setdiff(tengcc_el, teccs)),
-      "|Gas CC|w/ CCS "    		 = intersect(teel, intersect(tengcc_el, teccs)),
-      "|Gas CC "           		 = intersect(teel, c(tengcc_el)),
-      "|Gas OC "           		 = intersect(teel, setdiff(tegas_el, tengcc_el)),
-      "|Other "            		 = intersect(teel, c(teothers)),
-      "|Hydrogen "         		 = intersect(teel, c(tehgen)),
-      "|Hydrogen FC "      		 = intersect(teel, c("hfc")),
-      "|Hydrogen OC "      		 = intersect(teel, c("hct")),
-      "|Hydrogen CC "      		 = intersect(teel, c("hcc")),
-      "|Nuclear "          		 = intersect(teel, c("tnr")),
-      "|Waste "            		 = intersect(teel, c(tewaste)),
-      "|Other Fossil "     		 = intersect(teel, c(teothers, tewaste, teoil)),
-
-      #general aggregation
-      "|Fossil "                  = intersect(teel, c(tefossil)),
-      "|Fossil|w/o CCS "          = intersect(teel, setdiff(tefossil, teccs)),
-      "|Fossil|w/ CCS "           = intersect(teel, intersect(tefossil, teccs)),
-      "|Variable renewable "      = intersect(teel, c(ter)),
-      "|Non-variable renewable "  = intersect(teel, c(ternofluc)),
-      "|Renewable "               = intersect(teel, c(ter, ternofluc)),
-      "|Non-renewable "           = intersect(teel, tenr),  #this does not include storage
-
-      #Renewable
-      "|Wind "         			 = intersect(teel, c("windon", "windoff")),
-      "|Wind|Onshore " 			 = intersect(teel, c("windon")),
-      "|Wind|Offshore "			 = intersect(teel, c("windoff")),
-      "|Solar "        			 = intersect(teel, c("spv", "csp")),
-      "|Solar|PV "     			 = intersect(teel, c("spv")),
-      "|Solar|CSP "    			 = intersect(teel, c("csp")),
-      "|Hydro "        			 = intersect(teel, c(tehydro))
-    )
-
+    #CONSUMER AND PRODUCER SURPLUS CALCULATIONS
     tmp4 <- NULL
-    for (var in names(varList_el)){
-      tmp4 <- mbind(tmp4, setNames(dimSums(p_plantrevenues[, , varList_el[[var]]], dim = 3)/1e9, paste0("Revenues|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
-      tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
-      tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit_w_fix[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits [w adeq rev/fix costs]|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+
+
+    ##PRODUCER
+
+    #Load sets
+    te <- readGDX(gdx, name = "te")
+    tehe <- readGDX(gdx, name = "tehe")
+    teel <- readGDX(gdx, name = "teel") #set of electricity generation technologies (non-storage)
+    ter <- readGDX(gdx, name = "ter") #set of variable renewable electricity generation technologies
+    ternofluc <- readGDX(gdx, name = "ternofluc") #set of non-variable (non-fluctuating) renewable electricity generation technologies
+    tefossil <- readGDX(gdx, name = "tefossil") #set of fossil-based electricity generation technologies
+    tenr <- readGDX(gdx, name = "tenr") #set of non-renewable electricity generation technologies (includes storage)
+    tegas <- readGDX(gdx, name = "tegas") #set of gas generation technologies
+    telig <- readGDX(gdx, name = "telig") #set of lignite generation technologies
+    tecoal <- readGDX(gdx, name = "tecoal") #set of hard coal generation technologies
+    tengcc <- readGDX(gdx, name = "tengcc") #set of NGCC generation technologies
+    tehydro <- readGDX(gdx, name = "tehydro") #set of hydropower generation technologies
+    tehgen <- readGDX(gdx, name = "tehgen")
+    tehydro <- readGDX(gdx, name = "tehydro")
+    tebio <- readGDX(gdx, name = "tebio")
+    teoil <- readGDX(gdx, name = "teoil")
+    techp <- readGDX(gdx, name = "techp")
+    teccs <- readGDX(gdx, name = "teccs")
+    teothers <- readGDX(gdx, name = "teothers")
+    tegas_el <- intersect(tegas, teel)
+    tengcc_el <- intersect(tengcc, teel)
+    tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+    if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
+
+    #Load variables
+    if(c_LIMESversion  ==  2.36) {
+      p_plantshortrunprofit <- readGDX(gdx, name = "p_plantshortrunprofit", field = "l", format = "first_found") #Short run profits [eur]
+      p_plantshortrunprofit_w_fix <- readGDX(gdx, name = "p_plantshortrunprofit_w_fix", field = "l", format = "first_found") #Short run profits [including adequacy revenues and fix costs] [eur]
+      p_plantprofit_t <- readGDX(gdx, name = "p_plantprofit_t", field = "l", format = "first_found") #short-run profits for plants built in t [eur]
+      p_prodsubsidy <- readGDX(gdx, name = "p_prodsubsidy", field = "l", format = "first_found") #subsidy to RES [eur/GWh RES]
+      p_prodsubsidycosts <- readGDX(gdx, name = "p_prodsubsidycosts", field = "l", format = "first_found") #cost of subsidies to RES per country [eur]
+      p_plantrevenues <- readGDX(gdx, name = "p_plantrevenues", field = "l", format = "first_found") #plant revenues (sales and subsidies) [eur]
+
+
+      #create MagPie object of m_elecprices with iso3 regions
+      p_plantshortrunprofit <- limesMapping(p_plantshortrunprofit)
+      p_plantshortrunprofit_w_fix <- limesMapping(p_plantshortrunprofit_w_fix)
+      p_plantprofit_t <- limesMapping(p_plantprofit_t)
+      p_prodsubsidy <- limesMapping(p_prodsubsidy)
+      p_prodsubsidycosts <- limesMapping(p_prodsubsidycosts)
+      p_plantrevenues <- limesMapping(p_plantrevenues)
+
+
+      #List of technologies
+      varList_el <- list(
+        #Conventional
+        " "                   = c(teel),
+        "|Biomass "          		 = intersect(teel, tebio),
+        "|Biomass|w/o CCS "  		 = intersect(teel, setdiff(tebio, teccs)),
+        "|Coal "             		 = intersect(teel, c(tecoal, telig)),
+        "|Coal|w/o CCS "     		 = intersect(teel, setdiff(c(tecoal, telig), teccs)),
+        "|Coal|w/ CCS "      		 = intersect(teel, intersect(c(tecoal, telig), teccs)),
+        "|Hard Coal "        		 = intersect(teel, c(tecoal)),
+        "|Hard Coal|w/o CCS "		 = intersect(teel, setdiff(c(tecoal), teccs)),
+        "|Hard Coal|w/ CCS " 		 = intersect(teel, intersect(c(tecoal), teccs)),
+        "|Lignite "          		 = intersect(teel, c(telig)),
+        "|Lignite|w/o CCS "  		 = intersect(teel, setdiff(c(telig), teccs)),
+        "|Lignite|w/ CCS "   		 = intersect(teel, intersect(c(telig), teccs)),
+        "|Oil "              		 = intersect(teel, c(teoil)),
+        "|Gas "              		 = intersect(teel, c(tegas)),
+        "|Gas|w/o CCS "      		 = intersect(teel, setdiff(tegas_el, teccs)),
+        "|Gas|w/ CCS "       		 = intersect(teel, intersect(tegas_el, teccs)),
+        "|Gas CC|w/o CCS "   		 = intersect(teel, setdiff(tengcc_el, teccs)),
+        "|Gas CC|w/ CCS "    		 = intersect(teel, intersect(tengcc_el, teccs)),
+        "|Gas CC "           		 = intersect(teel, c(tengcc_el)),
+        "|Gas OC "           		 = intersect(teel, setdiff(tegas_el, tengcc_el)),
+        "|Other "            		 = intersect(teel, c(teothers)),
+        "|Hydrogen "         		 = intersect(teel, c(tehgen)),
+        "|Hydrogen FC "      		 = intersect(teel, c("hfc")),
+        "|Hydrogen OC "      		 = intersect(teel, c("hct")),
+        "|Hydrogen CC "      		 = intersect(teel, c("hcc")),
+        "|Nuclear "          		 = intersect(teel, c("tnr")),
+        "|Waste "            		 = intersect(teel, c(tewaste)),
+        "|Other Fossil "     		 = intersect(teel, c(teothers, tewaste, teoil)),
+
+        #general aggregation
+        "|Fossil "                  = intersect(teel, c(tefossil)),
+        "|Fossil|w/o CCS "          = intersect(teel, setdiff(tefossil, teccs)),
+        "|Fossil|w/ CCS "           = intersect(teel, intersect(tefossil, teccs)),
+        "|Variable renewable "      = intersect(teel, c(ter)),
+        "|Non-variable renewable "  = intersect(teel, c(ternofluc)),
+        "|Renewable "               = intersect(teel, c(ter, ternofluc)),
+        "|Non-renewable "           = intersect(teel, tenr),  #this does not include storage
+
+        #Renewable
+        "|Wind "         			 = intersect(teel, c("windon", "windoff")),
+        "|Wind|Onshore " 			 = intersect(teel, c("windon")),
+        "|Wind|Offshore "			 = intersect(teel, c("windoff")),
+        "|Solar "        			 = intersect(teel, c("spv", "csp")),
+        "|Solar|PV "     			 = intersect(teel, c("spv")),
+        "|Solar|CSP "    			 = intersect(teel, c("csp")),
+        "|Hydro "        			 = intersect(teel, c(tehydro))
+      )
+
+      tmp4 <- NULL
+      for (var in names(varList_el)){
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantrevenues[, , varList_el[[var]]], dim = 3)/1e9, paste0("Revenues|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit_w_fix[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits [w adeq rev/fix costs]|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+
+      }
 
     }
 
+    # add global values
+    tmp <- mbind(tmp3, tmp4)
+  } else { #if not the reportTau
+    # TAU reporting -----------------------------------------------------------
+
+    rename_tau <- function(name, data) {
+      .tau_nb <- getNames(data)
+      .nm <- paste0(name, "|", .tau_nb, " (Eur2015/MWh)")
+      out <- setNames(data, .nm)
+      return(out)
+    }
+
+    tmp <- rename_tau("Price|Secondary Energy|Electricity", 1e6 * o_elecprices_disc)
+    tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Electricity", 1e6 * o_fullelecprices_disc))
+    tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat", 1e6 * o_heatprices_disc))
+    tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat", 1e6 * o_fullheprices_disc))
+
+
+
   }
 
-  # add global values
-  tmp <- mbind(tmp3, tmp4)
+
 
   return(tmp)
 
