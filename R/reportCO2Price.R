@@ -150,11 +150,10 @@ reportCO2Price <- function(gdx) {
   m_bankemi_UK <- readGDX(gdx, name = "q_bankemi_UK", field = "m", format = "first_found", react = 'silent')
   if(!is.null(m_bankemi_UK)) {
     o_marg_bankemi_UK <- (1/s_c2co2)*(-m_bankemi_UK*p_ts/f_npv)
+
+    #Update value in data frame
+    o_marg_bankemi_EU["GBR",seq(2025,2070,5),] <- o_marg_bankemi_UK[,seq(2025,2070,5),]
   }
-
-
-  #Update value in data frame
-  o_marg_bankemi_EU["GBR",seq(2025,2070,5),] <- o_marg_bankemi_UK[,seq(2025,2070,5),]
 
 
   #5) CO2 PRICE RESULTING FROM EMISSION CUMULATIVE CAP (PER REGION)
