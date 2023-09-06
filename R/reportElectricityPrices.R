@@ -308,8 +308,11 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
     tmp <- rename_tau("Price|Secondary Energy|Electricity", 1e6 * o_elecprices_disc)
     tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Electricity", 1e6 * o_fullelecprices_disc))
-    tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat", 1e6 * o_heatprices_disc))
-    tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat", 1e6 * o_fullheprices_disc))
+
+    if (heating == "fullDH") {
+      tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat", 1e6 * o_heatprices_disc))
+      tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat", 1e6 * o_fullheprices_disc))
+    }
 
 
 
