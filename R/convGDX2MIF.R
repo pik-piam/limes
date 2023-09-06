@@ -131,11 +131,15 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output_EU27[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
 
   #aggregating only EU-ETS
-  EUETS<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  EUETS_pre2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  EUETS_post2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO" & getItems(output, dim = 1) != "GBR")
   output_EUETS<-NULL
-  output_EUETS<-dimSums(output[EUETS,,],dim=1, na.rm = T)
+  #ETS until 2020 contains UK
+  output_EUETS<-dimSums(output[EUETS_pre2020,,],dim=1, na.rm = T)
+  #ETS after 2020 does not contain UK
+  output_EUETS[,setdiff(time,c(2010:2020)),]<-dimSums(output[EUETS_post2020,setdiff(time,c(2010:2020)),],dim=1, na.rm = T)
   getItems(output_EUETS, dim = 1)<-"EUETS"
-  output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,]
+  output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,] #Add intensive variables
 
   #aggregating EUETS-nonDE
   EUETS_nonDE<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "DEU" & getItems(output, dim = 1) != "GLO")
@@ -290,6 +294,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
    heating <- .readHeatingCfg(gdx)
     if(heating == "fullDH") {
       AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))]
+
     }
   }
 
