@@ -125,3 +125,7 @@ Capital Costs|Heat|Decentralized|Conventional water heater;Capacity Additions|He
 Emissions|CO2|Energy|Supply|Electricity|Emission factor;Emissions|CO2|Energy|Supply|Electricity
 Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;Emissions|CO2|Energy|Supply|Heat|District Heating
 Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat
+Price|Secondary Energy|Electricity|1;Demand Load|Electricity|1
+Price Full|Secondary Energy|Electricity|1;Demand Load|Electricity|1
+Price|Secondary Energy|Heat|1;Demand Load|Heat|1
+Price Full|Secondary Energy|Heat|1;Demand Load|Heat|1

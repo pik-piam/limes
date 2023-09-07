@@ -49,7 +49,7 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
   #output <-  output_beforeagg
 
   #AGGREGATE (WEIGHTED AVERAGE OF) SOME INTENSIVE VARIABLES (e.g., electricity price)
-  output_RegAgg <- limesInt2Ext(output,gdx)
+  output_RegAgg <- limesInt2Ext(gdx, output, reporting_tau = TRUE)
 
   #Grouping countries
   #aggregating all countries
@@ -72,7 +72,7 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
   output_EU27<-dimSums(output[EU27,,],dim=1, na.rm = T)
   getItems(output_EU27, dim = 1) <- "EU27"
   #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
-  output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
+  output_EU27[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
 
   #aggregating only EU-ETS
   EUETS_pre2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")

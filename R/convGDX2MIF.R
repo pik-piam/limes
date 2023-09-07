@@ -102,7 +102,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #output <-  output_beforeagg
 
   #AGGREGATE (WEIGHTED AVERAGE OF) SOME INTENSIVE VARIABLES (e.g., electricity price)
-  output_RegAgg <- limesInt2Ext(output,gdx)
+  output_RegAgg <- limesInt2Ext(gdx,output)
 
   #LOADING LIST OF REGIONS FOR AGGREGATING CERTAIN GROUPS (e.g., EU)
   # settings mapping path

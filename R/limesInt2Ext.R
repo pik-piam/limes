@@ -3,6 +3,7 @@
 #' @param output variable to be changed
 #' @param gdx a GDX as created by readGDX, or the file name of a gdx
 #' @param mappingPath path to mapping file
+#' @param reporting_tau boolean determining whether to generate the tau reports
 #' @author Sebastian Osorio and Renato Rodrigues
 #'
 #' @export
@@ -13,10 +14,7 @@
 #'
 #'
 
-limesInt2Ext <- function(output,gdx,mappingPath=NULL){
-
-  #Read LIMES version (industry was included in version 2.27)
-  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
+limesInt2Ext <- function(gdx, output, reporting_tau = FALSE, mappingPath=NULL){
 
   # settings mapping path
   if (is.null(mappingPath))
@@ -26,20 +24,33 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   mapping_int2ext <- mapping_int2ext[mapping_int2ext$ext != 0,]
 
   #If industry is included, change some weights (before, only electricity)
-  if(c_LIMESversion > 2.26) {
-    c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
+  c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found", react = 'silent')
+  if(!is.null(c_industry_ETS)) {
     if(c_industry_ETS == 1) {
       levels(mapping_int2ext$ext) <- c(levels(mapping_int2ext$ext), "Emissions|CO2|Electricity and Industry")
       mapping_int2ext[mapping_int2ext$int == "Price|Carbon|ETS",]$ext <- "Emissions|CO2|Electricity and Industry"
     }
   }
 
-  if(c_LIMESversion >=  2.33) { #if heating module is included, DH emissions are endogenous and per country, so use this to weight ETS prices
+  #Report depending on the heat representation
+  modules <- readGDX(gdx,name="modules",field="l",format="first_found", react = 'silent')
+
+  #identify if the model version is modular. If not, create the equivalence for the old switch c_heating
+  if(is.null(modules)) {
+    c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found", react = 'silent')
+    #equivalence of heating scenarios
+    tmp <- list("0" = "off",
+                "1" = "fullDH",
+                "2" = "mac")
+    heating <- tmp[[which(names(tmp) == c_heating)]]
+  } else {
+    #Load switch for heating
     heating <- .readHeatingCfg(gdx)
-    if(heating == "fullDH") {
-      levels(mapping_int2ext$ext) <- c(levels(mapping_int2ext$ext), "Emissions|CO2|EU ETS")
-      mapping_int2ext[mapping_int2ext$int == "Price|Carbon|ETS",]$ext <- "Emissions|CO2|EU ETS"
-    }
+  }
+
+  if(heating == "fullDH") { #if heating module is included, DH emissions are endogenous and per country, so use this to weight ETS prices
+    levels(mapping_int2ext$ext) <- c(levels(mapping_int2ext$ext), "Emissions|CO2|EU ETS")
+    mapping_int2ext[mapping_int2ext$int == "Price|Carbon|ETS",]$ext <- "Emissions|CO2|EU ETS"
   }
 
 
@@ -55,13 +66,32 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
   pos_ext <- match(mapping_int2ext$ext, var_names_tmp)
 
   #Make sure only the intensive variables for which the corresponding variable is available, are weighted (avoid errors)
-  pos_tmp2 <- intersect(which(!is.na(pos_int)),which(!is.na(pos_ext)))
-  int_tmp2 <- mapping_int2ext$int[pos_tmp2]
-  ext_tmp2 <- mapping_int2ext$ext[pos_tmp2]
+  pos_tmp <- intersect(which(!is.na(pos_int)),which(!is.na(pos_ext)))
+  int_tmp <- mapping_int2ext$int[pos_tmp]
+  ext_tmp <- mapping_int2ext$ext[pos_tmp]
+
+  #Generate the other variables for tau report according to the number of tau
+  if(reporting_tau == TRUE & length(int_tmp) > 0) {
+
+    tau <- readGDX(gdx,name="tau",field="l",format="first_found")
+
+    int_tmp2 <- NULL
+    ext_tmp2 <- NULL
+    for(i in c(1:length(int_tmp))) {
+      int_name <- str_replace_all(int_tmp[i],"[|]1",paste0("|",c(tau)))
+      int_tmp2 <- c(int_tmp2, int_name)
+      ext_name <- str_replace_all(ext_tmp[i],"[|]1",paste0("|",c(tau)))
+      ext_tmp2 <- c(ext_tmp2, ext_name)
+    }
+    #Rename vars
+    int_tmp <- int_tmp2
+    ext_tmp <- ext_tmp2
+
+  }
 
   #Retrieve variables with their corresponding units
-  int <- var_names[match(int_tmp2, var_names_tmp)]
-  ext <- var_names[match(ext_tmp2, var_names_tmp)]
+  int <- var_names[match(int_tmp, var_names_tmp)]
+  ext <- var_names[match(ext_tmp, var_names_tmp)]
 
   #Allocate very low values for extensive variables where values are 0
   var[, , ext] <- pmax(var[, , ext], 1e-20)
@@ -88,7 +118,11 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
       tmp_RegAgg_ie2 <- do.call("mbind",
                                 lapply(int, function(i2e) {
                                   map <- data.frame(region=regionSubsetList[[region]], parentRegion=region, stringsAsFactors=FALSE)
-                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],, ext[match(i2e,int)]], dim=1))
+                                  result <- speed_aggregate(
+                                    var[regionSubsetList[[region]],,i2e],
+                                    map,weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]] /
+                                      dimSums(var[regionSubsetList[[region]],, ext[match(i2e,int)]], dim=1)
+                                    )
                                   getItems(result, dim = 1) <- region
                                   return(result)
                                 })
