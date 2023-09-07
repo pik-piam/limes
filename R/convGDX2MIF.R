@@ -56,7 +56,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output <- mbind(output,reportCO2Price(gdx)[,time,])
 
   #adding emissions info to report output
-  output <- mbind(output,reportEmissions(gdx,output)[,time,])
+  output <- mbind(output,reportEmissions(gdx,output)[,time,]) #depending on generation
 
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
@@ -96,7 +96,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #An example is the cap for the EU ETS
   output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
   #Replace NAs by zeros to avoid missing variables
-  output[is.na(output)]<-0
+  #output[is.na(output)]<-0
   #Save file before aggregation
   output_beforeagg <- output
   #output <-  output_beforeagg
@@ -286,17 +286,11 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   AggVars_tmp <- paste0(as.vector(AggVarfile$LIMES)," (",as.vector(AggVarfile$UnitLIMES) , ")")
   AggVars <- intersect(AggVars_tmp,getNames(output))
 
-  # read sets and parameters
-  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
-
-  #Check the version: When there is endogenous heating, related emissions should not appear here (to avoid duplicates)
-  if(c_LIMESversion >= 2.28) {
-   heating <- .readHeatingCfg(gdx)
-    if(heating == "fullDH") {
-      AggVars <- AggVars[is.na(match(AggVars,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))]
-
-    }
-  }
+  #Depending on the configuration, some variables might have national values and thus should be extracted from the variables to be calculated for EU ETS
+  #and incorporated in the report as follows
+  #This variables appear already in output (from calculations or as fictitious variables), so we need to identify them (values differ from 0)
+  #Those which sum of values for region GLO (total) are 0, are those that have not been calculated
+  AggVars <- AggVars[which(dimSums(output["GLO",,AggVars], dim = 2) == 0)]
 
   #Adding the corresponding values for the EU ETS
   output_EUETSvars <- reportEUETSvars(gdx,output)[,time,]
@@ -309,7 +303,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #Erasing the values for the remaining regions
   output[setdiff(getItems(output, dim = 1),"EUETS"),,AggVars] <- NA
 
+
   #Add certain variables that only exist for one region
+  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
   if(c_LIMESversion >= 2.38) {
     #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
