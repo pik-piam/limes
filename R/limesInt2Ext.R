@@ -98,5 +98,25 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
 
   }
 
+  #Redo calculations for EU ETS subtracting UK after 2025
+  regionSubsetList <- list("EUETS" = setdiff(getItems(var, dim = 1), c("CHE","BAL","GBR")))
+  tmp_RegAgg_ie2 <-NULL
+
+  if(length(int) > 0) {
+
+    for(region in names(regionSubsetList)){
+      tmp_RegAgg_ie2 <- do.call("mbind",
+                                lapply(int, function(i2e) {
+                                  map <- data.frame(region=regionSubsetList[[region]], parentRegion=region, stringsAsFactors=FALSE)
+                                  result <- speed_aggregate(var[regionSubsetList[[region]],,i2e],map,weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]]/dimSums(var[regionSubsetList[[region]],, ext[match(i2e,int)]], dim=1))
+                                  getItems(result, dim = 1) <- region
+                                  return(result)
+                                })
+      )
+      tmp_RegAgg[region,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),int] <- tmp_RegAgg_ie2[region,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),int]
+    }
+
+  }
+
   return(tmp_RegAgg)
 }
