@@ -106,8 +106,29 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
 
       # concatenate data
       tmp <- mbind(tmp1,tmp2)
+    }#end if c_industry ==1
+
+  } #end if c_LIMESversion >=2.26
+
+  #Additional calculations
+  tmp3 <- NULL
+
+  if(c_LIMESversion >=  2.33) {
+    heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
+      #Calculate EU ETS emissions when DH emissions are endogenous and per country
+      tmp3 <- mbind(tmp3,setNames(
+        output[,,"Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"] +
+          output[,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"] +
+          tmp[,,"Emissions|CO2|Industry (Mt CO2/yr)"],
+        "Emissions|CO2|EU ETS (Mt CO2/yr)"))
     }
   }
+
+  # concatenate data
+  tmp <- mbind(tmp,tmp3)
+
+
 
   #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
   var_names <- c(
