@@ -34,6 +34,15 @@ limesInt2Ext <- function(output,gdx,mappingPath=NULL){
     }
   }
 
+  if(c_LIMESversion >=  2.33) { #if heating module is included, DH emissions are endogenous and per country, so use this to weight ETS prices
+    heating <- .readHeatingCfg(gdx)
+    if(heating == "fullDH") {
+      levels(mapping_int2ext$ext) <- c(levels(mapping_int2ext$ext), "Emissions|CO2|EU ETS")
+      mapping_int2ext[mapping_int2ext$int == "Price|Carbon|ETS",]$ext <- "Emissions|CO2|EU ETS"
+    }
+  }
+
+
   #Load the data (output)
   var<-output
   var_names <- getNames(var)
