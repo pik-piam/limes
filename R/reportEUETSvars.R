@@ -168,8 +168,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
             p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found")[, y, ] #exogenous emissions from heating (share of cap)
             #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
             #p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
+            o_DH_emi <- p_exoemiheat * s_c2co2*1000
             tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
-            o_DH_emi <- p_exoemiheat
 
           } else if(heating == "mac") {
             #Read additional parameters
@@ -184,9 +184,9 @@ reportEUETSvars <- function(gdx,output=NULL) {
             #Estimate DH emissions (baselines - abated)
             o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
             o_DH_emi <- dimSums(o_DH_emi,3)
-            o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
+            o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK) * s_c2co2*1000
             o_DH_emi[,c(2010),] <- NA
-            tmp2 <- mbind(tmp2,setNames(o_DH_emi*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+            tmp2 <- mbind(tmp2,setNames(o_DH_emi,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
 
           } else { #fulDH
             #Include UK until 2020
@@ -203,11 +203,11 @@ reportEUETSvars <- function(gdx,output=NULL) {
             #Emissions from other sectors
             p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
             tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_DH_emi + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
 
             #For fullDH, EU ETS emissions would be calculated only when there are additional sectors in EU ETS, since this only exists are EU ETS level
             if(heating != "fullDH" | (heating == "fullDH" & dimSums(p_emiothersec, dim = 2) != 0)) {
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #the variables summed already do not include UK
+              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_DH_emi + (p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #the variables summed already do not include UK
             }
 
           } #end if c_bankemi_EU == 1
