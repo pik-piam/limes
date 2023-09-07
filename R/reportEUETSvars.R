@@ -1,6 +1,6 @@
 #' Read in GDX and calculate emissions, used in convGDX2MIF.R for the reporting
 #'
-#' Read in emissions data from GDX file, information used in convGDX2MIF.R
+#' Read in data that only exists at EU ETS level, information used in convGDX2MIF.R
 #' for the reporting
 #'
 #'

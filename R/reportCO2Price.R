@@ -1,6 +1,6 @@
 #' Read in GDX and calculate CO2 prices,  used in convGDX2MIF.R for the reporting
 #'
-#' Read in exogenous co2 prices and marginal values from GDX file,  information used in convGDX2MIF.R
+#' Read in exogenous co2 prices and marginal values from GDX file, information used in convGDX2MIF.R
 #' for the reporting
 #'
 #'

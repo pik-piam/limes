@@ -337,9 +337,8 @@ reportEmissions <- function(gdx, output=NULL) {
         tmp7 <- mbind(tmp7,setNames(o_emiindheat * 1000 / output[,,"Secondary Energy Input|Electricity|Heat (TWh/yr)"],
           "Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat (gCO2/kWh)")) #from MtCO2/TWh to gCO2/kWh
       }
+    } #end buildings if
 
-
-    }
   }
 
   # concatenate data
