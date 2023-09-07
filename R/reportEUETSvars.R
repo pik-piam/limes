@@ -110,7 +110,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
         #Add region "GlO" to avoid errors in forecoming sums
         getItems(o_emi_elec_ind, dim = 1) <- "GLO"
 
-
       }
 
       #Load share from heating
@@ -123,104 +122,102 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
         p_certificates_cancelled <- readGDX(gdx,name="p_certificates_cancelled",field="l",format="first_found")[, y, ]
 
-        #Load switch for heating
-        heating <- .readHeatingCfg(gdx)
+        #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
+        if(c_LIMESversion <= 2.30) {
+          tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)"))
+          o_prelcap <- ((p_emicappath_EUETS[,,]+o_aviation_demandEUA)*s_c2co2*1000+p_certificates_cancelled)/(1-p_shareheating_EUETS)
+          tmp2 <- mbind(tmp2,setNames(o_prelcap,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+          o_exoemiheat <- o_prelcap*p_shareheating_EUETS
+          #o_exoemiheat[,c(2010,2015),] <- c(317,272)  #include historical heating emissions from 2010 and 2015
+          tmp2 <- mbind(tmp2,setNames(o_exoemiheat,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+          if(!is.null(o_emi_elec_ind)) {
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+          }
 
-        if(heating != "fullDH" & c_bankemi_EU == 1) { #heating included and model version >2.27
+        } else {#c_LIMESversion > 2.30
 
-          #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
-          if(c_LIMESversion <= 2.30) {
-            tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)"))
-            o_prelcap <- ((p_emicappath_EUETS[,,]+o_aviation_demandEUA)*s_c2co2*1000+p_certificates_cancelled)/(1-p_shareheating_EUETS)
-            tmp2 <- mbind(tmp2,setNames(o_prelcap,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-            o_exoemiheat <- o_prelcap*p_shareheating_EUETS
-            #o_exoemiheat[,c(2010,2015),] <- c(317,272)  #include historical heating emissions from 2010 and 2015
-            tmp2 <- mbind(tmp2,setNames(o_exoemiheat,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
-            if(!is.null(o_emi_elec_ind)) {
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+          if(c_LIMESversion <= 2.33) {
+            tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+          } else {
+            p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
+            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+            p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")[, y, ]
+            tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
+          }
+
+          #Report depending on the heat representation
+          modules <- readGDX(gdx,name="modules",field="l",format="first_found", react = 'silent')
+
+          #identify if the model version is modular. If not, create the equivalence for the old switch c_heating
+          if(is.null(modules)) {
+            c_heating <- readGDX(gdx,name="c_heating",field="l",format="first_found", react = 'silent')
+            #equivalence of heating scenarios
+            tmp <- list("0" = "off",
+                        "1" = "fullDH",
+                        "2" = "mac")
+            heating <- tmp[[which(names(tmp) == c_heating)]]
+          } else {
+            #Load switch for heating
+            heating <- .readHeatingCfg(gdx)
+          }
+
+          #Previous version did not have endogenous heating
+          #-> with endogenous this variable will be calculated from the region-based heating
+          if(heating == "off") {
+            p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found")[, y, ] #exogenous emissions from heating (share of cap)
+            #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
+            #p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
+            tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+            o_DH_emi <- p_exoemiheat
+
+          } else if(heating == "mac") {
+            #Read additional parameters
+            p_DH_emiabat <- readGDX(gdx,name="p_DH_emiabat",field="l",format="first_found")[, y, ]
+            v_DH_emiabatproc <- readGDX(gdx,name="v_DH_emiabatproc",field="l",format="first_found")
+            p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
+
+            if(is.null(p_share_EmiHeat_UK)) { #this is a new parameter (202308), so introduce it manually for old versions
+              p_share_EmiHeat_UK <- 0
             }
 
-          } else {#heating != "fullDH" & c_bankemi_EU == 1, and c_LIMESversion > 2.30
+            #Estimate DH emissions (baselines - abated)
+            o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
+            o_DH_emi <- dimSums(o_DH_emi,3)
+            o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
+            o_DH_emi[,c(2010),] <- NA
+            tmp2 <- mbind(tmp2,setNames(o_DH_emi*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
 
-            #Previous version did not have endogenous heating
-            #-> with endogenous this variable will be calculated from the region-based heating
-            if(heating == "off") {
-              p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found")[, y, ] #exogenous emissions from heating (share of cap)
-              #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
-              #p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
-              tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
-              o_DH_emi <- p_exoemiheat
-            } else {
-              #Read additional parameters
-              p_DH_emiabat <- readGDX(gdx,name="p_DH_emiabat",field="l",format="first_found")[, y, ]
-              v_DH_emiabatproc <- readGDX(gdx,name="v_DH_emiabatproc",field="l",format="first_found")
-              p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
+          } else { #fulDH
+            #Include UK until 2020
+            o_DH_emi <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
+            #Take UK off after 2020
+            o_DH_emi[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
+              setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
+            #Add region "GlO" to avoid errors in forecoming sums
+            getItems(o_DH_emi, dim = 1) <- "GLO"
 
-              if(is.null(p_share_EmiHeat_UK)) { #this is a new parameter (202308), so introduce it manually for old versions
-                p_share_EmiHeat_UK <- 0
-              }
+          } #end if regarding heating representation
 
-              #Estimate DH emissions (baselines - abated)
-              o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
-              o_DH_emi <- dimSums(o_DH_emi,3)
-              o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
-              o_DH_emi[,c(2010),] <- NA
-              tmp2 <- mbind(tmp2,setNames(o_DH_emi*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
-            }
-
+          if(c_bankemi_EU == 1) {
+            #Emissions from other sectors
             p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
             tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-            if(!is.null(o_emi_elec_ind)) {
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+
+            #For fullDH, EU ETS emissions would be calculated only when there are additional sectors in EU ETS, since this only exists are EU ETS level
+            if(heating != "fullDH" | (heating == "fullDH" & dimSums(p_emiothersec, dim = 2) != 0)) {
               tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #the variables summed already do not include UK
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + (o_DH_emi + p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
             }
 
-            if(c_LIMESversion <= 2.33) {
-              tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-            } else {
-              p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
-              tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-              p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")[, y, ]
-              tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
-            }
+          } #end if c_bankemi_EU == 1
 
-          } #end else c_LIMESversion > 2.30
 
-        } else {#heating == "fullDH" or (heating == "off" and c_bankemi_EU == 0)... in the latter case, there is no need to report any of the variables below
+        } #end else c_LIMESversion > 2.30
 
-          if(heating == "fullDH") {
-            o_emi_heat <- NULL
-            if(length(which(getNames(output) == "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)")) > 0) {
-              o_emi_heat <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
-              getItems(o_emi_heat, dim = 1) <- "GLO"
-            }
-          }
+      } ##end else c_LIMESversion > 2.27
 
-          if(heating == "fullDH" & c_bankemi_EU == 1) {
-            if(c_LIMESversion <= 2.33) {
-              tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-            } else {
-              p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
-              tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-              p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")[, y, ]
-              tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
-            }
-
-            p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
-            tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-
-            #EU ETS emissions when there is endogenous heating
-            if(!is.null(o_emi_elec_ind) & !is.null(o_emi_heat) & c_bankemi_EU == 1) {
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + p_emiothersec*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include stationary certificates for aviation
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_emi_heat + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes stationary certificates for aviation
-            }
-          }
-
-        }
-      }
-
-    }
+    } #end of industry representation
 
   }
 
@@ -229,7 +226,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
   #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
   var_names <- c(
-    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
     "Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)",
     "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)",
     "Emissions|CO2|Cap|Aviation (Mt CO2/yr)",
@@ -243,6 +239,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
   }
 
   var_names <- c(
+    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
     "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"
   )
 
@@ -253,7 +250,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
   }
 
   #Include some historical values
+  tmp[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2008 #average of cap between 2013 and 2017
 
+
+  #Additional variables to represent linkage of EU ETS with other systems
   tmp3 <- NULL
   c_linkEUETS_UK <- readGDX(gdx, name = "c_linkEUETS_UK", format = "first_found", react = 'silent')
   if(!is.null(c_linkEUETS_UK)) {

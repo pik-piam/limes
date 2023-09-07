@@ -115,7 +115,9 @@ reportIndustryEmissions <- function(gdx,output=NULL) {
 
   if(c_LIMESversion >=  2.33) {
     heating <- .readHeatingCfg(gdx)
-    if(heating == "fullDH") {
+    p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ]
+    if(heating == "fullDH" & dimSums(p_emiothersec, dim = 2) == 0) { #only report emissions EU ETS at country level when all the components are at national level
+      #The main problem is with p_emiothersec, which is only used at EU ETS level
       #Calculate EU ETS emissions when DH emissions are endogenous and per country
       tmp3 <- mbind(tmp3,setNames(
         output[,,"Emissions|CO2|Energy|Supply|Electricity (Mt CO2/yr)"] +
