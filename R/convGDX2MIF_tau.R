@@ -63,6 +63,7 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
   output_EU<-NULL
   output_EU<-dimSums(output[EU,,],dim=1, na.rm = T)
   getItems(output_EU, dim = 1) <- "EU28"
+  #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
   output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU28",,]
 
   #aggregating only EU-27
@@ -70,14 +71,20 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
   output_EU27<-NULL
   output_EU27<-dimSums(output[EU27,,],dim=1, na.rm = T)
   getItems(output_EU27, dim = 1) <- "EU27"
+  #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
   output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
 
   #aggregating only EU-ETS
-  EUETS<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  EUETS_pre2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  EUETS_post2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO" & getItems(output, dim = 1) != "GBR")
   output_EUETS<-NULL
-  output_EUETS<-dimSums(output[EUETS,,],dim=1, na.rm = T)
+  #ETS until 2020 contains UK
+  output_EUETS<-dimSums(output[EUETS_pre2020,,],dim=1, na.rm = T)
+  #ETS after 2020 does not contain UK
+  output_EUETS[,setdiff(time,c(2010:2020)),]<-dimSums(output[EUETS_post2020,setdiff(time,c(2010:2020)),],dim=1, na.rm = T)
   getItems(output_EUETS, dim = 1)<-"EUETS"
-  output_EU[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,]
+  #Replacing the aggregated for intensive variables (a sum that makes no sense) by the weighted average calculated above
+  output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,] #Add intensive variables
 
   #Concatenate options
   output <- mbind(output,output_tot,output_EU,output_EU27,output_EUETS)
