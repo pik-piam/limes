@@ -10,6 +10,7 @@
 #' @importFrom magclass getItems new.magpie getYears getNames getItems<-
 #' @importFrom luscale speed_aggregate
 #' @importFrom utils read.csv
+#' @importFrom stringr str_replace_all
 #' @importFrom gdx readGDX
 #'
 #'

@@ -200,10 +200,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
     output_EUnonminP<-dimSums(output[EU,,],dim=1, na.rm = T) - output_minP
     getItems(output_EUnonminP, dim = 1)<-"EU_non_minP"
 
-    output_EUETSnonminP<-dimSums(output[EUETS,,],dim=1, na.rm = T) - output_minP
-    getItems(output_EUETSnonminP, dim = 1)<-"EUETS_non_minP"
-
-    output <- mbind(output,output_minP,output_nonminP,output_EUnonminP,output_EUETSnonminP)
+    output <- mbind(output,output_minP,output_nonminP,output_EUnonminP)
   }
 
 
