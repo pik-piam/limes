@@ -947,6 +947,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp3 <- mbind(tmp1, tmp2)
 
     #Heat related
+    tmp4 <- NULL
     if (heating == "fullDH") {
 
       # Reporting tau
@@ -958,7 +959,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         f_computeTau(varList_GrossHe_DHTau, v_seprod_he / o_gross2ue)
       )
 
-
       if (c_buildings == 1) {
 
         # Reporting tau
@@ -967,9 +967,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         tmp4 <- mbind(tmp4,
           f_computeTau(varList_UE_P2HTau, v_seprod_he)
         )
-
-
-
 
       }
 

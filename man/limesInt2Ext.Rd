@@ -4,12 +4,14 @@
 \alias{limesInt2Ext}
 \title{mapping of weights for the variables for global aggregation}
 \usage{
-limesInt2Ext(output, gdx, mappingPath = NULL)
+limesInt2Ext(gdx, output, reporting_tau = FALSE, mappingPath = NULL)
 }
 \arguments{
+\item{gdx}{a GDX as created by readGDX, or the file name of a gdx}
+
 \item{output}{variable to be changed}
 
-\item{gdx}{a GDX as created by readGDX, or the file name of a gdx}
+\item{reporting_tau}{boolean determining whether to generate the tau reports}
 
 \item{mappingPath}{path to mapping file}
 }

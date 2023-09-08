@@ -15,7 +15,7 @@ reportFictitiousVars(gdx, output = NULL)
 MAgPIE object - contains the emission variables
 }
 \description{
-Read in emissions data from GDX file, information used in convGDX2MIF.R
+Create fictitious variables to ensure symetry of the magpie object, information used in convGDX2MIF.R
 for the reporting
 }
 \examples{

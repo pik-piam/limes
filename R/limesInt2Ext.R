@@ -42,7 +42,7 @@ limesInt2Ext <- function(gdx, output, reporting_tau = FALSE, mappingPath=NULL){
     tmp <- list("0" = "off",
                 "1" = "fullDH",
                 "2" = "mac")
-    heating <- tmp[[which(names(tmp) == c_heating)]]
+    heating <- tmp[[which(names(tmp) == as.character(c_heating))]]
   } else {
     #Load switch for heating
     heating <- .readHeatingCfg(gdx)

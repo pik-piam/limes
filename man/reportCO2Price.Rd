@@ -13,7 +13,7 @@ reportCO2Price(gdx)
 MAgPIE object - contains the capacity variables
 }
 \description{
-Read in exogenous co2 prices and marginal values from GDX file,  information used in convGDX2MIF.R
+Read in exogenous co2 prices and marginal values from GDX file, information used in convGDX2MIF.R
 for the reporting
 }
 \examples{
