@@ -328,12 +328,9 @@ reportEmissions <- function(gdx, output=NULL) {
       o_emiindheat <- readGDX(gdx, name = c("o_emiindheat"), field = "l", format = "first_found", react = 'silent') #heat indirect emissions
       if(!is.null(o_emiindheat)) { #this was just added in May 2023; other related variables
         o_emiindheat <- limesMapping(o_emiindheat)[,,"seel"]
-
         tmp7 <- mbind(tmp7,setNames(
           o_emiindheat, "Emissions|Indirect|CO2|Energy|Supply|Power to heat (Mt CO2/yr)"))
 
-        o_emifac_P2H <- readGDX(gdx, name = c("o_emifac_P2H"), field = "l", format = "first_found", react = 'silent') #emission factor of electricity when producing heat
-        o_emifac_P2H <- limesMapping(o_emifac_P2H)[,,"seel"]
         tmp7 <- mbind(tmp7,setNames(o_emiindheat * 1000 / output[,,"Secondary Energy Input|Electricity|Heat (TWh/yr)"],
           "Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat (gCO2/kWh)")) #from MtCO2/TWh to gCO2/kWh
       }
