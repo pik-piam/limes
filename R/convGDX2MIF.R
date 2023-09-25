@@ -95,8 +95,8 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #(this is needed to keep report within the dimensions)
   #An example is the cap for the EU ETS
   output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
-  #Replace NAs by zeros to avoid missing variables
-  #output[is.na(output)]<-0
+  #Replace NAs by zeros to avoid missing variables when aggregating variables
+  output[is.na(output)] <- 0
   #Save file before aggregation
   output_beforeagg <- output
   #output <-  output_beforeagg
