@@ -64,26 +64,101 @@ reportBuildings <- function(gdx, output=NULL) {
       p_othersec_demDH_ue <- p_othersec_demDH_ue[,y,]
       p_othersec_demDH_sec_ue <- p_othersec_demDH_sec_ue[,y,]
 
-      #Estimate derived heat (DH) that is used in buildings
-      o_demDH_ue <- output[, , "Useful Energy|Heat|District Heating (TWh/yr)"]
-      o_bd_demDH_ue <- o_demDH_ue - p_othersec_demDH_ue/1000 #'p_othersec_demDH_ue' in GWh
 
       # Surface area
       tmp1 <- mbind(tmp1, setNames(p_bd_area[, , "resid"], "Useful Area|Residential (Mm2)"))
       tmp1 <- mbind(tmp1, setNames(p_bd_area[, , "nonresid"], "Useful Area|Non-residential (Mm2)"))
 
       # Useful energy
-      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "resid.space_heat"] / 1000, "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "resid.water_heat"] / 1000, "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "nonresid.space_heat"] / 1000, "Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "nonresid.water_heat"] / 1000, "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_sec_ue[, , "industry"] / 1000, "Useful Energy Available for Final Consumption|Heat|Industry|District heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_sec_ue[, , "agric"] / 1000, "Useful Energy Available for Final Consumption|Heat|Agriculture|District heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS, dim = 3) / 1000, "Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ESR, dim = 3) / 1000, "Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames((dimSums(v_bd_heatdem_ETS, dim = 3) + dimSums(v_bd_heatdem_ESR, dim = 3)) / 1000, "Useful Energy Available for Final Consumption|Heat|Buildings (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_ue / 1000, "Useful Energy Available for Final Consumption|Heat|Other sectors|District heating (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(o_bd_demDH_ue, "Useful Energy Available for Final Consumption|Heat|Buildings|District heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "resid.space_heat"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "resid.water_heat"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "nonresid.space_heat"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_bd_heatdem_ue[, , "nonresid.water_heat"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_sec_ue[, , "industry"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Industry|District heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_sec_ue[, , "agric"] / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Agriculture|District heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS, dim = 3) / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ESR, dim = 3) / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames((dimSums(v_bd_heatdem_ETS, dim = 3) + dimSums(v_bd_heatdem_ESR, dim = 3)) / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Buildings (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(p_othersec_demDH_ue / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|Other sectors|District heating (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames((dimSums(v_bd_heatdem_ETS, dim = 3) + p_othersec_demDH_ue) / 1000,
+                                   "Useful Energy Available for Final Consumption|Heat|ETS-covered (TWh/yr)"))
+
+      #Heat demand covered by DH and decentral P2H (formulation as of October 2023)
+      #Check if the new variables/equations already exist in the model
+      v_bd_heatdem_ETS_DH <- readGDX(gdx, name = "v_bd_heatdem_ETS_DH", field = "l", format = "first_found",  restore_zeros  =  FALSE) #in GWh
+      if(is.null(v_bd_heatdem_ETS_DH)) { #No split of heat demand,
+        #There is only information regarding generation, so need to assume generation as a proxy for demand (there could be some wasted heat)
+
+        #Estimate derived heat (DH) that is used in buildings
+        o_demDH_ue <- output[, , "Useful Energy|Heat|District Heating (TWh/yr)"]
+        o_bd_demDH_ue <- o_demDH_ue - p_othersec_demDH_ue / 1000 #'p_othersec_demDH_ue' in GWh
+
+        #Report variables
+        tmp1 <- mbind(tmp1, setNames(o_bd_demDH_ue,
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|District heating (TWh/yr)"))
+
+
+      } else { #split of heat demand between DH and decentral P2H
+        #Load variables
+        v_bd_heatdem_ETS_decP2H <- readGDX(gdx, name = "v_bd_heatdem_ETS_decP2H", field = "l", format = "first_found",  restore_zeros  =  FALSE) #in GWh
+
+        # create MagPie object of demand with iso3 regions
+        v_bd_heatdem_ETS_DH <- limesMapping(v_bd_heatdem_ETS_DH)
+        v_bd_heatdem_ETS_decP2H <- limesMapping(v_bd_heatdem_ETS_decP2H)
+
+        ##report
+        #DH
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_DH[,,"resid.space_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_DH[,,"resid.water_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_DH[,,"nonresid.space_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_DH[,,"nonresid.water_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_DH[,,"space_heat"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_DH[,,"water_heat"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_DH[,,"resid"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_DH[,,"nonresid"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|District heating (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_DH[,,] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|District heating (TWh/yr)"))
+
+        #Decentral P2H
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_decP2H[,,"resid.space_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_decP2H[,,"resid.water_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_decP2H[,,"nonresid.space_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(v_bd_heatdem_ETS_decP2H[,,"nonresid.water_heat"] / 1000,
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_decP2H[,,"space_heat"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_decP2H[,,"water_heat"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_decP2H[,,"resid"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Residential|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_decP2H[,,"nonresid"] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Non-residential|Decentral|Electricity (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(v_bd_heatdem_ETS_decP2H[,,] / 1000, dim = 3),
+                                     "Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity (TWh/yr)"))
+
+
+      }
 
 
       ## Final energy

@@ -63,7 +63,16 @@ Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2015/GJ;1
 Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2015/GJ;1
 Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
 Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy|Heat;Price|Secondary Energy|Heat;Eur2010/MWh;Eur2015/GJ;1
 Price Full|Secondary Energy|Heat;Price Full|Secondary Energy|Heat;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy|Heat|EU ETS-covered;Price|Secondary Energy|Heat|EU ETS-covered;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heat|EU ETS-covered;Price Full|Secondary Energy|Heat|EU ETS-covered;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy|Heat|Buildings|EU ETS-covered;Price|Secondary Energy|Heat|Buildings|EU ETS-covered;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered;Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy|Heat|District heating;Price|Secondary Energy|Heat|District heating;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heat|District heating;Price Full|Secondary Energy|Heat|District heating;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy|Heat|Decentral P2H;Price|Secondary Energy|Heat|Decentral P2H;Eur2010/MWh;Eur2015/MWh;1
+Price Full|Secondary Energy|Heat|Decentral P2H;Price Full|Secondary Energy|Heat|Decentral P2H;Eur2010/MWh;Eur2015/MWh;1
 Price|Carbon|Net|Electricity;Price|Carbon|Net|Electricity;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|National Climate Target|Power Sector;Price|Carbon|National Climate Target|Power Sector;Eur2010/t CO2;Eur2015/t CO2;1
 Price|Carbon|ETS;Price|Carbon|ETS;Eur2010/t CO2;Eur2015/t CO2;1
@@ -842,6 +851,8 @@ Capacity|Heat|Decentralized|Conventional;Capacity|Heat|Decentralized|Conventiona
 Capacity|Heat|Decentralized|Conventional space heater;Capacity|Heat|Decentralized|Conventional space heater;GW;GW;1
 Capacity|Heat|Decentralized|Conventional water heater;Capacity|Heat|Decentralized|Conventional water heater;GW;GW;1
 Useful Energy|Heat waste;Useful Energy|Heat waste;TWh/yr;TWh/yr;1
+Useful Energy|Heat waste|District heating;Useful Energy|Heat waste|District heating;TWh/yr;TWh/yr;1
+Useful Energy|Heat waste|Decentral|Electricity;Useful Energy|Heat waste|Decentral|Electricity;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|Buildings;Useful Energy Available for Final Consumption|Heat|Buildings;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered;TWh/yr;TWh/yr;1
 Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|non-ETS-covered;TWh/yr;TWh/yr;1
@@ -1043,7 +1054,6 @@ Primary Energy|Waste|Electricity-only;Primary Energy|Waste|Electricity-only;TWh/
 Primary Energy|Lignite|Electricity-only;Primary Energy|Lignite|Electricity-only;TWh/yr;PJ/yr;3.6
 Primary Energy|Hard Coal|Electricity-only;Primary Energy|Hard Coal|Electricity-only;TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen|Electricity-only;Primary Energy|Hydrogen|Electricity-only;TWh/yr;PJ/yr;3.6
-Price|Secondary Energy|Heat;Price|Secondary Energy|Heat;Eur2010/MWh;Eur2015/GJ;1
 Useful Area|Residential;Useful Area|Residential;Mm2;Mm2;1
 Useful Area|Non-residential;Useful Area|Non-residential;Mm2;Mm2;1
 Useful Energy Available for Final Consumption|Heat|Residential|Space-heating;Useful Energy Available for Final Consumption|Heat|Residential|Space-heating;TWh/yr;TWh/yr;1
@@ -1349,3 +1359,21 @@ Useful Energy|Heat|Buildings|Peak Demand;Useful Energy|Heat|Buildings|Peak Deman
 Capacity|Electricity|Peak Demand|Power to heat;Capacity|Electricity|Peak Demand|Power to heat;GW;GW;1
 Capacity|Electricity|Power to heat when peak demand;Capacity|Electricity|Power to heat when peak demand;GW;GW;1
 Emissions|CO2|Joint TNAC with linked systems;Emissions|CO2|Joint TNAC with linked systems;Mt CO2;Mt CO2;1
+Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Residential|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Non-residential|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity;Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|District heating;Useful Energy Available for Final Consumption|Heat|Residential|Space-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|District heating;Useful Energy Available for Final Consumption|Heat|Residential|Water-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|District heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Space-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|District heating;Useful Energy Available for Final Consumption|Heat|Non-residential|Water-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|Space-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|Water-heating|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Residential|District heating;Useful Energy Available for Final Consumption|Heat|Residential|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Non-residential|District heating;Useful Energy Available for Final Consumption|Heat|Non-residential|District heating;TWh/yr;TWh/yr;1
+Useful Energy Available for Final Consumption|Heat|Buildings|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|District heating;TWh/yr;TWh/yr;1

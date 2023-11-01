@@ -9,8 +9,16 @@ Price|Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolys
 Price|Primary Energy|Hydrogen;Primary Energy|Hydrogen
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
-Price Full|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings
-Price|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings
+Price|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
+Price Full|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
+Price|Secondary Energy|Heat|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|ETS-covered
+Price Full|Secondary Energy|Heat|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|ETS-covered
+Price|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
+Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
+Price|Secondary Energy|Heat|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|District heating
+Price Full|Secondary Energy|Heat|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|District heating
+Price|Secondary Energy|Heat|Decentral P2H;Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity
+Price Full|Secondary Energy|Heat|Decentral P2H;Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity
 Price|Carbon|ETS;Emissions|CO2|Electricity and Industry
 Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity

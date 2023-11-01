@@ -53,8 +53,6 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
     heating <- .readHeatingCfg(gdx)
     if (heating == "fullDH") {
       p_eldemand <- v_exdemand[, , "seel"]
-      p_hedemand <- v_exdemand[, , "sehe"] # This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
-      p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
 
       p_DH_losses <- readGDX(gdx, name = "p_DH_losses", field = "l", format = "first_found")
       p_DH_losses <- limesMapping(p_DH_losses)
@@ -62,6 +60,47 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
       p_tedata <- readGDX(gdx, name = "p_tedata", field = "l", format = "first_found")
       p_etah <- p_tedata[, , "etah"]
       p_etah <- limesMapping(p_etah)
+
+      ##Read variables related to heat prices:
+      #heat demand was split into the one to be covered by DH and decentral P2H
+      #Check if the new variables/equations already exist in the model
+      v_exdemand_DH <- readGDX(gdx, name = "v_exdemand_DH", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+      if(is.null(v_exdemand_DH)) { #No split of heat demand
+
+        split_DH_decP2H <- 0
+
+        #Heat demand
+        # This contains all heat production covered (directly or indirectly) by EU ETS (i.e., DH and decentraliced electric-based heating)
+        p_hedemand <- v_exdemand[, , "sehe"]
+        p_hedemand <- collapseDim(p_hedemand, dim = 3.2)
+
+        # Wasted heat
+        v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found")[, , tau]
+        v_heatwaste <- limesMapping(v_heatwaste)
+
+      } else { #split of heat demand between DH and decentral P2H
+
+        split_DH_decP2H <- 1
+
+        #Load required equations
+        v_exdemand_decP2H <- readGDX(gdx, name = "v_exdemand_decP2H", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        v_heatwaste_DH <- readGDX(gdx, name = "v_heatwaste_DH", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        v_heatwaste_decP2H <- readGDX(gdx, name = "v_heatwaste_decP2H", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+
+
+        # create MagPie object with iso3 regions
+        v_exdemand_DH <- limesMapping(v_exdemand_DH) #[GWh]
+        v_exdemand_decP2H <- limesMapping(v_exdemand_decP2H) #[GWh]
+        v_heatwaste_DH <- limesMapping(v_heatwaste_DH) #[GWh]
+        v_heatwaste_decP2H <- limesMapping(v_heatwaste_decP2H) #[GWh]
+
+        #Collapse dimensions to avoid errors
+        v_exdemand_DH <- collapseDim(v_exdemand_DH, dim = 3.2)
+        v_exdemand_decP2H <- collapseDim(v_exdemand_decP2H, dim = 3.2)
+
+        #end of if regarding splitting of ETS between DH and decP2H
+      }
+
 
     } else {
       p_eldemand <- v_exdemand
@@ -108,11 +147,13 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
       if(!is.null(p_exdem_trans)) {
         #Use of electricity for transport
-        tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000, "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(dimSums(p_exdem_trans * p_taulength, dim = 3) / 1000,
+                                     "Secondary Energy Input|Electricity|Transport (TWh/yr)"))
       }
 
       #Use of electricity for Hydrogen production
-      tmp1 <- mbind(tmp1, setNames(output[,, "Primary Energy|Electricity|Hydrogen (TWh/yr)"], "Secondary Energy Input|Electricity|Hydrogen (TWh/yr)"))
+      tmp1 <- mbind(tmp1, setNames(output[,, "Primary Energy|Electricity|Hydrogen (TWh/yr)"],
+                                   "Secondary Energy Input|Electricity|Hydrogen (TWh/yr)"))
     }
 
 
@@ -120,12 +161,6 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
     tmp2 <- NULL
     if (c_LIMESversion >= 2.28) {
       if (heating == "fullDH") {
-
-        # Heat-related
-        v_heatwaste <- readGDX(gdx, name = "v_heatwaste", field = "l", format = "first_found") # Waste heat
-        v_heatwaste <- limesMapping(v_heatwaste)
-
-        tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
 
         c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),
                                field = "l", format = "first_found") #switch on buildings module
@@ -144,11 +179,21 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
           o_PeakDemP2H <- limesMapping(o_PeakDemP2H)[ ,y,"seel"]
           tmp2 <- mbind(tmp2, setNames(o_PeakDemP2H, "Capacity|Electricity|Peak Demand|Power to heat (GW)"))
 
-          o_demP2H_PeakElec <- readGDX(gdx, name = c("o_demP2H_PeakElec"), field = "l", format = "first_found", react = 'silent') #P2H  demand when peak
+          o_demP2H_PeakElec <- readGDX(gdx, name = c("o_demP2H_PeakElec"), field = "l", format = "first_found", react = 'silent') #P2H demand when electricity peak
           o_demP2H_PeakElec <- limesMapping(o_demP2H_PeakElec)[ ,y,"seel"]
           tmp2 <- mbind(tmp2, setNames(o_demP2H_PeakElec, "Capacity|Electricity|Power to heat when peak demand (GW)"))
         }
 
+        #Report wasted heat
+        if(split_DH_decP2H == 0) {
+
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
+
+        } else {
+
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_DH * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste|District heating (TWh/yr)"))
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_decP2H * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste|Decentral|Electricity (TWh/yr)"))
+        }
 
       }
     }
@@ -174,12 +219,22 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     #Heating
     if (heating == "fullDH") {
-      tmp <- mbind(tmp, rename_tau("Demand Load|Heat", p_hedemand) )
 
       if(!is.null(o_seprodinputP2H)) {
         tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|Heating", o_seprodinputP2H) )
 
         tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|non-Heating", p_eldemand - o_seprodinputP2H) )
+      }
+
+      if(split_DH_decP2H == 0) {
+
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heat", p_hedemand) )
+
+      } else {
+
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heat|District heating", v_exdemand_DH) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heat|Decentral|Electricity", v_exdemand_decP2H) )
+
       }
     }
   }

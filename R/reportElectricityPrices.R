@@ -36,7 +36,7 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
   m_sebal <- readGDX(gdx, name = "q_sebal", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
   m_robuststrategy2 <- readGDX(gdx, name = "q_robuststrategy2", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
 
-  # create MagPie object of m_elecprices with iso3 regions
+  # create MagPie object with iso3 regions
   m_sebal <- limesMapping(m_sebal) #[Geur/GWh]
   m_robuststrategy2 <- limesMapping(m_robuststrategy2) #[Geur/GWh]
   v_exdemand <- limesMapping(v_exdemand) #[GWh]
@@ -49,6 +49,9 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
                                fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
   p_hedemand <- new.magpie(cells_and_regions  =  getItems(v_exdemand,  dim  =  1),  years  =  getYears(v_exdemand),  names  =  tau,
                                fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
+  #m_fullheprices_DH <- new.magpie(cells_and_regions  =  getItems(m_robuststrategy2_DH,  dim  =  1),  years  =  getYears(m_robuststrategy2_DH),  names  =  tau,
+   #                            fill  =  NA,  sort  =  FALSE,  sets  =  NULL)
+
 
   #Check the version so to load data and create MagPie object for variables that changed in that version and to choose the electricity-related variables
   if(c_LIMESversion >=  2.28) {
@@ -57,18 +60,58 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
     if(heating == "fullDH") {
       p_eldemand <- v_exdemand[, , "seel"]
-      p_hedemand <- v_exdemand[, , "sehe"]
-      p_hedemand <- collapseDim(p_hedemand,  dim  =  3.2)
-
       m_fullelecprices <- m_robuststrategy2[, , "seel"]
-      m_fullheprices <- m_robuststrategy2[, , "sehe"]
-      m_fullheprices <- collapseDim(m_fullheprices,  dim  =  3.2)/p_taulength
-
       m_elecprices <- m_sebal[, , "seel"]
-      m_heatprices <- m_sebal[, , "sehe"]
-      m_heatprices <- collapseDim(m_heatprices,  dim  =  3.2)/p_taulength
 
-    } else {
+
+      ##Read variables related to heat prices:
+      #heat demand was split into the one to be covered by DH and decentral P2H
+      #Check if the new variables/equations already exist in the model
+      m_sebal_DH <- readGDX(gdx, name = "q_sebal_DH", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+      if(is.null(m_sebal_DH)) {
+
+        split_DH_decP2H <- 0
+
+        p_hedemand <- v_exdemand[, , "sehe"]
+        p_hedemand <- collapseDim(p_hedemand,  dim  =  3.2)
+
+        m_heatprices <- m_sebal[, , "sehe"]
+        m_heatprices <- collapseDim(m_heatprices,  dim  =  3.2) / p_taulength
+
+        m_fullheprices <- m_robuststrategy2[, , "sehe"]
+        m_fullheprices <- collapseDim(m_fullheprices,  dim  =  3.2) / p_taulength
+
+
+      } else { # the equation q_sebal_DH indeed exists
+
+        split_DH_decP2H <- 1
+
+        #Load required equations
+        m_robuststrategy2_DH <- readGDX(gdx, name = "q_robuststrategy2_DH", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        v_exdemand_DH <- readGDX(gdx, name = "v_exdemand_DH", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        m_sebal_decP2H <- readGDX(gdx, name = "q_sebal_decP2H", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        m_robuststrategy2_decP2H <- readGDX(gdx, name = "q_robuststrategy2_decP2H", field = "m", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+        v_exdemand_decP2H <- readGDX(gdx, name = "v_exdemand_decP2H", field = "l", format = "first_found",  restore_zeros  =  FALSE)[, , tau]
+
+        # create MagPie object with iso3 regions
+        m_sebal_DH <- limesMapping(m_sebal_DH) #[Geur/GWh]
+        m_robuststrategy2_DH <- limesMapping(m_robuststrategy2_DH) #[Geur/GWh]
+        v_exdemand_DH <- limesMapping(v_exdemand_DH) #[GWh]
+        m_sebal_decP2H <- limesMapping(m_sebal_decP2H) #[Geur/GWh]
+        m_robuststrategy2_decP2H <- limesMapping(m_robuststrategy2_decP2H) #[Geur/GWh]
+        v_exdemand_decP2H <- limesMapping(v_exdemand_decP2H) #[GWh]
+
+        # calculate marginal value per tau
+        m_heatprices_DH <- collapseDim(m_sebal_DH, dim  = 3.2) / p_taulength
+        m_fullheprices_DH <- collapseDim(m_robuststrategy2_DH,  dim  =  3.2) / p_taulength
+        m_heatprices_decP2H <- collapseDim(m_sebal_decP2H, dim  = 3.2) / p_taulength
+        m_fullheprices_decP2H <- collapseDim(m_robuststrategy2_decP2H,  dim  =  3.2) / p_taulength
+
+        #end of if regarding splitting of ETS between DH and decP2H
+      }
+
+    } else { #Model does not include heating (fullDH)
+
       m_fullelecprices <- m_robuststrategy2
       m_elecprices <- m_sebal
       #Better to check that 'sehe' does not appear in v_exdemand
@@ -80,11 +123,14 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
     }
 
+    #Subsidies
     m_restargetrelativegross_tech <- readGDX(gdx, name = "q_restargetrelativegross_tech", field = "m", format = "first_found")
     m_restargetrelativedem_tech <- readGDX(gdx, name = "q_restargetrelativedem_tech", field = "m", format = "first_found")
     m_restargetrelativegross_tech <- limesMapping(m_restargetrelativegross_tech) #[Geur/GWh]
     m_restargetrelativedem_tech <- limesMapping(m_restargetrelativedem_tech) #[Geur/GWh]
 
+
+    #Value of subsidies
     if(c_LIMESversion < 2.38) {
       m_restarget <- readGDX(gdx, name = "q_restarget",  field = "m",  format = "first_found")
       m_restarget <- limesMapping(m_restarget)
@@ -94,7 +140,7 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
     }
 
 
-  } else {
+  } else { #Version is lower than 2.28
     #v_seprod_el <- v_seprod
     p_eldemand <- v_exdemand
     m_fullelecprices <- m_robuststrategy2
@@ -115,35 +161,79 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
   #compute factor to discount average marginal values
   f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
 
-  #discounting marginal values
+  ##Discounting marginal values
+  #electricity prices
   o_elecprices_disc <- NULL
-  o_heatprices_disc <- NULL
   o_fullelecprices_disc <- NULL
-  o_fullheprices_disc <- NULL
 
+  #subsidies
   o_restargetrelativegross_tech_disc <- NULL
   o_restargetrelativedem_tech_disc <- NULL
   o_restargetrelative_DE_disc <- NULL #Only until version 2.26
   o_restargetrelative_disc <- NULL #Only until version 2.26
   o_restarget_disc <- NULL
 
-  for (t2 in 1:length(tt)) {
-    o_elecprices_disc <- mbind(o_elecprices_disc,  m_elecprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
-    o_heatprices_disc <- mbind(o_heatprices_disc,  m_heatprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
-    o_fullelecprices_disc <- mbind(o_fullelecprices_disc,  m_fullelecprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
-    o_fullheprices_disc <- mbind(o_fullheprices_disc,  m_fullheprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
+  #heat prices
+  o_heatprices_disc <- NULL
+  o_fullheprices_disc <- NULL
+  o_heatprices_DH_disc <- NULL
+  o_fullheprices_DH_disc <- NULL
+  o_heatprices_decP2H_disc <- NULL
+  o_fullheprices_decP2H_disc <- NULL
 
-    o_restarget_disc <- mbind(o_restarget_disc, m_restarget[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
+
+  for (t2 in 1:length(tt)) {
+    o_elecprices_disc <- mbind(o_elecprices_disc,  m_elecprices[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+    o_fullelecprices_disc <- mbind(o_fullelecprices_disc,  m_fullelecprices[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+
+    o_restarget_disc <- mbind(o_restarget_disc, m_restarget[, t2, ] / f_npv[t2]) #[Geur 2010/GWh-RES]
 
     #Estimation for variables that changed in some versions
     if(c_LIMESversion >=  2.28) {
-      o_restargetrelativegross_tech_disc <- mbind(o_restargetrelativegross_tech_disc, m_restargetrelativegross_tech[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
-      o_restargetrelativedem_tech_disc <- mbind(o_restargetrelativedem_tech_disc, m_restargetrelativedem_tech[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
+      o_restargetrelativegross_tech_disc <- mbind(o_restargetrelativegross_tech_disc, m_restargetrelativegross_tech[, t2, ] / f_npv[t2]) #[Geur 2010/GWh-RES]
+      o_restargetrelativedem_tech_disc <- mbind(o_restargetrelativedem_tech_disc, m_restargetrelativedem_tech[, t2, ] / f_npv[t2]) #[Geur 2010/GWh-RES]
+
+      #Heat prices
+      if(heating == "fullDH") {
+        if(split_DH_decP2H == 0) { #no split berween DH and decP2H
+          o_heatprices_disc <- mbind(o_heatprices_disc,  m_heatprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
+          o_fullheprices_disc <- mbind(o_fullheprices_disc,  m_fullheprices[, t2, ]/f_npv[t2]) #[Geur 2010/GWh]
+
+        } else { #split berween DH and decP2H
+          o_heatprices_DH_disc <- mbind(o_heatprices_DH_disc,  m_heatprices_DH[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+          o_fullheprices_DH_disc <- mbind(o_fullheprices_DH_disc,  m_fullheprices_DH[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+          o_heatprices_decP2H_disc <- mbind(o_heatprices_decP2H_disc,  m_heatprices_decP2H[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+          o_fullheprices_decP2H_disc <- mbind(o_fullheprices_decP2H_disc,  m_fullheprices_decP2H[, t2, ] / f_npv[t2]) #[Geur 2010/GWh]
+        }
+      }
+
+
     } else {
       o_restargetrelative_DE_disc <- mbind(o_restargetrelative_DE_disc, m_restargetrelative_DE[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
       o_restargetrelative_disc <- mbind(o_restargetrelative_disc, m_restargetrelative[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
     }
   }
+
+  ##Some price aggregation
+  #Heat prices at EU ETS level
+  o_heatprices_EUETS_disc <-
+    (o_heatprices_DH_disc * v_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
+      (v_exdemand_DH + v_exdemand_decP2H)
+  o_fullheprices_EUETS_disc <-
+    (o_fullheprices_DH_disc * v_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
+      (v_exdemand_DH + v_exdemand_decP2H)
+  #Heat prices in buildings (only for sources covered by EU ETS)
+  #First estimate buildings load supplied by DH (at every tau). The variable v_exdemand_DH includes also other sectors (industry and agriculture)
+  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_demDH_ue", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
+  p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_exdemand_DH),]
+  o_bd_exdemand_DH <- v_exdemand_DH - p_othersec_exdemand_DH
+  o_heatprices_bd_EUETS_disc <-
+    (o_heatprices_DH_disc * o_bd_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
+    (o_bd_exdemand_DH + v_exdemand_decP2H)
+  o_fullheprices_bd_EUETS_disc <-
+    (o_fullheprices_DH_disc * o_bd_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
+    (o_bd_exdemand_DH + v_exdemand_decP2H)
+
 
   #Subsidies
 
@@ -155,29 +245,61 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
   # Standard Reporting ------------------------------------------------------
   if (!reporting_tau) { # for normal reporting}
-    #weighted average marginal values per country (spot prices,  capacity adequacy and RES subsidy)
+    ##Electricity prices
     #conversion from Geur/GWh -> eur/MWh
     tmp1 <- NULL
+    #weighted average marginal values per country (spot prices,  capacity adequacy and RES subsidy)
     tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_elecprices_disc * p_taulength * p_eldemand, dim = 3)
                                  /dimSums(p_taulength * p_eldemand, 3),
                                  "Price|Secondary Energy|Electricity (Eur2010/MWh)"))
-    tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
-                                 /dimSums(p_taulength * p_hedemand, 3),
-                                 "Price|Secondary Energy|Heat (Eur2010/MWh)"))
+    #weighted average marginal values per country (spot+capacity adequacy)
+    tmp1 <- mbind(tmp1, setNames(1e6 * dimSums(o_fullelecprices_disc * p_taulength * p_eldemand, dim = 3)
+                                 /dimSums(p_taulength * p_eldemand, 3),
+                                 "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
     tmp1 <- mbind(tmp1, setNames(1e6 * dimSums((o_fullelecprices_disc - o_elecprices_disc) * p_taulength * p_eldemand, dim = 3)
                                  /dimSums(p_taulength * p_eldemand, 3),
                                  "Price|Secondary Energy|Electricity|Other fees (Eur2010/MWh)"))
 
 
-    #weighted average marginal values per country (spot+capacity adequacy)
+    ##Heat prices
     #conversion from Geur/GWh -> eur/MWh
     tmp2 <- NULL
-    tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullelecprices_disc * p_taulength * p_eldemand, dim = 3)
-                                 /dimSums(p_taulength * p_eldemand, 3),
-                                 "Price Full|Secondary Energy|Electricity (Eur2010/MWh)"))
-    tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
-                                 /dimSums(p_taulength * p_hedemand, 3),
-                                 "Price Full|Secondary Energy|Heat (Eur2010/MWh)"))
+    if(heating == "fullDH") {
+      if(split_DH_decP2H == 0) { #no split of heat demand between DH and P2H (older version)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
+                                     / dimSums(p_taulength * p_hedemand, 3),
+                                     "Price|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
+                                     / dimSums(p_taulength * p_hedemand, 3),
+                                     "Price Full|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
+      } else { #split of heat demand between DH and P2H (older version)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3)
+                                     / dimSums(p_taulength * v_exdemand_DH, 3),
+                                     "Price|Secondary Energy|Heat|District heating (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3)
+                                     / dimSums(p_taulength * v_exdemand_DH, 3),
+                                     "Price Full|Secondary Energy|Heat|District heating (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3)
+                                     / dimSums(p_taulength * v_exdemand_decP2H, 3),
+                                     "Price|Secondary Energy|Heat|Decentral P2H (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3)
+                                     / dimSums(p_taulength * v_exdemand_decP2H, 3),
+                                     "Price Full|Secondary Energy|Heat|Decentral P2H (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3)
+                                     / dimSums(p_taulength * (v_exdemand_DH + v_exdemand_decP2H), 3),
+                                     "Price|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3)
+                                     / dimSums(p_taulength * (v_exdemand_DH + v_exdemand_decP2H), 3),
+                                     "Price Full|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3)
+                                     / dimSums(p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), 3),
+                                     "Price|Secondary Energy|Heat|Buildings|EU ETS-covered (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3)
+                                     / dimSums(p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), 3),
+                                     "Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered (Eur2010/MWh)"))
+
+      }
+    }
 
 
     # add global values
@@ -286,9 +408,12 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
       tmp4 <- NULL
       for (var in names(varList_el)){
-        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantrevenues[, , varList_el[[var]]], dim = 3)/1e9, paste0("Revenues|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
-        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
-        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit_w_fix[, , varList_el[[var]]], dim = 3)/1e9, paste0("Short-run profits [w adeq rev/fix costs]|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantrevenues[, , varList_el[[var]]], dim = 3)/1e9,
+                                     paste0("Revenues|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit[, , varList_el[[var]]], dim = 3)/1e9,
+                                     paste0("Short-run profits|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
+        tmp4 <- mbind(tmp4, setNames(dimSums(p_plantshortrunprofit_w_fix[, , varList_el[[var]]], dim = 3)/1e9,
+                                     paste0("Short-run profits [w adeq rev/fix costs]|Electricity", var, "(billion eur2010/yr)"))) #convert eur to billion eur
 
       }
 
@@ -310,8 +435,32 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
     tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Electricity", 1e6 * o_fullelecprices_disc))
 
     if (heating == "fullDH") {
-      tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat", 1e6 * o_heatprices_disc))
-      tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat", 1e6 * o_fullheprices_disc))
+
+      if(split_DH_decP2H == 0) { #No split of heat demand between DH and decentral P2H
+
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|EU ETS-covered", 1e6 * o_heatprices_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|EU ETS-covered", 1e6 * o_fullheprices_disc))
+
+      } else { #split of heat demand between DH and decentral P2H
+
+        #Collapse dimensions to avoid errors
+        o_heatprices_EUETS_disc <- collapseDim(o_heatprices_EUETS_disc, dim = 3.2)
+        o_fullheprices_EUETS_disc <- collapseDim(o_fullheprices_EUETS_disc, dim = 3.2)
+        o_heatprices_bd_EUETS_disc <- collapseDim(o_heatprices_bd_EUETS_disc, dim = 3.2)
+        o_fullheprices_bd_EUETS_disc <- collapseDim(o_fullheprices_bd_EUETS_disc, dim = 3.2)
+
+        #Report
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|EU ETS-covered", 1e6 * o_heatprices_EUETS_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|EU ETS-covered", 1e6 * o_fullheprices_EUETS_disc))
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|Buildings|EU ETS-covered", 1e6 * o_heatprices_bd_EUETS_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered", 1e6 * o_fullheprices_bd_EUETS_disc))
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|District heating", 1e6 * o_heatprices_DH_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|District heating", 1e6 * o_fullheprices_DH_disc))
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|Decentral P2H", 1e6 * o_heatprices_decP2H_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|Decentral P2H", 1e6 * o_fullheprices_decP2H_disc))
+
+      }
+
     }
 
 
