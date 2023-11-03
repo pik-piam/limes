@@ -20,7 +20,7 @@ for the reporting
 }
 \examples{
 
-\dontrun{reportEmissions(gdx)}
+\dontrun{reportFictitiousVars(gdx)}
 
 }
 \seealso{
