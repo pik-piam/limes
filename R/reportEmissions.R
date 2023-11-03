@@ -318,7 +318,7 @@ reportEmissions <- function(gdx, output=NULL) {
 
   if(heating == "fullDH") {
     tmp7 <- mbind(tmp7,setNames(
-      tmp[,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"] * 1000 / output[,,"Useful Energy|Heat|District Heating (TWh/yr)"],
+      tmp[,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"] * 1000 / output[,,"Secondary Energy|Gross|Heat|District Heating (TWh/yr)"],
       "Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor (gCO2/kWh)")) #from MtCO2/TWh to gCO2/kWh
 
     c_buildings <- readGDX(gdx, name = c("c_buildings", "report_c_buildings"),

@@ -169,7 +169,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
         if(c_buildings == 1) {
           p_bd_peakdemand <- readGDX(gdx, name = c("p_bd_peakdemand"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
           p_bd_peakdemand <- limesMapping(p_bd_peakdemand)[ ,y,"sehe"]
-          tmp2 <- mbind(tmp2, setNames(p_bd_peakdemand, "Useful Energy|Heat|Buildings|Peak Demand (GW)"))
+          tmp2 <- mbind(tmp2, setNames(p_bd_peakdemand, "Useful Energy|Heating|Buildings|Peak Demand (GW)"))
         }
 
         #Electricity peak demand due to P2H
@@ -187,12 +187,12 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
         #Report wasted heat
         if(split_DH_decP2H == 0) {
 
-          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste (TWh/yr)"))
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste * p_taulength, dim = 3) / 1000, "Useful Energy|Heating|Heat waste (TWh/yr)"))
 
         } else {
 
-          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_DH * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste|District heating (TWh/yr)"))
-          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_decP2H * p_taulength, dim = 3) / 1000, "Useful Energy|Heat waste|Decentral|Electricity (TWh/yr)"))
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_DH * p_taulength, dim = 3) / 1000, "Useful Energy|Heating|Heat waste|Heat (TWh/yr)"))
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_heatwaste_decP2H * p_taulength, dim = 3) / 1000, "Useful Energy|Heating|Heat waste|Decentral|Electricity (TWh/yr)"))
         }
 
       }
@@ -222,18 +222,24 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
       if(!is.null(o_seprodinputP2H)) {
         tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|Heating", o_seprodinputP2H) )
-
         tmp <- mbind(tmp, rename_tau("Demand Load|Electricity|non-Heating", p_eldemand - o_seprodinputP2H) )
       }
 
       if(split_DH_decP2H == 0) {
 
-        tmp <- mbind(tmp, rename_tau("Demand Load|Heat", p_hedemand) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|ETS-covered", p_hedemand) )
 
       } else {
 
-        tmp <- mbind(tmp, rename_tau("Demand Load|Heat|District heating", v_exdemand_DH) )
-        tmp <- mbind(tmp, rename_tau("Demand Load|Heat|Decentral|Electricity", v_exdemand_decP2H) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|Heat", v_exdemand_DH) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|Decentral|Electricity", v_exdemand_decP2H) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|ETS-covered", v_exdemand_DH + v_exdemand_decP2H) )
+
+        #Include also demand in buildings supplied by DH
+        p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
+        p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_exdemand_DH),]
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|Buildings|Heat", v_exdemand_DH - p_othersec_exdemand_DH) )
+        tmp <- mbind(tmp, rename_tau("Demand Load|Heating|Buildings|ETS-covered", v_exdemand_decP2H + v_exdemand_DH - p_othersec_exdemand_DH) )
 
       }
     }

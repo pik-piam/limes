@@ -9,16 +9,16 @@ Price|Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolys
 Price|Primary Energy|Hydrogen;Primary Energy|Hydrogen
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
-Price|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
-Price Full|Secondary Energy|Heat;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
-Price|Secondary Energy|Heat|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|ETS-covered
-Price Full|Secondary Energy|Heat|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|ETS-covered
-Price|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
-Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy Available for Final Consumption|Heat|Buildings|ETS-covered
-Price|Secondary Energy|Heat|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|District heating
-Price Full|Secondary Energy|Heat|District heating;Useful Energy Available for Final Consumption|Heat|Buildings|District heating
-Price|Secondary Energy|Heat|Decentral P2H;Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity
-Price Full|Secondary Energy|Heat|Decentral P2H;Useful Energy Available for Final Consumption|Heat|Buildings|Decentral|Electricity
+Price|Secondary Energy|Heat;Useful Energy|Heating|Buildings|ETS-covered
+Price Full|Secondary Energy|Heat;Useful Energy|Heating|Buildings|ETS-covered
+Price|Secondary Energy|Heat|EU ETS-covered;Useful Energy|Heating|ETS-covered
+Price Full|Secondary Energy|Heat|EU ETS-covered;Useful Energy|Heating|ETS-covered
+Price|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy|Heating|Buildings|ETS-covered
+Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered;Useful Energy|Heating|Buildings|ETS-covered
+Price|Secondary Energy|Heat|District heating;Useful Energy|Heating|Heat
+Price Full|Secondary Energy|Heat|District heating;Useful Energy|Heating|Heat
+Price|Secondary Energy|Heat|Decentral|Electricity;Useful Energy|Heating|Buildings|Decentral|Electricity
+Price Full|Secondary Energy|Heat|Decentral|Electricity;Useful Energy|Heating|Buildings|Decentral|Electricity
 Price|Carbon|ETS;Emissions|CO2|Electricity and Industry
 Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity
@@ -125,15 +125,21 @@ Capital Costs|Heat|District Heating|Heat-only|Solar;Capacity Additions|Gross|Hea
 Capital Costs|Heat|District Heating|Heat-only|Geothermal;Capacity Additions|Gross|Heat|District Heating|Heat-only|Geothermal
 Power Costs|Heat|Storage;Capacity Additions|Heat|Storage
 Energy Costs|Heat|Storage;Capacity Additions|Heat|Storage Reservoir
-Capital Costs|Heat|Decentralized|Heat Pump space heating;Capacity Additions|Heat|Decentralized|Heat Pump space heating
-Capital Costs|Heat|Decentralized|Heat Pump water heating;Capacity Additions|Heat|Decentralized|Heat Pump water heating
-Capital Costs|Heat|Decentralized|Resistance;Capacity Additions|Heat|Decentralized|Resistance
-Capital Costs|Heat|Decentralized|Conventional space heater;Capacity Additions|Heat|Decentralized|Conventional space heater
-Capital Costs|Heat|Decentralized|Conventional water heater;Capacity Additions|Heat|Decentralized|Conventional water heater
+Capital Costs|Heat|Decentral|Heat Pump space heating;Capacity Additions|Heat|Decentral|Heat Pump space heating
+Capital Costs|Heat|Decentral|Heat Pump water heating;Capacity Additions|Heat|Decentral|Heat Pump water heating
+Capital Costs|Heat|Decentral|Resistance;Capacity Additions|Heat|Decentral|Resistance
+Capital Costs|Heat|Decentral|Conventional space heater;Capacity Additions|Heat|Decentral|Conventional space heater
+Capital Costs|Heat|Decentral|Conventional water heater;Capacity Additions|Heat|Decentral|Conventional water heater
 Emissions|CO2|Energy|Supply|Electricity|Emission factor;Secondary Energy|Electricity
-Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;Useful Energy|Heat|District Heating
+Emissions|CO2|Energy|Supply|Heat|District Heating|Emission factor;Useful Energy|Heating|Heat
 Emissions|Indirect|CO2|Energy|Supply|Emission factor|Power to heat;Secondary Energy Input|Electricity|Heat
 Price|Secondary Energy|Electricity|1;Demand Load|Electricity|1
 Price Full|Secondary Energy|Electricity|1;Demand Load|Electricity|1
-Price|Secondary Energy|Heat|1;Demand Load|Heat|1
-Price Full|Secondary Energy|Heat|1;Demand Load|Heat|1
+Price|Secondary Energy|Heat|EU ETS-covered|1;Demand Load|Heating|EU ETS-covered|1
+Price Full|Secondary Energy|Heat|EU ETS-covered|1;Demand Load|Heating|EU ETS-covered|1
+Price|Secondary Energy|Heat|Buildings|EU ETS-covered|1;Demand Load|Heating|Buildings|ETS-covered|1
+Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered|1;Demand Load|Heating|Buildings|ETS-covered|1
+Price|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
+Price Full|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
+Price|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1
+Price Full|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1

@@ -215,7 +215,7 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
   }
 
   ##Some price aggregation
-  #Heat prices at EU ETS level
+  #Heat prices at EU ETS level. The variable v_exdemand_DH includes also other sectors (industry and agriculture)
   o_heatprices_EUETS_disc <-
     (o_heatprices_DH_disc * v_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
       (v_exdemand_DH + v_exdemand_decP2H)
@@ -223,8 +223,8 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
     (o_fullheprices_DH_disc * v_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
       (v_exdemand_DH + v_exdemand_decP2H)
   #Heat prices in buildings (only for sources covered by EU ETS)
-  #First estimate buildings load supplied by DH (at every tau). The variable v_exdemand_DH includes also other sectors (industry and agriculture)
-  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_demDH_ue", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
+  #First estimate buildings load supplied by DH (at every tau)
+  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
   p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_exdemand_DH),]
   o_bd_exdemand_DH <- v_exdemand_DH - p_othersec_exdemand_DH
   o_heatprices_bd_EUETS_disc <-
@@ -266,35 +266,35 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
     tmp2 <- NULL
     if(heating == "fullDH") {
       if(split_DH_decP2H == 0) { #no split of heat demand between DH and P2H (older version)
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_disc * p_taulength * p_hedemand, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * p_hedemand, 3),
                                      "Price|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_disc * p_taulength * p_hedemand, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * p_hedemand, 3),
                                      "Price Full|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
       } else { #split of heat demand between DH and P2H (older version)
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * v_exdemand_DH, 3),
                                      "Price|Secondary Energy|Heat|District heating (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_DH_disc * p_taulength * v_exdemand_DH, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * v_exdemand_DH, 3),
                                      "Price Full|Secondary Energy|Heat|District heating (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * v_exdemand_decP2H, 3),
-                                     "Price|Secondary Energy|Heat|Decentral P2H (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3)
+                                     "Price|Secondary Energy|Heat|Decentral|Electricity (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_decP2H_disc * p_taulength * v_exdemand_decP2H, dim = 3, na.rm = T)
                                      / dimSums(p_taulength * v_exdemand_decP2H, 3),
-                                     "Price Full|Secondary Energy|Heat|Decentral P2H (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3)
+                                     "Price Full|Secondary Energy|Heat|Decentral|Electricity (Eur2010/MWh)"))
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3, na.rm = T)
                                      / dimSums(p_taulength * (v_exdemand_DH + v_exdemand_decP2H), 3),
                                      "Price|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_EUETS_disc * p_taulength * (v_exdemand_DH + v_exdemand_decP2H), dim = 3, na.rm = T)
                                      / dimSums(p_taulength * (v_exdemand_DH + v_exdemand_decP2H), 3),
                                      "Price Full|Secondary Energy|Heat|EU ETS-covered (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_heatprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3, na.rm = T)
                                      / dimSums(p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), 3),
                                      "Price|Secondary Energy|Heat|Buildings|EU ETS-covered (Eur2010/MWh)"))
-        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3)
+        tmp2 <- mbind(tmp2, setNames(1e6 * dimSums(o_fullheprices_bd_EUETS_disc * p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), dim = 3, na.rm = T)
                                      / dimSums(p_taulength * (o_bd_exdemand_DH + v_exdemand_decP2H), 3),
                                      "Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered (Eur2010/MWh)"))
 
@@ -456,8 +456,8 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
         tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|Buildings|EU ETS-covered", 1e6 * o_fullheprices_bd_EUETS_disc))
         tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|District heating", 1e6 * o_heatprices_DH_disc))
         tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|District heating", 1e6 * o_fullheprices_DH_disc))
-        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|Decentral P2H", 1e6 * o_heatprices_decP2H_disc))
-        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|Decentral P2H", 1e6 * o_fullheprices_decP2H_disc))
+        tmp <- mbind(tmp, rename_tau("Price|Secondary Energy|Heat|Decentral|Electricity", 1e6 * o_heatprices_decP2H_disc))
+        tmp <- mbind(tmp, rename_tau("Price Full|Secondary Energy|Heat|Decentral|Electricity", 1e6 * o_fullheprices_decP2H_disc))
 
       }
 
