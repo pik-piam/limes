@@ -64,6 +64,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding capital costs to report output
   output <- mbind(output,reportCapitalCosts(gdx)[,time,])
 
+  #adding buildings to report output
+  output <- mbind(output,reportBuildings(gdx,output)[,time,]) #Depends on reportGeneration
+
   #adding peak demand to report output (now included in reportDemand)
   #output <- mbind(output,reportPeakDemand(gdx)[,time,])
 
@@ -87,9 +90,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #adding adequacy contribution to report output
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
-
-  #adding buildings to report output
-  output <- mbind(output,reportBuildings(gdx,output)[,time,]) #Depends on reportGeneration
 
   #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
   #(this is needed to keep report within the dimensions)
