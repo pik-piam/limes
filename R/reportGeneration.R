@@ -72,7 +72,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   v_storeout <- readGDX(gdx, name = "v_storeout", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_storein <- readGDX(gdx, name = "v_storein", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_exdemand <- readGDX(gdx, name = "v_exdemand", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # demand
-  v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found") #used for the load factor calculation per tau
 
   # Make sure only the sets -> to reduce the size of the variables
   v_seprod <- v_seprod[, , pety]
@@ -87,7 +86,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   if (!is.null(o_netimports_tau)) {
     o_netimports_tau <- limesMapping(o_netimports_tau)
   }
-  v_cap <- limesMapping(v_cap)[,as.numeric(tt),]
 
   # give explicit set names
 
@@ -148,8 +146,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
 
   # generation per aggregated technology per country
-  # and converting from GWh to TWh
-  tmp1 <- NULL
 
   varList_el <- list(
     # Conventional
@@ -356,6 +352,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
 
   if (!reporting_tau) { # for normal reporting
+
+    # and converting from GWh to TWh
+    tmp1 <- NULL
 
     for (var in names(varList_el)) {
       tmp1 <- mbind(tmp1, setNames(dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3))
@@ -893,15 +892,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       return(vecModif)
 
     }
-    #Same function as above but for load factors
-    f_renameTau_LF <- function(vecOriginal) {
-      vecModif <- vecOriginal
-      names(vecModif) <- gsub("Secondary Energy", "Load Factor", names(vecModif))
-      names(vecModif) <- gsub("TWh/yr", "--", names(vecModif))
-      return(vecModif)
-
-    }
-
 
     f_computeTauVec <- function(varName, varList, data) {
 
@@ -997,21 +987,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     } #end if fullDH
 
-    tmp5 <- mbind(tmp3, tmp4)
-
-    ############################################################################
-    #LOAD FACTOR
-    tmp6 <- NULL
-
-    # Reporting tau
-    varList_elTau_LF <- f_renameTau_LF(varList_el)
-    tmp6 <- mbind(tmp6, f_computeTau(varList_elTau_LF, v_seprod_el / v_cap))
-
-
-
-    ########################################################
-    tmp <- mbind(tmp5, tmp6)
-
+    tmp <- mbind(tmp3, tmp4)
 
 
   }

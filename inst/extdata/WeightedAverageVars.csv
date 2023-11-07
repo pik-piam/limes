@@ -143,3 +143,37 @@ Price|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
 Price Full|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
 Price|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1
 Price Full|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1
+Load Factor|Electricity|Nuclear|1;Load|Electricity|Nuclear
+Load Factor|Electricity|Coal|1;Load|Electricity|Coal
+Load Factor|Electricity|Coal|w/o CCS|1;Load|Electricity|Coal|w/o CCS
+Load Factor|Electricity|Coal|w/ CCS|1;Load|Electricity|Coal|w/ CCS
+Load Factor|Electricity|Lignite|1;Load|Electricity|Lignite
+Load Factor|Electricity|Lignite|w/o CCS|1;Load|Electricity|Lignite|w/o CCS
+Load Factor|Electricity|Lignite|w/ CCS|1;Load|Electricity|Lignite|w/ CCS
+Load Factor|Electricity|Hard Coal|1;Load|Electricity|Hard Coal
+Load Factor|Electricity|Hard Coal|w/o CCS|1;Load|Electricity|Hard Coal|w/o CCS
+Load Factor|Electricity|Hard Coal|w/ CCS|1;Load|Electricity|Hard Coal|w/ CCS
+Load Factor|Electricity|Gas|1;Load|Electricity|Gas
+Load Factor|Electricity|Gas|w/o CCS|1;Load|Electricity|Gas|w/o CCS
+Load Factor|Electricity|Gas CC|w/o CCS|1;Load|Electricity|Gas CC|w/o CCS
+Load Factor|Electricity|Gas|w/ CCS|1;Load|Electricity|Gas|w/ CCS
+Load Factor|Electricity|Gas CC|w/ CCS|1;Load|Electricity|Gas CC|w/ CCS
+Load Factor|Electricity|Oil|1;Load|Electricity|Oil
+Load Factor|Electricity|Wind|1;Load|Electricity|Wind
+Load Factor|Electricity|Wind|Onshore|1;Load|Electricity|Wind|Onshore
+Load Factor|Electricity|Wind|Offshore|1;Load|Electricity|Wind|Offshore
+Load Factor|Electricity|Solar|1;Load|Electricity|Solar
+Load Factor|Electricity|Solar|PV|1;Load|Electricity|Solar|PV
+Load Factor|Electricity|Solar|CSP|1;Load|Electricity|Solar|CSP
+Load Factor|Electricity|Biomass|1;Load|Electricity|Biomass
+Load Factor|Electricity|Biomass|w/o CCS|1;Load|Electricity|Biomass|w/o CCS
+Load Factor|Electricity|Biomass|w/ CCS|1;Load|Electricity|Biomass|w/ CCS
+Load Factor|Electricity|Hydro|1;Load|Electricity|Hydro
+Load Factor|Electricity|Waste|1;Load|Electricity|Waste
+Load Factor|Electricity|Hydrogen|1;Load|Electricity|Hydrogen
+Load Factor|Electricity|Other|1;Load|Electricity|Other
+Load Factor|Electricity|Hydrogen FC|1;Load|Electricity|Hydrogen FC
+Load Factor|Electricity|Hydrogen OC|1;Load|Electricity|Hydrogen OC
+Load Factor|Electricity|Hydrogen CC|1;Load|Electricity|Hydrogen CC
+Load Factor|Electricity|Gas CC|1;Load|Electricity|Gas CC
+Load Factor|Electricity|Gas OC|1;Load|Electricity|Gas OC

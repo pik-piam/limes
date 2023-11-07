@@ -4,7 +4,7 @@
 \alias{reportLoadFactor}
 \title{Read in GDX and calculate the load factor, used in convGDX2MIF.R for the reporting}
 \usage{
-reportLoadFactor(gdx, output = NULL)
+reportLoadFactor(gdx, output = NULL, reporting_tau = FALSE)
 }
 \arguments{
 \item{gdx}{a GDX object as created by readGDX, or the path to a gdx}

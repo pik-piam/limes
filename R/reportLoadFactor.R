@@ -17,45 +17,214 @@
 #' @importFrom magclass mbind setNames dimSums getSets getSets<- as.magpie
 #' @export
 #'
-reportLoadFactor <- function(gdx,output=NULL) {
+reportLoadFactor <- function(gdx,output=NULL, reporting_tau = FALSE) {
 
-  if(is.null(output)){
-    stop("please provide a file containing all needed information")
+  if (is.null(output) && !reporting_tau) {
+    stop("argument `output` is NULL. Please provide a file containing all needed information")
   }
 
-  #The load factor calculation per tau is estimated in reportGeneration
-  #so v_seprod and v_cap are no loaded again
+  # read sets
+  tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") # time set
+  t0 <- tt[1]
+  teel <- readGDX(gdx, name = "teel") # set of electricity generation technologies (non-storage)
+  ter <- readGDX(gdx, name = "ter") # set of variable renewable electricity generation technologies
+  ternofluc <- readGDX(gdx, name = "ternofluc") # set of non-variable (non-fluctuating) renewable electricity generation technologies
+  tefossil <- readGDX(gdx, name = "tefossil") # set of fossil-based electricity generation technologies
+  tenr <- readGDX(gdx, name = "tenr") # set of non-renewable electricity generation technologies (includes storage)
+  tegas <- readGDX(gdx, name = "tegas") # set of gas generation technologies
+  telig <- readGDX(gdx, name = "telig") # set of lignite generation technologies
+  tecoal <- readGDX(gdx, name = "tecoal") # set of hard coal generation technologies
+  tengcc <- readGDX(gdx, name = "tengcc") # set of NGCC generation technologies
+  tehydro <- readGDX(gdx, name = "tehydro") # set of hydropower generation technologies
+  tehgen <- readGDX(gdx, name = "tehgen")
+  tehydro <- readGDX(gdx, name = "tehydro")
+  tebio <- readGDX(gdx, name = "tebio")
+  teoil <- readGDX(gdx, name = "teoil")
+  techp <- readGDX(gdx, name = "techp")
+  teccs <- readGDX(gdx, name = "teccs")
+  teothers <- readGDX(gdx, name = "teothers")
+  tau <- readGDX(gdx, name = "tau") # set of time slices
+  tegas_el <- intersect(tegas, teel)
+  tengcc_el <- intersect(tengcc, teel)
+  testore <- readGDX(gdx, name = "testore")
+  pe2se <- readGDX(gdx, name = "pe2se")
+  pety <- unique(pe2se[, 1])
+  tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
-  #Names of variables in output
-  names_output <- getNames(output)
+  # read variables
+  v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
+  v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found") #used for the load factor calculation per tau
 
-  #Find the positions where generation and capacities are
-  pos_gen <- grep("Secondary Energy[|]Electricity[|]",names_output)
-  pos_cap <- grep("Capacity[|]Electricity[|]",names_output)
+  # Make sure only the sets -> to reduce the size of the variables
+  v_seprod <- v_seprod[, , pety]
 
-  #Technologies for which generation and capacity are calculated
-  var_gen_tmp <- gsub("Secondary Energy[|]Electricity[|]","",names_output[pos_gen])
-  var_gen_tmp <- gsub(" [(]TWh/yr[)]","",gsub(" [(]--[)]","",var_gen_tmp))
-  unit_gen_tmp <- sapply(strsplit(names_output[pos_gen]," [(]"),function(x) x[2]) #strsplit splits the vector with var names (in form of list) and sapply allows accessing all the second elements in the list
-  unit_gen_tmp <- paste0("(",unit_gen_tmp)
+  # create MagPie object of variables with iso3 regions
+  v_seprod <- limesMapping(v_seprod)
+  v_cap <- limesMapping(v_cap)[,as.numeric(tt),]
 
-  var_cap_tmp <- gsub("Capacity[|]Electricity[|]","",names_output[pos_cap])
-  var_cap_tmp <- gsub(" [(]GWh[)]","",gsub(" [(]GW[)]","",var_cap_tmp))
-  unit_cap_tmp <- sapply(strsplit(names_output[pos_cap]," [(]"),function(x) x[2]) #strsplit splits the vector with var names (in form of list) and sapply allows accessing all the second elements in the list
-  unit_cap_tmp <- paste0("(",unit_cap_tmp)
+  # give explicit set names
 
-  #find which variables match
-  tech_match <- intersect(var_gen_tmp,var_cap_tmp)
+  getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
+  getSets(v_storein) <- c("region", "t", "tau", "enty2", "te")
 
-  #Rebuild the variable names (w/ units) - the cleanest way would be using the units extracted above
-  var_gen <- paste0("Secondary Energy|Electricity|",tech_match," (TWh/yr)")
-  var_cap <- paste0("Capacity|Electricity|",tech_match," (GW)")
+  # Check the version so to choose the electricity-related variables
+  if (c_LIMESversion >= 2.28) {
 
-  #Calculate the load factor (need to convert units)
-  o_loadfactor <- setNames(output[,,var_gen],tech_match)/(8760*setNames(output[,,var_cap],tech_match)/1000) #estimate factor ensuring gen and cap have the same names
-  o_loadfactor <- setNames(o_loadfactor,paste0("Load Factor|Electricity|",tech_match," (--)"))
-  tmp <- o_loadfactor
+    v_seprod_el <- v_seprod[, , "seel"]
+    heating <- .readHeatingCfg(gdx)
+
+    if (heating == "fullDH") {
+      v_seprod_he <- v_seprod[, , "sehe"]
+      v_seprod_he <- collapseDim(v_seprod_he, dim = 3.3)
+
+    }
+
+  } else { #=if c_LIMESversion < 2.26
+    v_seprod_el <- v_seprod
+  }
+
+
+  # Collapse names to avoid some problems
+  v_seprod_el <- collapseDim(v_seprod_el, dim = 3.2)
+
+
+  # generation per aggregated technology per country
+  # and converting from GWh to TWh
+  tmp1 <- NULL
+
+  varList_el <- list(
+    # Conventional
+    "Secondary Energy|Electricity (TWh/yr)"                  = c(teel),
+    "Secondary Energy|Electricity|Biomass (TWh/yr)"          = intersect(teel, tebio),
+    "Secondary Energy|Electricity|Biomass|w/ CCS (TWh/yr)"   = intersect(teel, intersect(tebio, teccs)),
+    "Secondary Energy|Electricity|Biomass|w/o CCS (TWh/yr)"  = intersect(teel, setdiff(tebio, teccs)),
+    "Secondary Energy|Electricity|Coal (TWh/yr)"             = intersect(teel, c(tecoal, telig)),
+    "Secondary Energy|Electricity|Coal|w/o CCS (TWh/yr)"     = intersect(teel, setdiff(c(tecoal, telig), teccs)),
+    "Secondary Energy|Electricity|Coal|w/ CCS (TWh/yr)"      = intersect(teel, intersect(c(tecoal, telig), teccs)),
+    "Secondary Energy|Electricity|Hard Coal (TWh/yr)"        = intersect(teel, c(tecoal)),
+    "Secondary Energy|Electricity|Hard Coal|w/o CCS (TWh/yr)" = intersect(teel, setdiff(c(tecoal), teccs)),
+    "Secondary Energy|Electricity|Hard Coal|w/ CCS (TWh/yr)" = intersect(teel, intersect(c(tecoal), teccs)),
+    "Secondary Energy|Electricity|Lignite (TWh/yr)"          = intersect(teel, c(telig)),
+    "Secondary Energy|Electricity|Lignite|w/o CCS (TWh/yr)"  = intersect(teel, setdiff(c(telig), teccs)),
+    "Secondary Energy|Electricity|Lignite|w/ CCS (TWh/yr)"   = intersect(teel, intersect(c(telig), teccs)),
+    "Secondary Energy|Electricity|Oil (TWh/yr)"              = intersect(teel, c(teoil)),
+    "Secondary Energy|Electricity|Gas (TWh/yr)"              = intersect(teel, c(tegas)),
+    "Secondary Energy|Electricity|Gas|w/o CCS (TWh/yr)"      = intersect(teel, setdiff(tegas_el, teccs)),
+    "Secondary Energy|Electricity|Gas|w/ CCS (TWh/yr)"       = intersect(teel, intersect(tegas_el, teccs)),
+    "Secondary Energy|Electricity|Gas CC|w/o CCS (TWh/yr)"   = intersect(teel, setdiff(tengcc_el, teccs)),
+    "Secondary Energy|Electricity|Gas CC|w/ CCS (TWh/yr)"    = intersect(teel, intersect(tengcc_el, teccs)),
+    "Secondary Energy|Electricity|Gas CC (TWh/yr)"           = intersect(teel, c(tengcc_el)),
+    "Secondary Energy|Electricity|Gas OC (TWh/yr)"           = intersect(teel, setdiff(tegas_el, tengcc_el)),
+    "Secondary Energy|Electricity|Other (TWh/yr)"            = intersect(teel, c(teothers)),
+    "Secondary Energy|Electricity|Hydrogen (TWh/yr)"         = intersect(teel, c(tehgen)),
+    "Secondary Energy|Electricity|Hydrogen FC (TWh/yr)"      = intersect(teel, c("hfc")),
+    "Secondary Energy|Electricity|Hydrogen OC (TWh/yr)"      = intersect(teel, c("hct")),
+    "Secondary Energy|Electricity|Hydrogen CC (TWh/yr)"      = intersect(teel, c("hcc")),
+    "Secondary Energy|Electricity|Nuclear (TWh/yr)"          = intersect(teel, c("tnr")),
+    "Secondary Energy|Electricity|Waste (TWh/yr)"            = intersect(teel, c(tewaste)),
+    "Secondary Energy|Electricity|Other Fossil (TWh/yr)"     = intersect(teel, c(teothers, tewaste, teoil)),
+
+    # Renewable
+    "Secondary Energy|Electricity|Wind (TWh/yr)"         = intersect(teel, c("windon", "windoff")),
+    "Secondary Energy|Electricity|Wind|Onshore (TWh/yr)" = intersect(teel, c("windon")),
+    "Secondary Energy|Electricity|Wind|Offshore (TWh/yr)" = intersect(teel, c("windoff")),
+    "Secondary Energy|Electricity|Solar (TWh/yr)"        = intersect(teel, c("spv", "csp")),
+    "Secondary Energy|Electricity|Solar|PV (TWh/yr)"     = intersect(teel, c("spv")),
+    "Secondary Energy|Electricity|Solar|CSP (TWh/yr)"    = intersect(teel, c("csp")),
+    "Secondary Energy|Electricity|Hydro (TWh/yr)"        = intersect(teel, c(tehydro))
+  )
+
+
+  # Standard Reporting ------------------------------------------------------
+
+  if (!reporting_tau) {
+    #Names of variables in output
+    names_output <- getNames(output)
+
+    #Find the positions where generation and capacities are
+    pos_gen <- grep("Secondary Energy[|]Electricity[|]",names_output)
+    pos_cap <- grep("Capacity[|]Electricity[|]",names_output)
+
+    #Technologies for which generation and capacity are calculated
+    var_gen_tmp <- gsub("Secondary Energy[|]Electricity[|]","",names_output[pos_gen])
+    var_gen_tmp <- gsub(" [(]TWh/yr[)]","",gsub(" [(]--[)]","",var_gen_tmp))
+    unit_gen_tmp <- sapply(strsplit(names_output[pos_gen]," [(]"),function(x) x[2]) #strsplit splits the vector with var names (in form of list) and sapply allows accessing all the second elements in the list
+    unit_gen_tmp <- paste0("(",unit_gen_tmp)
+
+    var_cap_tmp <- gsub("Capacity[|]Electricity[|]","",names_output[pos_cap])
+    var_cap_tmp <- gsub(" [(]GWh[)]","",gsub(" [(]GW[)]","",var_cap_tmp))
+    unit_cap_tmp <- sapply(strsplit(names_output[pos_cap]," [(]"),function(x) x[2]) #strsplit splits the vector with var names (in form of list) and sapply allows accessing all the second elements in the list
+    unit_cap_tmp <- paste0("(",unit_cap_tmp)
+
+    #find which variables match
+    tech_match <- intersect(var_gen_tmp,var_cap_tmp)
+
+    #Rebuild the variable names (w/ units) - the cleanest way would be using the units extracted above
+    var_gen <- paste0("Secondary Energy|Electricity|",tech_match," (TWh/yr)")
+    var_cap <- paste0("Capacity|Electricity|",tech_match," (GW)")
+
+    #Calculate the load factor (need to convert units)
+    o_loadfactor <- setNames(output[,,var_gen],tech_match)/(8760*setNames(output[,,var_cap],tech_match)/1000) #estimate factor ensuring gen and cap have the same names
+    o_loadfactor <- setNames(o_loadfactor,paste0("Load Factor|Electricity|",tech_match," (--)"))
+    tmp <- o_loadfactor
+
+  } else { #if not the reportTau
+
+    # Tau reporting -----------------------------------------------------------
+    #Same function as above but for load factors
+    f_renameTau <- function(vecOriginal) {
+      vecModif <- vecOriginal
+      names(vecModif) <- gsub("Secondary Energy", "Load Factor", names(vecModif))
+      names(vecModif) <- gsub("TWh/yr", "--", names(vecModif))
+      return(vecModif)
+
+    }
+
+    f_computeTauVec <- function(varName, varList, data1, data2) {
+
+      sets2Sum1 <- setdiff(getSets(data1), c("region", "t", "tau", "ttot"))
+      sets2Sum2 <- setdiff(getSets(data2), c("region", "t", "tau", "ttot"))
+      if (!is.null(varList[[varName]])) {
+        .tmp <- dimSums(data1[, , varList[[varName]]], dim = sets2Sum1) /
+          dimSums(data2[, , varList[[varName]]], dim = sets2Sum2)
+      } else {
+        .tmp <- dimSums(data1, dim = sets2Sum1) /
+          dimSums(data2, dim = sets2Sum2)
+      }
+
+
+      .nm <- paste(varName, getNames(.tmp), sep = "___")
+      .nm <- gsub("^(.*)( \\(.*\\))___(.*)$", "\\1|\\3\\2", .nm)
+      .tmp <- setNames(.tmp, .nm)
+      return(.tmp)
+    }
+
+    f_computeTau <- function(varList, data1, data2) {
+
+      out <- do.call("mbind",
+                     lapply(names(varList), f_computeTauVec, varList, data1, data2))
+      return(out)
+    }
+
+
+    ############################################################################
+    #LOAD FACTOR
+    tmp <- NULL
+
+    # Reporting tau
+    varList_elTau_LF <- f_renameTau(varList_el)
+    tmp <- mbind(tmp, f_computeTau(varList_elTau_LF, v_seprod_el, v_cap))
+
+  } #End reportTau
+
 
   return(tmp)
 }
+
+
+
+
+
+
 

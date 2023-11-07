@@ -44,6 +44,11 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
                                                   reporting_tau = TRUE)[, time, ]
   )
 
+  # adding load factor
+  output <- mbind(output, reportLoadFactor(gdx,
+                                                  reporting_tau = TRUE)[, time, ]
+  )
+
   #Save file before aggregation
   output_beforeagg <- output
   #output <-  output_beforeagg
