@@ -54,7 +54,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   pe2se <- readGDX(gdx, name = "pe2se")
   #pety <- readGDX(gdx, name = "pety") # set of primary energies
   pety <- unique(pe2se[, 1])
-  pe2se <- paste0(pe2se[, 1], ".", pe2se[, 2], ".", pe2se[, 3])
   tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
   if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
@@ -73,9 +72,9 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   v_storeout <- readGDX(gdx, name = "v_storeout", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_storein <- readGDX(gdx, name = "v_storein", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_exdemand <- readGDX(gdx, name = "v_exdemand", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # demand
+  v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found") #used for the load factor calculation per tau
 
   # Make sure only the sets -> to reduce the size of the variables
-  # v_seprod <- v_seprod[,, pe2se]
   v_seprod <- v_seprod[, , pety]
   p_autocons <- p_tedata[, , "autocons"]
 
@@ -88,6 +87,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   if (!is.null(o_netimports_tau)) {
     o_netimports_tau <- limesMapping(o_netimports_tau)
   }
+  v_cap <- limesMapping(v_cap)[,as.numeric(tt),]
 
   # give explicit set names
 
@@ -886,7 +886,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
 # Tau reporting -----------------------------------------------------------
     f_renameTau <- function(vecOriginal) {
-
       vecModif <- vecOriginal
       names(vecModif) <- gsub("Secondary Energy", "Load", names(vecModif))
       names(vecModif) <- gsub("Useful Energy", "Load|Useful", names(vecModif))
@@ -894,6 +893,15 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       return(vecModif)
 
     }
+    #Same function as above but for load factors
+    f_renameTau_LF <- function(vecOriginal) {
+      vecModif <- vecOriginal
+      names(vecModif) <- gsub("Secondary Energy", "Load Factor", names(vecModif))
+      names(vecModif) <- gsub("TWh/yr", "--", names(vecModif))
+      return(vecModif)
+
+    }
+
 
     f_computeTauVec <- function(varName, varList, data) {
 
@@ -985,11 +993,25 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           f_computeTau(varList_UE_P2HTau, v_seprod_he)
         )
 
-      }
+      } #end if buildings
 
-    }
+    } #end if fullDH
 
-    tmp <- mbind(tmp3, tmp4)
+    tmp5 <- mbind(tmp3, tmp4)
+
+    ############################################################################
+    #LOAD FACTOR
+    tmp6 <- NULL
+
+    # Reporting tau
+    varList_elTau_LF <- f_renameTau_LF(varList_el)
+    tmp6 <- mbind(tmp6, f_computeTau(varList_elTau_LF, v_seprod_el / v_cap))
+
+
+
+    ########################################################
+    tmp <- mbind(tmp5, tmp6)
+
 
 
   }
