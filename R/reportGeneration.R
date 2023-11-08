@@ -72,7 +72,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   v_storeout <- readGDX(gdx, name = "v_storeout", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_storein <- readGDX(gdx, name = "v_storein", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_exdemand <- readGDX(gdx, name = "v_exdemand", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # demand
-  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found") # heat demand provided by DH to other sectors (industry and agriculture) [annual data per sector]
+  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found", react = 'silent') # heat demand provided by DH to other sectors (industry and agriculture) [annual data per sector]
 
   # Make sure only the sets -> to reduce the size of the variables
   v_seprod <- v_seprod[, , pety]
@@ -87,7 +87,10 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   if (!is.null(o_netimports_tau)) {
     o_netimports_tau <- limesMapping(o_netimports_tau)
   }
-  p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_seprod),]
+  if (!is.null(p_othersec_exdemand_DH)) {
+    p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_seprod),]
+  }
+
 
   # give explicit set names
   getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
@@ -243,8 +246,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         collapseNames(v_storein_he) +
         collapseNames(v_storeout_he)
       #Total useful energy generate by DH to buildings
-      o_bd_seprodtotalDH_UE <- o_seprodtotalDH_UE -
-        p_othersec_exdemand_DH
+      o_bd_seprodtotalDH_UE <- o_seprodtotalDH_UE - p_othersec_exdemand_DH
 
       # 1 (cont) Decentralized heat
       if (c_buildings == 1) {

@@ -193,6 +193,9 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
       o_restargetrelativegross_tech_disc <- mbind(o_restargetrelativegross_tech_disc, m_restargetrelativegross_tech[, t2, ] / f_npv[t2]) #[Geur 2010/GWh-RES]
       o_restargetrelativedem_tech_disc <- mbind(o_restargetrelativedem_tech_disc, m_restargetrelativedem_tech[, t2, ] / f_npv[t2]) #[Geur 2010/GWh-RES]
 
+      #Subsidies
+      o_subsidRES_disc <- (o_restargetrelativegross_tech_disc + o_restargetrelativedem_tech_disc + o_restarget_disc) #[Geur/GWh]
+
       #Heat prices
       if(heating == "fullDH") {
         if(split_DH_decP2H == 0) { #no split berween DH and decP2H
@@ -211,37 +214,38 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
     } else {
       o_restargetrelative_DE_disc <- mbind(o_restargetrelative_DE_disc, m_restargetrelative_DE[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
       o_restargetrelative_disc <- mbind(o_restargetrelative_disc, m_restargetrelative[, t2, ]/f_npv[t2]) #[Geur 2010/GWh-RES]
+
+      #Subsidies
+      o_subsidRES_disc <- (o_restarget_disc + o_restargetrelative_DE_disc + o_restargetrelative_disc) #[Geur/GWh]
     }
   }
 
-  ##Some price aggregation
-  #Heat prices at EU ETS level. The variable v_exdemand_DH includes also other sectors (industry and agriculture)
-  o_heatprices_EUETS_disc <-
-    (o_heatprices_DH_disc * v_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
-      (v_exdemand_DH + v_exdemand_decP2H)
-  o_fullheprices_EUETS_disc <-
-    (o_fullheprices_DH_disc * v_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
-      (v_exdemand_DH + v_exdemand_decP2H)
-  #Heat prices in buildings (only for sources covered by EU ETS)
-  #First estimate buildings load supplied by DH (at every tau)
-  p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found") # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
-  p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_exdemand_DH),]
-  o_bd_exdemand_DH <- v_exdemand_DH - p_othersec_exdemand_DH
-  o_heatprices_bd_EUETS_disc <-
-    (o_heatprices_DH_disc * o_bd_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
-    (o_bd_exdemand_DH + v_exdemand_decP2H)
-  o_fullheprices_bd_EUETS_disc <-
-    (o_fullheprices_DH_disc * o_bd_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
-    (o_bd_exdemand_DH + v_exdemand_decP2H)
-
-
-  #Subsidies
-
+  #Some price aggregation when heat demand split between DH and decP2H
   if(c_LIMESversion >=  2.28) {
-    o_subsidRES_disc <- (o_restargetrelativegross_tech_disc + o_restargetrelativedem_tech_disc + o_restarget_disc) #[Geur/GWh]
-  } else {
-    o_subsidRES_disc <- (o_restarget_disc + o_restargetrelative_DE_disc + o_restargetrelative_disc) #[Geur/GWh]
+    if(heating == "fullDH") {
+      if(split_DH_decP2H == 1) {
+        #Heat prices at EU ETS level. The variable v_exdemand_DH includes also other sectors (industry and agriculture)
+        o_heatprices_EUETS_disc <-
+          (o_heatprices_DH_disc * v_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
+          (v_exdemand_DH + v_exdemand_decP2H)
+        o_fullheprices_EUETS_disc <-
+          (o_fullheprices_DH_disc * v_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
+          (v_exdemand_DH + v_exdemand_decP2H)
+        #Heat prices in buildings (only for sources covered by EU ETS)
+        #First estimate buildings load supplied by DH (at every tau)
+        p_othersec_exdemand_DH <- readGDX(gdx, name = "p_othersec_exdemand_DH", field = "l", format = "first_found", react = 'silent') # heat that is provided by DH to other sectors (industry and agriculture) [annual data per sector]
+        p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_exdemand_DH),]
+        o_bd_exdemand_DH <- v_exdemand_DH - p_othersec_exdemand_DH
+        o_heatprices_bd_EUETS_disc <-
+          (o_heatprices_DH_disc * o_bd_exdemand_DH + o_heatprices_decP2H_disc * v_exdemand_decP2H) /
+          (o_bd_exdemand_DH + v_exdemand_decP2H)
+        o_fullheprices_bd_EUETS_disc <-
+          (o_fullheprices_DH_disc * o_bd_exdemand_DH + o_fullheprices_decP2H_disc * v_exdemand_decP2H) /
+          (o_bd_exdemand_DH + v_exdemand_decP2H)
+      }
+    }
   }
+
 
   # Standard Reporting ------------------------------------------------------
   if (!reporting_tau) { # for normal reporting}
