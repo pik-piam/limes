@@ -53,6 +53,9 @@ reportLoadFactor <- function(gdx,output=NULL, reporting_tau = FALSE) {
   tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
   if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
+  # read parameters
+  c_LIMESversion <- readGDX(gdx, name = "c_LIMESversion", field = "l", format = "first_found")
+
   # read variables
   v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
   v_cap <- readGDX(gdx, name = c("v_cap", "vm_cap"), field = "l", format = "first_found") #used for the load factor calculation per tau
