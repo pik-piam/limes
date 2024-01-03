@@ -242,6 +242,34 @@ reportPrimaryEnergy <- function(gdx) {
     }
   }
 
+  ##DACCS
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  if(!is.null(c_DACCS)) {
+    if(c_DACCS >= 1) {
+      #Load sets, parameters and variables
+      tedaccs <- readGDX(gdx, name = "tedaccs")
+      v_FossCons_DACCS <- readGDX(gdx, name = c("v_FossCons_DACCS"), field = "l", format = "first_found", restore_zeros = FALSE) # Fossil PE consumption from DACCS
+
+      # create MagPie object of demand with iso3 regions
+      v_FossCons_DACCS <- limesMapping(v_FossCons_DACCS)
+
+      #Filter per source
+      o_GasCons_DACCS <- v_FossCons_DACCS[,,"pegas"]
+
+      varList_daccs <- list(
+        "Primary Energy|Gas|DACCS (TWh/yr)"                           = c(tedaccs),
+        "Primary Energy|Gas|DACCS|Liquid solvent (TWh/yr)"            = "liquid_daccs",
+        "Primary Energy|Gas|DACCS|Solid solvent (TWh/yr)"             = "solid_daccs",
+        "Primary Energy|Gas|DACCS|CaO ambient weathering (TWh/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in GWh, convert to tCO2/yr
+        tmp2 <- mbind(tmp2, setNames(dimSums(o_GasCons_DACCS[, , varList_daccs[[var]]] / 1000,  dim = 3),  var))
+      }
+
+    }
+  }
+
 
   # add global values
   tmp <- mbind(tmp1, tmp2)

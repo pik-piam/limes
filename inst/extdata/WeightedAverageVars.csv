@@ -177,3 +177,6 @@ Load Factor|Electricity|Hydrogen OC|1;Load|Electricity|Hydrogen OC|1
 Load Factor|Electricity|Hydrogen CC|1;Load|Electricity|Hydrogen CC|1
 Load Factor|Electricity|Gas CC|1;Load|Electricity|Gas CC|1
 Load Factor|Electricity|Gas OC|1;Load|Electricity|Gas OC|1
+Capital Costs|Carbon removal|DACCS|Liquid solvent;Capacity Additions|Carbon removal|DACCS|Liquid solvent
+Capital Costs|Carbon removal|DACCS|Solid solvent;Capacity Additions|Carbon removal|DACCS|Solid solvent
+Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capacity Additions|Carbon removal|DACCS|CaO ambient weathering

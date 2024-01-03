@@ -316,6 +316,26 @@ reportCapacityAdditions <- function(gdx) {
 
   }
 
+  #DACCS
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  if(!is.null(c_DACCS)) {
+    if(c_DACCS >= 1) {
+      tedaccs <- readGDX(gdx, name = "tedaccs")
+
+      varList_daccs <- list(
+        "Capacity Additions|Carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+        "Capacity Additions|Carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+        "Capacity Additions|Carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Capacity Additions|Carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in MtC/yr, convert to MtCO2/yr
+        tmp2 <- mbind(tmp2, setNames(dimSums(v_deltacap[, , varList_daccs[[var]]] * 44/12,  dim = 3),  var))
+      }
+
+    }
+  }
+
   #concatenate
   tmp <- mbind(tmp1,tmp2)
 

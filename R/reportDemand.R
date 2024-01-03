@@ -198,6 +198,31 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
       }
     }
 
+    ##DACCS
+    c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+    if(!is.null(c_DACCS)) {
+      if(c_DACCS >= 1) {
+        #Load sets, parameters and variables
+        tedaccs <- readGDX(gdx, name = "tedaccs")
+        v_SECons_DACCS <- readGDX(gdx, name = c("v_SECons_DACCS"), field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # SE consumption from DACCS
+
+        # create MagPie object of demand with iso3 regions
+        v_SECons_DACCS <- limesMapping(v_SECons_DACCS)
+
+        varList_daccs <- list(
+          "Final Energy|Electricity|DACCS (TWh/yr)"                           = c(tedaccs),
+          "Final Energy|Electricity|DACCS|Liquid solvent (TWh/yr)"            = "liquid_daccs",
+          "Final Energy|Electricity|DACCS|Solid solvent (TWh/yr)"             = "solid_daccs",
+          "Final Energy|Electricity|DACCS|CaO ambient weathering (TWh/yr)"    = "caow_daccs"
+        )
+
+        for (var in names(varList_daccs)){ #Data is in GWh, convert to TWh
+          tmp2 <- mbind(tmp2, setNames(dimSums(v_SECons_DACCS[, , varList_daccs[[var]]] * p_taulength / 1000,  dim = 3),  var))
+        }
+
+      }
+    }
+
     # concatenating net and gross demand data
     tmp <- mbind(tmp1, tmp2)
 

@@ -397,7 +397,31 @@ reportCapacity <- function(gdx) {
   }
 
   #combine aggregated capacity with brake-down of technologies
-  tmp <- mbind(tmp7, tmp8[, as.numeric(tt), ])
+  tmp9 <- mbind(tmp7, tmp8[, as.numeric(tt), ])
+
+  tmp10 <- NULL
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  if(!is.null(c_DACCS)) {
+    if(c_DACCS >= 1) {
+      tedaccs <- readGDX(gdx, name = "tedaccs")
+
+      varList_daccs <- list(
+        "Capacity|Carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+        "Capacity|Carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+        "Capacity|Carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Capacity|Carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in MtC/yr, convert to MtCO2/yr
+        tmp10 <- mbind(tmp10, setNames(dimSums(v_cap[, , varList_daccs[[var]]] * 44/12,  dim = 3),  var))
+      }
+
+    }
+  }
+
+
+
+  tmp <- mbind(tmp9, tmp10[, as.numeric(tt), ])
 
   return(tmp)
 }

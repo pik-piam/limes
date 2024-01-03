@@ -188,7 +188,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
             o_DH_emi[,c(2010),] <- NA
             tmp2 <- mbind(tmp2,setNames(o_DH_emi,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
 
-          } else { #fulDH
+          } else { #fullDH
             #Include UK until 2020
             o_DH_emi <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
             #Take UK off after 2020

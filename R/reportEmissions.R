@@ -40,9 +40,11 @@ reportEmissions <- function(gdx, output=NULL) {
   tengcc_el <- intersect(tengcc,teel)
   sety <- readGDX(gdx,name = "sety") #set secondary energy
   tewaste <- readGDX(gdx, name = "tewaste", format = "first_found", react = 'silent') # set of waste generation technologies
+  tau <- readGDX(gdx, name = "tau") # set of time slices
   if(is.null(tewaste)) {tewaste <- "waste"} #in old model versions this set was not defined and only the tech 'waste' existed
 
   # read parameters
+  p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found")[, , tau] # number of hours/year per tau
   s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
   c_LIMESversion <- readGDX(gdx,name = "c_LIMESversion",field = "l",format = "first_found")
 
@@ -134,8 +136,12 @@ reportEmissions <- function(gdx, output=NULL) {
 
     #Biomass related variables (because there are new biomass technologies from v2.33)
     #tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],3),"Emissions|CO2|Energy|Supply|Electricity|Biomass (Mt CO2/yr)")) #might be confusing the fact that is exactly the same as BECCS
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),"Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
-    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_el[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),
+                                "Emissions|CO2|Energy|Supply|Electricity|Biomass|w/ CCS (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),
+                                "Carbon Sequestration|CCS|Electricity|Biomass (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T),
+                                "Emissions|Carbon removal|BECCS (Mt CO2/yr)"))
 
 
     if(heating == "fullDH") {
@@ -301,11 +307,16 @@ reportEmissions <- function(gdx, output=NULL) {
 
   #Carbon sequestration
   tmp6 <- NULL
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim = 3,na.rm = T),"Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
-  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],dim = 3,na.rm  =  T),"Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs,dim = 3,na.rm = T),
+                              "Carbon Sequestration|CCS|Electricity (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tefossil,teccs)],dim = 3,na.rm  =  T),
+                              "Carbon Sequestration|CCS|Electricity|Fossil (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(c(tecoal,telig),teccs)],dim = 3,na.rm  =  T),
+                              "Carbon Sequestration|CCS|Electricity|Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(tecoal,teccs)],dim = 3,na.rm  =  T),
+                              "Carbon Sequestration|CCS|Electricity|Hard Coal (Mt CO2/yr)"))
+  tmp6 <- mbind(tmp6,setNames(dimSums(v_emi_ccs[,,intersect(telig,teccs)],dim = 3,na.rm  =  T),
+                              "Carbon Sequestration|CCS|Electricity|Lignite (Mt CO2/yr)"))
 
   # concatenate data
   tmp <- mbind(tmp5,tmp6)
@@ -336,6 +347,49 @@ reportEmissions <- function(gdx, output=NULL) {
       }
     } #end buildings if
 
+  }
+
+  ##DACCS
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  if(!is.null(c_DACCS)) {
+    if(c_DACCS >= 1) {
+      #Load sets, parameters and variables
+      tedaccs <- readGDX(gdx, name = "tedaccs")
+      v_Removal_DACCS <- readGDX(gdx, name = c("v_Removal_DACCS"), field = "l", format = "first_found", restore_zeros = FALSE)[, , tau] # SE consumption from DACCS
+      v_Emi_DACCS <- readGDX(gdx, name = c("v_Emi_DACCS"), field = "l", format = "first_found", restore_zeros = FALSE) # Emissions from DACCS
+
+      # create MagPie object of demand with iso3 regions
+      v_Removal_DACCS <- limesMapping(v_Removal_DACCS)
+      v_Emi_DACCS <- limesMapping(v_Emi_DACCS)
+
+      #Filter per source
+      o_EmiGas_DACCS <- v_Emi_DACCS[,,"pegas"]
+
+      #Removals
+      varList_daccs <- list(
+        "Emissions|Carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+        "Emissions|Carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+        "Emissions|Carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|Carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in MtC/h, convert to MtCO2/a
+        tmp7 <- mbind(tmp7, setNames(dimSums(v_Removal_DACCS[, , varList_daccs[[var]]] * p_taulength * 44/12,  dim = 3),  var))
+      }
+
+      #Emissions
+      varList_daccs <- list(
+        "Emissions|CO2|Gas|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+        "Emissions|CO2|Gas|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+        "Emissions|CO2|Gas|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|CO2|Gas|DACCS|CaO ambient weathering (TMt CO2/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in GtC/a, convert to MtCO2/a
+        tmp7 <- mbind(tmp7, setNames(dimSums(o_EmiGas_DACCS[, , varList_daccs[[var]]] * 1000 * 44/12,  dim = 3),  var))
+      }
+
+    }
   }
 
   # concatenate data

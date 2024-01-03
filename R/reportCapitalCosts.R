@@ -181,6 +181,26 @@ reportCapitalCosts <- function(gdx) {
     }
   }
 
+  #DACCS
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  if(!is.null(c_DACCS)) {
+    if(c_DACCS >= 1) {
+
+      varList_daccs <- list(
+        "Capital Costs|Carbon removal|DACCS|Liquid solvent (Eur2010/tCO2-yr)"            = "liquid_daccs",
+        "Capital Costs|Carbon removal|DACCS|Solid solvent (Eur2010/tCO2-yr)"             = "solid_daccs",
+        "Capital Costs|Carbon removal|DACCS|CaO ambient weathering (Eur2010/tCO2-yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Convert from Geur/MtC/a to EUR/tCO2/a
+        tmp2 <- mbind(tmp2, setNames(p_incoall[, , varList_daccs[[var]]] * 1000 * 12/44,  var))
+      }
+
+
+
+    }
+  }
+
   # add global values
   tmp <- mbind(tmp1,tmp2)
 
