@@ -142,9 +142,13 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output_EUETS[,,getNames(output_RegAgg)] <- output_RegAgg["EUETS",,] #Add intensive variables
 
   #aggregating EUETS-nonDE
-  EUETS_nonDE<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "DEU" & getItems(output, dim = 1) != "GLO")
+  EUETS_nonDE_pre2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "DEU" & getItems(output, dim = 1) != "GLO")
+  EUETS_nonDE_post2020<-which(getItems(output, dim = 1) != "CHE" & getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "DEU" & getItems(output, dim = 1) != "GLO" & getItems(output, dim = 1) != "GBR")
   output_EUETS_nonDE<-NULL
-  output_EUETS_nonDE<-dimSums(output[EUETS_nonDE,,],dim=1, na.rm = T)
+  #ETS until 2020 contains UK
+  output_EUETS_nonDE<-dimSums(output[EUETS_nonDE_pre2020,,],dim=1, na.rm = T)
+  #ETS after 2020 does not contain UK
+  output_EUETS_nonDE[,setdiff(time,c(2010:2020)),]<-dimSums(output[EUETS_nonDE_post2020,setdiff(time,c(2010:2020)),],dim=1, na.rm = T)
   getItems(output_EUETS_nonDE, dim = 1)<-"EUETS_nonDE"
 
   #Showing KdW results is rarely necessary. Apply a switch (0) No (1) Yes
