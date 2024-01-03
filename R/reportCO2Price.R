@@ -261,7 +261,9 @@ reportCO2Price <- function(gdx) {
     regi_cancEUA <- regi_cancEUA_iso3
 
     #Unilateral cancellation
-    o_selfcancelEUA_regi <- setNames(o_co2price_ETS*0,  NULL)
+    #o_selfcancelEUA_regi <- setNames(o_co2price_ETS*0,  NULL)
+    o_selfcancelEUA_regi <- new.magpie(cells_and_regions = getItems(o_co2price_ETS, dim = 1), years = getYears(o_co2price_ETS), names = NULL,
+                             fill = 0, sort = FALSE, sets = NULL)
     if(length(regi_cancEUA) > 0) {
       o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * p_shareEUA_auct[regi_cancEUA, , ] / dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
     }
