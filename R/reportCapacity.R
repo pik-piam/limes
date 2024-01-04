@@ -314,59 +314,55 @@ reportCapacity <- function(gdx) {
   #combine aggregated capacity with brake-down of technologies
   tmp3 <- mbind(tmp1, tmp2)
 
-  # append global values to the national ones
-  tmp4 <- NULL
-
-  #combine aggregated capacity with brake-down of technologies
-  tmp5 <- mbind(tmp4, tmp3)
-
   #Reserves
   #These were also included in reportAdequacyContribution,  but here they appear under a different name
-  tmp6 <- NULL
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve, dim = 3), "Capacity|Electricity|Reserve Plants (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tecoal)], dim = 3), "Capacity|Electricity|Reserve Plants|Hard Coal (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(telig)], dim = 3), "Capacity|Electricity|Reserve Plants|Lignite (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tecoal, telig)], dim = 3), "Capacity|Electricity|Reserve Plants|Coal (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tegas_el)], dim = 3), "Capacity|Electricity|Reserve Plants|Gas (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tengcc)], dim = 3), "Capacity|Electricity|Reserve Plants|Gas CC (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c("ngt")], dim = 3), "Capacity|Electricity|Reserve Plants|Gas OC (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tebio)], dim = 3), "Capacity|Electricity|Reserve Plants|Biomass (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(teoil)], dim = 3), "Capacity|Electricity|Reserve Plants|Oil (GW)"))
-  tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(tewaste)], dim = 3), "Capacity|Electricity|Reserve Plants|Waste (GW)"))
+  tmp4 <- NULL
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve, dim = 3), "Capacity|Electricity|Reserve Plants (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tecoal)], dim = 3), "Capacity|Electricity|Reserve Plants|Hard Coal (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(telig)], dim = 3), "Capacity|Electricity|Reserve Plants|Lignite (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tecoal, telig)], dim = 3), "Capacity|Electricity|Reserve Plants|Coal (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tegas_el)], dim = 3), "Capacity|Electricity|Reserve Plants|Gas (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tengcc)], dim = 3), "Capacity|Electricity|Reserve Plants|Gas CC (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c("ngt")], dim = 3), "Capacity|Electricity|Reserve Plants|Gas OC (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tebio)], dim = 3), "Capacity|Electricity|Reserve Plants|Biomass (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(teoil)], dim = 3), "Capacity|Electricity|Reserve Plants|Oil (GW)"))
+  tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(tewaste)], dim = 3), "Capacity|Electricity|Reserve Plants|Waste (GW)"))
 
   #when there is exogenous heating
   if(c_LIMESversion >=  2.33) {
     if(heating == "fullDH") {
       #CHP
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c(techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Coal (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tecoal, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Hard Coal (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(telig, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Lignite (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tegas_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tengcc_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas CC (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , c("ngt_chp")], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas OC (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tehgen, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Hydrogen (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tebio, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Biomass (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(teoil, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Oil (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , intersect(tewaste, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Waste (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c(techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Coal (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tecoal, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Hard Coal (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(telig, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Lignite (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tegas_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tengcc_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas CC (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , c("ngt_chp")], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Gas OC (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tehgen, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Hydrogen (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tebio, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Biomass (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(teoil, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Oil (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , intersect(tewaste, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|CHP|Waste (GW)"))
       #Electricity-only
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tereserve, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Coal (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tecoal, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(telig, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Lignite (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tegas_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tengcc_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tegas_el, tengcc_el)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tebio, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Biomass (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(teoil, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Oil (GW)"))
-      tmp6 <- mbind(tmp6, setNames(dimSums(v_capreserve[, , setdiff(tewaste, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Waste (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tereserve, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(c(tecoal, telig), techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Coal (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tecoal, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Hard Coal (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(telig, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Lignite (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tegas_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tengcc_el, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas CC (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tegas_el, tengcc_el)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Gas OC (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tebio, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Biomass (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(teoil, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Oil (GW)"))
+      tmp4 <- mbind(tmp4, setNames(dimSums(v_capreserve[, , setdiff(tewaste, techp)], dim = 3), "Capacity|Electricity|Reserve Plants|Electricity-only|Waste (GW)"))
     }
   }
 
-  tmp7 <- mbind(tmp5[, as.numeric(tt), ], tmp6)
+  #combine aggregated capacity with brake-down of technologies
+  tmp5 <- mbind(tmp3[, as.numeric(tt), ], tmp4)
+
 
   #Energy storage (reservoir) capacity and ratios
-  tmp8 <- NULL
+  tmp6 <- NULL
   if(c_LIMESversion >=  2.34) {
     v_storecap <- readGDX(gdx, name = "v_storecap", field = "l", format = "first_found")[, , testore]
     v_storecap <- limesMapping(v_storecap)
@@ -380,27 +376,37 @@ reportCapacity <- function(gdx) {
     )
 
     for (var in names(varList_st)){
-      tmp8 <- mbind(tmp8, setNames(dimSums(v_storecap[, , varList_st[[var]]], dim = 3), var))
+      tmp6 <- mbind(tmp6, setNames(dimSums(v_storecap[, , varList_st[[var]]], dim = 3), var))
     }
 
+    if(heating == "fullDH") {
+      tmp6 <- mbind(tmp6, setNames(dimSums(v_cap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage (GW)"))
+      tmp6 <- mbind(tmp6, setNames(dimSums(v_storecap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage Reservoir (GWh)"))
+    }
+
+  }
+
+  tmp7 <- mbind(tmp5[, as.numeric(tt), ], tmp6[, as.numeric(tt), ])
+
+  tmp8 <- NULL
+  if(c_LIMESversion >=  2.34) {
 
     #Number of storing hours
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("psp")]/v_cap[, , c("psp")], "Discharge duration|Pump Hydro (h)"))
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("batteries")]/v_cap[, , c("batteries")], "Discharge duration|Stat Batteries (h)"))
     tmp8 <- mbind(tmp8, setNames(v_storecap[, , c("helec")]/v_cap[, , c("helec")], "Discharge duration|Hydrogen electrolysis (h)"))
 
-    if(heating == "fullDH") {
-      tmp8 <- mbind(tmp8, setNames(dimSums(v_cap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage (GW)"))
-      tmp8 <- mbind(tmp8, setNames(dimSums(v_storecap[, , c("heat_sto")], dim = 3), "Capacity|Heat|Storage Reservoir (GWh)"))
-    }
+    #Correct some infinite that might result from capacities being 0
+    tmp8[is.infinite(tmp8)] <- NaN
 
   }
 
   #combine aggregated capacity with brake-down of technologies
   tmp9 <- mbind(tmp7, tmp8[, as.numeric(tt), ])
 
+  #DACCS
   tmp10 <- NULL
-  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #heat peak demand in buildings
+  c_DACCS <- readGDX(gdx, name = c("c_DACCS"), field = "l", format = "first_found", react = 'silent') #DACCS switch
   if(!is.null(c_DACCS)) {
     if(c_DACCS >= 1) {
       tedaccs <- readGDX(gdx, name = "tedaccs")

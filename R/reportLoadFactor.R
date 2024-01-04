@@ -166,6 +166,11 @@ reportLoadFactor <- function(gdx,output=NULL, reporting_tau = FALSE) {
     #Calculate the load factor (need to convert units)
     o_loadfactor <- setNames(output[,,var_gen],tech_match)/(8760*setNames(output[,,var_cap],tech_match)/1000) #estimate factor ensuring gen and cap have the same names
     o_loadfactor <- setNames(o_loadfactor,paste0("Load Factor|Electricity|",tech_match," (--)"))
+
+    #Correct some infinite that might result from capacities being 0
+    o_loadfactor[is.infinite(o_loadfactor)] <- NaN
+
+    #Save in new var
     tmp <- o_loadfactor
 
   } else { #if not the reportTau
