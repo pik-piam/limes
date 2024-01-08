@@ -102,15 +102,21 @@ reportEUETSvars <- function(gdx,output=NULL) {
       regeuets <- regeuets_iso3 #Better to take it directly from the GDX file
       o_emi_elec_ind <- NULL
       if("Emissions|CO2|Electricity and Industry (Mt CO2/yr)" %in% getNames(output)) {
-        #Include UK until 2020
+        #Include UK until 2020 (only when the link has been implemented and there is no link)
         o_emi_elec_ind <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
-        #Take UK off after 2020
-        o_emi_elec_ind[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
-          setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
+
+        c_linkEUETS_UK <- readGDX(gdx, name = c("c_linkEUETS_UK"), field = "l", format = "first_found", react = 'silent') #link between EU ETS and UK ETS, and thus when B
+        if(!is.null(c_linkEUETS_UK)) {
+          if(c_linkEUETS_UK == 0) {
+            #Take UK off after 2020
+            o_emi_elec_ind[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
+              setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
+          }
+        }
         #Add region "GlO" to avoid errors in forecoming sums
         getItems(o_emi_elec_ind, dim = 1) <- "GLO"
-
       }
+
 
       #Load share from heating
       p_shareheating_EUETS <- readGDX(gdx,name="p_shareheating_EUETS",field="l",format="first_found")[, y, ]
@@ -162,6 +168,9 @@ reportEUETSvars <- function(gdx,output=NULL) {
             heating <- .readHeatingCfg(gdx)
           }
 
+          #Link with UK ETS (needed to make some adjustments in how some variables are aggregated)
+          c_linkEUETS_UK <- readGDX(gdx, name = c("c_linkEUETS_UK"), field = "l", format = "first_found", react = 'silent') #link between EU ETS and UK ETS
+
           #Previous version did not have endogenous heating
           #-> with endogenous this variable will be calculated from the region-based heating
           if(heating == "off") {
@@ -175,26 +184,36 @@ reportEUETSvars <- function(gdx,output=NULL) {
             #Read additional parameters
             p_DH_emiabat <- readGDX(gdx,name="p_DH_emiabat",field="l",format="first_found")[, y, ]
             v_DH_emiabatproc <- readGDX(gdx,name="v_DH_emiabatproc",field="l",format="first_found")
-            p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
 
-            if(is.null(p_share_EmiHeat_UK)) { #this is a new parameter (202308), so introduce it manually for old versions
-              p_share_EmiHeat_UK <- 0
-            }
 
             #Estimate DH emissions (baselines - abated)
             o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
             o_DH_emi <- dimSums(o_DH_emi,3)
-            o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK) * s_c2co2*1000
+            o_DH_emi <- o_DH_emi * s_c2co2*1000
+
+            if(!is.null(c_linkEUETS_UK)) { #When there is switch for the link, this parameter does exist, and we need to adjust the EU ETS value
+              p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
+              o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
+            }
+
+            #Add NA to 2010 (no value in parameter) and name
             o_DH_emi[,c(2010),] <- NA
             tmp2 <- mbind(tmp2,setNames(o_DH_emi,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
 
           } else { #fullDH
-            #Include UK until 2020
+
+            #Include UK until 2020 (only when the link has been implemented and there is no link)
             o_DH_emi <- setNames(dimSums(output[regeuets,,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
-            #Take UK off after 2020
-            o_DH_emi[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
-              setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
-            #Add region "GlO" to avoid errors in forecoming sums
+
+            if(!is.null(c_linkEUETS_UK)) {
+              if(c_linkEUETS_UK == 0) {
+                #Take UK off after 2020
+                o_DH_emi[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
+                  setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),
+                                          "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], dim=1), NULL)
+              }
+            }
+            #Add region "GLO" to avoid errors in forecoming sums
             getItems(o_DH_emi, dim = 1) <- "GLO"
 
           } #end if regarding heating representation

@@ -309,7 +309,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   AggVars <- AggVars[which(dimSums(output["GLO",,AggVars], dim = 2) == 0)]
 
   #Adding the corresponding values for the EU ETS
-  output_EUETSvars <- reportEUETSvars(gdx,output)[,time,]
+  output_EUETSvars <- reportEUETSvars(gdx,output)[,time,] #dependent on reportEmissions
   output["EUETS",,intersect(AggVars,getNames(output_EUETSvars))] <- output_EUETSvars[,,intersect(AggVars,getNames(output_EUETSvars))]
   output_MSR <- reportMSR(gdx)[,time,]
   output["EUETS",,intersect(AggVars,getNames(output_MSR))] <- output_MSR[,,intersect(AggVars,getNames(output_MSR))]
