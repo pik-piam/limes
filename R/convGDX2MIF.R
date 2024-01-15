@@ -326,6 +326,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
     #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
     output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS[, getYears(output), ]*1000*44/12
+    output["GBR",c(2010,2015),"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- NA
 
     v_bankemi_UK <- readGDX(gdx, name = "v_bankemi_UK", format = "first_found", react = 'silent')
     if(!is.null(v_bankemi_UK)) {
@@ -334,7 +335,6 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
       o_bankemi_UK[,getYears(v_bankemi_UK),] <- v_bankemi_UK[,,"l"]
       output["GBR",,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"] <- o_bankemi_UK*1000*44/12
     }
-
 
   }
 
