@@ -1402,3 +1402,7 @@ Emissions|Carbon removal|BECCS;Emissions|Carbon removal|BECCS;Mt CO2/yr;Mt CO2/y
 Capital Costs|Carbon removal|DACCS|Liquid solvent;Capital Costs|Carbon removal|DACCS|Liquid solvent;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
 Capital Costs|Carbon removal|DACCS|Solid solvent;Capital Costs|Carbon removal|DACCS|Solid solvent;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
 Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
+Emissions|CO2|Cap|Maritime;Emissions|CO2|Cap|Maritime;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Cap|Stationary|w/ Maritime;Emissions|CO2|Cap|Stationary|w/ Maritime;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
+Emissions abated|CO2|Maritime;Emissions abated|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1

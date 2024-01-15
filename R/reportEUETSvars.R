@@ -243,7 +243,72 @@ reportEUETSvars <- function(gdx,output=NULL) {
   # concatenate data
   tmp <- mbind(tmp1,tmp2)
 
+  #Additional variables to represent linkage of EU ETS with other systems
+  tmp3 <- NULL
+  c_linkEUETS_UK <- readGDX(gdx, name = "c_linkEUETS_UK", field="l", format = "first_found", react = 'silent')
+  if(!is.null(c_linkEUETS_UK)) {
+    if(c_linkEUETS_UK == 1) {
+      v_bankemi_EUETSlinked <- readGDX(gdx, name = "v_bankemi_EUETSlinked", field="l", format = "first_found", react = 'silent')
+      o_bankemi_EUETSlinked <- new.magpie(cells_and_regions = getItems(v_bankemi_EUETSlinked, dim = 1), years = y, names = NA,
+                                          fill = NA, sort = FALSE, sets = NULL)
+      o_bankemi_EUETSlinked[,getYears(v_bankemi_EUETSlinked),] <- v_bankemi_EUETSlinked[,,"l"]
+      tmp3 <- mbind(tmp3,setNames(o_bankemi_EUETSlinked*s_c2co2*1000,"Emissions|CO2|Joint TNAC with linked systems (Mt CO2)"))
+    }
+  }
+
+  # concatenate data
+  tmp <- mbind(tmp,tmp3)
+
+  #Maritime
+  tmp4 <- NULL
+  c_maritime <- readGDX(gdx, name = "c_maritime", format = "first_found", react = 'silent')
+  if(!is.null(c_maritime)) {
+    if(c_maritime >= 1) {
+
+      #Load parameters
+      p_maritime_emi <- readGDX(gdx, name = "p_maritime_emi", field="l", format = "first_found", react = 'silent')[, y, ]
+      p_maritime_cap <- readGDX(gdx, name = "p_maritime_cap", field="l", format = "first_found", react = 'silent')[, y, ]
+
+      tmp4 <- mbind(tmp4, setNames(p_maritime_cap * s_c2co2 * 1000, "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4, setNames((p_emicap_EUETS + p_maritime_cap) * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
+
+      #Representation of emissions have changed
+      #Some model version has fixed emissions and only considered until 2030
+      #This was replaced by a MAC for maritime
+      if(!is.null(p_maritime_emi)) {
+        tmp4 <- mbind(tmp4, setNames(p_maritime_emi * s_c2co2 * 1000, "Emissions|CO2|Maritime (Mt CO2/yr)"))
+      }
+
+      #Load parameters
+      p_MACC_AbatPot_Maritime <- readGDX(gdx, name = "p_MACC_AbatPot_Maritime", field="l", format = "first_found", react = 'silent')
+      v_EmiAbatProc_Maritime <- readGDX(gdx, name = "v_EmiAbatProc_Maritime", field="l", format = "first_found", react = 'silent')
+      #Estimate Maritime emissions (baselines - abated)
+      o_Emi_Maritime <- p_MACC_AbatPot_Maritime - v_EmiAbatProc_Maritime
+
+      if(!is.null(p_MACC_AbatPot_Maritime)) {
+        tmp4 <- mbind(tmp4, setNames(dimSums(v_EmiAbatProc_Maritime, 3) * s_c2co2 * 1000, "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(o_Emi_Maritime, 3) * s_c2co2 * 1000, "Emissions|CO2|Maritime (Mt CO2/yr)"))
+      }
+
+    }
+  }
+
+  # concatenate data
+  tmp <- mbind(tmp,tmp4)
+
+
   #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
+  var_names <- c(
+    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
+    "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"
+  )
+
+  for(var in var_names) {
+    if(var %in% getNames(tmp)) {
+      tmp[, c(2010), var] <- NA
+    }
+  }
+
   var_names <- c(
     "Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)",
     "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)",
@@ -258,35 +323,27 @@ reportEUETSvars <- function(gdx,output=NULL) {
   }
 
   var_names <- c(
-    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
-    "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"
+    "Emissions|CO2|Cap|Maritime (Mt CO2/yr)",
+    "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)",
+    "Emissions abated|CO2|Maritime (Mt CO2/yr)",
+    "Emissions|CO2|Maritime (Mt CO2/yr)"
   )
 
   for(var in var_names) {
     if(var %in% getNames(tmp)) {
-      tmp[, c(2010), var] <- NA
+      tmp[, c(2010,2015,2020), var] <- NA
     }
   }
+
+
 
   #Include some historical values
   tmp[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2008 #average of cap between 2013 and 2017
 
 
-  #Additional variables to represent linkage of EU ETS with other systems
-  tmp3 <- NULL
-  c_linkEUETS_UK <- readGDX(gdx, name = "c_linkEUETS_UK", format = "first_found", react = 'silent')
-  if(!is.null(c_linkEUETS_UK)) {
-    if(c_linkEUETS_UK == 1) {
-      v_bankemi_EUETSlinked <- readGDX(gdx, name = "v_bankemi_EUETSlinked", format = "first_found", react = 'silent')
-      o_bankemi_EUETSlinked <- new.magpie(cells_and_regions = getItems(v_bankemi_EUETSlinked, dim = 1), years = y, names = NA,
-                               fill = NA, sort = FALSE, sets = NULL)
-      o_bankemi_EUETSlinked[,getYears(v_bankemi_EUETSlinked),] <- v_bankemi_EUETSlinked[,,"l"]
-      tmp3 <- mbind(tmp3,setNames(o_bankemi_EUETSlinked*s_c2co2*1000,"Emissions|CO2|Joint TNAC with linked systems (Mt CO2)"))
-    }
-  }
 
-  # concatenate data
-  tmp <- mbind(tmp,tmp3)
+
+
 
 
   return(tmp)
