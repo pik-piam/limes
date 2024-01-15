@@ -2,6 +2,7 @@
 % Please edit documentation in R/limes-package.R
 \docType{package}
 \name{limes-package}
+\alias{limes}
 \alias{limes-package}
 \alias{remind}
 \title{The LIMES R package}
