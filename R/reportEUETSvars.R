@@ -299,7 +299,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
   #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
   var_names <- c(
-    "Emissions|CO2|Cap|Stationary (Mt CO2/yr)",
     "Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"
   )
 
@@ -338,6 +337,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
 
   #Include some historical values
+  tmp[, c(2010), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2049 #Cap in phase 2 (2008-2012)
   tmp[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2008 #average of cap between 2013 and 2017
 
 
