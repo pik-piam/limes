@@ -227,20 +227,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
           } #end if regarding heating representation
 
-          if(c_bankemi_EU == 1) {
-            #Emissions from other sectors
-            p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
-            tmp2 <- mbind(tmp2,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_DH_emi + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
-
-            #For fullDH, EU ETS emissions would be calculated only when there are additional sectors in EU ETS, since this only exists are EU ETS level
-            if(heating != "fullDH" | (heating == "fullDH" & dimSums(p_emiothersec, dim = 2) != 0)) {
-              tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_DH_emi + (p_emiothersec)*s_c2co2*1000,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #the variables summed already do not include UK
-            }
-
-          } #end if c_bankemi_EU == 1
-
-
         } #end else c_LIMESversion > 2.30
 
       } ##end else c_LIMESversion > 2.27
@@ -271,11 +257,12 @@ reportEUETSvars <- function(gdx,output=NULL) {
   #Maritime
   tmp4 <- NULL
   c_maritime <- readGDX(gdx, name = "c_maritime", format = "first_found", react = 'silent')
+  o_EmiEUETS_Maritime <- 0 #Assume 0 for when not included/represented in model
   if(!is.null(c_maritime)) {
     if(c_maritime >= 1) {
 
       #Load parameters
-      o_EmiEUETS_Maritime <- readGDX(gdx, name = c("p_EmiEUETS_Maritime","p_maritime_emi"), format = "first_found", react = 'silent')[, y, ]
+      p_EmiEUETS_Maritime <- readGDX(gdx, name = c("p_EmiEUETS_Maritime","p_maritime_emi"), format = "first_found", react = 'silent')[, y, ]
       p_EmiCap_Maritime <- readGDX(gdx, name = c("p_EmiCap_Maritime","p_maritime_cap"), format = "first_found", react = 'silent')[, y, ]
 
       tmp4 <- mbind(tmp4, setNames(p_EmiCap_Maritime * s_c2co2 * 1000, "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
@@ -284,8 +271,9 @@ reportEUETSvars <- function(gdx,output=NULL) {
       #Representation of emissions have changed
       #Some model version has fixed emissions and only considered until 2030
       #This was replaced by a MAC for maritime
-      if(!is.null(o_EmiEUETS_Maritime)) {
-        tmp4 <- mbind(tmp4, setNames(o_EmiEUETS_Maritime * s_c2co2 * 1000, "Emissions|CO2|Maritime (Mt CO2/yr)"))
+      if(!is.null(p_EmiEUETS_Maritime)) {
+        o_EmiEUETS_Maritime <- p_EmiEUETS_Maritime * s_c2co2 * 1000
+        tmp4 <- mbind(tmp4, setNames(o_EmiEUETS_Maritime, "Emissions|CO2|Maritime (Mt CO2/yr)"))
       }
 
       #Load parameters
@@ -294,14 +282,30 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
       if(!is.null(p_MACC_AbatPotEUETS_Maritime)) {
         #Estimate Maritime emissions (baselines - abated)
-        o_EmiEUETS_Maritime <- p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime
+        o_EmiEUETS_Maritime <- (p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime) * s_c2co2 * 1000
 
         tmp4 <- mbind(tmp4, setNames(dimSums(v_EmiAbatProcEUETS_Maritime, 3) * s_c2co2 * 1000, "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
-        tmp4 <- mbind(tmp4, setNames(dimSums(o_EmiEUETS_Maritime, 3) * s_c2co2 * 1000, "Emissions|CO2|Maritime (Mt CO2/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(o_EmiEUETS_Maritime, 3), "Emissions|CO2|Maritime (Mt CO2/yr)"))
       }
 
     }
   }
+
+  #Aggregated emissions EU ETS
+  if(c_bankemi_EU == 1) {
+    #Emissions from other sectors
+    p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
+    tmp4 <- mbind(tmp4,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
+    tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,
+                                "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+
+    #For fullDH, EU ETS emissions would be calculated only when there are additional sectors in EU ETS, since this only exists are EU ETS level
+    if(heating != "fullDH" | (heating == "fullDH" & dimSums(p_emiothersec, dim = 2) != 0)) {
+      tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + (p_emiothersec)*s_c2co2*1000,
+                                  "Emissions|CO2|EU ETS (Mt CO2/yr)")) #the variables summed already do not include UK
+    }
+
+  } #end if c_bankemi_EU == 1
 
   # concatenate data
   tmp <- mbind(tmp,tmp4)
