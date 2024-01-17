@@ -291,10 +291,11 @@ reportEUETSvars <- function(gdx,output=NULL) {
       #Load parameters
       p_MACC_AbatPotEUETS_Maritime <- readGDX(gdx, name = c("p_MACC_AbatPotEUETS_Maritime","p_MACC_AbatPot_Maritime"), format = "first_found", react = 'silent')
       v_EmiAbatProcEUETS_Maritime <- readGDX(gdx, name = c("v_EmiAbatProcEUETS_Maritime","v_EmiAbatProc_Maritime"), format = "first_found", react = 'silent')
-      #Estimate Maritime emissions (baselines - abated)
-      o_EmiEUETS_Maritime <- p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime
 
       if(!is.null(p_MACC_AbatPotEUETS_Maritime)) {
+        #Estimate Maritime emissions (baselines - abated)
+        o_EmiEUETS_Maritime <- p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime
+
         tmp4 <- mbind(tmp4, setNames(dimSums(v_EmiAbatProcEUETS_Maritime, 3) * s_c2co2 * 1000, "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
         tmp4 <- mbind(tmp4, setNames(dimSums(o_EmiEUETS_Maritime, 3) * s_c2co2 * 1000, "Emissions|CO2|Maritime (Mt CO2/yr)"))
       }
