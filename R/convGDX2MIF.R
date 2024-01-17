@@ -320,23 +320,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output[setdiff(getItems(output, dim = 1),"EUETS"),,AggVars] <- NA
 
 
-  #Add certain variables that only exist for one region
-  c_LIMESversion <- readGDX(gdx,name="c_LIMESversion",field="l",format="first_found")
-  if(c_LIMESversion >= 2.38) {
-    #Add UK ETS cap (new after brexit)
-    p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS",field="l",format="first_found")
-    output["GBR",,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- p_emicap_UKETS[, getYears(output), ]*1000*44/12
-    output["GBR",c(2010,2015),"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- NA
-
-    v_bankemi_UK <- readGDX(gdx, name = "v_bankemi_UK", format = "first_found", react = 'silent')
-    if(!is.null(v_bankemi_UK)) {
-      o_bankemi_UK <- new.magpie(cells_and_regions = getItems(v_bankemi_UK, dim = 1), years = getYears(output), names = NA,
-                                          fill = NA, sort = FALSE, sets = NULL)
-      o_bankemi_UK[,getYears(v_bankemi_UK),] <- v_bankemi_UK[,,"l"]
-      output["GBR",,"Emissions|CO2|Total number of allowances in circulation [TNAC] (Mt CO2)"] <- o_bankemi_UK*1000*44/12
-    }
-
-  }
+  ##UK ETS
+  #Adding the corresponding values for the EU ETS
+  output_UKETSvars <- reportUKETSvars(gdx,output)[,time,] #dependent on reportEUETSvars
+  output["GBR",,intersect(AggVars,getNames(output_UKETSvars))] <- output_UKETSvars[,,intersect(AggVars,getNames(output_UKETSvars))]
 
 
   #INCLUDE HISTORICAL VALUES FOR THE INDUSTRY
