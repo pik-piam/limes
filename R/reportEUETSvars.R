@@ -171,28 +171,37 @@ reportEUETSvars <- function(gdx,output=NULL) {
           #Link with UK ETS (needed to make some adjustments in how some variables are aggregated)
           c_linkEUETS_UK <- readGDX(gdx, name = c("c_linkEUETS_UK"), field = "l", format = "first_found", react = 'silent') #link between EU ETS and UK ETS
 
+          #Check if share was included already
+          p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
+          if(is.null(p_share_EmiHeat_UK)) {
+            p_share_EmiHeat_UK <- 0
+          }
+
           #Previous version did not have endogenous heating
           #-> with endogenous this variable will be calculated from the region-based heating
           if(heating == "off") {
             p_exoemiheat <- readGDX(gdx,name="p_exoemiheat",field="l",format="first_found")[, y, ] #exogenous emissions from heating (share of cap)
-            #p_exoemiheat[,c(2010,2015),] <- c(317,272)/as.vector(s_c2co2*1000)  #include historical heating emisions from 2010 and 2015
-            #p_exoemiheat[,c(2010,2015),] <- NA  #include historical heating emisions from 2010 and 2015
-            o_DH_emi <- p_exoemiheat * s_c2co2*1000
-            tmp2 <- mbind(tmp2,setNames(p_exoemiheat*s_c2co2*1000,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
+            o_DH_emi <- p_exoemiheat * s_c2co2 * 1000
+
+            #Adjust if Brexit implemented
+            if(!is.null(c_linkEUETS_UK)) { #When there is switch for the link, this parameter does exist, and we need to adjust the EU ETS value
+              o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
+            }
+
+            tmp2 <- mbind(tmp2,setNames(o_DH_emi, "Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
 
           } else if(heating == "mac") {
             #Read additional parameters
             p_DH_emiabat <- readGDX(gdx,name="p_DH_emiabat",field="l",format="first_found")[, y, ]
             v_DH_emiabatproc <- readGDX(gdx,name="v_DH_emiabatproc",field="l",format="first_found")
 
-
             #Estimate DH emissions (baselines - abated)
             o_DH_emi <- p_DH_emiabat-v_DH_emiabatproc
             o_DH_emi <- dimSums(o_DH_emi,3)
-            o_DH_emi <- o_DH_emi * s_c2co2*1000
+            o_DH_emi <- o_DH_emi * s_c2co2 * 1000
 
+            #Adjust if Brexit implemented
             if(!is.null(c_linkEUETS_UK)) { #When there is switch for the link, this parameter does exist, and we need to adjust the EU ETS value
-              p_share_EmiHeat_UK <- readGDX(gdx,name="p_share_EmiHeat_UK",field="l",format="first_found", react = 'silent')
               o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] <- o_DH_emi[,setdiff(y,paste0("y",seq(2010,2020,5))),] * (1 - p_share_EmiHeat_UK)
             }
 
