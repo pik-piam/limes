@@ -323,7 +323,6 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
   var_names <- c(
     "Emissions|CO2|Cap|Maritime (Mt CO2/yr)",
-    "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)",
     "Emissions abated|CO2|Maritime (Mt CO2/yr)",
     "Emissions|CO2|Maritime (Mt CO2/yr)"
   )
