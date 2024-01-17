@@ -8,8 +8,7 @@
 #'
 #' @name limes-package
 #' @aliases limes-package remind
-#' @docType package
 #' @author Sebastian Osorio and Renato Rodrigues
 #'
 #' Maintainer: Sebastian Osorio <sebastian.osorio@pik-potsdam.de>
-NULL
+"_PACKAGE"
