@@ -362,8 +362,11 @@ reportEmissions <- function(gdx, output=NULL) {
       v_Removal_DACCS <- limesMapping(v_Removal_DACCS)
       v_Emi_DACCS <- limesMapping(v_Emi_DACCS)
 
-      #Filter per source
-      o_EmiGas_DACCS <- v_Emi_DACCS[,,"pegas"]
+      #Estimate annual removals, convert from MtC/h, convert to MtCO2/a
+      o_Removal_DACCS_annual <- dimSums(v_Removal_DACCS * p_taulength,  dim = 3.1) * 44/12
+
+      #Filter per source, convert from GtC/a, convert to MtCO2/a
+      o_EmiGas_DACCS <- v_Emi_DACCS[,,"pegas"] * 1000 * 44/12
 
       #Removals
       varList_daccs <- list(
@@ -374,7 +377,7 @@ reportEmissions <- function(gdx, output=NULL) {
       )
 
       for (var in names(varList_daccs)){ #Data is in MtC/h, convert to MtCO2/a
-        tmp7 <- mbind(tmp7, setNames(dimSums(v_Removal_DACCS[, , varList_daccs[[var]]] * p_taulength * 44/12,  dim = 3),  var))
+        tmp7 <- mbind(tmp7, setNames(dimSums(o_Removal_DACCS_annual[, , varList_daccs[[var]]], dim = 3),  var))
       }
 
       #Emissions
@@ -386,7 +389,7 @@ reportEmissions <- function(gdx, output=NULL) {
       )
 
       for (var in names(varList_daccs)){ #Data is in GtC/a, convert to MtCO2/a
-        tmp7 <- mbind(tmp7, setNames(dimSums(o_EmiGas_DACCS[, , varList_daccs[[var]]] * 1000 * 44/12,  dim = 3),  var))
+        tmp7 <- mbind(tmp7, setNames(dimSums(o_EmiGas_DACCS[, , varList_daccs[[var]]], dim = 3),  var))
       }
 
       #Net Removals
@@ -398,7 +401,7 @@ reportEmissions <- function(gdx, output=NULL) {
       )
 
       for (var in names(varList_daccs)){ #Data is in GtC/a, convert to MtCO2/a
-        tmp7 <- mbind(tmp7, setNames(dimSums((v_Removal_DACCS - o_EmiGas_DACCS)[, , varList_daccs[[var]]] * 1000 * 44/12,  dim = 3),  var))
+        tmp7 <- mbind(tmp7, setNames(dimSums((o_Removal_DACCS_annual[, , varList_daccs[[var]]] - o_EmiGas_DACCS[, , varList_daccs[[var]]]), dim = 3),  var))
       }
 
     }
