@@ -263,10 +263,12 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
       #Load parameters
       p_EmiEUETS_Maritime <- readGDX(gdx, name = c("p_EmiEUETS_Maritime","p_maritime_emi"), format = "first_found", react = 'silent')[, y, ]
-      p_EmiCap_Maritime <- readGDX(gdx, name = c("p_EmiCap_Maritime","p_maritime_cap"), format = "first_found", react = 'silent')[, y, ]
+      p_EmiCapEUETS_Maritime <- readGDX(gdx, name = c("p_EmiCapEUETS_Maritime","p_maritime_cap"), format = "first_found", react = 'silent')[, y, ]
 
-      tmp4 <- mbind(tmp4, setNames(p_EmiCap_Maritime * s_c2co2 * 1000, "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4, setNames((p_emicap_EUETS + p_EmiCap_Maritime) * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4, setNames(p_EmiCapEUETS_Maritime * s_c2co2 * 1000,
+                                   "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
+      tmp4 <- mbind(tmp4, setNames((p_emicap_EUETS + p_EmiCapEUETS_Maritime) * s_c2co2 * 1000,
+                                   "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
 
       #Representation of emissions have changed
       #Some model version has fixed emissions and only considered until 2030

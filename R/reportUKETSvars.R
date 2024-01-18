@@ -104,6 +104,16 @@ reportUKETSvars <- function(gdx,output=NULL) {
       if(c_maritime >= 1) {
 
         #Load parameters
+        p_EmiCapUKETS_Maritime <- readGDX(gdx, name = "p_EmiCapUKETS_Maritime", format = "first_found", react = 'silent')[, y, ]
+
+        if(!is.null(p_EmiCapUKETS_Maritime)) {
+          tmp1 <- mbind(tmp1, setNames(p_EmiCapUKETS_Maritime * s_c2co2 * 1000,
+                                       "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
+          tmp1 <- mbind(tmp1, setNames((p_emicap_UKETS + p_EmiCapUKETS_Maritime) * s_c2co2 * 1000,
+                                       "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
+        }
+
+        #Load parameters
         p_MACC_AbatPotUK_Maritime <- readGDX(gdx, name = "p_MACC_AbatPotUK_Maritime", format = "first_found", react = 'silent')
         v_EmiAbatProcUK_Maritime <- readGDX(gdx, name = "v_EmiAbatProcUK_Maritime", field="l", format = "first_found", react = 'silent')
 
