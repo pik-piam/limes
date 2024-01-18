@@ -1392,6 +1392,10 @@ Emissions|Carbon removal|DACCS;Emissions|Carbon removal|DACCS;Mt CO2/yr;Mt CO2/y
 Emissions|Carbon removal|DACCS|Liquid solvent;Emissions|Carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|Solid solvent;Emissions|Carbon removal|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|CaO ambient weathering;Emissions|Carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal|DACCS;Emissions|Net carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal|DACCS|Liquid solvent;Emissions|Net carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal|DACCS|Solid solvent;Emissions|Net carbon removal|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal|DACCS|CaO ambient weathering;Emissions|Net carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS;Emissions|CO2|Gas|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS|Liquid solvent;Emissions|CO2|Gas|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS|Solid solvent;Emissions|CO2|Gas|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1

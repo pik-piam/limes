@@ -389,6 +389,18 @@ reportEmissions <- function(gdx, output=NULL) {
         tmp7 <- mbind(tmp7, setNames(dimSums(o_EmiGas_DACCS[, , varList_daccs[[var]]] * 1000 * 44/12,  dim = 3),  var))
       }
 
+      #Net Removals
+      varList_daccs <- list(
+        "Emissions|Net carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+        "Emissions|Net carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+        "Emissions|Net carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|Net carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
+      )
+
+      for (var in names(varList_daccs)){ #Data is in GtC/a, convert to MtCO2/a
+        tmp7 <- mbind(tmp7, setNames(dimSums((v_Removal_DACCS - o_EmiGas_DACCS)[, , varList_daccs[[var]]] * 1000 * 44/12,  dim = 3),  var))
+      }
+
     }
   }
 
