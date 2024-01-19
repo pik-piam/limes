@@ -148,11 +148,17 @@ reportEUETSvars <- function(gdx,output=NULL) {
           } else {
             p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
             tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+
+            #Include some historical values
+            tmp2[, c(2010), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- 2049 #Cap in phase 2 (2008-2012)
+            tmp2[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- 2008 #average of cap between 2013 and 2017
+
             p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")[, y, ]
             tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
           }
 
-          #Report depending on the heat representation
+
+          ##Report depending on the heat representation
           modules <- readGDX(gdx,name="modules",field="l",format="first_found", react = 'silent')
 
           #identify if the model version is modular. If not, create the equivalence for the old switch c_heating
@@ -267,7 +273,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
       tmp4 <- mbind(tmp4, setNames(p_EmiCapEUETS_Maritime * s_c2co2 * 1000,
                                    "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4, setNames((p_emicap_EUETS + p_EmiCapEUETS_Maritime) * s_c2co2 * 1000,
+      tmp4 <- mbind(tmp4, setNames(tmp[,, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] + p_EmiCapEUETS_Maritime * s_c2co2 * 1000,
                                    "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
 
       #Representation of emissions have changed
@@ -347,9 +353,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
 
 
-  #Include some historical values
-  tmp[, c(2010), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2049 #Cap in phase 2 (2008-2012)
-  tmp[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"]<- 2008 #average of cap between 2013 and 2017
+
 
 
 
