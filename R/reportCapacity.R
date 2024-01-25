@@ -414,7 +414,7 @@ reportCapacity <- function(gdx) {
       varList_daccs <- list(
         "Capacity|Carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
         "Capacity|Carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
-        "Capacity|Carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Capacity|Carbon removal|DACCS|Solid sorbent (Mt CO2/yr)"             = "solid_daccs",
         "Capacity|Carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
       )
 

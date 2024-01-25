@@ -212,7 +212,7 @@ reportDemand <- function(gdx, output = NULL, reporting_tau = FALSE) {
         varList_daccs <- list(
           "Final Energy|Electricity|DACCS (TWh/yr)"                           = c(tedaccs),
           "Final Energy|Electricity|DACCS|Liquid solvent (TWh/yr)"            = "liquid_daccs",
-          "Final Energy|Electricity|DACCS|Solid solvent (TWh/yr)"             = "solid_daccs",
+          "Final Energy|Electricity|DACCS|Solid sorbent (TWh/yr)"             = "solid_daccs",
           "Final Energy|Electricity|DACCS|CaO ambient weathering (TWh/yr)"    = "caow_daccs"
         )
 

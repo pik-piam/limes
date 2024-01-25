@@ -259,7 +259,7 @@ reportPrimaryEnergy <- function(gdx) {
       varList_daccs <- list(
         "Primary Energy|Gas|DACCS (TWh/yr)"                           = c(tedaccs),
         "Primary Energy|Gas|DACCS|Liquid solvent (TWh/yr)"            = "liquid_daccs",
-        "Primary Energy|Gas|DACCS|Solid solvent (TWh/yr)"             = "solid_daccs",
+        "Primary Energy|Gas|DACCS|Solid sorbent (TWh/yr)"             = "solid_daccs",
         "Primary Energy|Gas|DACCS|CaO ambient weathering (TWh/yr)"    = "caow_daccs"
       )
 

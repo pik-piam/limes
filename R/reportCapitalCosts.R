@@ -188,7 +188,7 @@ reportCapitalCosts <- function(gdx) {
 
       varList_daccs <- list(
         "Capital Costs|Carbon removal|DACCS|Liquid solvent (Eur2010/tCO2-yr)"            = "liquid_daccs",
-        "Capital Costs|Carbon removal|DACCS|Solid solvent (Eur2010/tCO2-yr)"             = "solid_daccs",
+        "Capital Costs|Carbon removal|DACCS|Solid sorbent (Eur2010/tCO2-yr)"             = "solid_daccs",
         "Capital Costs|Carbon removal|DACCS|CaO ambient weathering (Eur2010/tCO2-yr)"    = "caow_daccs"
       )
 

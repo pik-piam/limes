@@ -372,7 +372,7 @@ reportEmissions <- function(gdx, output=NULL) {
       varList_daccs <- list(
         "Emissions|Carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
         "Emissions|Carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
-        "Emissions|Carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|Carbon removal|DACCS|Solid sorbent (Mt CO2/yr)"             = "solid_daccs",
         "Emissions|Carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
       )
 
@@ -384,7 +384,7 @@ reportEmissions <- function(gdx, output=NULL) {
       varList_daccs <- list(
         "Emissions|CO2|Gas|DACCS (Mt CO2/yr)"                           = c(tedaccs),
         "Emissions|CO2|Gas|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
-        "Emissions|CO2|Gas|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|CO2|Gas|DACCS|Solid sorbent (Mt CO2/yr)"             = "solid_daccs",
         "Emissions|CO2|Gas|DACCS|CaO ambient weathering (TMt CO2/yr)"    = "caow_daccs"
       )
 
@@ -396,7 +396,7 @@ reportEmissions <- function(gdx, output=NULL) {
       varList_daccs <- list(
         "Emissions|Net carbon removal|DACCS (Mt CO2/yr)"                           = c(tedaccs),
         "Emissions|Net carbon removal|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
-        "Emissions|Net carbon removal|DACCS|Solid solvent (Mt CO2/yr)"             = "solid_daccs",
+        "Emissions|Net carbon removal|DACCS|Solid sorbent (Mt CO2/yr)"             = "solid_daccs",
         "Emissions|Net carbon removal|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
       )
 
