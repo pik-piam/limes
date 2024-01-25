@@ -54,4 +54,14 @@ sol_heat;District Heating|Solar
 geo_heat;District Heating|Geothermal
 hpump;District Heating|Electricity|Heat Pump
 elboil;District Heating|Electricity|Electric Boiler
-heat_sto;Heat Storage
+heat_sto;District Heating|Heat Storage
+hp_large;District Heating|Heat Pump
+elboil_large;District Heating|Electric Boiler
+hp_sh_dec;Decentral|Heat Pump|Residential
+hp_wh_dec;Decentral|Heat Pump|Non-residential
+resheat_dec;Decentral|Electricity in circulation
+convheat_dec;Decentral|Conventional space heater
+convwh_dec;Decentral|Conventional water heater
+liquid_daccs;DACCS|Liquid solvent
+solid_daccs;DACCS|Solid sorbent
+caow_daccs;DACCS|CaO ambient weathering
