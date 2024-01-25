@@ -59,6 +59,9 @@ Load Factor|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC
 Load Factor|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC
 Load Factor|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC
 Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Gross Demand
+Secondary Energy|Electricity|Share of variable renewables in gross demand;Secondary Energy|Electricity|Gross Demand
+Secondary Energy|Electricity|Share of wind energy in gross demand;Secondary Energy|Electricity|Gross Demand
+Secondary Energy|Electricity|Share of solar energy in gross demand;Secondary Energy|Electricity|Gross Demand
 Price|Secondary Energy|Electricity|Other fees;Secondary Energy|Electricity
 Price|Secondary Energy|Electricity|Other fees|RES subsidy;Secondary Energy|Electricity
 Capacity|Electricity|Transmission Grid;0
@@ -178,5 +181,5 @@ Load Factor|Electricity|Hydrogen CC|1;Load|Electricity|Hydrogen CC|1
 Load Factor|Electricity|Gas CC|1;Load|Electricity|Gas CC|1
 Load Factor|Electricity|Gas OC|1;Load|Electricity|Gas OC|1
 Capital Costs|Carbon removal|DACCS|Liquid solvent;Capacity Additions|Carbon removal|DACCS|Liquid solvent
-Capital Costs|Carbon removal|DACCS|Solid solvent;Capacity Additions|Carbon removal|DACCS|Solid solvent
+Capital Costs|Carbon removal|DACCS|Solid sorbent;Capacity Additions|Carbon removal|DACCS|Solid sorbent
 Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capacity Additions|Carbon removal|DACCS|CaO ambient weathering
