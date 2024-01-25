@@ -1,8 +1,8 @@
 Type: Package
 Package: limes
 Title: The liMES R package
-Version: 2.61.2
-Date: 2024-01-19
+Version: 2.62.0
+Date: 2024-01-25
 Authors@R: 
     person("Sebastian", "Osorio", , "sebastian.osorio@pik-potsdam.de", role = c("aut", "cre"))
 Description: Contains the LIMES-specific routines for data and model
@@ -25,5 +25,5 @@ Suggests:
     gdxrrw,
     testthat
 Encoding: UTF-8
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
