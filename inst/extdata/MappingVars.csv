@@ -322,6 +322,9 @@ Emissions|CO2|Cancellation from MSR;Emissions|CO2|Cancellation from MSR;Mt CO2/y
 Emissions|CO2|Additional intake to the MSR;Emissions|CO2|Additional intake to the MSR;Mt CO2;Mt CO2;1
 Emissions|CO2|MSR level;Emissions|CO2|MSR level;Mt CO2;Mt CO2;1
 Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Share of renewables in gross demand;--;--;1
+Secondary Energy|Electricity|Share of variable renewables in gross demand;Secondary Energy|Electricity|Share of variable renewables in gross demand;--;--;1
+Secondary Energy|Electricity|Share of wind energy in gross demand;Secondary Energy|Electricity|Share of wind energy in gross demand;--;--;1
+Secondary Energy|Electricity|Share of solar energy in gross demand;Secondary Energy|Electricity|Share of solar energy in gross demand;--;--;1
 Secondary Energy|Electricity|Gross Demand;Secondary Energy|Electricity|Gross Demand;TWh/yr;TWh/yr;1
 Emissions|CO2|Cap|Aviation;Emissions|CO2|Cap|Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Aviation;Emissions|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
@@ -1382,32 +1385,40 @@ Useful Energy|Heating|Non-residential|Heat;Useful Energy|Heating|Non-residential
 Useful Energy|Heating|Buildings|Heat;Useful Energy|Heating|Buildings|Heat;TWh/yr;TWh/yr;1
 Capacity|Carbon removal|DACCS;Capacity|Carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|DACCS|Liquid solvent;Capacity|Carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
-Capacity|Carbon removal|DACCS|Solid solvent;Capacity|Carbon removal|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Carbon removal|DACCS|Solid sorbent;Capacity|Carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|DACCS|CaO ambient weathering;Capacity|Carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Primary Energy|Gas|DACCS;Primary Energy|Gas|DACCS;TWh/yr;PJ/yr;3.6
 Primary Energy|Gas|DACCS|Liquid solvent;Primary Energy|Gas|DACCS|Liquid solvent;TWh/yr;PJ/yr;3.6
-Primary Energy|Gas|DACCS|Solid solvent;Primary Energy|Gas|DACCS|Solid solvent;TWh/yr;PJ/yr;3.6
+Primary Energy|Gas|DACCS|Solid sorbent;Primary Energy|Gas|DACCS|Solid sorbent;TWh/yr;PJ/yr;3.6
 Primary Energy|Gas|DACCS|CaO ambient weathering;Primary Energy|Gas|DACCS|CaO ambient weathering;TWh/yr;PJ/yr;3.6
 Emissions|Carbon removal|DACCS;Emissions|Carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|Liquid solvent;Emissions|Carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
-Emissions|Carbon removal|DACCS|Solid solvent;Emissions|Carbon removal|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Carbon removal|DACCS|Solid sorbent;Emissions|Carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|CaO ambient weathering;Emissions|Carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS;Emissions|Net carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS|Liquid solvent;Emissions|Net carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
-Emissions|Net carbon removal|DACCS|Solid solvent;Emissions|Net carbon removal|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal|DACCS|Solid sorbent;Emissions|Net carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS|CaO ambient weathering;Emissions|Net carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS;Emissions|CO2|Gas|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS|Liquid solvent;Emissions|CO2|Gas|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Gas|DACCS|Solid solvent;Emissions|CO2|Gas|DACCS|Solid solvent;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Gas|DACCS|Solid sorbent;Emissions|CO2|Gas|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Gas|DACCS|CaO ambient weathering;Emissions|CO2|Gas|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Final Energy|Electricity|DACCS;Final Energy|Electricity|DACCS;TWh/yr;TWh/yr;1
 Final Energy|Electricity|DACCS|Liquid solvent;Final Energy|Electricity|DACCS|Liquid solvent;TWh/yr;TWh/yr;1
-Final Energy|Electricity|DACCS|Solid solvent;Final Energy|Electricity|DACCS|Solid solvent;TWh/yr;TWh/yr;1
+Final Energy|Electricity|DACCS|Solid sorbent;Final Energy|Electricity|DACCS|Solid sorbent;TWh/yr;TWh/yr;1
 Final Energy|Electricity|DACCS|CaO ambient weathering;Final Energy|Electricity|DACCS|CaO ambient weathering;TWh/yr;TWh/yr;1
 Emissions|Carbon removal|BECCS;Emissions|Carbon removal|BECCS;Mt CO2/yr;Mt CO2/yr;1
 Capital Costs|Carbon removal|DACCS|Liquid solvent;Capital Costs|Carbon removal|DACCS|Liquid solvent;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
-Capital Costs|Carbon removal|DACCS|Solid solvent;Capital Costs|Carbon removal|DACCS|Solid solvent;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
+Capital Costs|Carbon removal|DACCS|Solid sorbent;Capital Costs|Carbon removal|DACCS|Solid sorbent;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
 Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Eur2010/tCO2-yr;Eur2015/tCO2-yr;1
+Capacity Additions|Carbon removal|DACCS;Capacity Additions|Carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
+Capacity Additions|Carbon removal|DACCS|Liquid solvent;Capacity Additions|Carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
+Capacity Additions|Carbon removal|DACCS|Solid sorbent;Capacity Additions|Carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
+Capacity Additions|Carbon removal|DACCS|CaO ambient weathering;Capacity Additions|Carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Carbon removal|Global|DACCS;Capacity|Carbon removal|Global|DACCS;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Carbon removal|Global|DACCS|Liquid solvent;Capacity|Carbon removal|Global|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Carbon removal|Global|DACCS|Solid sorbent;Capacity|Carbon removal|Global|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Maritime;Emissions|CO2|Cap|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Stationary|w/ Maritime;Emissions|CO2|Cap|Stationary|w/ Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
