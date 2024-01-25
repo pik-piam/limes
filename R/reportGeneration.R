@@ -124,7 +124,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     if (length(grep("heat_sto", getNames(v_storein))) > 0) {
       v_storein_el <- v_storein[, , "seel"]
       v_storein_el <- v_storein_el[, , setdiff(testore, c("heat_sto"))]
-      v_storein_el <- collapseDim(v_storein_el, dim = 3.2)
 
       v_storein_he <- v_storein[, , "sehe"]
       v_storein_he <- collapseDim(v_storein_he, dim = 3.2) # first collapse (to keep the technology name)
@@ -134,7 +133,6 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     if (length(grep("heat_sto", getNames(v_storeout))) > 0) {
       v_storeout_el <- v_storeout[, , "seel"]
       v_storeout_el <- v_storeout_el[, , setdiff(testore, c("heat_sto"))]
-      v_storeout_el <- collapseDim(v_storeout_el, dim = 3.2)
 
       v_storeout_he <- v_storeout[, , "sehe"]
       v_storeout_he <- collapseDim(v_storeout_he, dim = 3.2)
@@ -147,7 +145,8 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   # Collapse names to avoid some problems
   p_eldemand <- collapseDim(p_eldemand, dim = 3.2)
   v_seprod_el <- collapseDim(v_seprod_el, dim = 3.2)
-
+  v_storein_el <- collapseDim(v_storein_el, dim = 3.2)
+  v_storeout_el <- collapseDim(v_storeout_el, dim = 3.2)
 
   # generation per aggregated technology per country
 
@@ -364,7 +363,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     for (var in names(varList_el)) {
       tmp1 <- mbind(tmp1, setNames(dimSums(dimSums(v_seprod_el[, , varList_el[[var]]], dim = c(3.2, 3.3))
-                                          * p_taulength, dim = 3)
+                                          * p_taulength, dim = 3.1)
                                   / 1000,
                                   var))
     }
@@ -372,13 +371,13 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     # general aggregation
     tmp1 <- mbind(tmp1, setNames(dimSums((dimSums(v_seprod_el[, , c(teel)], dim = c(3.2, 3.3))
                                          + dimSums(v_storeout_el, dim = c(3.2)))
-                                        * p_taulength, dim = 3)
+                                        * p_taulength, dim = 3.1)
                                 / 1000,
                                 "Secondary Energy|Electricity|w/ storage (TWh/yr)"))
     tmp1 <- mbind(tmp1, setNames(dimSums((dimSums(v_seprod_el[, , c(teel)], dim = c(3.2, 3.3))
                                          + dimSums(v_storeout_el, dim = c(3.2))
                                          - dimSums(v_storein_el, dim = c(3.2)))
-                                        * p_taulength, dim = 3)
+                                        * p_taulength, dim = 3.1)
                                 / 1000,
                                 "Secondary Energy|Electricity|w/o losses (TWh/yr)"))
 
@@ -387,7 +386,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     if (c_LIMESversion >= 2.33) {
 
       # Electricity (new technologies)
-      tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_el[, , intersect(tebio, teccs)], dim = c(3.2, 3.3)) * p_taulength, dim = 3) / 1000,
+      tmp2 <- mbind(tmp2, setNames(dimSums(dimSums(v_seprod_el[, , intersect(tebio, teccs)], dim = c(3.2, 3.3)) * p_taulength, dim = 3.1) / 1000,
                                    "Secondary Energy|Electricity|Biomass|w/ CCS (TWh/yr)"))
 
       if (heating == "fullDH") {
@@ -483,7 +482,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     for (var in names(varList_stGen)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storeout_el[, , varList_stGen[[var]]], dim = c(3.2))
-                                          * p_taulength, dim = 3)
+                                          * p_taulength, dim = 3.1)
                                   / 1000,
                                   var))
     }
@@ -492,13 +491,14 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
     for (var in names(varList_stCons)) {
       tmp4 <- mbind(tmp4, setNames(dimSums(dimSums(v_storein_el[, , varList_stCons[[var]]], dim = c(3.2))
-                                          * p_taulength, dim = 3)
+                                          * p_taulength, dim = 3.1)
                                   / 1000,
                                   var))
     }
 
     # Storage losses
-    tmp4 <- mbind(tmp4, setNames(dimSums((dimSums(v_storein_el, dim = c(3.2)) - dimSums(v_storeout_el, dim = c(3.2))) * p_taulength / 1000, dim = 3), "Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
+    tmp4 <- mbind(tmp4, setNames(dimSums((dimSums(v_storein_el, dim = c(3.2)) - dimSums(v_storeout_el, dim = c(3.2))) * p_taulength / 1000, dim = 3.1),
+                                 "Secondary Energy|Electricity|Storage Losses (TWh/yr)"))
 
     # Heat storage
     if (heating == "fullDH") {
@@ -527,9 +527,10 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         for (regi2 in getItems(m_p2x, dim = 1)) {
           for (year2 in getYears(m_p2x)) {
             if (dimSums(v_prodP2XSe[regi2, year2, ], 3) == 0) {
-              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength, dim = 3) / dimSums(p_taulength, 3) # calculate weighted average (in eur/MWh)
+              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength, dim = 3.1) / dimSums(p_taulength, 3) # calculate weighted average (in eur/MWh)
             } else {
-              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength * v_prodP2XSe[regi2, year2, ], dim = 3) / dimSums(p_taulength * v_prodP2XSe[regi2, year2, ], 3) # calculate weighted average (in eur/MWh)
+              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength * v_prodP2XSe[regi2, year2, ], dim = 3) /
+                dimSums(p_taulength * v_prodP2XSe[regi2, year2, ], 3) # calculate weighted average (in eur/MWh)
             }
           }
         }
@@ -614,10 +615,10 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         if (length(grep("[.]hct", getNames(v_demP2XSe_4el))) > 0) { # In the case of 'v_p2xse' and v_pedem, it was technology-dependent
           v_demP2XSe_4el <- dimSums(v_demP2XSe_4el, dim = 3.2)
         }
-        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4el * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [electrolysis]|Power Sector (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4el * p_taulength, dim = 3.1) / 1000, "Primary Energy|Hydrogen [electrolysis]|Power Sector (TWh/yr)"))
         v_demP2XSe_4nel <- readGDX(gdx, name = c("v_demP2XSe_4nel", "v_hgen_othersec"), field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
         v_demP2XSe_4nel <- limesMapping(v_demP2XSe_4nel)
-        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4nel * p_taulength, 3) / 1000, "Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
+        tmp4 <- mbind(tmp4, setNames(dimSums(v_demP2XSe_4nel * p_taulength, dim = 3.1) / 1000, "Primary Energy|Hydrogen [electrolysis]|Other sectors (TWh/yr)"))
 
         # External hydrogen, i.e., imported hydrogen (H2 demand - H2 produced by electrolysers)
         c_sharehgen <- readGDX(gdx, name = "c_sharehgen", field = "l", format = "first_found")
@@ -670,7 +671,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
 
       # Seasonal storage of hydrogen -> input and output in electrolysers
       tau2season <- readGDX(gdx, name = "tau2season", format = "first_found", react = 'silent') # mapping of tau's belonging to each season
-      if(is.null(tewaste)) { #this set disappeared by April 2023
+      if(is.null(tau2season)) { #this set disappeared by April 2023
         seasons <- c("winter", "spring", "summer", "autumn")
         for (i in seq_len(length(seasons))) {
           taus <- c(tau2season$tau[tau2season$season == seasons[i]])
@@ -872,7 +873,14 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     # Gross demand (gross electricity production + net imports), following official german statistics procedure
     o_grossdem <- dimSums(o_grossprod, dim = c(3.1)) + o_netimpots
     tmp6 <- mbind(tmp6, setNames(o_grossdem, "Secondary Energy|Electricity|Gross Demand (TWh/yr)"))
-    tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod[, , intersect(teel, c(ter, ternofluc))], dim = 3) / o_grossdem, "Secondary Energy|Electricity|Share of renewables in gross demand (--)"))
+    tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod[, , intersect(teel, c(ter, ternofluc))], dim = 3) / o_grossdem,
+                                 "Secondary Energy|Electricity|Share of renewables in gross demand (--)"))
+    tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod[, , intersect(teel, c(ter))], dim = 3) / o_grossdem,
+                                 "Secondary Energy|Electricity|Share of variable renewables in gross demand (--)"))
+    tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod[, , intersect(teel, c("windon","windoff"))], dim = 3) / o_grossdem,
+                                 "Secondary Energy|Electricity|Share of wind energy in gross demand (--)"))
+    tmp6 <- mbind(tmp6, setNames(dimSums(o_grossprod[, , intersect(teel, c("spv","csp"))], dim = 3) / o_grossdem,
+                                 "Secondary Energy|Electricity|Share of solar energy in gross demand (--)"))
 
     # merge tmp's
     tmp7 <- mbind(tmp5, tmp6)
@@ -882,7 +890,8 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     v_seprodmax <- limesMapping(v_seprodmax)
     o_genvres <- setNames(tmp1[, , "Secondary Energy|Electricity|Variable renewable (TWh/yr)"], NULL)
     tmp8 <- NULL
-    tmp8 <- mbind(tmp8, setNames(dimSums(dimSums(v_seprodmax[, , intersect(teel, ter)], dim = c(3.2)) * p_taulength, dim = 3) / 1000 - o_genvres, "Secondary Energy|Electricity|Curtailment (TWh/yr)"))
+    tmp8 <- mbind(tmp8, setNames(dimSums(dimSums(v_seprodmax[, , intersect(teel, ter)], dim = c(3.2)) * p_taulength, dim = 3) / 1000 - o_genvres,
+                                 "Secondary Energy|Electricity|Curtailment (TWh/yr)"))
 
     # merge tmp's
     tmp <- mbind(tmp7, tmp8)
