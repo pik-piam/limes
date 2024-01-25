@@ -26,3 +26,7 @@ Emissions|CO2|Cap|Maritime;Mt CO2/yr
 Emissions|CO2|Cap|Stationary|w/ Maritime;Mt CO2/yr
 Emissions|CO2|Maritime;Mt CO2/yr
 Emissions abated|CO2|Maritime;Mt CO2/yr
+Capacity|Carbon removal|Global|DACCS;Mt CO2/yr
+Capacity|Carbon removal|Global|DACCS|Liquid solvent;Mt CO2/yr
+Capacity|Carbon removal|Global|DACCS|Solid sorbent;Mt CO2/yr
+Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Mt CO2/yr
