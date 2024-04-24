@@ -29,8 +29,7 @@ reportInput <- function(gdx, mappingPath = NULL) {
   # reading mapping file
   mapping_tech <- read.csv(mappingPath, sep = ";")
 
-  #c_reportheating <- 0
-
+  #Load heating realisation
   heating <- .readHeatingCfg(gdx)
 
   #Read sets
@@ -44,15 +43,8 @@ reportInput <- function(gdx, mappingPath = NULL) {
   p_nurenannual_adj2 <- readGDX(gdx, name = "p_nurenannual_adj2", field = "l", format = "first_found") #annual availability factor for RES
   f_capmax <- readGDX(gdx, name = "f_capmax", field = "l", format = "first_found") #capacity potential (per grade)
   p_taulength <- readGDX(gdx, name = c("p_taulength", "pm_taulength"), field = "l", format = "first_found") #number of hours/year per tau
-  #p_nuren_adj <- readGDX(gdx, name = "p_nuren_adj", field = "l", format = "first_found") #availability factor for RES
-  #tau <- readGDX(gdx, name = "tau") #set of time slices
-
-  #Make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
-  #p_nuren <- p_nuren[, , tau]
-  #p_taulength <- p_taulength[, , tau]
 
   # create MagPie object of demand with iso3 regions
-  #p_nuren_adj <- limesMapping(p_nuren_adj[, , c(ter)])
   p_nurenannual_adj <- limesMapping(p_nurenannual_adj[, as.numeric(tt), c(ter)])
   p_nurenannual_adj2 <- limesMapping(p_nurenannual_adj2[, as.numeric(tt), c(ter)])
   f_capmax <- limesMapping(f_capmax[, , c(ter)])
@@ -83,13 +75,14 @@ reportInput <- function(gdx, mappingPath = NULL) {
 
   # read sets
   te <- readGDX(gdx, name = "te") #set of technologies
-  tehe <- readGDX(gdx, name = "tehe") #set of technologies
+  teel <- readGDX(gdx, name = "teel") #set of electricity technologies
+  tehe <- readGDX(gdx, name = "tehe") #set of heat technologies technologies
   testore <- readGDX(gdx, name = "testore") #set of technologies
   #Do not report some technologies for the moment
   tech_out <- c("ror", "hs", "hvacline")
   #Do not include heating technologies if switch is off
-  if(heating == "fullDH") {
-    tech_out <- c(tech_out, tehe)
+  if(heating != "fullDH") {
+    te <- teel
   }
   te <- setdiff(te, tech_out)
   all_te <- readGDX(gdx,name="all_te",format="first_found", react = 'silent')
