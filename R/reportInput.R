@@ -14,9 +14,8 @@
 #' \dontrun{reportInput(gdx)}
 #'
 #' @importFrom gdx readGDX
-#' @importFrom magclass mbind setNames dimSums getSets
+#' @importFrom magclass mbind setNames dimSums
 #' @importFrom magclass new.magpie getYears getNames getItems collapseDim
-#' @importFrom luscale speed_aggregate
 #' @importFrom utils read.csv
 #' @export
 #'
