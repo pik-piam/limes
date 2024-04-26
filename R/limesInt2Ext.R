@@ -8,7 +8,7 @@
 #'
 #' @export
 #' @importFrom magclass getItems new.magpie getYears getNames getItems<-
-#' @importFrom luscale speed_aggregate
+#' @importFrom madrat toolAggregate
 #' @importFrom utils read.csv
 #' @importFrom stringr str_replace_all
 #' @importFrom gdx readGDX
@@ -119,7 +119,7 @@ limesInt2Ext <- function(gdx, output, reporting_tau = FALSE, mappingPath=NULL){
       tmp_RegAgg_ie2 <- do.call("mbind",
                                 lapply(int, function(i2e) {
                                   map <- data.frame(region=regionSubsetList[[region]], parentRegion=region, stringsAsFactors=FALSE)
-                                  result <- speed_aggregate(
+                                  result <- toolAggregate(
                                     var[regionSubsetList[[region]],,i2e],
                                     map,
                                     weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]] /
@@ -144,7 +144,7 @@ limesInt2Ext <- function(gdx, output, reporting_tau = FALSE, mappingPath=NULL){
       tmp_RegAgg_ie2 <- do.call("mbind",
                                 lapply(int, function(i2e) {
                                   map <- data.frame(region=regionSubsetList[[region]], parentRegion=region, stringsAsFactors=FALSE)
-                                  result <- speed_aggregate(
+                                  result <- toolAggregate(
                                     var[regionSubsetList[[region]],,i2e],
                                     map,
                                     weight=var[regionSubsetList[[region]],, ext[match(i2e,int)]] /
