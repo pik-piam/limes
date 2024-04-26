@@ -388,15 +388,15 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #ONLY FOR THE REPORT OF INPUTS (run manually)
   #################################################################
 
-  ##Always keep this in 0!!!!
+  #Always keep this in 0!!!!
   #c_reportinput <- 0
   #
   #if(c_reportinput != 0) {
-  #  time=as.numeric(readGDX(gdx,name="t"))
+  #  #time=as.numeric(readGDX(gdx,name="t"))
   #
   #  #Files-related variables
-  #  #outputdir <- "C:/Users/osorio/ownCloud/PIK/Data for LIMES/CSV files/output"     # path to the output folder
-  #  limes_reporting_file <- path(outputdir,paste0("LIMES_inputparam.mif"))
+  #  #outputdir <- "C:/Users/osorio/Nextcloud/PIK/Data for LIMES/CSV files/output"     # path to the output folder
+  #  limes_reporting_file <- file.path(outputdir,paste0("LIMES_inputparam.mif"))
   #  file=limes_reporting_file
   #  #lastDir <- splitPath[[1]][length(splitPath[[1]])]
   #  #scenario <- lastDir
@@ -413,7 +413,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #  #Clean the output
   #  output_glo <- NULL
   #  var_dup <- NULL
-  #  n_regi <- length(unique(getitems(output, dim = 1)))
+  #  n_regi <- length(unique(getItems(output, dim = 1)))
   #  n_years <- length(getYears(output))
   #  for (var_name in getNames(output)) {
   #    #Create array to save whether the number is duplicated for all REGI in one YEAR
@@ -439,7 +439,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #    } else {
   #      output_tmp <- 0*output["DEU",,var_name]
   #    }
-  #    getitems(output_tmp, dim = 1) <- "GLO"
+  #    getItems(output_tmp, dim = 1) <- "GLO"
   #
   #    #Concatenate all "GLO" variables
   #    output_glo <- mbind(output_glo,output_tmp)
@@ -450,7 +450,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #
   #  #Clean the file
   #  #Erase region-dependent data for variables with duplicates
-  #  output_f[setdiff(getitems(output_f, dim = 1),"GLO"),,var_dup] <- NA
+  #  output_f[setdiff(getItems(output_f, dim = 1),"GLO"),,var_dup] <- NA
   #  #Erase "GLO" data for variables without duplicates
   #  output_f["GLO",,setdiff(getNames(output_f),var_dup)] <- NA
   #

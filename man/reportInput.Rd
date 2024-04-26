@@ -20,7 +20,7 @@ for the reporting
 }
 \examples{
 
-\dontrun{reportNuren(gdx)}
+\dontrun{reportInput(gdx)}
 
 }
 \seealso{

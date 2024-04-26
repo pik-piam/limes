@@ -1,8 +1,8 @@
 Type: Package
 Package: limes
 Title: The liMES R package
-Version: 2.62.0
-Date: 2024-01-25
+Version: 2.63.0
+Date: 2024-04-26
 Authors@R: 
     person("Sebastian", "Osorio", , "sebastian.osorio@pik-potsdam.de", role = c("aut", "cre"))
 Description: Contains the LIMES-specific routines for data and model
@@ -12,13 +12,13 @@ Depends:
     gdx (>= 1.29),
     magclass (>= 3.37)
 Imports:
-    luscale,
     rlang,
     rmarkdown,
     stringr,
     utils,
     yaml,
-    ymlthis
+    ymlthis,
+    madrat
 Suggests: 
     knitr,
     covr,
