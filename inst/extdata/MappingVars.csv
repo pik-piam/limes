@@ -331,6 +331,7 @@ Emissions|CO2|Aviation;Emissions|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Certificates from Stationary|Aviation;Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Stationary|Electricity and Industry;Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Cap|Stationary;Emissions|CO2|Cap|Stationary;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Cap|Stationary and Aviation;Emissions|CO2|Cap|Stationary and Aviation;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Electricity and Industry;Emissions|CO2|Electricity and Industry;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Preliminary auction ETS;Emissions|CO2|Preliminary auction ETS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Additional sectors in EU ETS;Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr;Mt CO2/yr;1
@@ -1419,7 +1420,6 @@ Capacity|Carbon removal|Global|DACCS;Capacity|Carbon removal|Global|DACCS;Mt CO2
 Capacity|Carbon removal|Global|DACCS|Liquid solvent;Capacity|Carbon removal|Global|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|Global|DACCS|Solid sorbent;Capacity|Carbon removal|Global|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Cap|Maritime;Emissions|CO2|Cap|Maritime;Mt CO2/yr;Mt CO2/yr;1
-Emissions|CO2|Cap|Stationary|w/ Maritime;Emissions|CO2|Cap|Stationary|w/ Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Maritime;Emissions abated|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
+Emissions abated|CO2|Aviation;Emissions abated|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1

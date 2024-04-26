@@ -77,17 +77,26 @@ reportEUETSvars <- function(gdx,output=NULL) {
         c_aviation <- readGDX(gdx,name="c_aviation",field="l",format="first_found")
         if(c_aviation > 0){
           p_aviation_cap <- readGDX(gdx,name="p_aviation_cap",field="l",format="first_found")[, y ,]
-          p_aviation_emi <- readGDX(gdx,name="p_aviation_emi",field="l",format="first_found")[, y ,]
-          o_aviation_demandEUA <- as.magpie(apply(mbind(p_aviation_emi*0,p_aviation_emi-p_aviation_cap),1:2,max))
-          if (c_LIMESversion >= 2.31) {
-            o_aviation_demandEUA <- readGDX(gdx,name="p_demaviationEUA",field="l",format="first_found")[, y ,]
-          }
-          #include historical emissions in 2015
-          o_aviation_demandEUA[,2015,] <- 20/(s_c2co2*1000)
-
           tmp2 <- mbind(tmp2,setNames(p_aviation_cap*s_c2co2*1000,"Emissions|CO2|Cap|Aviation (Mt CO2/yr)"))
-          tmp2 <- mbind(tmp2,setNames(p_aviation_emi*s_c2co2*1000,"Emissions|CO2|Aviation (Mt CO2/yr)"))
-          tmp2 <- mbind(tmp2,setNames(o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"))
+
+          #Aviation emissions
+          p_aviation_emi <- readGDX(gdx,name="p_aviation_emi",field="l",format="first_found", react = 'silent')[, y ,]
+          p_AviationEmi_EUETS <- readGDX(gdx,name="o_AviationEmi_EUETS",field="l",format="first_found", react = 'silent')[, y ,]
+          v_EmiAbatProcEUETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcEUETS_Aviation",field="l",format="first_found", react = 'silent')[, y ,]
+          if(!is.null(p_aviation_emi)) { #In previous version, we had emissions defined as demand (for EUA) from aviation
+            o_EmiAviation_EUETS <- p_aviation_emi * s_c2co2 * 1000
+          }
+          if(!is.null(p_AviationEmi_EUETS)) { #In most recent version, there is reference emissions and
+            o_EmiAviation_EUETS <- p_AviationEmi_EUETS
+            tmp2 <- mbind(tmp2,setNames(dimSums(v_EmiAbatProcEUETS_Aviation, dim = 3) * s_c2co2 * 1000, "Emissions abated|CO2|Aviation (Mt CO2/yr)"))
+          }
+          tmp2 <- mbind(tmp2,setNames(o_EmiAviation_EUETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
+
+          #Demand for stationary allowances
+          o_aviation_demandEUA <- as.magpie(
+            apply(mbind(o_EmiAviation_EUETS*0,o_EmiAviation_EUETS-p_aviation_cap*s_c2co2*1000),1:2,max)
+            )
+          tmp2 <- mbind(tmp2,setNames(o_aviation_demandEUA,"Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"))
         }
       }
 
@@ -131,14 +140,14 @@ reportEUETSvars <- function(gdx,output=NULL) {
         #From this version, we estimate differently the auction, free allocation, unilateral cancellation, and thus the cap
         if(c_LIMESversion <= 2.30) {
           tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary|Electricity and Industry (Mt CO2/yr)"))
-          o_prelcap <- ((p_emicappath_EUETS[,,]+o_aviation_demandEUA)*s_c2co2*1000+p_certificates_cancelled)/(1-p_shareheating_EUETS)
+          o_prelcap <- (p_emicappath_EUETS[,,]*s_c2co2*1000 + o_aviation_demandEUA + p_certificates_cancelled) / (1-p_shareheating_EUETS)
           tmp2 <- mbind(tmp2,setNames(o_prelcap,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
           o_exoemiheat <- o_prelcap*p_shareheating_EUETS
           #o_exoemiheat[,c(2010,2015),] <- c(317,272)  #include historical heating emissions from 2010 and 2015
           tmp2 <- mbind(tmp2,setNames(o_exoemiheat,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"))
           if(!is.null(o_emi_elec_ind)) {
             tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat,"Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not include aviation demand
-            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_aviation_demandEUA*s_c2co2*1000,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
+            tmp2 <- mbind(tmp2,setNames(o_emi_elec_ind + o_exoemiheat + o_EmiAviation_EUETS,"Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
           }
 
         } else {#c_LIMESversion > 2.30
@@ -147,11 +156,15 @@ reportEUETSvars <- function(gdx,output=NULL) {
             tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
           } else {
             p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
-            tmp2 <- mbind(tmp2,setNames(p_emicap_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-
+            o_emicap_EUETS <- p_emicap_EUETS*s_c2co2*1000
             #Include some historical values
-            tmp2[, c(2010), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- 2049 #Cap in phase 2 (2008-2012)
-            tmp2[, c(2015), "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] <- 2008 #average of cap between 2013 and 2017
+            o_emicap_EUETS[, c(2010), ] <- 2049 #Cap in phase 2 (2008-2012)
+            o_emicap_EUETS[, c(2015), ] <- 2008 #average of cap between 2013 and 2017
+
+            tmp2 <- mbind(tmp2,setNames(o_emicap_EUETS,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
+
+            #Report also cap with aviation
+            tmp2 <- mbind(tmp2,setNames(o_emicap_EUETS + p_aviation_cap*s_c2co2*1000,"Emissions|CO2|Cap|Stationary and Aviation (Mt CO2/yr)"))
 
             p_unsoldEUA <- readGDX(gdx,name="p_unsoldEUA",field="l",format="first_found")[, y, ]
             tmp2 <- mbind(tmp2,setNames(p_unsoldEUA[,,]*s_c2co2*1000,"Emissions|CO2|Unallocated certificates (Mt CO2/yr)"))
@@ -267,24 +280,17 @@ reportEUETSvars <- function(gdx,output=NULL) {
   if(!is.null(c_maritime)) {
     if(c_maritime >= 1) {
 
-      #Load parameters
-      p_EmiEUETS_Maritime <- readGDX(gdx, name = c("p_EmiEUETS_Maritime","p_maritime_emi"), format = "first_found", react = 'silent')[, y, ]
-      p_EmiCapEUETS_Maritime <- readGDX(gdx, name = c("p_EmiCapEUETS_Maritime","p_maritime_cap"), format = "first_found", react = 'silent')[, y, ]
-
-      tmp4 <- mbind(tmp4, setNames(p_EmiCapEUETS_Maritime * s_c2co2 * 1000,
-                                   "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4, setNames(tmp[,, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"] + p_EmiCapEUETS_Maritime * s_c2co2 * 1000,
-                                   "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
-
       #Representation of emissions have changed
       #Some model version has fixed emissions and only considered until 2030
       #This was replaced by a MAC for maritime
+      #Constant emissions
+      p_EmiEUETS_Maritime <- readGDX(gdx, name = c("p_EmiEUETS_Maritime","p_maritime_emi"), format = "first_found", react = 'silent')[, y, ]
       if(!is.null(p_EmiEUETS_Maritime)) {
         o_EmiEUETS_Maritime <- p_EmiEUETS_Maritime * s_c2co2 * 1000
         tmp4 <- mbind(tmp4, setNames(o_EmiEUETS_Maritime, "Emissions|CO2|Maritime (Mt CO2/yr)"))
       }
 
-      #Load parameters
+      #Maritime with MACC
       p_MACC_AbatPotEUETS_Maritime <- readGDX(gdx, name = c("p_MACC_AbatPotEUETS_Maritime","p_MACC_AbatPot_Maritime"), format = "first_found", react = 'silent')
       v_EmiAbatProcEUETS_Maritime <- readGDX(gdx, name = c("v_EmiAbatProcEUETS_Maritime","v_EmiAbatProc_Maritime"), field="l", format = "first_found", react = 'silent')
 
@@ -304,10 +310,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
     #Emissions from other sectors
     p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
     tmp4 <- mbind(tmp4,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-    tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + (p_emiothersec + o_aviation_demandEUA)*s_c2co2*1000,
+    tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + o_EmiAviation_EUETS + p_emiothersec*s_c2co2*1000,
                                 "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
-    tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + (p_emiothersec)*s_c2co2*1000,
-                                "Emissions|CO2|EU ETS (Mt CO2/yr)")) #this includes aviation demand
+    tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + p_emiothersec*s_c2co2*1000,
+                                "Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not includes aviation demand
 
   } #end if c_bankemi_EU == 1
 
@@ -342,7 +348,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
   var_names <- c(
     "Emissions|CO2|Cap|Maritime (Mt CO2/yr)",
     "Emissions abated|CO2|Maritime (Mt CO2/yr)",
-    "Emissions|CO2|Maritime (Mt CO2/yr)"
+    "Emissions|CO2|Maritime (Mt CO2/yr)",
+    "Emissions abated|CO2|Aviation (Mt CO2/yr)"
   )
 
   for(var in var_names) {

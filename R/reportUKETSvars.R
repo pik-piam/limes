@@ -33,13 +33,22 @@ reportUKETSvars <- function(gdx,output=NULL) {
   if(c_LIMESversion >= 2.38) {
     #Add UK ETS cap (new after brexit)
     p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS", field="l", format="first_found")[, y, ]
-    p_demaviationUK <- readGDX(gdx,name="p_demaviationUK", field="l", format="first_found")[, y, ]
-
-    #Convert to MtCo2
-    o_demaviationUK <- p_demaviationUK * s_c2co2 * 1000
+    p_demaviationUK <- readGDX(gdx,name="p_demaviationUK", field="l", format="first_found", react = 'silent')[, y, ]
+    p_AviationEmi_UKETS <- readGDX(gdx,name="o_AviationEmi_UKETS", field="l", format="first_found", react = 'silent')[, y, ] #already in MtCO2
+    v_EmiAbatProcUKETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcUKETS_Aviation", field="l", format="first_found", react = 'silent')[, y, ] #in GtC
 
     tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-    tmp1 <- mbind(tmp1,setNames(o_demaviationUK, "Emissions|CO2|Aviation (Mt CO2/yr)"))
+
+    #Aviation emissions
+    if(!is.null(p_demaviationUK)) { #In previous version, we had emissions defined as demand (for EUA) from aviation
+      o_EmiAviation_UKETS <- p_demaviationUK * s_c2co2 * 1000
+    }
+    if(!is.null(p_AviationEmi_UKETS)) { #In most recent version, there is reference emissions and
+      o_EmiAviation_UKETS <- p_AviationEmi_UKETS
+      tmp1 <- mbind(tmp1,setNames(dimSums(v_EmiAbatProcUKETS_Aviation, dim = 3) * s_c2co2 * 1000, "Emissions abated|CO2|Aviation (Mt CO2/yr)"))
+    }
+    tmp1 <- mbind(tmp1,setNames(o_EmiAviation_UKETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
+
 
 
     ##Total UK ETS emissions
@@ -104,16 +113,6 @@ reportUKETSvars <- function(gdx,output=NULL) {
       if(c_maritime >= 1) {
 
         #Load parameters
-        p_EmiCapUKETS_Maritime <- readGDX(gdx, name = "p_EmiCapUKETS_Maritime", format = "first_found", react = 'silent')[, y, ]
-
-        if(!is.null(p_EmiCapUKETS_Maritime)) {
-          tmp1 <- mbind(tmp1, setNames(p_EmiCapUKETS_Maritime * s_c2co2 * 1000,
-                                       "Emissions|CO2|Cap|Maritime (Mt CO2/yr)"))
-          tmp1 <- mbind(tmp1, setNames((p_emicap_UKETS + p_EmiCapUKETS_Maritime) * s_c2co2 * 1000,
-                                       "Emissions|CO2|Cap|Stationary|w/ Maritime (Mt CO2/yr)"))
-        }
-
-        #Load parameters
         p_MACC_AbatPotUK_Maritime <- readGDX(gdx, name = "p_MACC_AbatPotUK_Maritime", format = "first_found", react = 'silent')
         v_EmiAbatProcUK_Maritime <- readGDX(gdx, name = "v_EmiAbatProcUK_Maritime", field="l", format = "first_found", react = 'silent')
 
@@ -133,7 +132,7 @@ reportUKETSvars <- function(gdx,output=NULL) {
       #Aggregate emissions at UK ETS level
       tmp1 <- mbind(tmp1,setNames(o_emi_elec_ind + o_DH_emi + o_EmiUKETS_Maritime,
                                   "Emissions|CO2|UK ETS (Mt CO2/yr)")) #the variables summed already do not include UK
-      tmp1 <- mbind(tmp1,setNames(o_emi_elec_ind + o_DH_emi + o_EmiUKETS_Maritime + o_demaviationUK,
+      tmp1 <- mbind(tmp1,setNames(o_emi_elec_ind + o_DH_emi + o_EmiUKETS_Maritime + o_EmiAviation_UKETS,
                                   "Emissions|CO2|UK ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
 
       v_bankemi_UK <- readGDX(gdx, name = "v_bankemi_UK", field = "l", format = "first_found", react = 'silent')
@@ -179,7 +178,8 @@ reportUKETSvars <- function(gdx,output=NULL) {
   var_names <- c(
     "Emissions|CO2|Cap|Maritime (Mt CO2/yr)",
     "Emissions abated|CO2|Maritime (Mt CO2/yr)",
-    "Emissions|CO2|Maritime (Mt CO2/yr)"
+    "Emissions|CO2|Maritime (Mt CO2/yr)",
+    "Emissions abated|CO2|Aviation (Mt CO2/yr)"
   )
 
   for(var in var_names) {

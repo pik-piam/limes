@@ -12,6 +12,7 @@ Emissions|CO2|Aviation;Mt CO2/yr
 Emissions|CO2|Certificates from Stationary|Aviation;Mt CO2/yr
 Emissions|CO2|Cap|Stationary|Electricity and Industry;Mt CO2/yr
 Emissions|CO2|Cap|Stationary;Mt CO2/yr
+Emissions|CO2|Cap|Stationary and Aviation;Mt CO2/yr
 Emissions|CO2|Energy|Supply|Heat|District Heating;Mt CO2/yr
 Emissions|CO2|Additional sectors in EU ETS;Mt CO2/yr
 Emissions|CO2|EU ETS;Mt CO2/yr
@@ -22,10 +23,9 @@ Emissions|CO2|Unallocated certificates;Mt CO2/yr
 Emissions|CO2|Cancellation from MSR [exogenous];Mt CO2/yr
 Emissions|CO2|Total number of allowances in circulation [TNAC];Mt CO2
 Emissions|CO2|Joint TNAC with linked systems;Mt CO2
-Emissions|CO2|Cap|Maritime;Mt CO2/yr
-Emissions|CO2|Cap|Stationary|w/ Maritime;Mt CO2/yr
 Emissions|CO2|Maritime;Mt CO2/yr
 Emissions abated|CO2|Maritime;Mt CO2/yr
+Emissions abated|CO2|Aviation;Mt CO2/yr
 Capacity|Carbon removal|Global|DACCS;Mt CO2/yr
 Capacity|Carbon removal|Global|DACCS|Liquid solvent;Mt CO2/yr
 Capacity|Carbon removal|Global|DACCS|Solid sorbent;Mt CO2/yr
