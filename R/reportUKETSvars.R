@@ -113,14 +113,14 @@ reportUKETSvars <- function(gdx,output=NULL) {
       if(c_maritime >= 1) {
 
         #Load parameters
-        p_MACC_AbatPotUK_Maritime <- readGDX(gdx, name = "p_MACC_AbatPotUK_Maritime", format = "first_found", react = 'silent')
-        v_EmiAbatProcUK_Maritime <- readGDX(gdx, name = "v_EmiAbatProcUK_Maritime", field="l", format = "first_found", react = 'silent')
+        p_EmiRef_UKETS_Aviation <- readGDX(gdx, name = "p_EmiRef_UKETS_Aviation", format = "first_found", react = 'silent')
+        v_EmiAbatProcUKETS_Aviation <- readGDX(gdx, name = "v_EmiAbatProcUKETS_Aviation", field="l", format = "first_found", react = 'silent')
 
-        if(!is.null(p_MACC_AbatPotUK_Maritime)) {
+        if(!is.null(p_EmiRef_UKETS_Aviation)) {
           #Estimate Maritime emissions (baselines - abated)
-          o_EmiUKETS_Maritime <- (p_MACC_AbatPotUK_Maritime - v_EmiAbatProcUK_Maritime) * s_c2co2 * 1000
+          o_EmiUKETS_Maritime <- (p_EmiRef_UKETS_Aviation - dimSums(v_EmiAbatProcUKETS_Aviation, dim = 3)) * s_c2co2 * 1000
 
-          tmp1 <- mbind(tmp1, setNames(dimSums(v_EmiAbatProcUK_Maritime, 3) * s_c2co2 * 1000, "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
+          tmp1 <- mbind(tmp1, setNames(dimSums(v_EmiAbatProcUKETS_Aviation, 3) * s_c2co2 * 1000, "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
           tmp1 <- mbind(tmp1, setNames(dimSums(o_EmiUKETS_Maritime, 3), "Emissions|CO2|Maritime (Mt CO2/yr)"))
         }
 

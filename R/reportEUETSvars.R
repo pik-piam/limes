@@ -80,16 +80,19 @@ reportEUETSvars <- function(gdx,output=NULL) {
           tmp2 <- mbind(tmp2,setNames(p_aviation_cap*s_c2co2*1000,"Emissions|CO2|Cap|Aviation (Mt CO2/yr)"))
 
           #Aviation emissions
+          #Initially emissions were considered completely endogenous
           p_aviation_emi <- readGDX(gdx,name="p_aviation_emi",field="l",format="first_found", react = 'silent')[, y ,]
-          p_AviationEmi_EUETS <- readGDX(gdx,name="o_AviationEmi_EUETS",field="l",format="first_found", react = 'silent')[, y ,]
-          v_EmiAbatProcEUETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcEUETS_Aviation",field="l",format="first_found", react = 'silent')[, y ,]
           if(!is.null(p_aviation_emi)) { #In previous version, we had emissions defined as demand (for EUA) from aviation
             o_EmiAviation_EUETS <- p_aviation_emi * s_c2co2 * 1000
           }
-          if(!is.null(p_AviationEmi_EUETS)) { #In most recent version, there is reference emissions and
-            o_EmiAviation_EUETS <- p_AviationEmi_EUETS
+          #A MACC was implemented recently
+          p_EmiRef_EUETS_Aviation <- readGDX(gdx,name="p_EmiRef_EUETS_Aviation",field="l",format="first_found", react = 'silent')[, y ,]
+          v_EmiAbatProcEUETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcEUETS_Aviation",field="l",format="first_found", react = 'silent')[, y ,]
+          if(!is.null(p_EmiRef_EUETS_Aviation)) { #In most recent version, there is reference emissions and
+            o_EmiAviation_EUETS <- (p_EmiRef_EUETS_Aviation - dimSums(v_EmiAbatProcEUETS_Aviation, dim = 3)) * s_c2co2 * 1000
             tmp2 <- mbind(tmp2,setNames(dimSums(v_EmiAbatProcEUETS_Aviation, dim = 3) * s_c2co2 * 1000, "Emissions abated|CO2|Aviation (Mt CO2/yr)"))
           }
+
           tmp2 <- mbind(tmp2,setNames(o_EmiAviation_EUETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
 
           #Demand for stationary allowances
