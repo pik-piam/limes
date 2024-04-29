@@ -287,8 +287,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #Transmission capacity aggregated (special case)
   if(length(intersect(getNames(output),"Capacity|Electricity|Transmission Grid (GW)")) > 0) {
-    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <- output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
-    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <- output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
+    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"] <-
+      output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid (GW)"]/2
+    output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"] <-
+      output[c("GLO","EU28","EU27","EUETS"),,"Capacity|Electricity|Transmission Grid-km (GWkm)"]/2
   }
 
 
