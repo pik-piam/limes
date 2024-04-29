@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: If you use this software, please cite it using the metadata from this file.
 type: software
 title: 'limes: The liMES R package'
-version: 2.63.1
+version: 2.63.2
 date-released: '2024-04-29'
 abstract: Contains the LIMES-specific routines for data and model output manipulation.
 authors:
