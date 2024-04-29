@@ -39,6 +39,9 @@ reportUKETSvars <- function(gdx,output=NULL) {
 
     tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
 
+    #Report also the cap including aviation (to avoid issues with the PDF reprot)
+    tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary and Aviation (Mt CO2/yr)"))
+
     #Aviation emissions
     if(!is.null(p_demaviationUK)) { #In previous version, we had emissions defined as demand (for EUA) from aviation
       o_EmiAviation_UKETS <- p_demaviationUK * s_c2co2 * 1000
