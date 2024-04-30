@@ -131,6 +131,9 @@ reportCO2Price <- function(gdx) {
   #4) CO2 PRICE RESULTING FROM EMISSION BANKING
 
   #a) Banking constraint (EU ETS)
+  # read switch for EU ETS
+  #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
+  c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found")
   # read marginal values
   m_bankemi_EU <- readGDX(gdx, name = "q_bankemi_EU", field = "m", format = "first_found")
 
@@ -248,7 +251,6 @@ reportCO2Price <- function(gdx) {
   tmp4 <- NULL
   tmp4<-mbind(tmp4,  setNames(o_co2price*dimSums(v_emi[, , "seel"],  dim = 3,  na.rm  =  T)/(1e9), "Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
 
-  c_bankemi_EU <- readGDX(gdx, name = "c_bankemi_EU", field = "l", format = "first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
   if(c_LIMESversion >=  2.28 & c_bankemi_EU  ==  1) {
     # read variables from gdx
     p_shareEUA_auct <- readGDX(gdx, name = "p_shareEUA_auct", field = "l", format = "first_found")
@@ -274,7 +276,7 @@ reportCO2Price <- function(gdx) {
     }
 
     #Report the auction and revenues from auction only if industry is modelled
-    if(c_industry_ETS  ==  1) {
+    if(c_bankemi_EU  ==  1) {
 
       if(c_LIMESversion <=  2.30) {
         #Preliminary auction of EUA
