@@ -249,14 +249,26 @@ reportCO2Price <- function(gdx) {
   }
 
   tmp4 <- NULL
-  tmp4<-mbind(tmp4,  setNames(o_co2price*dimSums(v_emi[, , "seel"],  dim = 3,  na.rm  =  T)/(1e9), "Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
+  tmp4<-mbind(tmp4,  setNames(o_co2price*dimSums(v_emi[, , "seel"],  dim = 3,  na.rm  =  T)/(1e9),
+                              "Total Energy System Cost|Power Sector|CO2 costs (billion eur2010/yr)"))
 
   if(c_LIMESversion >=  2.28 & c_bankemi_EU  ==  1) {
-    # read variables from gdx
+    # read parameters from gdx
+    p_certificates_cancelled <- readGDX(gdx, name = "p_certificates_cancelled", field = "l", format = "first_found")
     p_shareEUA_auct <- readGDX(gdx, name = "p_shareEUA_auct", field = "l", format = "first_found")
     p_shareEUA_auct <- limesMapping(p_shareEUA_auct)
-    p_certificates_cancelled <- readGDX(gdx, name = "p_certificates_cancelled", field = "l", format = "first_found")
-    p_sharefreeEUA <- readGDX(gdx, name = "p_sharefreeEUA", field = "l", format = "first_found")
+    #Recalculate the shares because of BREXIT. Parameter should be time dependent
+    o_shareEUA_auct <- new.magpie(cells_and_regions = getItems(p_shareEUA_auct, dim = 1), years = y, names = NA,
+                                  fill = NA, sort = FALSE, sets = NULL)
+    #regi_oldETS <- getItems(p_shareEUA_auct, dim = 1)[p_shareEUA_auct > 0]
+    o_shareEUA_auct[,c(2010,2015),] <- p_shareEUA_auct
+    o_shareEUA_auct[,c(2020),] <-
+      (2 * p_shareEUA_auct + 3 * p_shareEUA_auct / dimSums(p_shareEUA_auct[setdiff(getItems(p_shareEUA_auct, dim = 1), "GBR"),,], dim = 1)) / 5
+    o_shareEUA_auct["GBR",c(2020),] <- 2 * p_shareEUA_auct["GBR",,] / 5
+    o_shareEUA_auct[,setdiff(getItems(o_shareEUA_auct, dim = 2), c("y2010","y2015","y2020")),] <-
+      p_shareEUA_auct / dimSums(p_shareEUA_auct[setdiff(getItems(p_shareEUA_auct, dim = 1), "GBR"),,], dim = 1)
+    o_shareEUA_auct["GBR",setdiff(getItems(o_shareEUA_auct, dim = 2), c("y2010","y2015","y2020")),] <- 0
+
     #set related to countries cancelling
     regi_cancEUA_iso2 <- readGDX(gdx, name = "regi_cancEUA") #set of countries cancelling EUA (unilaterally)
     regi_cancEUA_iso3 <- mappingregi[match(regi_cancEUA_iso2, mappingregi[, 1]), 2]
@@ -267,7 +279,8 @@ reportCO2Price <- function(gdx) {
     o_selfcancelEUA_regi <- new.magpie(cells_and_regions = getItems(o_co2price_ETS, dim = 1), years = getYears(o_co2price_ETS), names = NULL,
                              fill = 0, sort = FALSE, sets = NULL)
     if(length(regi_cancEUA) > 0) {
-      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * p_shareEUA_auct[regi_cancEUA, , ] / dimSums(p_shareEUA_auct[regi_cancEUA, , ], dim = 1)
+      o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * o_shareEUA_auct[regi_cancEUA,,] /
+        dimSums(o_shareEUA_auct[regi_cancEUA,,], dim = 1)
     }
     if(c_LIMESversion <=  2.30) {
       tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
@@ -279,8 +292,10 @@ reportCO2Price <- function(gdx) {
     if(c_bankemi_EU  ==  1) {
 
       if(c_LIMESversion <=  2.30) {
+        #Load parameters
+        p_sharefreeEUA <- readGDX(gdx, name = "p_sharefreeEUA", field = "l", format = "first_found")
         #Preliminary auction of EUA
-        o_prelauction_EUETS_regi <- p_emicappath_EUETS*p_shareEUA_auct*(1-p_sharefreeEUA)
+        o_prelauction_EUETS_regi <- p_emicappath_EUETS*o_shareEUA_auct*(1-p_sharefreeEUA)
         tmp4 <- mbind(tmp4, setNames(o_prelauction_EUETS_regi*s_c2co2*1000, "Emissions|CO2|Preliminary auction ETS (Mt CO2/yr)"))
 
         #o_auction_preunicanc is indeed what is allocated to different countries,  and then they could decide to cancel unilaterally
@@ -288,20 +303,20 @@ reportCO2Price <- function(gdx) {
         o_auction_preunicanc <- p_emicappath_EUETS*(1-p_sharefreeEUA) - p_intakeMSR + p_outtakeMSR
 
         #EUA cancelled need to be subtracted from EUA preliminary auctions
-        o_auctionEUA_regi <- o_auction_preunicanc*p_shareEUA_auct - 0*o_selfcancelEUA_regi/(s_c2co2*1000)
+        o_auctionEUA_regi <- o_auction_preunicanc*o_shareEUA_auct - 0*o_selfcancelEUA_regi/(s_c2co2*1000)
         tmp4 <- mbind(tmp4, setNames(o_auctionEUA_regi*s_c2co2*1000, "Emissions|CO2|Certificates auctioned ETS (Mt CO2/yr)"))
 
       } else {
 
         #Preliminary auction of EUA
         p_prelauction_EUETS <- readGDX(gdx, name = "p_prelauction_EUETS", field = "l", format = "first_found")[, y, ]
-        o_prelauction_EUETS_regi <- p_prelauction_EUETS*p_shareEUA_auct
+        o_prelauction_EUETS_regi <- p_prelauction_EUETS*o_shareEUA_auct
         tmp4 <- mbind(tmp4, setNames(o_prelauction_EUETS_regi*s_c2co2*1000, "Emissions|CO2|Preliminary auction ETS (Mt CO2/yr)"))
         #Available for auction before unilateral cancellation
         #o_auction_preunicanc is indeed what is allocated to different countries,  and then they could decide to cancel unilaterally
         #i.e.,  they do not auction these EUA and delete them from the EU log
         o_auction_preunicanc <- p_auction_EUETS[, y, ] + dimSums(o_selfcancelEUA_regi, dim = 1)
-        o_auction_preunicanc_regi <- o_auction_preunicanc*p_shareEUA_auct
+        o_auction_preunicanc_regi <- o_auction_preunicanc*o_shareEUA_auct
         tmp4 <- mbind(tmp4, setNames(o_auction_preunicanc_regi*s_c2co2*1000, "Emissions|CO2|Certificates for auction - before unilateral cancellation (Mt CO2/yr)"))
         o_auctionEUA_regi <- o_auction_preunicanc_regi - o_selfcancelEUA_regi
         tmp4 <- mbind(tmp4, setNames(o_auctionEUA_regi*s_c2co2*1000, "Emissions|CO2|Certificates auctioned ETS (Mt CO2/yr)"))
