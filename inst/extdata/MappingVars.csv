@@ -1393,9 +1393,11 @@ Primary Energy|Gas|DACCS|Liquid solvent;Primary Energy|Gas|DACCS|Liquid solvent;
 Primary Energy|Gas|DACCS|Solid sorbent;Primary Energy|Gas|DACCS|Solid sorbent;TWh/yr;PJ/yr;3.6
 Primary Energy|Gas|DACCS|CaO ambient weathering;Primary Energy|Gas|DACCS|CaO ambient weathering;TWh/yr;PJ/yr;3.6
 Emissions|Carbon removal|DACCS;Emissions|Carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Carbon removal;Emissions|Carbon removal;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|Liquid solvent;Emissions|Carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|Solid sorbent;Emissions|Carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Carbon removal|DACCS|CaO ambient weathering;Emissions|Carbon removal|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
+Emissions|Net carbon removal;Emissions|Net carbon removal;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS;Emissions|Net carbon removal|DACCS;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS|Liquid solvent;Emissions|Net carbon removal|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Emissions|Net carbon removal|DACCS|Solid sorbent;Emissions|Net carbon removal|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1

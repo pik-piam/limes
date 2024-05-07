@@ -404,6 +404,15 @@ reportEmissions <- function(gdx, output=NULL) {
         tmp7 <- mbind(tmp7, setNames(dimSums((o_Removal_DACCS_annual[, , varList_daccs[[var]]] - o_EmiGas_DACCS[, , varList_daccs[[var]]]), dim = 3),  var))
       }
 
+      #Total removals
+      dimSums(v_emi_ccs[,,intersect(tebio,teccs)],dim = 3,na.rm  =  T)
+      tmp7 <- mbind(tmp7, setNames(
+        tmp7[,,"Emissions|Carbon removal|DACCS (Mt CO2/yr)"] + tmp[,,"Emissions|Carbon removal|BECCS (Mt CO2/yr)"],
+        "Emissions|Carbon removal (Mt CO2/yr)"))
+      tmp7 <- mbind(tmp7, setNames(
+        tmp7[,,"Emissions|Net carbon removal|DACCS (Mt CO2/yr)"] + tmp[,,"Emissions|Carbon removal|BECCS (Mt CO2/yr)"],
+        "Emissions|Net carbon removal (Mt CO2/yr)"))
+
     }
   }
 
