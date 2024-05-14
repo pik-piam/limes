@@ -89,7 +89,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
             #Demand for stationary allowances
             o_aviation_demandEUA <- as.magpie(
-              apply(mbind(o_EmiAviation_EUETS*0,o_EmiAviation_EUETS-p_aviation_cap*s_c2co2*1000),1:2,max)
+              apply(mbind(o_EmiAviation_EUETS*0,o_EmiAviation_EUETS-p_aviation_cap*s_c2co2*1000),1:2, max)
             )
             tmp2 <- mbind(tmp2,setNames(o_aviation_demandEUA,"Emissions|CO2|Certificates from Stationary|Aviation (Mt CO2/yr)"))
           }
