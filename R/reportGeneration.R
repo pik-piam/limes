@@ -549,7 +549,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
           o_p2x_disc[, t2, ] <- m_p2x_year[, t2, ] / as.numeric(f_npv[getYears(o_p2x_disc) %in% t2]) # [Geur 2010/GWh]
         }
       }
-      o_p2x_disc <- abs(o_p2x_disc) # depending on how the constraint is formulated
+      #o_p2x_disc <- abs(o_p2x_disc) # depending on how the constraint is formulated
 
       tmp4 <- mbind(tmp4, setNames(o_p2x_disc, "Price|Primary Energy|Hydrogen [electrolysis] (Eur2010/MWh)")) # Convert from Geur/GWh to eur/MWh
 
