@@ -95,14 +95,35 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #(this is needed to keep report within the dimensions)
   #An example is the cap for the EU ETS
   output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
-  #Replace NAs by zeros to avoid missing variables when aggregating variables
-  output[is.na(output)] <- 0
+
+  ##Save the years and variables where all values are NA
+  #This will be used at the end. Initially all NA need to be converted to 0 for the weighted averages
+  # Convert the magpie object to an array
+  .output_array <- as.array(output)
+
+  # Use apply to check for all NA values across the country dimension (1st dimension)
+  na_check <- apply(.output_array, c(2, 3), function(x) all(is.na(x)))
+
+  # Find the years and variables where all countries have NA values
+  na_years_variables <- which(na_check, arr.ind = TRUE)
+
+  # Extract the corresponding year and variable names
+  years <- dimnames(.output_array)$ttot[na_years_variables[, 1]]
+  variables <- dimnames(.output_array)$d3[na_years_variables[, 2]]
+
+  # Combine the results into a data frame for easier interpretation
+  na_mapping <- data.frame(Year = years, Variable = variables)
+
+
   #Save file before aggregation
   output_beforeagg <- output
+  output_wo_NA <- output
+  #Replace NAs by zeros to avoid missing variables when aggregating variables
+  output_wo_NA[is.na(output_wo_NA)] <- 0
   #output <-  output_beforeagg
 
   #AGGREGATE (WEIGHTED AVERAGE OF) SOME INTENSIVE VARIABLES (e.g., electricity price)
-  output_RegAgg <- limesInt2Ext(gdx,output)
+  output_RegAgg <- limesInt2Ext(gdx,output_wo_NA)
 
   #LOADING LIST OF REGIONS FOR AGGREGATING CERTAIN GROUPS (e.g., EU)
   # settings mapping path
@@ -357,9 +378,18 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   }
 
   #SCALING THE RESULTS ACCORDING TO THE UNITS SPECIFIES FOR THE PROJECT
+  #Also fill with NAs the variables for which originally the values were NA
   tmp <- NULL
   for (i in seq_len(length(getNames(output)))) {
     tmp <- mbind(tmp,output[,,i]*mappingvars[match(getNames(output)[i],finalvars),]$ConvFactor)
+
+    #Fill with NA
+    na_pos <- which(na_mapping$Variable == getNames(output)[i])
+    if(length(na_pos) != 0) {
+      tmp[,na_mapping$Year[na_pos],getNames(output)[i]] <- NA
+    }
+
+
   }
   output_f <- tmp
   #output<-tmp
