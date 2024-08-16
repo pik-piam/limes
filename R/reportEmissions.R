@@ -413,8 +413,86 @@ reportEmissions <- function(gdx, output=NULL) {
         tmp7[,,"Emissions|Net carbon removal|DACCS (Mt CO2/yr)"] + tmp[,,"Emissions|Carbon removal|BECCS (Mt CO2/yr)"],
         "Emissions|Net carbon removal (Mt CO2/yr)"))
 
-    }
-  }
+      ##Additional data related to DACCS
+      #The following variables/parameters were added together
+
+      #Load sets, parameters and variables
+      o_ElecPriceDAC <- readGDX(gdx, name = c("o_ElecPriceDAC"), field = "l", format = "first_found", restore_zeros = FALSE, react = 'silent') # Price paid by DACCS
+
+      if(!is.null(o_ElecPriceDAC)) {
+        #Load sets, parameters and variables
+        o_ElecTariffDAC <- readGDX(gdx, name = c("o_ElecTariffDAC"), field = "l", format = "first_found", restore_zeros = FALSE) # Price paid by DACCS
+        o_LCOR <- readGDX(gdx, name = c("o_LCOR"), field = "l", format = "first_found", restore_zeros = FALSE) # Levelised cost of removals
+        o_discRemoval <- readGDX(gdx, name = c("o_discRemoval"), field = "l", format = "first_found", restore_zeros = T)[,,c(tedaccs)] # Discounted removal volumes (for average LCOR)
+
+        # create MagPie object of demand with iso3 regions
+        o_ElecPriceDAC <- limesMapping(o_ElecPriceDAC)
+        o_ElecTariffDAC <- limesMapping(o_ElecTariffDAC)
+        o_LCOR <- limesMapping(o_LCOR)
+        o_discRemoval <- limesMapping(o_discRemoval)
+
+        #Electricity prices
+        varList_daccs <- list(
+          "Price|Secondary Energy Input|Electricity|DACCS|Liquid solvent (Eur2010/MWh)"            = "liquid_daccs",
+          "Price|Secondary Energy Input|Electricity|DACCS|Solid sorbent (Eur2010/MWh)"             = "solid_daccs",
+          "Price|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering (Eur2010/MWh)"    = "caow_daccs"
+        )
+
+        for (var in names(varList_daccs)){ #Data is in MtC/h, convert to MtCO2/a
+          tmp7 <- mbind(tmp7, setNames(o_ElecPriceDAC[, , varList_daccs[[var]]],  var))
+        }
+        tmp7 <- mbind(tmp7, setNames(
+          dimSums(o_Removal_DACCS_annual * o_ElecPriceDAC, dim = 3, na.rm = T) /
+            dimSums(o_Removal_DACCS_annual, dim = 3),
+          "Price|Secondary Energy Input|Electricity|DACCS (Eur2010/MWh)"))
+
+        #Electricity tariffs
+        varList_daccs <- list(
+          "Tariff|Secondary Energy Input|Electricity|DACCS|Liquid solvent (Eur2010/MWh)"            = "liquid_daccs",
+          "Tariff|Secondary Energy Input|Electricity|DACCS|Solid sorbent (Eur2010/MWh)"             = "solid_daccs",
+          "Tariff|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering (Eur2010/MWh)"    = "caow_daccs"
+        )
+
+        for (var in names(varList_daccs)){ #Data is in MtC/h, convert to MtCO2/a
+          tmp7 <- mbind(tmp7, setNames(o_ElecTariffDAC[, , varList_daccs[[var]]],  var))
+        }
+        tmp7 <- mbind(tmp7, setNames(
+          dimSums(o_Removal_DACCS_annual * o_ElecTariffDAC, dim = 3, na.rm = T) /
+            dimSums(o_Removal_DACCS_annual, dim = 3),
+          "Tariff|Secondary Energy Input|Electricity|DACCS (Eur2010/MWh)"))
+
+        #Levelised costs for plants built in t
+        varList_daccs <- list(
+          "Levelised cost of removals for plants built in t|DACCS|Liquid solvent (Eur2010/tCO2)"            = "liquid_daccs",
+          "Levelised cost of removals for plants built in t|DACCS|Solid sorbent (Eur2010/tCO2)"             = "solid_daccs",
+          "Levelised cost of removals for plants built in t|DACCS|CaO ambient weathering (Eur2010/tCO2)"    = "caow_daccs"
+        )
+
+        for (var in names(varList_daccs)){ #Data is in MtC/h, convert to MtCO2/a
+          tmp7 <- mbind(tmp7, setNames(o_LCOR[, , varList_daccs[[var]]],  var))
+        }
+        tmp7 <- mbind(tmp7, setNames(
+          dimSums(o_LCOR * o_discRemoval, dim = 3, na.rm = T) /
+            dimSums(o_discRemoval, dim = 3),
+          "Levelised cost of removals for plants built in t|DACCS (Eur2010/tCO2)"))
+
+        #Discounted removal volumes for plants built in t
+        varList_daccs <- list(
+          "Discounted removal volumes for plants built in t|DACCS (Mt CO2/yr)"                           = c(tedaccs),
+          "Discounted removal volumes for plants built in t|DACCS|Liquid solvent (Mt CO2/yr)"            = "liquid_daccs",
+          "Discounted removal volumes for plants built in t|DACCS|Solid sorbent (Mt CO2/yr)"             = "solid_daccs",
+          "Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering (Mt CO2/yr)"    = "caow_daccs"
+        )
+
+        for (var in names(varList_daccs)){ #Data is in MtC/h, convert to Mt CO2/yr/a
+          tmp7 <- mbind(tmp7, setNames(dimSums(o_discRemoval[, , varList_daccs[[var]]], dim = 3),  var))
+        }
+
+      }#End if checking if o_ElecPriceDAC exists
+
+
+    }#End if checking if c_DACCS switch is on
+  }#End if checking if c_DACCS exists
 
   # concatenate data
   tmp <- mbind(tmp,tmp7)
