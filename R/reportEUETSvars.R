@@ -149,7 +149,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
             if(c_LIMESversion <= 2.33) {
               tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS[,,]*s_c2co2*1000,"Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
-            } else {
+            } else { #c_LIMESversion >2.33
               p_emicap_EUETS <- readGDX(gdx,name="p_emicap_EUETS",field="l",format="first_found")[, y, ]
               o_emicap_EUETS <- p_emicap_EUETS*s_c2co2*1000
               #Include some historical values

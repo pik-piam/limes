@@ -305,7 +305,6 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
       }
     }
 
-
     # add global values
     tmp3 <- mbind(tmp1, tmp2)
 
