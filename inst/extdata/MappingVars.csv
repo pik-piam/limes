@@ -1422,6 +1422,22 @@ Capacity|Carbon removal|Global|DACCS;Capacity|Carbon removal|Global|DACCS;Mt CO2
 Capacity|Carbon removal|Global|DACCS|Liquid solvent;Capacity|Carbon removal|Global|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|Global|DACCS|Solid sorbent;Capacity|Carbon removal|Global|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
 Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Capacity|Carbon removal|Global|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
+Price|Secondary Energy Input|Electricity|DACCS;Price|Secondary Energy Input|Electricity|DACCS;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Price|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Price|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Eur2010/MWh;Eur2015/MWh;1
+Price|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Price|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Eur2010/MWh;Eur2015/MWh;1
+Tariff|Secondary Energy Input|Electricity|DACCS;Tariff|Secondary Energy Input|Electricity|DACCS;Eur2010/MWh;Eur2015/MWh;1
+Tariff|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Tariff|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Eur2010/MWh;Eur2015/MWh;1
+Tariff|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Tariff|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Eur2010/MWh;Eur2015/MWh;1
+Tariff|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Tariff|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Eur2010/MWh;Eur2015/MWh;1
+Levelised cost of removals for plants built in t|DACCS;Levelised cost of removals for plants built in t|DACCS;Eur2010/tCO2;Eur2015/tCO2;1
+Levelised cost of removals for plants built in t|DACCS|Liquid solvent;Levelised cost of removals for plants built in t|DACCS|Liquid solvent;Eur2010/tCO2;Eur2015/tCO2;1
+Levelised cost of removals for plants built in t|DACCS|Solid sorbent;Levelised cost of removals for plants built in t|DACCS|Solid sorbent;Eur2010/tCO2;Eur2015/tCO2;1
+Levelised cost of removals for plants built in t|DACCS|CaO ambient weathering;Levelised cost of removals for plants built in t|DACCS|CaO ambient weathering;Eur2010/tCO2;Eur2015/tCO2;1
+Discounted removal volumes for plants built in t|DACCS;Discounted removal volumes for plants built in t|DACCS;Mt CO2/yr;Mt CO2/yr;1
+Discounted removal volumes for plants built in t|DACCS|Liquid solvent;Discounted removal volumes for plants built in t|DACCS|Liquid solvent;Mt CO2/yr;Mt CO2/yr;1
+Discounted removal volumes for plants built in t|DACCS|Solid sorbent;Discounted removal volumes for plants built in t|DACCS|Solid sorbent;Mt CO2/yr;Mt CO2/yr;1
+Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering;Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Maritime;Emissions abated|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Aviation;Emissions abated|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1

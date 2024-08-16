@@ -183,3 +183,15 @@ Load Factor|Electricity|Gas OC|1;Load|Electricity|Gas OC|1
 Capital Costs|Carbon removal|DACCS|Liquid solvent;Capacity Additions|Carbon removal|DACCS|Liquid solvent
 Capital Costs|Carbon removal|DACCS|Solid sorbent;Capacity Additions|Carbon removal|DACCS|Solid sorbent
 Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capacity Additions|Carbon removal|DACCS|CaO ambient weathering
+Price|Secondary Energy Input|Electricity|DACCS;Emissions|Carbon removal|DACCS
+Price|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Emissions|Carbon removal|DACCS|Liquid solvent
+Price|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Emissions|Carbon removal|DACCS|Solid sorbent
+Price|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Emissions|Carbon removal|DACCS|CaO ambient weathering
+Tariff|Secondary Energy Input|Electricity|DACCS;Emissions|Carbon removal|DACCS
+Tariff|Secondary Energy Input|Electricity|DACCS|Liquid solvent;Emissions|Carbon removal|DACCS|Liquid solvent
+Tariff|Secondary Energy Input|Electricity|DACCS|Solid sorbent;Emissions|Carbon removal|DACCS|Solid sorbent
+Tariff|Secondary Energy Input|Electricity|DACCS|CaO ambient weathering;Emissions|Carbon removal|DACCS|CaO ambient weathering
+Levelised cost of removals for plants built in t|DACCS;Discounted removal volumes for plants built in t|DACCS
+Levelised cost of removals for plants built in t|DACCS|Liquid solvent;Discounted removal volumes for plants built in t|DACCS|Liquid solvent
+Levelised cost of removals for plants built in t|DACCS|Solid sorbent;Discounted removal volumes for plants built in t|DACCS|Solid sorbent
+Levelised cost of removals for plants built in t|DACCS|CaO ambient weathering;Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering
