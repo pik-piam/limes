@@ -91,13 +91,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding adequacy contribution to report output
   output <- mbind(output,reportAdequacyContribution(gdx)[,time,])
 
-  #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
-  #(this is needed to keep report within the dimensions)
-  #An example is the cap for the EU ETS
-  output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
-
   ##Save the years and variables where all values are NA
   #This will be used at the end. Initially all NA need to be converted to 0 for the weighted averages
+  #Need to do this before reportFictitiousVars is done, since all the variables included there have NA
   # Convert the magpie object to an array
   .output_array <- as.array(output)
 
@@ -114,6 +110,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   # Combine the results into a data frame for easier interpretation
   na_mapping <- data.frame(Year = years, Variable = variables)
 
+  #adding fictitious vars to report output. These variables are later erased and only the aggregated (updated) values are left
+  #(this is needed to keep report within the dimensions)
+  #An example is the cap for the EU ETS
+  output <- mbind(output,reportFictitiousVars(gdx,output)[,time,])
 
   #Save file before aggregation
   output_beforeagg <- output
