@@ -91,10 +91,11 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
     p_othersec_exdemand_DH <- limesMapping(p_othersec_exdemand_DH)[,getYears(v_seprod),]
   }
 
-
   # give explicit set names
-  getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
-  getSets(v_storein) <- c("region", "t", "tau", "enty2", "te")
+  if(is.null(getSets(v_storeout))) {
+    getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
+    getSets(v_storein) <- c("region", "t", "tau", "enty2", "te")
+  }
 
   # Check the version so to choose the electricity-related variables
   if (c_LIMESversion >= 2.28) {
@@ -518,25 +519,42 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       f_npv <- as.numeric(p_ts) * exp(-as.numeric(c_esmdisrate) * (as.numeric(tt) - as.numeric(t0)))
 
       # Marginal value for hydrogen  - Hydrogen price
-      m_p2x <- readGDX(gdx, name = c("q_p2x", "q_aggdemXSE_el_year", "q_balP2XSe"), field = "m", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [Geur/GWh]
-      m_p2x <- limesMapping(m_p2x)
-      m_p2x_year <- new.magpie(cells_and_regions = getItems(m_p2x, dim = 1), years = getYears(m_p2x), names = NULL,
+      #Create data frame to save the information
+      m_p2x_year <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = NULL,
                                fill = NA, sort = FALSE, sets = NULL)
-      if (length(grep("1", getNames(m_p2x))) > 0) { # In some versions q_p2x is tau-dependent
-        m_p2x <- m_p2x[, , tau] / p_taulength
-        for (regi2 in getItems(m_p2x, dim = 1)) {
-          for (year2 in getYears(m_p2x)) {
-            if (dimSums(v_prodP2XSe[regi2, year2, ], 3) == 0) {
-              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength, dim = 3.1) / dimSums(p_taulength, 3) # calculate weighted average (in eur/MWh)
-            } else {
-              m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x[regi2, year2, ] * p_taulength * v_prodP2XSe[regi2, year2, ], dim = 3) /
-                dimSums(p_taulength * v_prodP2XSe[regi2, year2, ], 3) # calculate weighted average (in eur/MWh)
+      #When there is no H2 exchange (constraint at national level)
+      m_p2x_regi <- readGDX(gdx, name = c("q_p2x", "q_balP2XSe"),
+                       field = "m", format = "first_found", restore_zeros = FALSE, react = 'silent') # [Geur/GWh]
+      if(!is.null(getItems(m_p2x_regi, dim = 1))) { #this checks if the equation is active
+        m_p2x_regi <- limesMapping(m_p2x_regi[, , "pehgen"])
+
+        if (length(grep("1", getNames(m_p2x_regi))) > 0) { # In some versions q_p2x is tau-dependent
+          m_p2x_regi <- m_p2x_regi[, , tau] / p_taulength
+          for (regi2 in getItems(m_p2x_regi, dim = 1)) {
+            for (year2 in getYears(m_p2x_regi)) {
+              if (dimSums(v_prodP2XSe[regi2, year2, ], 3) == 0) {
+                m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x_regi[regi2, year2, ] * p_taulength, dim = 3.1) / dimSums(p_taulength, 3) # calculate weighted average (in eur/MWh)
+              } else {
+                m_p2x_year[regi2, year2, ] <- 1e6 * dimSums(m_p2x_regi[regi2, year2, ] * p_taulength * v_prodP2XSe[regi2, year2, ], dim = 3) /
+                  dimSums(p_taulength * v_prodP2XSe[regi2, year2, ], 3) # calculate weighted average (in eur/MWh)
+              }
             }
           }
-        }
 
-      } else {
-        m_p2x_year <- 1e6 * m_p2x
+        } else {
+          m_p2x_year <- 1e6 * m_p2x_regi
+        }
+      }
+      #When there is H2 exchange (constraint at national level)
+      m_p2x_agg <- readGDX(gdx, name = c("q_balP2XSe_Agg"),
+                       field = "m", format = "first_found", restore_zeros = FALSE, react = 'silent') # [Geur/GWh]
+      regi_H2exch <- setdiff(getItems(output, dim = 1), getItems(m_p2x_regi, dim = 1))
+      if(!is.null(getItems(m_p2x_agg, dim = 1))) {
+        for (year2 in getYears(m_p2x_year)) {
+          if(year2 %in% getItems(m_p2x_agg, dim = 2)) {
+            m_p2x_year[,year2,] <- 1e6 * m_p2x_agg[,year2,]
+          }
+        }
       }
 
       ## Create magpie to save marginal value to compute required calculations
