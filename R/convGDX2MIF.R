@@ -61,6 +61,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
 
+  #adding the new industry module
+  #output <- mbind(output,reportIndustryModule(gdx)[,time,]) #depending on CO2 price and emissions
+
   #adding capital costs to report output
   output <- mbind(output,reportCapitalCosts(gdx)[,time,])
 
