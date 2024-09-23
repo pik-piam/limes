@@ -1,7 +1,7 @@
 Type: Package
 Package: limes
 Title: The liMES R package
-Version: 2.65.2
+Version: 2.65.3
 Date: 2024-09-23
 Authors@R: 
     person("Sebastian", "Osorio", , "sebastian.osorio@pik-potsdam.de", role = c("aut", "cre"))
