@@ -1441,3 +1441,27 @@ Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering;Di
 Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Maritime;Emissions abated|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Aviation;Emissions abated|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
+Capacity|Steel;Capacity|Steel;Million ton;Million ton;1
+Capacity|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton;Million ton;1
+Capacity|Steel|Electric Arc Furnace;Capacity|Steel|Electric Arc Furnace;Million ton;Million ton;1
+Capacity|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton;Million ton;1
+Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton;Million ton;1
+Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton;Million ton;1
+Capacity Additions|Steel;Capacity Additions|Steel;Million ton/yr;Million ton/yr;1
+Capacity Additions|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity Additions|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Steel|Electric Arc Furnace;Capacity Additions|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
+Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
+Production|Steel;Production|Steel;Million ton/yr;Million ton/yr;1
+Production|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
+Production|Steel|Electric Arc Furnace;Production|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Production|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Production|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
+Production|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
+Emissions|CO2|Industry|Steel;Emissions|CO2|Industry|Steel;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Emissions|CO2|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Industry|Steel|Electric Arc Furnace;Emissions|CO2|Industry|Steel|Electric Arc Furnace;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Mt CO2/yr;Mt CO2/yr;1
+Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Mt CO2/yr;Mt CO2/yr;1
