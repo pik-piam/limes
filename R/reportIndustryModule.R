@@ -24,7 +24,6 @@ reportIndustryModule <- function(gdx) {
   c_NewIndustry <- readGDX(gdx,name="c_NewIndustry",field="l",format="first_found", react = 'silent')
 
 
-
   if(!is.null(c_NewIndustry)) {
     if(c_NewIndustry >= 1) {
 
@@ -89,12 +88,16 @@ reportIndustryModule <- function(gdx) {
           paste0("Production|",var," (Million ton/yr)")))
       }
 
-      #Emissions
-      for (var in names(varList_steel)){
-        .tmp1 <- mbind(.tmp1, setNames(
-          dimSums(o_Emi_Industry[, , varList_steel[[var]]], dim = 3) * as.numeric(s_c2co2) * 1000,
-          paste0("Emissions|CO2|Industry|",var," (Mt CO2/yr)")))
-      }
+      ##Emissions
+      #for (var in names(varList_steel)){
+      #  .tmp1 <- mbind(.tmp1, setNames(
+      #    dimSums(o_Emi_Industry[, , varList_steel[[var]]], dim = 3) * as.numeric(s_c2co2) * 1000,
+      #    paste0("Emissions|CO2|Industry|",var," (Mt CO2/yr)")))
+      #}
+
+      .tmp1 <- mbind(.tmp1, setNames(
+        o_Emi_Industry,
+        "Emissions|CO2|Industry|Steel (Mt CO2/yr)"))
 
       # concatenate vars
       .tmp <- mbind(.tmp,.tmp1)
