@@ -47,16 +47,15 @@ reportUKETSvars <- function(gdx,output=NULL) {
       tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary and Aviation (Mt CO2/yr)"))
 
       #Aviation emissions
-      if(!is.null(p_demaviationUK)) { #In previous version, we had emissions defined as demand (for EUA) from aviation
+      if(!is.null(p_demaviationUK)) { #In some previous versions, we had emissions defined as demand (for EUA) from aviation
         o_EmiAviation_UKETS <- p_demaviationUK * s_c2co2 * 1000
+        tmp1 <- mbind(tmp1,setNames(o_EmiAviation_UKETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
       }
       if(!is.null(p_AviationEmi_UKETS)) { #In most recent version, there is reference emissions and
         o_EmiAviation_UKETS <- p_AviationEmi_UKETS
+        tmp1 <- mbind(tmp1,setNames(o_EmiAviation_UKETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
         tmp1 <- mbind(tmp1,setNames(dimSums(v_EmiAbatProcUKETS_Aviation, dim = 3) * s_c2co2 * 1000, "Emissions abated|CO2|Aviation (Mt CO2/yr)"))
       }
-      tmp1 <- mbind(tmp1,setNames(o_EmiAviation_UKETS, "Emissions|CO2|Aviation (Mt CO2/yr)"))
-
-
 
       ##Total UK ETS emissions
       #Load electricity and industry emissions
