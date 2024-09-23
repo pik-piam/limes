@@ -92,7 +92,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
   }
 
   # give explicit set names
-  if(is.null(getSets(v_storeout))) {
+  if(attributes(dimnames(v_storeout)[2]) != "t") {
     getSets(v_storeout) <- c("region", "t", "tau", "enty2", "te")
     getSets(v_storein) <- c("region", "t", "tau", "enty2", "te")
   }
@@ -523,7 +523,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
       m_p2x_year <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1), years = getYears(v_prodP2XSe), names = NULL,
                                fill = NA, sort = FALSE, sets = NULL)
       #When there is no H2 exchange (constraint at national level)
-      m_p2x_regi <- readGDX(gdx, name = c("q_p2x", "q_balP2XSe"),
+      m_p2x_regi <- readGDX(gdx, name = c("q_p2x", "q_balP2XSe","q_aggdemXSE_el_year"),
                        field = "m", format = "first_found", restore_zeros = FALSE, react = 'silent') # [Geur/GWh]
       if(!is.null(getItems(m_p2x_regi, dim = 1))) { #this checks if the equation is active
         m_p2x_regi <- limesMapping(m_p2x_regi[, , "pehgen"])
