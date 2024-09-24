@@ -720,6 +720,12 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
             setNames(tmp4[,, "Final Energy|Hydrogen|Power Sector (TWh/yr)"], NULL),
                           "Final Energy|Hydrogen (TWh/yr)"))
 
+        #Hydrogen imports
+        tmp4 <- mbind(tmp4, setNames(
+          setNames(tmp4[,, "Final Energy|Hydrogen (TWh/yr)"], NULL) -
+            setNames(tmp4[,, "Primary Energy|Hydrogen [electrolysis] (TWh/yr)"], NULL),
+          "Net imports|Hydrogen (TWh/yr)"))
+
 
         # Total hydrogen used in the model
         tmp4 <- mbind(tmp4, setNames(
