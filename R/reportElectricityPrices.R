@@ -429,7 +429,7 @@ reportElectricityPrices <- function(gdx, reporting_tau = FALSE) {
 
     rename_tau <- function(name, data) {
       .tau_nb <- getNames(data)
-      .nm <- paste0(name, "|", .tau_nb, " (Eur2015/MWh)")
+      .nm <- paste0(name, "|", .tau_nb, " (Eur2023/MWh)")
       out <- setNames(data, .nm)
       return(out)
     }
