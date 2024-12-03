@@ -28,6 +28,7 @@ reportIndustryModule <- function(gdx) {
     if(c_NewIndustry >= 1) {
 
       # read sets
+      tt <- readGDX(gdx, name = "t")
       sec_ind <- readGDX(gdx, name = "sec_ind")
       proc_ind <- readGDX(gdx, name = "proc_ind")
       sec2proc <- readGDX(gdx, name = "sec2proc")
@@ -37,19 +38,19 @@ reportIndustryModule <- function(gdx) {
 
       #Read variables
       v_Prod_Industry <- readGDX(gdx,name="v_Prod_Industry",field="l",format="first_found")
-      o_Emi_Industry <- readGDX(gdx,name="o_Emi_Industry",field="l",format="first_found")
+      o_Emi_IndProc <- readGDX(gdx,name="o_Emi_IndProc",field="l",format="first_found")
       v_Capacity_Industry <- readGDX(gdx,name="v_Capacity_Industry",field="l",format="first_found")
       v_deltaCap_Industry <- readGDX(gdx,name="v_deltaCap_Industry",field="l",format="first_found")
-      o_FuelCons_Industry <- readGDX(gdx,name="o_FuelCons_Industry",field="l",format="first_found")
-      o_InputCons_Industry <- readGDX(gdx,name="o_InputCons_Industry",field="l",format="first_found")
+      o_FuelCons_IndProc <- readGDX(gdx,name="o_FuelCons_IndProc",field="l",format="first_found")
+      o_InputCons_IndProc <- readGDX(gdx,name="o_InputCons_IndProc",field="l",format="first_found")
 
       # create MagPie object of v_cap with iso3 regions
       v_Prod_Industry <- limesMapping(v_Prod_Industry)
-      o_Emi_Industry <- limesMapping(o_Emi_Industry)
+      o_Emi_IndProc <- limesMapping(o_Emi_IndProc)
       v_Capacity_Industry <- limesMapping(v_Capacity_Industry)
       v_deltaCap_Industry <- limesMapping(v_deltaCap_Industry)
-      o_FuelCons_Industry <- limesMapping(o_FuelCons_Industry)
-      o_InputCons_Industry <- limesMapping(o_InputCons_Industry)
+      o_FuelCons_IndProc <- limesMapping(o_FuelCons_IndProc)
+      o_InputCons_IndProc <- limesMapping(o_InputCons_IndProc)
 
       ##Steel
 
@@ -81,26 +82,27 @@ reportIndustryModule <- function(gdx) {
           paste0("Capacity Additions|",var," (Million ton/yr)")))
       }
 
+      # concatenate vars
+      .tmp <- mbind(.tmp,.tmp1[, as.numeric(tt), ])
+
+      .tmp2 <- NULL
+
       #Production
       for (var in names(varList_steel)){
-        .tmp1 <- mbind(.tmp1, setNames(
+        .tmp2 <- mbind(.tmp2, setNames(
           dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production|",var," (Million ton/yr)")))
       }
 
-      ##Emissions
-      #for (var in names(varList_steel)){
-      #  .tmp1 <- mbind(.tmp1, setNames(
-      #    dimSums(o_Emi_Industry[, , varList_steel[[var]]], dim = 3) * as.numeric(s_c2co2) * 1000,
-      #    paste0("Emissions|CO2|Industry|",var," (Mt CO2/yr)")))
-      #}
-
-      .tmp1 <- mbind(.tmp1, setNames(
-        o_Emi_Industry,
-        "Emissions|CO2|Industry|Steel (Mt CO2/yr)"))
+      #Emissions
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_Emi_IndProc[, , varList_steel[[var]]], dim = 3) * as.numeric(s_c2co2) * 1000,
+          paste0("Emissions|CO2|Industry|",var," (Mt CO2/yr)")))
+      }
 
       # concatenate vars
-      .tmp <- mbind(.tmp,.tmp1)
+      .tmp <- mbind(.tmp,.tmp2)
 
 
     }
