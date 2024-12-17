@@ -31,7 +31,7 @@ reportIndustryModule <- function(gdx) {
       tt <- readGDX(gdx, name = "t")
       sec_ind <- readGDX(gdx, name = "sec_ind")
       proc_ind <- readGDX(gdx, name = "proc_ind")
-      sec2proc <- readGDX(gdx, name = "sec2proc")
+      sec2te <- readGDX(gdx, name = "sec2te")
 
       #Read parameters
       s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
@@ -43,6 +43,17 @@ reportIndustryModule <- function(gdx) {
       v_deltaCap_Industry <- readGDX(gdx,name="v_deltaCap_Industry",field="l",format="first_found")
       o_FuelCons_IndProc <- readGDX(gdx,name="o_FuelCons_IndProc",field="l",format="first_found")
       o_InputCons_IndProc <- readGDX(gdx,name="o_InputCons_IndProc",field="l",format="first_found")
+      o_LCOP_IndProc <- readGDX(gdx,name="o_LCOP_IndProc",field="l",format="first_found")
+      o_ProdCostMarg_IndProc <- readGDX(gdx,name="o_ProdCostMarg_IndProc",field="l",format="first_found")
+      o_ProdCost_IndProc <- readGDX(gdx,name="o_ProdCost_IndProc",field="l",format="first_found")
+      o_ProdCost_IndProc_CAPEX <- readGDX(gdx,name="o_ProdCost_IndProc_CAPEX",field="l",format="first_found")
+      o_ProdCost_IndProc_Elec <- readGDX(gdx,name="o_ProdCost_IndProc_Elec",field="l",format="first_found")
+      o_ProdCost_IndProc_emi <- readGDX(gdx,name="o_ProdCost_IndProc_emi",field="l",format="first_found")
+      o_ProdCost_IndProc_FuelPECost <- readGDX(gdx,name="o_ProdCost_IndProc_FuelPECost",field="l",format="first_found")
+      o_ProdCost_IndProc_H2 <- readGDX(gdx,name="o_ProdCost_IndProc_H2",field="l",format="first_found")
+      o_ProdCost_IndProc_InputMat <- readGDX(gdx,name="o_ProdCost_IndProc_InputMat",field="l",format="first_found")
+      o_ProdCost_IndProc_OMCost <- readGDX(gdx,name="o_ProdCost_IndProc_OMCost",field="l",format="first_found")
+
 
       # create MagPie object of v_cap with iso3 regions
       v_Prod_Industry <- limesMapping(v_Prod_Industry)
@@ -51,20 +62,31 @@ reportIndustryModule <- function(gdx) {
       v_deltaCap_Industry <- limesMapping(v_deltaCap_Industry)
       o_FuelCons_IndProc <- limesMapping(o_FuelCons_IndProc)
       o_InputCons_IndProc <- limesMapping(o_InputCons_IndProc)
+      o_LCOP_IndProc <- limesMapping(o_LCOP_IndProc)
+      o_ProdCostMarg_IndProc <- limesMapping(o_ProdCostMarg_IndProc)
+      o_ProdCost_IndProc <- limesMapping(o_ProdCost_IndProc)
+      o_ProdCost_IndProc_CAPEX <- limesMapping(o_ProdCost_IndProc_CAPEX)
+      o_ProdCost_IndProc_Elec <- limesMapping(o_ProdCost_IndProc_Elec)
+      o_ProdCost_IndProc_emi <- limesMapping(o_ProdCost_IndProc_emi)
+      o_ProdCost_IndProc_FuelPECost <- limesMapping(o_ProdCost_IndProc_FuelPECost)
+      o_ProdCost_IndProc_H2 <- limesMapping(o_ProdCost_IndProc_H2)
+      o_ProdCost_IndProc_InputMat <- limesMapping(o_ProdCost_IndProc_InputMat)
+      o_ProdCost_IndProc_OMCost <- limesMapping(o_ProdCost_IndProc_OMCost)
+
 
       ##Steel
 
       #Sets of process per sector
-      proc_steel <- c(sec2proc$proc_ind[sec2proc$sec_ind == "steel"])
+      te_steel <- c(sec2te$te_ind[sec2te$sec_ind == "steel"])
 
       varList_steel <- list(
         #Conventional
-        "Steel"                                                                 = c(proc_steel),
-        "Steel|Blast Furnace-Basic Oxygen Furnace"                              = c("BF_BOF","BF_BOF_refurb"),
-        "Steel|Electric Arc Furnace"                                            = c("EAF","EAF_refurb"),
-        "Steel|Direct Reduced Iron Electric Arc Furnace"                        = c("DRI_EAF_NG","DRI_EAF_H2","DRI_EAF_NG_nocapex","DRI_EAF_H2_nocapex"),
-        "Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas"       = c("DRI_EAF_NG","DRI_EAF_NG_nocapex"),
-        "Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen"          = c("DRI_EAF_H2","DRI_EAF_H2_nocapex")
+        "Industry|Steel"                                                                 = c(te_steel),
+        "Industry|Steel|Blast Furnace-Basic Oxygen Furnace"                              = c("BF_BOF_new","BF_BOF_reline"),
+        "Industry|Steel|Electric Arc Furnace"                                            = c("EAF_new","EAF_refurb"),
+        "Industry|Steel|Direct Reduced Iron Electric Arc Furnace"                        = c("DRI_EAF_NG_new","DRI_EAF_H2_new","DRI_EAF_NG_refurb","DRI_EAF_H2_refurb"),
+        "Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas"       = c("DRI_EAF_NG_new","DRI_EAF_NG_refurb"),
+        "Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen"          = c("DRI_EAF_H2_new","DRI_EAF_H2_refurb")
       )
 
       .tmp1 <- NULL
@@ -97,8 +119,132 @@ reportIndustryModule <- function(gdx) {
       #Emissions
       for (var in names(varList_steel)){
         .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_Emi_IndProc[, , varList_steel[[var]]], dim = 3) * as.numeric(s_c2co2) * 1000,
-          paste0("Emissions|CO2|Industry|",var," (Mt CO2/yr)")))
+          dimSums(o_Emi_IndProc[, , varList_steel[[var]]], dim = 3), #already in MtCO2
+          paste0("Emissions|CO2|",var," (Mt CO2/yr)")))
+      }
+
+      #Fuel consumption
+      #Gas
+      o_FuelCons_IndProc_gas <- o_FuelCons_IndProc[,,"pegas"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_gas[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Gas|",var," (TWh/yr)")))
+      }
+      #Hard coal
+      o_FuelCons_IndProc_coal <- o_FuelCons_IndProc[,,"pecoal"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_coal[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Hard Coal|",var," (TWh/yr)")))
+      }
+      #Electricity
+      o_FuelCons_IndProc_elec <- o_FuelCons_IndProc[,,"peel"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_elec[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Secondary Energy Input|Electricity|",var," (TWh/yr)")))
+      }
+      #Hydrogen
+      o_FuelCons_IndProc_H2 <- o_FuelCons_IndProc[,,"pehgen"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_H2[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Secondary Energy Input|Hydrogen|",var," (TWh/yr)")))
+      }
+      #Coke
+      o_InputCons_IndProc_coke <- o_InputCons_IndProc[,,"coke"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Coke|",var," (TWh/yr)")))
+      }
+      #Scrap
+      o_InputCons_IndProc_scrap <- o_InputCons_IndProc[,,"scrap"]
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Material Input|Scrap|",var," (Million ton/yr)")))
+      }
+
+      #Capacity factor
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3) /
+            dimSums(v_Capacity_Industry[, as.numeric(tt), varList_steel[[var]]], dim = 3),
+          paste0("Capacity factor|",var," (--)")))
+      }
+
+      #levelised costs
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_LCOP_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Levelised cost plant built in t|",var," (Eur2010/ton)")))
+      }
+
+      #Marginal costs
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCostMarg_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Marginal production costs|",var," (Eur2010/ton)")))
+      }
+      #Production cost
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component CAPEX
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_CAPEX[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component CAPEX|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component Electricity
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_Elec[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component Electricity|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component Emissions
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_emi[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component Emissions|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component Fossil fuel
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_FuelPECost[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component Fossil fuel|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component Hydrogen
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_H2[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component Hydrogen|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component Input material
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_InputMat[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component Material Input|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component OM Cost
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc_OMCost[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component OM Cost|",var," (Eur2010/ton)")))
       }
 
       # concatenate vars

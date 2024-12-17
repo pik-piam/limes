@@ -801,6 +801,7 @@ Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/
 Final Energy|Hydrogen|Other sectors;Final Energy|Hydrogen|Other sectors;TWh/yr;TWh/yr;1
 Final Energy|Hydrogen|Power Sector;Final Energy|Hydrogen|Power Sector;TWh/yr;TWh/yr;1
 Final Energy|Hydrogen;Final Energy|Hydrogen;TWh/yr;TWh/yr;1
+Net imports|Hydrogen;Net imports|Hydrogen;TWh/yr;TWh/yr;1
 Input|Hydrogen|Electrolysis|winter;Input|Hydrogen|Electrolysis|winter;TWh/yr;TWh/yr;1
 Output|Hydrogen|Electrolysis|winter;Output|Hydrogen|Electrolysis|winter;TWh/yr;TWh/yr;1
 Input|Hydrogen|Electrolysis|spring;Input|Hydrogen|Electrolysis|spring;TWh/yr;TWh/yr;1
@@ -954,7 +955,6 @@ Secondary Energy|Gross|Electricity|Non-variable renewable;Secondary Energy|Gross
 Secondary Energy|Gross|Electricity|Renewable;Secondary Energy|Gross|Electricity|Renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|Non-renewable;Secondary Energy|Gross|Electricity|Non-renewable;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|w/o losses;Secondary Energy|Gross|Electricity|w/o losses;TWh/yr;TWh/yr;1
-Secondary Energy|Gross|Electricity|Net Imports;Secondary Energy|Gross|Electricity|Net Imports;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|Waste;Secondary Energy|Gross|Electricity|Waste;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP;Secondary Energy|Gross|Electricity|CHP;TWh/yr;TWh/yr;1
 Secondary Energy|Gross|Electricity|CHP|Hydrogen;Secondary Energy|Gross|Electricity|CHP|Hydrogen;TWh/yr;TWh/yr;1
@@ -1441,28 +1441,129 @@ Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering;Di
 Emissions|CO2|Maritime;Emissions|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Maritime;Emissions abated|CO2|Maritime;Mt CO2/yr;Mt CO2/yr;1
 Emissions abated|CO2|Aviation;Emissions abated|CO2|Aviation;Mt CO2/yr;Mt CO2/yr;1
-Capacity|Steel;Capacity|Steel;Million ton;Million ton;1
-Capacity|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton;Million ton;1
-Capacity|Steel|Electric Arc Furnace;Capacity|Steel|Electric Arc Furnace;Million ton;Million ton;1
-Capacity|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton;Million ton;1
-Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton;Million ton;1
-Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton;Million ton;1
-Capacity Additions|Steel;Capacity Additions|Steel;Million ton/yr;Million ton/yr;1
-Capacity Additions|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity Additions|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
-Capacity Additions|Steel|Electric Arc Furnace;Capacity Additions|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
-Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
-Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
-Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity Additions|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
-Production|Steel;Production|Steel;Million ton/yr;Million ton/yr;1
-Production|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
-Production|Steel|Electric Arc Furnace;Production|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
-Production|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
-Production|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
-Production|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
+Capacity|Industry|Steel;Capacity|Industry|Steel;Million ton;Million ton;1
+Capacity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton;Million ton;1
+Capacity|Industry|Steel|Electric Arc Furnace;Capacity|Industry|Steel|Electric Arc Furnace;Million ton;Million ton;1
+Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton;Million ton;1
+Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton;Million ton;1
+Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton;Million ton;1
+Capacity Additions|Industry|Steel;Capacity Additions|Industry|Steel;Million ton/yr;Million ton/yr;1
+Capacity Additions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity Additions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Industry|Steel|Electric Arc Furnace;Capacity Additions|Industry|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
+Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity Additions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel;Production|Industry|Steel;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
 Emissions|CO2|Industry|Steel;Emissions|CO2|Industry|Steel;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Emissions|CO2|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Industry|Steel|Electric Arc Furnace;Emissions|CO2|Industry|Steel|Electric Arc Furnace;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Mt CO2/yr;Mt CO2/yr;1
 Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Emissions|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Mt CO2/yr;Mt CO2/yr;1
-Net imports|Hydrogen;Net imports|Hydrogen;TWh/yr;TWh/yr;1
+Capacity factor|Industry|Steel;Capacity factor|Industry|Steel;--;--;1
+Capacity factor|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity factor|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;--;--;1
+Capacity factor|Industry|Steel|Electric Arc Furnace;Capacity factor|Industry|Steel|Electric Arc Furnace;--;--;1
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;--;--;1
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;--;--;1
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;--;--;1
+Levelised cost plant built in t|Industry|Steel;Levelised cost plant built in t|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Levelised cost plant built in t|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Levelised cost plant built in t|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Levelised cost plant built in t|Industry|Steel|Electric Arc Furnace;Levelised cost plant built in t|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Levelised cost plant built in t|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Primary Energy|Gas|Industry|Steel;Primary Energy|Gas|Industry|Steel;TWh/yr;TWh/yr;1
+Primary Energy|Gas|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Primary Energy|Gas|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Gas|Industry|Steel|Electric Arc Furnace;Primary Energy|Gas|Industry|Steel|Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;TWh/yr;TWh/yr;1
+Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Primary Energy|Gas|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel;Primary Energy|Hard Coal|Industry|Steel;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Primary Energy|Hard Coal|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Electric Arc Furnace;Primary Energy|Hard Coal|Industry|Steel|Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Primary Energy|Hard Coal|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel;Secondary Energy Input|Electricity|Industry|Steel;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Secondary Energy Input|Electricity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Electric Arc Furnace;Secondary Energy Input|Electricity|Industry|Steel|Electric Arc Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Hard Coal;Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Hard Coal;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Secondary Energy Input|Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel;Primary Energy|Coke|Industry|Steel;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Primary Energy|Coke|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Electric Arc Furnace;Primary Energy|Coke|Industry|Steel|Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Primary Energy|Coke|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel;Secondary Energy Input|Hydrogen|Industry|Steel;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Secondary Energy Input|Hydrogen|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Electric Arc Furnace;Secondary Energy Input|Hydrogen|Industry|Steel|Electric Arc Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Secondary Energy Input|Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;TWh/yr;TWh/yr;1
+Material Input|Scrap|Industry|Steel;Material Input|Scrap|Industry|Steel;Million ton/yr;Million ton/yr;1
+Material Input|Scrap|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Material Input|Scrap|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
+Material Input|Scrap|Industry|Steel|Electric Arc Furnace;Material Input|Scrap|Industry|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton/yr;Million ton/yr;1
+Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural Coke;Million ton/yr;Million ton/yr;1
+Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Material Input|Scrap|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton/yr;Million ton/yr;1
+Marginal production costs|Industry|Steel;Marginal production costs|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Marginal production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Marginal production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Marginal production costs|Industry|Steel|Electric Arc Furnace;Marginal production costs|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Marginal production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel;Production costs|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Electric Arc Furnace;Production costs|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel;Production costs|Component CAPEX|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component CAPEX|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Electric Arc Furnace;Production costs|Component CAPEX|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component CAPEX|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel;Production costs|Component Electricity|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component Electricity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Electric Arc Furnace;Production costs|Component Electricity|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component Electricity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel;Production costs|Component Emissions|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component Emissions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Electric Arc Furnace;Production costs|Component Emissions|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component Emissions|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel;Production costs|Component Fossil fuel|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component Fossil fuel|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Electric Arc Furnace;Production costs|Component Fossil fuel|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component Fossil fuel|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel;Production costs|Component Hydrogen|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component Hydrogen|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Electric Arc Furnace;Production costs|Component Hydrogen|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component Hydrogen|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel;Production costs|Component Material Input|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component Material Input|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Electric Arc Furnace;Production costs|Component Material Input|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component Material Input|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Material Input;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel;Production costs|Component OM Cost|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production costs|Component OM Cost|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Electric Arc Furnace;Production costs|Component OM Cost|Industry|Steel|Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with OM Cost;Eur2010/ton;Eur2023/ton;1.26
