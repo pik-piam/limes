@@ -35,6 +35,10 @@ reportIndustryModule <- function(gdx) {
 
       #Read parameters
       s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
+      tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") #time set
+      t0 <- tt[1]
+      p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
+      c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") #discount rate
 
       #Read variables
       v_Prod_Industry <- readGDX(gdx,name="v_Prod_Industry",field="l",format="first_found")
@@ -73,6 +77,10 @@ reportIndustryModule <- function(gdx) {
       o_ProdCost_IndProc_InputMat <- limesMapping(o_ProdCost_IndProc_InputMat)
       o_ProdCost_IndProc_OMCost <- limesMapping(o_ProdCost_IndProc_OMCost)
 
+      #compute factor to discount average marginal values
+      f_npv <- as.numeric(p_ts)*exp(-as.numeric(c_esmdisrate)*(as.numeric(tt)-as.numeric(t0)))
+
+      ##########################################################################
 
       ##Steel
 
@@ -246,6 +254,38 @@ reportIndustryModule <- function(gdx) {
             dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production costs|Component OM Cost|",var," (Eur2010/ton)")))
       }
+
+      ##Cost of keeping a certain capacity level (currently at 2030 level)
+      m_ProtectLocal_Steel <- readGDX(gdx,name="q_ProtectLocal_Steel",field="m",
+                                      format="first_found", react = 'silent')
+
+      if(!is.null(q_ProtectLocal_Steel)) {
+
+        # create MagPie object of v_cap with iso3 regions
+        m_ProtectLocal_Steel <- limesMapping(m_ProtectLocal_Steel)
+
+        #Clean marginal
+        m_incentiveProtect_Steel <- m_ProtectLocal_Steel[, , "steel"]
+        m_incentiveProtect_Steel <- collapseDim(m_incentiveProtect_Steel, dim  = 3)
+
+        #Discount marginal
+        m_incentiveProtect_Steel <- new.magpie(cells_and_regions  =  getItems(v_Prod_Industry, dim  = 1),
+                                               years  =  getYears(v_Prod_Industry),  names  =  NULL,
+                                               fill  =  0,  sort  =  FALSE,  sets  =  NULL)
+        o_incentiveProtect_Steel_disc <- NULL
+        for (t2 in 1:length(tt)) {
+          o_incentiveProtect_Steel_disc <- mbind(o_incentiveProtect_Steel_disc,
+                                                 m_incentiveProtect_Steel[, t2, ]/f_npv[t2]) #[Geur 2010/Million-ton]
+        }
+
+        #Report value
+        .tmp2 <- mbind(.tmp2, setNames(o_incentiveProtect_Steel_disc * 1000, #convert from Geur/Mt to eur/t
+                                       "Cost|Incentive capacity|Industry|Steel (Eur2010/ton-cap)"))
+
+
+      }
+
+
 
       # concatenate vars
       .tmp <- mbind(.tmp,.tmp2)
