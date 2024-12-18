@@ -195,6 +195,13 @@ Levelised cost of removals for plants built in t|DACCS;Discounted removal volume
 Levelised cost of removals for plants built in t|DACCS|Liquid solvent;Discounted removal volumes for plants built in t|DACCS|Liquid solvent
 Levelised cost of removals for plants built in t|DACCS|Solid sorbent;Discounted removal volumes for plants built in t|DACCS|Solid sorbent
 Levelised cost of removals for plants built in t|DACCS|CaO ambient weathering;Discounted removal volumes for plants built in t|DACCS|CaO ambient weathering
+Emission intensity|CO2|Industry|Steel;Production|Industry|Steel
+Emission intensity|CO2|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
+Emission intensity|CO2|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace
+Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
+Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
+Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
+
 Marginal production costs|Industry|Steel;Production|Industry|Steel
 Marginal production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
 Marginal production costs|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace
@@ -249,3 +256,5 @@ Production costs|Component OM Cost|Industry|Steel|Electric Arc Furnace;Productio
 Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
 Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
 Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
+Cost|Incentive capacity|Industry|Steel;Capacity|Industry|Steel
+Cost|Incentive production|Industry|Steel;Production|Industry|Steel
