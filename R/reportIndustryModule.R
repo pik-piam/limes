@@ -256,7 +256,7 @@ reportIndustryModule <- function(gdx) {
       m_ProtectLocal_Steel <- readGDX(gdx,name="q_ProtectLocal_Steel",field="m",
                                       format="first_found", react = 'silent')
 
-      if(!is.null(q_ProtectLocal_Steel)) {
+      if(!is.null(m_ProtectLocal_Steel)) {
 
         # create MagPie object of v_cap with iso3 regions
         m_ProtectLocal_Steel <- limesMapping(m_ProtectLocal_Steel)
@@ -271,7 +271,7 @@ reportIndustryModule <- function(gdx) {
                                                fill  =  0,  sort  =  FALSE,  sets  =  NULL)
         #o_incentiveProtect_Steel_disc <- NULL
         for (t2 in getYears(m_incentiveProtect_Steel)) {
-          t2_pos <- match(t2,getYears(o_Price_Steel_disc))
+          t2_pos <- match(t2,getYears(o_incentiveProtect_Steel_disc))
           o_incentiveProtect_Steel_disc[,t2,] <- m_incentiveProtect_Steel[, t2, ]/f_npv[t2_pos] #[Geur 2010/Million-ton]
         }
 
