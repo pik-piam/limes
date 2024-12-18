@@ -35,7 +35,6 @@ reportIndustryModule <- function(gdx) {
 
       #Read parameters
       s_c2co2 <- readGDX(gdx,name = "s_c2co2",field = "l",format = "first_found") #conversion factor C -> CO2
-      tt <- readGDX(gdx, name = "t", field = "l", format = "first_found") #time set
       t0 <- tt[1]
       p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
       c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") #discount rate
@@ -117,80 +116,77 @@ reportIndustryModule <- function(gdx) {
 
       .tmp2 <- NULL
 
-      #Production
       for (var in names(varList_steel)){
+        #Production
         .tmp2 <- mbind(.tmp2, setNames(
           dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production|",var," (Million ton/yr)")))
-      }
 
-      #Emissions
-      for (var in names(varList_steel)){
+        #Emissions
         .tmp2 <- mbind(.tmp2, setNames(
           dimSums(o_Emi_IndProc[, , varList_steel[[var]]], dim = 3), #already in MtCO2
           paste0("Emissions|CO2|",var," (Mt CO2/yr)")))
-      }
 
-      #Fuel consumption
-      #Gas
-      o_FuelCons_IndProc_gas <- o_FuelCons_IndProc[,,"pegas"]
-      for (var in names(varList_steel)){
+        #Emission factor (no need to convert units, MtCO2 and Mton)
         .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_FuelCons_IndProc_gas[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Primary Energy|Gas|",var," (TWh/yr)")))
-      }
-      #Hard coal
-      o_FuelCons_IndProc_coal <- o_FuelCons_IndProc[,,"pecoal"]
-      for (var in names(varList_steel)){
-        .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_FuelCons_IndProc_coal[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Primary Energy|Hard Coal|",var," (TWh/yr)")))
-      }
-      #Electricity
-      o_FuelCons_IndProc_elec <- o_FuelCons_IndProc[,,"peel"]
-      for (var in names(varList_steel)){
-        .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_FuelCons_IndProc_elec[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Secondary Energy Input|Electricity|",var," (TWh/yr)")))
-      }
-      #Hydrogen
-      o_FuelCons_IndProc_H2 <- o_FuelCons_IndProc[,,"pehgen"]
-      for (var in names(varList_steel)){
-        .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_FuelCons_IndProc_H2[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Secondary Energy Input|Hydrogen|",var," (TWh/yr)")))
-      }
-      #Coke
-      o_InputCons_IndProc_coke <- o_InputCons_IndProc[,,"coke"]
-      for (var in names(varList_steel)){
-        .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Primary Energy|Coke|",var," (TWh/yr)")))
-      }
-      #Scrap
-      o_InputCons_IndProc_scrap <- o_InputCons_IndProc[,,"scrap"]
-      for (var in names(varList_steel)){
-        .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
-          paste0("Material Input|Scrap|",var," (Million ton/yr)")))
-      }
+          dimSums(o_Emi_IndProc[, , varList_steel[[var]]], dim = 3) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Emission intensity|CO2|",var," (tCO2/ton)")))
 
-      #Capacity factor
-      for (var in names(varList_steel)){
+        #Capacity factor
         .tmp2 <- mbind(.tmp2, setNames(
           dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3) /
             dimSums(v_Capacity_Industry[, as.numeric(tt), varList_steel[[var]]], dim = 3),
           paste0("Capacity factor|",var," (--)")))
-      }
 
-      #levelised costs
-      for (var in names(varList_steel)){
+        ##Fuel consumption
+        #Gas
+        o_FuelCons_IndProc_gas <- o_FuelCons_IndProc[,,"pegas"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_gas[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Gas|",var," (TWh/yr)")))
+
+        #Hard coal
+        o_FuelCons_IndProc_coal <- o_FuelCons_IndProc[,,"pecoal"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_coal[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Hard Coal|",var," (TWh/yr)")))
+
+        #Electricity
+        o_FuelCons_IndProc_elec <- o_FuelCons_IndProc[,,"peel"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_elec[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Secondary Energy Input|Electricity|",var," (TWh/yr)")))
+
+        #Hydrogen
+        o_FuelCons_IndProc_H2 <- o_FuelCons_IndProc[,,"pehgen"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_FuelCons_IndProc_H2[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Secondary Energy Input|Hydrogen|",var," (TWh/yr)")))
+
+        #Coke
+        o_InputCons_IndProc_coke <- o_InputCons_IndProc[,,"coke"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Primary Energy|Coke|",var," (TWh/yr)")))
+
+        #Scrap
+        o_InputCons_IndProc_scrap <- o_InputCons_IndProc[,,"scrap"]
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          paste0("Material Input|Scrap|",var," (Million ton/yr)")))
+
+        #levelised costs
         .tmp2 <- mbind(.tmp2, setNames(
           dimSums(o_LCOP_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3) /
             dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Levelised cost plant built in t|",var," (Eur2010/ton)")))
+
+
+
       }
 
+      #This coult be moved up too, but it is easier to keep it here while we check it is correct
       #Marginal costs
       for (var in names(varList_steel)){
         .tmp2 <- mbind(.tmp2, setNames(
@@ -250,7 +246,8 @@ reportIndustryModule <- function(gdx) {
       #Production cost: Component OM Cost
       for (var in names(varList_steel)){
         .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_ProdCost_IndProc_OMCost[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
+          dimSums(o_ProdCost_IndProc_OMCost[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]],
+                  dim = 3, na.rm = T) /
             dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production costs|Component OM Cost|",var," (Eur2010/ton)")))
       }
@@ -269,20 +266,24 @@ reportIndustryModule <- function(gdx) {
         m_incentiveProtect_Steel <- collapseDim(m_incentiveProtect_Steel, dim  = 3)
 
         #Discount marginal
-        m_incentiveProtect_Steel <- new.magpie(cells_and_regions  =  getItems(v_Prod_Industry, dim  = 1),
+        o_incentiveProtect_Steel_disc <- new.magpie(cells_and_regions  =  getItems(v_Prod_Industry, dim  = 1),
                                                years  =  getYears(v_Prod_Industry),  names  =  NULL,
                                                fill  =  0,  sort  =  FALSE,  sets  =  NULL)
-        o_incentiveProtect_Steel_disc <- NULL
-        for (t2 in 1:length(tt)) {
-          o_incentiveProtect_Steel_disc <- mbind(o_incentiveProtect_Steel_disc,
-                                                 m_incentiveProtect_Steel[, t2, ]/f_npv[t2]) #[Geur 2010/Million-ton]
+        #o_incentiveProtect_Steel_disc <- NULL
+        for (t2 in getYears(m_incentiveProtect_Steel)) {
+          t2_pos <- match(t2,getYears(o_Price_Steel_disc))
+          o_incentiveProtect_Steel_disc[,t2,] <- m_incentiveProtect_Steel[, t2, ]/f_npv[t2_pos] #[Geur 2010/Million-ton]
         }
 
-        #Report value
+        #Report values
+        #Per capacity installed
         .tmp2 <- mbind(.tmp2, setNames(o_incentiveProtect_Steel_disc * 1000, #convert from Geur/Mt to eur/t
                                        "Cost|Incentive capacity|Industry|Steel (Eur2010/ton-cap)"))
 
-
+        #per produced unit
+        .tmp2 <- mbind(.tmp2, setNames(o_incentiveProtect_Steel_disc * 1000 /
+                                         .tmp2[,,"Capacity factor|Industry|Steel (--)"], #convert from Geur/Mt to eur/t
+                                       "Cost|Incentive production|Industry|Steel (Eur2010/ton)"))
       }
 
 
