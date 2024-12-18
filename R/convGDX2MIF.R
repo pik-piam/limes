@@ -29,7 +29,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
   #adding capacity info to report output
   output <- mbind(output,reportCapacity(gdx)[,c(time),])
-  #output <- mbind(output,limes:::reportCapacity(gdx)[,time,]) # run this line when doign just some test
+  #output <- mbind(output,limes:::reportCapacity(gdx)[,time,]) # run this line when doing just some test
 
   #adding primary energy to report output
   output <- mbind(output,reportPrimaryEnergy(gdx)[,time,])
@@ -58,11 +58,11 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding emissions info to report output
   output <- mbind(output,reportEmissions(gdx,output)[,time,]) #depending on generation
 
-  #adding industry emissions to report output
-  output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
-
   #adding the new industry module
   output <- mbind(output,reportIndustryModule(gdx)[,time,])
+
+  #adding industry emissions to report output
+  output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
 
   #adding capital costs to report output
   output <- mbind(output,reportCapitalCosts(gdx)[,time,])
