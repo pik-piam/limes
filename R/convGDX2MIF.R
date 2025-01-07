@@ -154,6 +154,13 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   getItems(output_EU27, dim = 1) <- "EU27"
   output_EU27[,,getNames(output_RegAgg)] <- output_RegAgg["EU27",,]
 
+  #aggregating all wo Balkan
+  All_noBAL<-which(getItems(output, dim = 1) != "BAL" & getItems(output, dim = 1) != "GLO")
+  output_All_noBAL<-NULL
+  output_All_noBAL<-dimSums(output[All_noBAL,,],dim=1, na.rm = T)
+  getItems(output_All_noBAL, dim = 1) <- "All_noBAL"
+  output_All_noBAL[,,getNames(output_RegAgg)] <- output_RegAgg["All_noBAL",,]
+
   #aggregating only EU-ETS
   output_EUETS<-NULL
   #The definition of EU ETS in LIMES depend on the implementation of the linking switch between EU ETS and UK ETS
@@ -248,7 +255,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
 
 
   #CONCATENATING OUTPUT FROM REGIONS AND AGGREGATED DATA
-  output <- mbind(output,output_tot,output_EU,output_EU27,output_EUETS,output_EUETS_nonDE)
+  output <- mbind(output,output_tot,output_EU,output_EU27,output_All_noBAL,output_EUETS,output_EUETS_nonDE)
   #totals concerning countries implementing min CO2 price is done above
   #totals concerning countries KdW is done above
 
