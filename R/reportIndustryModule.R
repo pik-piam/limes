@@ -93,7 +93,8 @@ reportIndustryModule <- function(gdx) {
         "Industry|Steel|Electric Arc Furnace"                                            = c("EAF_new","EAF_refurb"),
         "Industry|Steel|Direct Reduced Iron Electric Arc Furnace"                        = c("DRI_EAF_NG_new","DRI_EAF_H2_new","DRI_EAF_NG_refurb","DRI_EAF_H2_refurb"),
         "Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas"       = c("DRI_EAF_NG_new","DRI_EAF_NG_refurb"),
-        "Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen"          = c("DRI_EAF_H2_new","DRI_EAF_H2_refurb")
+        "Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen"          = c("DRI_EAF_H2_new","DRI_EAF_H2_refurb"),
+        "Industry|Steel|Primary route"                                                   = setdiff(te_steel,c("EAF_new","EAF_refurb"))
       )
 
       .tmp1 <- NULL
@@ -121,6 +122,13 @@ reportIndustryModule <- function(gdx) {
         .tmp2 <- mbind(.tmp2, setNames(
           dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production|",var," (Million ton/yr)")))
+
+        #Idle capacity
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(
+            v_Capacity_Industry[, as.numeric(tt), varList_steel[[var]]] - v_Prod_Industry[, , varList_steel[[var]]],
+            dim = 3),
+          paste0("Idle capacity|",var," (Million ton/yr)")))
 
         #Emissions
         .tmp2 <- mbind(.tmp2, setNames(

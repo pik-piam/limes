@@ -1447,6 +1447,12 @@ Capacity|Industry|Steel|Electric Arc Furnace;Capacity|Industry|Steel|Electric Ar
 Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton;Million ton;1
 Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton;Million ton;1
 Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton;Million ton;1
+Idle capacity|Industry|Steel;Idle capacity|Industry|Steel;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Idle capacity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Electric Arc Furnace;Idle capacity|Industry|Steel|Electric Arc Furnace;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Idle capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Million ton;Million ton;1
 Capacity Additions|Industry|Steel;Capacity Additions|Industry|Steel;Million ton/yr;Million ton/yr;1
 Capacity Additions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity Additions|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Million ton/yr;Million ton/yr;1
 Capacity Additions|Industry|Steel|Electric Arc Furnace;Capacity Additions|Industry|Steel|Electric Arc Furnace;Million ton/yr;Million ton/yr;1
@@ -1577,3 +1583,26 @@ Cost|Incentive capacity|Industry|Steel;Cost|Incentive capacity|Industry|Steel;Eu
 Cost|Incentive production|Industry|Steel;Cost|Incentive production|Industry|Steel;Eur2010/ton;Eur2023/ton;1.26
 Price|Steel;Price|Steel;Eur2010/ton;Eur2023/ton;1.26
 Price|Full|Steel;Price|Full|Steel;Eur2010/ton;Eur2023/ton;1.26
+Capacity|Industry|Steel|Primary route;Capacity|Industry|Steel|Primary route;Million ton;Million ton;1
+Idle capacity|Industry|Steel|Primary route;Idle capacity|Industry|Steel|Primary route;Million ton;Million ton;1
+Capacity Additions|Industry|Steel|Primary route;Capacity Additions|Industry|Steel|Primary route;Million ton/yr;Million ton/yr;1
+Production|Industry|Steel|Primary route;Production|Industry|Steel|Primary route;Million ton/yr;Million ton/yr;1
+Emissions|CO2|Industry|Steel|Primary route;Emissions|CO2|Industry|Steel|Primary route;Mt CO2/yr;Mt CO2/yr;1
+Emission intensity|CO2|Industry|Steel|Primary route;Emission intensity|CO2|Industry|Steel|Primary route;tCO2/ton;tCO2/ton;1
+Capacity factor|Industry|Steel|Primary route;Capacity factor|Industry|Steel|Primary route;--;--;1
+Levelised cost plant built in t|Industry|Steel|Primary route;Levelised cost plant built in t|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Primary Energy|Gas|Industry|Steel|Primary route;Primary Energy|Gas|Industry|Steel|Primary route;TWh/yr;TWh/yr;1
+Primary Energy|Hard Coal|Industry|Steel|Primary route;Primary Energy|Hard Coal|Industry|Steel|Primary route;TWh/yr;TWh/yr;1
+Secondary Energy Input|Electricity|Industry|Steel|Primary route;Secondary Energy Input|Electricity|Industry|Steel|Primary route;TWh/yr;TWh/yr;1
+Primary Energy|Coke|Industry|Steel|Primary route;Primary Energy|Coke|Industry|Steel|Primary route;TWh/yr;TWh/yr;1
+Secondary Energy Input|Hydrogen|Industry|Steel|Primary route;Secondary Energy Input|Hydrogen|Industry|Steel|Primary route;TWh/yr;TWh/yr;1
+Material Input|Scrap|Industry|Steel|Primary route;Material Input|Scrap|Industry|Steel|Primary route;Million ton/yr;Million ton/yr;1
+Marginal production costs|Industry|Steel|Primary route;Marginal production costs|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Industry|Steel|Primary route;Production costs|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component CAPEX|Industry|Steel|Primary route;Production costs|Component CAPEX|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Electricity|Industry|Steel|Primary route;Production costs|Component Electricity|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Emissions|Industry|Steel|Primary route;Production costs|Component Emissions|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Fossil fuel|Industry|Steel|Primary route;Production costs|Component Fossil fuel|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Hydrogen|Industry|Steel|Primary route;Production costs|Component Hydrogen|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component Material Input|Industry|Steel|Primary route;Production costs|Component Material Input|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Production costs|Component OM Cost|Industry|Steel|Primary route;Production costs|Component OM Cost|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
