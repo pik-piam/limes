@@ -128,7 +128,7 @@ reportIndustryModule <- function(gdx) {
           dimSums(
             v_Capacity_Industry[, as.numeric(tt), varList_steel[[var]]] - v_Prod_Industry[, , varList_steel[[var]]],
             dim = 3),
-          paste0("Idle capacity|",var," (Million ton/yr)")))
+          paste0("Idle capacity|",var," (Million ton)")))
 
         #Emissions
         .tmp2 <- mbind(.tmp2, setNames(
