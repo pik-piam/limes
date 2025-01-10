@@ -201,7 +201,6 @@ Emission intensity|CO2|Industry|Steel|Electric Arc Furnace;Production|Industry|S
 Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
 Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
 Emission intensity|CO2|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
-
 Marginal production costs|Industry|Steel;Production|Industry|Steel
 Marginal production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
 Marginal production costs|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace
@@ -258,3 +257,13 @@ Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric A
 Production costs|Component OM Cost|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
 Cost|Incentive capacity|Industry|Steel;Capacity|Industry|Steel
 Cost|Incentive production|Industry|Steel;Production|Industry|Steel
+Emission intensity|CO2|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Marginal production costs|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component CAPEX|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component Electricity|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component Emissions|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component Fossil fuel|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component Hydrogen|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component Material Input|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Production costs|Component OM Cost|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
