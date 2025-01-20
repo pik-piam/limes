@@ -267,3 +267,10 @@ Production costs|Component Fossil fuel|Industry|Steel|Primary route;Production|I
 Production costs|Component Hydrogen|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
 Production costs|Component Material Input|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
 Production costs|Component OM Cost|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Capacity factor|Industry|Steel;Production|Industry|Steel
+Capacity factor|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
+Capacity factor|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
+Capacity factor|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
