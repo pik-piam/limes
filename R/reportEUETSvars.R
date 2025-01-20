@@ -348,7 +348,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
     ##Price
     m_Dem_Industry <- readGDX(gdx,name="q_Dem_Industry",field="m",
                                     format="first_found", react = 'silent', restore_zeros = F)
-    if(!is.null(m_Dem_Industry)) {
+    if(length(m_Dem_Industry) > 0) {
 
       #Clean marginal
       m_Price_Steel <- m_Dem_Industry[, , "steel"]
