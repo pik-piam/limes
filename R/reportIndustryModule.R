@@ -97,7 +97,7 @@ reportIndustryModule <- function(gdx) {
         "Industry|Steel|Primary route"                                                   = setdiff(te_steel,c("EAF_new","EAF_refurb"))
       )
 
-      .tmp1 <- NULL
+      .tmp1 <- NULL #keep the following two here because their time granularity is different
       #Capacity
       for (var in names(varList_steel)){
         .tmp1 <- mbind(.tmp1, setNames(
@@ -181,7 +181,7 @@ reportIndustryModule <- function(gdx) {
         #Scrap
         o_InputCons_IndProc_scrap <- o_InputCons_IndProc[,,"scrap"]
         .tmp2 <- mbind(.tmp2, setNames(
-          dimSums(o_InputCons_IndProc_coke[, , varList_steel[[var]]], dim = 3) / 1000, #from GWh to TWh
+          dimSums(o_InputCons_IndProc_scrap[, , varList_steel[[var]]], dim = 3), #already in million ton
           paste0("Material Input|Scrap|",var," (Million ton/yr)")))
 
         #levelised costs
@@ -190,11 +190,9 @@ reportIndustryModule <- function(gdx) {
             dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Levelised cost plant built in t|",var," (Eur2010/ton)")))
 
-
-
       }
 
-      #This coult be moved up too, but it is easier to keep it here while we check it is correct
+      #This could be moved up too, but it is easier to keep it here while we check it is correct
       #Marginal costs
       for (var in names(varList_steel)){
         .tmp2 <- mbind(.tmp2, setNames(
