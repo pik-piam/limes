@@ -7,6 +7,8 @@ Price|Primary Energy|Oil;Primary Energy|Oil|Electricity
 Price|Primary Energy|Hydrogen [external];Primary Energy|Hydrogen [external]
 Price|Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis]
 Price|Primary Energy|Hydrogen;Primary Energy|Hydrogen
+Price|Primary Energy|Coke;Primary Energy|Coke|Industry|Steel
+Price|Input|Scrap;Material Input|Scrap|Industry|Steel
 Price|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price Full|Secondary Energy|Electricity;Secondary Energy|Electricity
 Price|Secondary Energy|Heat;Useful Energy|Heating|Buildings|ETS-covered

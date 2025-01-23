@@ -61,6 +61,8 @@ Price|Primary Energy|Hard Coal;Price|Primary Energy|Hard Coal;Eur2010/GJ;Eur2023
 Price|Primary Energy|Lignite;Price|Primary Energy|Lignite;Eur2010/GJ;Eur2023/GJ;1.26
 Price|Primary Energy|Gas;Price|Primary Energy|Gas;Eur2010/GJ;Eur2023/GJ;1.26
 Price|Primary Energy|Oil;Price|Primary Energy|Oil;Eur2010/GJ;Eur2023/GJ;1.26
+Price|Primary Energy|Coke;Price|Primary Energy|Coke;Eur2010/GJ;Eur2023/GJ;1.26
+Price|Input|Scrap;Price|Input|Scrap;Eur2010/ton;Eur2023/ton;1.26
 Price|Secondary Energy|Electricity;Price|Secondary Energy|Electricity;Eur2010/MWh;Eur2023/MWh;1.26
 Price Full|Secondary Energy|Electricity;Price Full|Secondary Energy|Electricity;Eur2010/MWh;Eur2023/MWh;1.26
 Price|Secondary Energy|Heat;Price|Secondary Energy|Heat;Eur2010/MWh;Eur2023/GJ;1.26
@@ -1606,3 +1608,10 @@ Production costs|Component Fossil fuel|Industry|Steel|Primary route;Production c
 Production costs|Component Hydrogen|Industry|Steel|Primary route;Production costs|Component Hydrogen|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
 Production costs|Component Material Input|Industry|Steel|Primary route;Production costs|Component Material Input|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
 Production costs|Component OM Cost|Industry|Steel|Primary route;Production costs|Component OM Cost|Industry|Steel|Primary route;Eur2010/ton;Eur2023/ton;1.26
+Total production costs|Industry|Steel;Total production costs|Industry|Steel;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Total production costs|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Electric Arc Furnace;Total production costs|Industry|Steel|Electric Arc Furnace;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Total production costs|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;billion eur2010/ton;billion eur2023/ton;1.26
+Total production costs|Industry|Steel|Primary route;Total production costs|Industry|Steel|Primary route;billion eur2010/ton;billion eur2023/ton;1.26

@@ -98,15 +98,14 @@ reportIndustryModule <- function(gdx) {
       )
 
       .tmp1 <- NULL #keep the following two here because their time granularity is different
-      #Capacity
+
       for (var in names(varList_steel)){
+        #Capacity
         .tmp1 <- mbind(.tmp1, setNames(
           dimSums(v_Capacity_Industry[, , varList_steel[[var]]], dim = 3),
                                        paste0("Capacity|",var," (Million ton)")))
-      }
 
-      #Capacity additions
-      for (var in names(varList_steel)){
+        #Capacity additions
         .tmp1 <- mbind(.tmp1, setNames(
           dimSums(v_deltaCap_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Capacity Additions|",var," (Million ton/yr)")))
@@ -258,7 +257,17 @@ reportIndustryModule <- function(gdx) {
           paste0("Production costs|Component OM Cost|",var," (Eur2010/ton)")))
       }
 
-      ##Cost of keeping a certain capacity level (currently at 2030 level)
+      ##Total production costs
+      #o_ProdCost_IndProc in eur/ton, and v_Prod_Industry in million ton
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_ProdCost_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) / 1e3,
+          paste0("Total production costs|",var," (billion eur2010/ton)")))
+      }
+
+
+      ##Protection cost
+      #Cost of keeping a certain capacity level (currently at 2020 level)
       m_ProtectLocal_Steel <- readGDX(gdx,name="q_ProtectLocal_Steel",field="m",
                                       format="first_found", react = 'silent')
 
@@ -291,6 +300,17 @@ reportIndustryModule <- function(gdx) {
                                          .tmp2[,,"Capacity factor|Industry|Steel (--)"], #convert from Geur/Mt to eur/t
                                        "Cost|Incentive production|Industry|Steel (Eur2010/ton)"))
       }
+
+      ##Other input (coke in FuelCosts)
+      #Scrap
+      #Create magpie object with all the countries. Data from p_PriceInput_ind does not have spatial granularity
+      .price_scrap <- new.magpie(cells_and_regions = getItems(p_datafuelcost, dim  = 1),
+                         years = getYears(p_PriceInput_ind),
+                         names = "Price|Input|Scrap (Eur2010/ton)",
+                         fill=0)
+
+      .price_scrap[,,] <- p_PriceInput_ind["GLO",,"scrap"] * 1000 #from Geur/million-ton to eur/ton
+      .tmp2 <- mbind(.tmp2,.price_scrap)
 
 
 
