@@ -38,6 +38,7 @@ reportIndustryModule <- function(gdx) {
       t0 <- tt[1]
       p_ts <- readGDX(gdx, name = "p_ts", field = "l", format = "first_found") #time step
       c_esmdisrate <- readGDX(gdx, name = "c_esmdisrate", field = "l", format = "first_found") #discount rate
+      p_PriceInput_ind <- readGDX(gdx,name="p_PriceInput_ind",field="l",format="first_found")
 
       #Read variables
       v_Prod_Industry <- readGDX(gdx,name="v_Prod_Industry",field="l",format="first_found")
@@ -304,7 +305,7 @@ reportIndustryModule <- function(gdx) {
       ##Other input (coke in FuelCosts)
       #Scrap
       #Create magpie object with all the countries. Data from p_PriceInput_ind does not have spatial granularity
-      .price_scrap <- new.magpie(cells_and_regions = getItems(p_datafuelcost, dim  = 1),
+      .price_scrap <- new.magpie(cells_and_regions = getItems(v_Prod_Industry, dim  = 1),
                          years = getYears(p_PriceInput_ind),
                          names = "Price|Input|Scrap (Eur2010/ton)",
                          fill=0)
