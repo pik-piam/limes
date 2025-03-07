@@ -40,7 +40,9 @@ reportFuelCosts <- function(gdx) {
 
   tmp2 <- NULL
 
-  if(all(dim(p_PriceInput_ind) > 0)) { #check if all the dimensions are positive, otherwise it means, the parameter is not defined
+  if(all(dim(p_PriceInput_ind) > 0) & !is.null(dim(p_PriceInput_ind))) {
+    #check if all the dimensions are positive, otherwise it means, the parameter is not defined
+    #If dimension is NULL is because it does not even exist in the gdx
     #Create magpie object with all the countries. Data from p_PriceInput_ind does not have spatial granularity
     .price_coke <- new.magpie(cells_and_regions = getItems(p_datafuelcost, dim  = 1),
                              years = getYears(p_PriceInput_ind),

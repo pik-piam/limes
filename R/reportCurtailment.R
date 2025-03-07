@@ -21,6 +21,7 @@ reportCurtailment <- function(gdx) {
   # read parameters and sets
   tau <- readGDX(gdx,name="tau") #set of time slices
   ter <- readGDX(gdx,name="ter") #set of variable renewable generation technologies
+  teel <- readGDX(gdx,name="teel") #set of variable renewable generation technologies
   pety <- readGDX(gdx,name="pety") #set of primary energies
   p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found")[,,tau] #number of hours/year per tau
 
@@ -43,13 +44,13 @@ reportCurtailment <- function(gdx) {
 
   varList_el <- list(
     # Renewable
-    "Secondary Energy|Electricity|Curtailment (TWh/yr)"               = c(ter),
-    "Secondary Energy|Electricity|Curtailment|Wind (TWh/yr)"          = intersect(ter, c("windon", "windoff")),
-    "Secondary Energy|Electricity|Curtailment|Wind|Onshore (TWh/yr)"  = intersect(ter, c("windon")),
-    "Secondary Energy|Electricity|Curtailment|Wind|Offshore (TWh/yr)" = intersect(ter, c("windoff")),
-    "Secondary Energy|Electricity|Curtailment|Solar (TWh/yr)"         = intersect(ter, c("spv", "csp")),
-    "Secondary Energy|Electricity|Curtailment|Solar|PV (TWh/yr)"      = intersect(ter, c("spv")),
-    "Secondary Energy|Electricity|Curtailment|Solar|CSP (TWh/yr)"     = intersect(ter, c("csp"))
+    "Secondary Energy|Electricity|Curtailment (TWh/yr)"               = intersect(teel, ter),
+    "Secondary Energy|Electricity|Curtailment|Wind (TWh/yr)"          = intersect(teel, c("windon", "windoff")),
+    "Secondary Energy|Electricity|Curtailment|Wind|Onshore (TWh/yr)"  = intersect(teel, c("windon")),
+    "Secondary Energy|Electricity|Curtailment|Wind|Offshore (TWh/yr)" = intersect(teel, c("windoff")),
+    "Secondary Energy|Electricity|Curtailment|Solar (TWh/yr)"         = intersect(teel, c("spv", "csp")),
+    "Secondary Energy|Electricity|Curtailment|Solar|PV (TWh/yr)"      = intersect(teel, c("spv")),
+    "Secondary Energy|Electricity|Curtailment|Solar|CSP (TWh/yr)"     = intersect(teel, c("csp"))
   )
 
 
