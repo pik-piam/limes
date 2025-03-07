@@ -21,7 +21,8 @@ reportFuelCosts <- function(gdx) {
   # read parameters and sets
   tt <- readGDX(gdx, name = "t")
   p_datafuelcost <- readGDX(gdx,name="p_datafuelcost",field="l",format="first_found") #fuel costs over time
-  p_PriceInput_ind <- readGDX(gdx,name="p_PriceInput_ind",field="l",format="first_found", react = 'silent')
+  p_PriceInput_ind <- readGDX(gdx,name="p_PriceInput_ind",field="l",
+                              format="first_found", react = 'silent', restore_zeros = T)
   petyex <- readGDX(gdx,name="petyex")
 
   # create MagPie object of demand with iso3 regions
@@ -39,7 +40,7 @@ reportFuelCosts <- function(gdx) {
 
   tmp2 <- NULL
 
-  if(!is.null(p_PriceInput_ind)) {
+  if(all(dim(p_PriceInput_ind) > 0)) { #check if all the dimensions are positive, otherwise it means, the parameter is not defined
     #Create magpie object with all the countries. Data from p_PriceInput_ind does not have spatial granularity
     .price_coke <- new.magpie(cells_and_regions = getItems(p_datafuelcost, dim  = 1),
                              years = getYears(p_PriceInput_ind),
