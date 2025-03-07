@@ -220,6 +220,15 @@ reportAdequacyContribution <- function(gdx) {
                                 fill = 0, sort = FALSE, sets = NULL)
   netimports_peak <- netimports_marg
 
+  #In a newer version, contribution of storage to capacity adequacy is redefined
+  v_StorAvailableForBackup <- readGDX(gdx,name="v_StorAvailableForBackup",field="l",format="first_found",restore_zeros = FALSE, react = "silent")
+  if(is.null(v_StorAvailableForBackup)) {
+    o_ContribStoAdeq <- v_storeout_el
+  } else {
+    v_StorAvailableForBackup <- limesMapping(v_StorAvailableForBackup)[,,tau]
+    o_ContribStoAdeq <- v_StorAvailableForBackup
+  }
+
   #consider ONLY vRES, imports and demand for the tau in which the marginal value for the robust constraint peaks and when demand peaks
   for (regi2 in getItems(p_eldemand, dim = 1)) {
     for (year2 in getYears(p_eldemand)) {
@@ -230,10 +239,20 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_peak[regi2,year2,] <- 0
       }
       else {
-        capadeq_vres_peak[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseDim(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
-        demand_peak[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
-        netimports_peak[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
-        capadeq_stor_peak[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseDim(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
+        capadeq_vres_peak[regi2,year2,] <-
+          p_adeq_te[,,ter_el] * collapseDim(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
+        demand_peak[regi2,year2,] <-
+          p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])]
+        netimports_peak[regi2,year2,] <-
+          max(0,
+              setNames(p_eldemand[regi2,year2,as.character(taupeak[regi2,year2,])],NULL) +
+                dimSums(v_storein_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) -
+                dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) -
+                dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
+        capadeq_stor_peak[regi2,year2,] <-
+          p_adeq_te[,,testore_el] * collapseDim(
+            o_ContribStoAdeq[regi2,year2,as.character(taupeak[regi2,year2,])]
+            , dim = 3.1)
       }
 
       if (taumax[regi2,year2,] == 0) {
@@ -243,10 +262,20 @@ reportAdequacyContribution <- function(gdx) {
         capadeq_stor_marg[regi2,year2,] <- 0
         }
       else {
-        capadeq_vres_marg[regi2,year2,] <- p_adeq_te[,,ter_el]*collapseDim(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
-        demand_marg[regi2,year2,] <- p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
-        netimports_marg[regi2,year2,] <- max(0, setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) + dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) - dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
-        capadeq_stor_marg[regi2,year2,] <- p_adeq_te[,,testore_el]*collapseDim(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
+        capadeq_vres_marg[regi2,year2,] <-
+          p_adeq_te[,,ter_el] * collapseDim(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
+        demand_marg[regi2,year2,] <-
+          p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])]
+        netimports_marg[regi2,year2,] <-
+          max(0,
+              setNames(p_eldemand[regi2,year2,as.character(taumax[regi2,year2,])],NULL) +
+                dimSums(v_storein_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) -
+                dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) -
+                dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
+        capadeq_stor_marg[regi2,year2,] <-
+          p_adeq_te[,,testore_el] * collapseDim(
+            o_ContribStoAdeq[regi2,year2,as.character(taumax[regi2,year2,])]
+            , dim = 3.1)
       }
     }
   }
