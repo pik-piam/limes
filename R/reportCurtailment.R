@@ -25,22 +25,43 @@ reportCurtailment <- function(gdx) {
   p_taulength <- readGDX(gdx,name=c("p_taulength","pm_taulength"),field="l",format="first_found")[,,tau] #number of hours/year per tau
 
   # read variables
-  v_seprod <- readGDX(gdx,name="v_seprod",field="l",format="first_found")[,,tau]
-  v_seprodmax <- readGDX(gdx,name="v_seprodmax",field="l",format="first_found")[,,tau]
+  v_seprod <- readGDX(gdx, name = "v_seprod", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
+  v_seprodmax <- readGDX(gdx,name="v_seprodmax", field="l", format="first_found", restore_zeros = FALSE)[,, tau]
 
-  #Make sure only the "right" tau are taken -> to avoid info from gdx that might be stuck in the file
-  v_seprod <- v_seprod[,,pety]
-  v_seprod <- v_seprod[,,"seel"]
+  #Make sure only the "right" dimensions are taken -> to avoid info from gdx that might be stuck in the file
+  v_seprod_ter <- v_seprod[,,ter]
 
   # create MagPie object of variables with iso3 regions
-  v_seprod <- limesMapping(v_seprod)
+  v_seprod_ter <- limesMapping(v_seprod_ter[,,"seel"])
   v_seprodmax <- limesMapping(v_seprodmax)
 
+  #Collapse some dimensions to avoid problems
+  v_seprod_ter <- collapseDim(v_seprod_ter, dim = c(3.2,3.3))
+
   #curtailment of VRES ('ter')
+  # generation per aggregated technology per country
+
+  varList_el <- list(
+    # Renewable
+    "Secondary Energy|Electricity|Curtailment (TWh/yr)"               = c(ter),
+    "Secondary Energy|Electricity|Curtailment|Wind (TWh/yr)"          = intersect(ter, c("windon", "windoff")),
+    "Secondary Energy|Electricity|Curtailment|Wind|Onshore (TWh/yr)"  = intersect(ter, c("windon")),
+    "Secondary Energy|Electricity|Curtailment|Wind|Offshore (TWh/yr)" = intersect(ter, c("windoff")),
+    "Secondary Energy|Electricity|Curtailment|Solar (TWh/yr)"         = intersect(ter, c("spv", "csp")),
+    "Secondary Energy|Electricity|Curtailment|Solar|PV (TWh/yr)"      = intersect(ter, c("spv")),
+    "Secondary Energy|Electricity|Curtailment|Solar|CSP (TWh/yr)"     = intersect(ter, c("csp"))
+  )
+
+
   #and converting from GWh to TWh
   tmp1 <- NULL
-  tmp1 <- mbind(tmp1,setNames((dimSums(v_seprodmax[,,ter]*p_taulength,dim=3)-dimSums(v_seprod[,,ter]*p_taulength,dim=3))/1000,"Secondary Energy|Electricity|Curtailment (TWh/yr)"))
-
+  for (var in names(varList_el)) {
+    tmp1 <- mbind(tmp1, setNames(dimSums(
+      (dimSums(v_seprodmax[, , varList_el[[var]]] - v_seprod_ter[, , varList_el[[var]]], dim = c(3.2)) )
+                                         * p_taulength, dim = 3.1)
+                                 / 1000,
+                                 var))
+  }
 
   tmp2 <- NULL
 

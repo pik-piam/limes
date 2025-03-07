@@ -101,7 +101,6 @@ Secondary Energy|Electricity;Secondary Energy|Electricity;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|w/ storage;Secondary Energy|Electricity|w/ storage;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Biomass;Secondary Energy|Electricity|Biomass;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Coal;Secondary Energy|Electricity|Coal;TWh/yr;TWh/yr;1
-Secondary Energy|Electricity|Curtailment;Secondary Energy|Electricity|Curtailment;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Gas;Secondary Energy|Electricity|Gas;TWh/yr;TWh/yr;1
@@ -135,6 +134,13 @@ Secondary Energy|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite
 Secondary Energy|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCS;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS;TWh/yr;TWh/yr;1
 Secondary Energy|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment;Secondary Energy|Electricity|Curtailment;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Wind;Secondary Energy|Electricity|Curtailment|Wind;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Wind|Onshore;Secondary Energy|Electricity|Curtailment|Wind|Onshore;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Wind|Offshore;Secondary Energy|Electricity|Curtailment|Wind|Offshore;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Solar;Secondary Energy|Electricity|Curtailment|Solar;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Solar|PV;Secondary Energy|Electricity|Curtailment|Solar|PV;TWh/yr;TWh/yr;1
+Secondary Energy|Electricity|Curtailment|Solar|CSP;Secondary Energy|Electricity|Curtailment|Solar|CSP;TWh/yr;TWh/yr;1
 Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/o trade and w/o CO2 costs;billion eur2010/yr;billion Eur2023/yr;1.26
 Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/o CO2 costs;billion eur2010/yr;billion Eur2023/yr;1.26
 Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;Total Energy System Cost|Power Sector|w/ trade and w/ CO2 costs;billion eur2010/yr;billion Eur2023/yr;1.26

@@ -74,7 +74,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #output <- mbind(output,reportPeakDemand(gdx)[,time,])
 
   #adding curtailment to report output
-  #output <- mbind(output,reportCurtailment(gdx)[,time,]) #now on generation
+  output <- mbind(output,reportCurtailment(gdx)[,time,])
 
   #adding carbon sequestration to report output
   #output <- mbind(output,reportCarbonSequestration(gdx)[,time,]) #Now on emissions
