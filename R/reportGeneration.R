@@ -695,8 +695,8 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
         # Hydrogen sold to other sectors (i.e., not used for electricity generation) - exogenous
         #Exogenous demand from other sectors
         p_demXSe_exo <- readGDX(gdx, name = c("p_demXSe_exo"), field = "l", format = "first_found",
-                                restore_zeros = T)[, getYears(output), "pehgen"] # [GWh]
-        p_demXSe_exo <- limesMapping(p_demXSe_exo)
+                                restore_zeros = TRUE) # [GWh]
+        p_demXSe_exo <- limesMapping(p_demXSe_exo[, getYears(output), "pehgen"])
         #Endogenous demand from industry
         o_FuelConsSector_Industry <- readGDX(gdx, name = c("o_FuelConsSector_Industry"),
                                              field = "l", format = "first_found",
@@ -959,18 +959,7 @@ reportGeneration <- function(gdx, output = NULL, reporting_tau = FALSE) {
                                  "Secondary Energy|Electricity|Share of solar energy in gross demand (--)"))
 
     # merge tmp's
-    tmp7 <- mbind(tmp5, tmp6)
-
-    # CURTAILMENT
-    v_seprodmax <- readGDX(gdx, name = "v_seprodmax", field = "l", format = "first_found", restore_zeros = FALSE)[, , tau]
-    v_seprodmax <- limesMapping(v_seprodmax)
-    o_genvres <- setNames(tmp1[, , "Secondary Energy|Electricity|Variable renewable (TWh/yr)"], NULL)
-    tmp8 <- NULL
-    tmp8 <- mbind(tmp8, setNames(dimSums(dimSums(v_seprodmax[, , intersect(teel, ter)], dim = c(3.2)) * p_taulength, dim = 3) / 1000 - o_genvres,
-                                 "Secondary Energy|Electricity|Curtailment (TWh/yr)"))
-
-    # merge tmp's
-    tmp <- mbind(tmp7, tmp8)
+    tmp <- mbind(tmp5, tmp6)
 
   } else { #if not the reportTau
 
