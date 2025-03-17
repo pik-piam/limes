@@ -113,6 +113,7 @@ reportAdequacyContribution <- function(gdx) {
 
     #Redefine testore set -> only electricity-related sets make sense in this function
     testore_el <- setdiff(testore,c("heat_sto"))
+    testore_eladeq <- setdiff(testore_el,c("helec")) #Electrolysers do not contribute to capacity adequacy
 
   } else {
     v_storein_el <- v_storein
@@ -120,6 +121,7 @@ reportAdequacyContribution <- function(gdx) {
 
     #Redefine testore set -> only electricity-related sets make sense in this function
     testore_el <- setdiff(testore,c("heat_sto"))
+    testore_eladeq <- setdiff(testore_el,c("helec")) #Electrolysers do not contribute to capacity adequacy
   }
 
 
@@ -207,7 +209,7 @@ reportAdequacyContribution <- function(gdx) {
                                                  fill = 0, sort = FALSE, sets = NULL)
   capadeq_vres_peak <- capadeq_vres_marg
 
-  capadeq_stor_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = testore_el,
+  capadeq_stor_marg <- new.magpie(cells_and_regions = getItems(v_exdemand, dim = 1), years = getYears(v_exdemand), names = testore_eladeq,
                                                      fill = 0, sort = FALSE, sets = NULL)
   #capadeq_stor_marg <- setNames(capadeq_stor_marg,NULL)
   capadeq_stor_peak <- capadeq_stor_marg
@@ -221,12 +223,13 @@ reportAdequacyContribution <- function(gdx) {
   netimports_peak <- netimports_marg
 
   #In a newer version, contribution of storage to capacity adequacy is redefined
-  v_StorAvailableForBackup <- readGDX(gdx,name="v_StorAvailableForBackup",field="l",format="first_found",restore_zeros = FALSE, react = "silent")
+  v_StorAvailableForBackup <- readGDX(gdx,name="v_StorAvailableForBackup",field="l",
+                                      format="first_found",restore_zeros = FALSE, react = "silent")
   if(is.null(v_StorAvailableForBackup)) {
-    o_ContribStoAdeq <- v_storeout_el
+    o_ContribStoAdeq <- v_storeout_el[,, testore_eladeq]
   } else {
     v_StorAvailableForBackup <- limesMapping(v_StorAvailableForBackup)[,,tau]
-    o_ContribStoAdeq <- v_StorAvailableForBackup
+    o_ContribStoAdeq <- v_StorAvailableForBackup[,, testore_eladeq]
   }
 
   #consider ONLY vRES, imports and demand for the tau in which the marginal value for the robust constraint peaks and when demand peaks
@@ -237,8 +240,7 @@ reportAdequacyContribution <- function(gdx) {
         demand_peak[regi2,year2,] <- 0
         netimports_peak[regi2,year2,] <- 0
         capadeq_stor_peak[regi2,year2,] <- 0
-      }
-      else {
+      } else {
         capadeq_vres_peak[regi2,year2,] <-
           p_adeq_te[,,ter_el] * collapseDim(v_seprodmax[regi2,year2,as.character(taupeak[regi2,year2,])], dim = 3.1)
         demand_peak[regi2,year2,] <-
@@ -250,7 +252,7 @@ reportAdequacyContribution <- function(gdx) {
                 dimSums(v_storeout_el[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3) -
                 dimSums(v_seprod[regi2,year2,as.character(taupeak[regi2,year2,])], dim=3))
         capadeq_stor_peak[regi2,year2,] <-
-          p_adeq_te[,,testore_el] * collapseDim(
+          p_adeq_te[,,testore_eladeq] * collapseDim(
             o_ContribStoAdeq[regi2,year2,as.character(taupeak[regi2,year2,])]
             , dim = 3.1)
       }
@@ -260,8 +262,7 @@ reportAdequacyContribution <- function(gdx) {
         demand_marg[regi2,year2,] <- 0
         netimports_marg[regi2,year2,] <- 0
         capadeq_stor_marg[regi2,year2,] <- 0
-        }
-      else {
+        } else {
         capadeq_vres_marg[regi2,year2,] <-
           p_adeq_te[,,ter_el] * collapseDim(v_seprodmax[regi2,year2,as.character(taumax[regi2,year2,])], dim = 3.1)
         demand_marg[regi2,year2,] <-
@@ -273,7 +274,7 @@ reportAdequacyContribution <- function(gdx) {
                 dimSums(v_storeout_el[regi2,year2,as.character(taumax[regi2,year2,])], dim=3) -
                 dimSums(v_seprod[regi2,year2,as.character(taumax[regi2,year2,])], dim=3))
         capadeq_stor_marg[regi2,year2,] <-
-          p_adeq_te[,,testore_el] * collapseDim(
+          p_adeq_te[,,testore_eladeq] * collapseDim(
             o_ContribStoAdeq[regi2,year2,as.character(taumax[regi2,year2,])]
             , dim = 3.1)
       }
@@ -290,10 +291,20 @@ reportAdequacyContribution <- function(gdx) {
   tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_vres_peak[,,c("windon","windoff")],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Wind (GW)"))
 
   #Contribution of storage (most challenging)
-  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,c(testore_el)],dim=3),"Capacity Adequacy|Most Challenging|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,c(testore_eladeq)],dim=3),
+                              "Capacity Adequacy|Most Challenging|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,"batteries"],dim=3),
+                              "Capacity Adequacy|Most Challenging|Contribution|Storage|Stat Batteries (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_marg[,,"psp"],dim=3),
+                              "Capacity Adequacy|Most Challenging|Contribution|Storage|Pump Hydro (GW)"))
 
   #Contribution of storage (peak demand)
-  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,c(testore_el)],dim=3),"Capacity Adequacy|Peak Demand|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,c(testore_eladeq)],dim=3),
+                              "Capacity Adequacy|Peak Demand|Contribution|Storage (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,"batteries"],dim=3),
+                              "Capacity Adequacy|Peak Demand|Contribution|Storage|Stat Batteries (GW)"))
+  tmp3 <- mbind(tmp3,setNames(dimSums(capadeq_stor_peak[,,"psp"],dim=3),
+                              "Capacity Adequacy|Peak Demand|Contribution|Storage|Pump Hydro (GW)"))
 
   #Concatenating variables
   tmp4 <- mbind(tmp1,tmp2,tmp3)

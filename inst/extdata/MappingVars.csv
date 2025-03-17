@@ -220,6 +220,8 @@ Capacity Adequacy|Most Challenging|Contribution|Lignite;Capacity Adequacy|Most C
 Capacity Adequacy|Most Challenging|Contribution|Gas;Capacity Adequacy|Most Challenging|Contribution|Gas;GW;GW;1
 Capacity Adequacy|Most Challenging|Contribution|Biomass;Capacity Adequacy|Most Challenging|Contribution|Biomass;GW;GW;1
 Capacity Adequacy|Most Challenging|Contribution|Storage;Capacity Adequacy|Most Challenging|Contribution|Storage;GW;GW;1
+Capacity Adequacy|Most Challenging|Contribution|Storage|Stat Batteries;Capacity Adequacy|Most Challenging|Contribution|Storage|Stat Batteries;GW;GW;1
+Capacity Adequacy|Most Challenging|Contribution|Storage|Pump Hydro;Capacity Adequacy|Most Challenging|Contribution|Storage|Pump Hydro;GW;GW;1
 Capacity Adequacy|Most Challenging|Contribution|Oil;Capacity Adequacy|Most Challenging|Contribution|Oil;GW;GW;1
 Capacity Adequacy|Most Challenging|Contribution|Waste;Capacity Adequacy|Most Challenging|Contribution|Waste;GW;GW;1
 Capacity Adequacy|Most Challenging|Contribution|Hydrogen;Capacity Adequacy|Most Challenging|Contribution|Hydrogen;GW;GW;1
@@ -236,6 +238,8 @@ Capacity Adequacy|Peak Demand|Contribution|Lignite;Capacity Adequacy|Peak Demand
 Capacity Adequacy|Peak Demand|Contribution|Gas;Capacity Adequacy|Peak Demand|Contribution|Gas;GW;GW;1
 Capacity Adequacy|Peak Demand|Contribution|Biomass;Capacity Adequacy|Peak Demand|Contribution|Biomass;GW;GW;1
 Capacity Adequacy|Peak Demand|Contribution|Storage;Capacity Adequacy|Peak Demand|Contribution|Storage;GW;GW;1
+Capacity Adequacy|Peak Demand|Contribution|Storage|Stat Batteries;Capacity Adequacy|Peak Demand|Contribution|Storage|Stat Batteries;GW;GW;1
+Capacity Adequacy|Peak Demand|Contribution|Storage|Pump Hydro;Capacity Adequacy|Peak Demand|Contribution|Storage|Pump Hydro;GW;GW;1
 Capacity Adequacy|Peak Demand|Contribution|Oil;Capacity Adequacy|Peak Demand|Contribution|Oil;GW;GW;1
 Capacity Adequacy|Peak Demand|Contribution|Waste;Capacity Adequacy|Peak Demand|Contribution|Waste;GW;GW;1
 Capacity Adequacy|Peak Demand|Contribution|Hydrogen;Capacity Adequacy|Peak Demand|Contribution|Hydrogen;GW;GW;1
