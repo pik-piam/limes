@@ -64,6 +64,9 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #adding industry emissions to report output
   output <- mbind(output,reportIndustryEmissions(gdx,output)[,time,]) #depending on CO2 price and emissions
 
+  #adding other EU ETS sectoral emissions to report output
+  #output <- mbind(output,reportOtherEUETSsector(gdx)[,time,])
+
   #adding capital costs to report output
   output <- mbind(output,reportCapitalCosts(gdx)[,time,])
 
@@ -334,6 +337,11 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   #  write the *.mif or give back the magpie opject output
   AggVars_tmp <- paste0(as.vector(AggVarfile$LIMES)," (",as.vector(AggVarfile$UnitLIMES) , ")")
   AggVars <- intersect(AggVars_tmp,getNames(output))
+
+  #Filter AggVars, since some of the EU ETS variables are calculated at regional level
+  #in model versions as of March 2025
+
+
 
   #Depending on the configuration, some variables might have national values and thus should be extracted from the variables to be calculated for EU ETS
   #and incorporated in the report as follows
