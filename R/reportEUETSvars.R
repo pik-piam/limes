@@ -334,7 +334,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
         if(!is.null(p_MACC_AbatPotEUETS_Maritime)) {
           #Estimate Maritime emissions (baselines - abated)
-          o_EmiEUETS_Maritime <- dimSums(p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime, 3) * s_c2co2 * 1000
+          o_EmiEUETS_Maritime <-
+            dimSums(p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcEUETS_Maritime, 3) * s_c2co2 * 1000
 
           tmp4 <- mbind(tmp4, setNames(dimSums(v_EmiAbatProcEUETS_Maritime, 3) * s_c2co2 * 1000,
                                        "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
