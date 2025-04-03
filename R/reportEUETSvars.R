@@ -92,10 +92,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
               o_EmiAviation_EUETS <- p_aviation_emi * s_c2co2 * 1000
             }
             #A MACC was implemented recently
-            p_EmiRef_EUETS_Aviation <- readGDX(gdx,name="p_EmiRef_EUETS_Aviation",
+            p_EmiRef_EUETS_Aviation <- readGDX(gdx,name = "p_EmiRef_EUETS_Aviation",
                                                field="l", format="first_found",
                                                react = 'silent')[, y ,]
-            v_EmiAbatProcEUETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcEUETS_Aviation",
+            v_EmiAbatProcEUETS_Aviation <- readGDX(gdx,name = c("v_EmiAbatEUETS_Aviation","v_EmiAbatProcEUETS_Aviation"), #name changed at some point
                                                    field="l", format="first_found",
                                                    react = 'silent')[, y ,]
             if(!is.null(p_EmiRef_EUETS_Aviation)) { #In most recent version, there is reference emissions and

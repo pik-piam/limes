@@ -39,7 +39,9 @@ reportUKETSvars <- function(gdx,output=NULL) {
       p_emicap_UKETS <- readGDX(gdx,name="p_emicap_UKETS", field="l", format="first_found")[, y, ]
       p_demaviationUK <- readGDX(gdx,name="p_demaviationUK", field="l", format="first_found", react = 'silent')[, y, ]
       p_AviationEmi_UKETS <- readGDX(gdx,name="o_AviationEmi_UKETS", field="l", format="first_found", react = 'silent')[, y, ] #already in MtCO2
-      v_EmiAbatProcUKETS_Aviation <- readGDX(gdx,name="v_EmiAbatProcUKETS_Aviation", field="l", format="first_found", react = 'silent')[, y, ] #in GtC
+      v_EmiAbatProcUKETS_Aviation <-
+        readGDX(gdx,name = c("v_EmiAbatProcUKETS_Aviation","v_EmiAbatProcUKETS_Aviation"), #name changed at some point
+                field="l", format="first_found", react = 'silent')[, y, ] #in GtC
 
       tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
 
