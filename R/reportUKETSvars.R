@@ -40,7 +40,7 @@ reportUKETSvars <- function(gdx,output=NULL) {
       p_demaviationUK <- readGDX(gdx,name="p_demaviationUK", field="l", format="first_found", react = 'silent')[, y, ]
       p_AviationEmi_UKETS <- readGDX(gdx,name="o_AviationEmi_UKETS", field="l", format="first_found", react = 'silent')[, y, ] #already in MtCO2
       v_EmiAbatProcUKETS_Aviation <-
-        readGDX(gdx,name = c("v_EmiAbatProcUKETS_Aviation","v_EmiAbatProcUKETS_Aviation"), #name changed at some point
+        readGDX(gdx,name = c("v_EmiAbatUKETS_Aviation","v_EmiAbatProcUKETS_Aviation"), #name changed at some point
                 field="l", format="first_found", react = 'silent')[, y, ] #in GtC
 
       tmp1 <- mbind(tmp1,setNames(p_emicap_UKETS * s_c2co2 * 1000, "Emissions|CO2|Cap|Stationary (Mt CO2/yr)"))
@@ -97,7 +97,8 @@ reportUKETSvars <- function(gdx,output=NULL) {
       #Only report if UK ETS implemented, because otherwise the share parameters do not exist
       if(heating == "off" | heating == "mac") {
 
-        o_DH_emi_EUETS <- setNames(output["EUETS",,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"], NULL)
+        o_DH_emi_EUETS <- setNames(output["EUETS",,"Emissions|CO2|Energy|Supply|Heat|District Heating (Mt CO2/yr)"],
+                                   NULL)
         o_DH_emi <- o_DH_emi_EUETS * p_share_EmiHeat_UK
 
       } else { #fullDH
