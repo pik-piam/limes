@@ -28,16 +28,25 @@ reportOtherEUETSsector <- function(gdx) {
   #"Emissions abated|CO2|Aviation (Mt CO2/yr)"
   #"Emissions|CO2|Aviation (Mt CO2/yr)"
 
-  # read switch for new industry module
-  o_AviationEmi_regi <- readGDX(gdx,name="o_AviationEmi_regi",field="l",format="first_found", react = 'silent')
+  # read new variable for regional aviation emissions
+  o_AviationEmi_regi <- readGDX(gdx,name="o_AviationEmi_regi",field="l",
+                                format="first_found", react = 'silent')
 
   #Check if the parameter has been defined
+  .tmp1 <-  NULL
   if(!is.null(o_AviationEmi_regi)) {
     if(o_AviationEmi_regi >= 1) {
+
+      .tmp1 <- mbind(.tmp1, setNames(o_AviationEmi_regi,
+                                     "Emissions|CO2|Aviation (Mt CO2/yr)"))
+      .tmp1 <- mbind(.tmp1, setNames(o_AviationEmi_regi,
+                                     "Emissions|CO2|Aviation (Mt CO2/yr)"))
 
 
       }
   }
+  # concatenate vars
+  .tmp <- mbind(.tmp,.tmp1)
 
 
 
