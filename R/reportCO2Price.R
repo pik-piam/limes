@@ -269,23 +269,29 @@ reportCO2Price <- function(gdx) {
       p_shareEUA_auct / dimSums(p_shareEUA_auct[setdiff(getItems(p_shareEUA_auct, dim = 1), "GBR"),,], dim = 1)
     o_shareEUA_auct["GBR",setdiff(getItems(o_shareEUA_auct, dim = 2), c("y2010","y2015","y2020")),] <- 0
 
+    ##Unilateral cancellation
     #set related to countries cancelling
-    regi_cancEUA_iso2 <- readGDX(gdx, name = "regi_cancEUA") #set of countries cancelling EUA (unilaterally)
-    regi_cancEUA_iso3 <- mappingregi[match(regi_cancEUA_iso2, mappingregi[, 1]), 2]
-    regi_cancEUA <- regi_cancEUA_iso3
+    regi_cancEUA_iso2 <- readGDX(gdx, name = "regi_cancEUA", react = "silent") #set of countries cancelling EUA (unilaterally)
+    #Create magpie variable
+    o_selfcancelEUA_regi <- new.magpie(cells_and_regions = getItems(o_co2price_ETS, dim = 1),
+                                       years = getYears(o_co2price_ETS), names = NULL,
+                                       fill = 0, sort = FALSE, sets = NULL)
 
-    #Unilateral cancellation
-    #o_selfcancelEUA_regi <- setNames(o_co2price_ETS*0,  NULL)
-    o_selfcancelEUA_regi <- new.magpie(cells_and_regions = getItems(o_co2price_ETS, dim = 1), years = getYears(o_co2price_ETS), names = NULL,
-                             fill = 0, sort = FALSE, sets = NULL)
-    if(length(regi_cancEUA) > 0) {
+    if(length(regi_cancEUA_iso2) > 0) {
+      #match ISO2 with ISO3
+      regi_cancEUA_iso3 <- mappingregi[match(regi_cancEUA_iso2, mappingregi[, 1]), 2]
+      regi_cancEUA <- regi_cancEUA_iso3
+
+      #Split unilateral cancellation among countries willing to cancel
       o_selfcancelEUA_regi[regi_cancEUA, , ] <- p_certificates_cancelled * o_shareEUA_auct[regi_cancEUA,,] /
         dimSums(o_shareEUA_auct[regi_cancEUA,,], dim = 1)
-    }
-    if(c_LIMESversion <=  2.30) {
-      tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
-    } else {
-      tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi*s_c2co2*1000, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
+
+      if(c_LIMESversion <=  2.30) {
+        tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
+      } else {
+        tmp4 <- mbind(tmp4, setNames(o_selfcancelEUA_regi*s_c2co2*1000, "Emissions|CO2|Unilateral EUA cancellation (Mt CO2/yr)"))
+      }
+
     }
 
     #Report the auction and revenues from auction only if industry is modelled
@@ -303,7 +309,7 @@ reportCO2Price <- function(gdx) {
         o_auction_preunicanc <- p_emicappath_EUETS*(1-p_sharefreeEUA) - p_intakeMSR + p_outtakeMSR
 
         #EUA cancelled need to be subtracted from EUA preliminary auctions
-        o_auctionEUA_regi <- o_auction_preunicanc*o_shareEUA_auct - 0*o_selfcancelEUA_regi/(s_c2co2*1000)
+        o_auctionEUA_regi <- o_auction_preunicanc*o_shareEUA_auct
         tmp4 <- mbind(tmp4, setNames(o_auctionEUA_regi*s_c2co2*1000, "Emissions|CO2|Certificates auctioned ETS (Mt CO2/yr)"))
 
       } else {
