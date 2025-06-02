@@ -64,7 +64,7 @@ reportEUETSvars <- function(gdx,output=NULL) {
                                   "Emissions level in ETS|CO2|Energy|Supply|Electricity (Mt CO2)"))
       tmp2 <- mbind(tmp2,setNames(p_emicappath_EUETS*s_c2co2*1000,
                                   "EU ETS cap|CO2|Energy|Supply|Electricity (Mt CO2/yr)"))
-    } else {
+    } else { #versions after 2.26
 
       #check if industry is included in the run
       c_industry_ETS <- readGDX(gdx,name="c_industry_ETS",field="l",format="first_found")
@@ -137,7 +137,8 @@ reportEUETSvars <- function(gdx,output=NULL) {
             if(c_linkEUETS_UK == 0) {
               #Take UK off after 2020
               o_emi_elec_ind[,setdiff(getYears(output),paste0("y",seq(2010,2020,5))),] <-
-                setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),"Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
+                setNames(dimSums(output[setdiff(regeuets,"GBR"),setdiff(y,paste0("y",seq(2010,2020,5))),
+                                        "Emissions|CO2|Electricity and Industry (Mt CO2/yr)"], dim=1), NULL)
             }
           }
           #Add region "GlO" to avoid errors in forecoming sums
@@ -329,8 +330,10 @@ reportEUETSvars <- function(gdx,output=NULL) {
         }
 
         #Maritime with MACC
-        p_MACC_AbatPotEUETS_Maritime <- readGDX(gdx, name = c("p_MACC_AbatPotEUETS_Maritime","p_MACC_AbatPot_Maritime"), format = "first_found", react = 'silent')
-        v_EmiAbatProcEUETS_Maritime <- readGDX(gdx, name = c("v_EmiAbatProcEUETS_Maritime","v_EmiAbatProc_Maritime"), field="l", format = "first_found", react = 'silent')
+        p_MACC_AbatPotEUETS_Maritime <- readGDX(gdx, name = c("p_MACC_AbatPotEUETS_Maritime","p_MACC_AbatPot_Maritime"),
+                                                format = "first_found", react = 'silent')
+        v_EmiAbatProcEUETS_Maritime <- readGDX(gdx, name = c("v_EmiAbatProcEUETS_Maritime","v_EmiAbatProc_Maritime"),
+                                               field="l", format = "first_found", react = 'silent')
 
         if(!is.null(p_MACC_AbatPotEUETS_Maritime)) {
           #Estimate Maritime emissions (baselines - abated)
@@ -376,21 +379,64 @@ reportEUETSvars <- function(gdx,output=NULL) {
 
     }
 
+    # concatenate data
+    tmp <- mbind(tmp,tmp4)
+
+    #CDR imports
+    c_IntCDR <- readGDX(gdx, name = "c_IntCDR", format = "first_found", react = 'silent') #
+    tmp5 <- NULL
+    if(!is.null(c_IntCDR)) {
+
+      v_IntCDR_EUETS <- readGDX(gdx, name = "v_IntCDR_EUETS",
+                                       field="l", format = "first_found") #unit is MtC
+      origin_cdr <- readGDX(gdx, name = "origin_cdr")
+      method_cdr <- readGDX(gdx, name = "method_cdr")
+
+      #Create list for different CDR methods
+      varList_CDRmethods <- list(
+        # Conventional
+        "Imported CDR certificates"                  = c(method_cdr),
+        "Imported CDR certificates|BECCS"            = intersect(method_cdr, "int_beccs"),
+        "Imported CDR certificates|DACCS"            = intersect(method_cdr, "int_daccs"),
+        "Imported CDR certificates|Biochar"          = intersect(method_cdr, "int_biochar")
+      )
+      units <-  "(Mt CO2/yr)"
+
+      #totals per country and method
+      for(regi in origin_cdr) {
+        for(var in names(varList_CDRmethods)) {
+          tmp5 <- mbind(tmp5, setNames(dimSums(v_IntCDR_EUETS[,,paste0(regi,".",varList_CDRmethods[[var]])], dim = 3.2) * s_c2co2, #convert from MtC to MtCO2
+                                       paste(var,"from",regi,units)))
+        }
+      }
+
+      #totals for all countries
+      for(var in names(varList_CDRmethods)) {
+        tmp5 <- mbind(tmp5, setNames(dimSums(v_IntCDR_EUETS[,,paste0(varList_CDRmethods[[var]])], dim = 3) * s_c2co2, #convert from MtC to MtCO2
+                                     paste(var,units)))
+      }
+
+    }
+
+    # concatenate data
+    tmp <- mbind(tmp,tmp5)
 
     #Aggregated emissions EU ETS
+    tmp6 <- NULL
     if(c_bankemi_EU == 1) {
       #Emissions from other sectors
-      p_emiothersec <- readGDX(gdx,name="p_emiothersec",field="l",format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
-      tmp4 <- mbind(tmp4,setNames(p_emiothersec*s_c2co2*1000,"Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
-      tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + o_EmiAviation_EUETS + p_emiothersec*s_c2co2*1000,
+      p_emiothersec <- readGDX(gdx, name="p_emiothersec", field="l", format="first_found")[, y, ] #exogenous emissions (from other sectors if introduced into the EU ETS)
+      tmp6 <- mbind(tmp6,setNames(p_emiothersec*s_c2co2*1000,
+                                  "Emissions|CO2|Additional sectors in EU ETS (Mt CO2/yr)"))
+      tmp6 <- mbind(tmp6,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + o_EmiAviation_EUETS + p_emiothersec*s_c2co2*1000,
                                   "Emissions|CO2|EU ETS|w/ aviation (Mt CO2/yr)")) #this includes aviation demand
-      tmp4 <- mbind(tmp4,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + p_emiothersec*s_c2co2*1000,
+      tmp6 <- mbind(tmp6,setNames(o_emi_elec_ind + o_DH_emi + o_EmiEUETS_Maritime + p_emiothersec*s_c2co2*1000,
                                   "Emissions|CO2|EU ETS (Mt CO2/yr)")) #this does not includes aviation demand
 
     } #end if c_bankemi_EU == 1
 
     # concatenate data
-    tmp <- mbind(tmp,tmp4)
+    tmp <- mbind(tmp,tmp6)
 
 
     #Add NAs to avoid inconsistencies: There are no industry emissions values for 2010 and 2015
