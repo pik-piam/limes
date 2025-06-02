@@ -238,7 +238,7 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   }
 
   #load regions that implemented a top-up minimum CO2 price
-  minP <- readGDX(gdx,name="regi_minP")
+  minP <- readGDX(gdx,name="regi_minP", react = "silent")
   #output_aggminP <- NULL
   #convert these regions to iso3
   if(length(minP) > 0) {
