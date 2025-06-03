@@ -1,6 +1,6 @@
 #' Read in GDX and calculate emissions, used in convGDX2MIF.R for the reporting
 #'
-#' Read in data that only exists at EU ETS level, information used in convGDX2MIF.R
+#' Read in data that only exists at UK ETS level, information used in convGDX2MIF.R
 #' for the reporting
 #'
 #'
@@ -23,7 +23,7 @@ reportUKETSvars <- function(gdx,output=NULL) {
     stop("please provide a file containing all needed information")
   }
 
-  # read switch for EU ETS
+  # read switch for UK ETS (same as for EU ETS)
   c_bankemi_EU <- readGDX(gdx,name="c_bankemi_EU",field="l",format="first_found") #banking constraint... many of the variables should not be reported if EU ETS is not modelled at least partially
 
   if(c_bankemi_EU == 1) {
@@ -123,14 +123,15 @@ reportUKETSvars <- function(gdx,output=NULL) {
         if(c_maritime >= 1) {
 
           #Load parameters
-          p_MACC_AbatPotEUETS_Maritime <- readGDX(gdx, name = "p_MACC_AbatPotEUETS_Maritime", format = "first_found", react = 'silent')
+          p_MACC_AbatPotUKETS_Maritime <- readGDX(gdx, name = "p_MACC_AbatPotUKETS_Maritime",
+                                                  format = "first_found", react = 'silent')
           v_EmiAbatProcUKETS_Maritime <- readGDX(gdx, name = "v_EmiAbatProcUKETS_Maritime",
                                                  field="l", format = "first_found", react = 'silent')
 
-          if(!is.null(p_MACC_AbatPotEUETS_Maritime)) {
+          if(!is.null(p_MACC_AbatPotUKETS_Maritime)) {
             #Estimate Maritime emissions (baselines - abated)
             o_EmiUKETS_Maritime <-
-              dimSums(p_MACC_AbatPotEUETS_Maritime - v_EmiAbatProcUKETS_Maritime, dim = 3) * s_c2co2 * 1000
+              dimSums(p_MACC_AbatPotUKETS_Maritime - v_EmiAbatProcUKETS_Maritime, dim = 3) * s_c2co2 * 1000
 
             tmp1 <- mbind(tmp1, setNames(dimSums(v_EmiAbatProcUKETS_Maritime, 3) * s_c2co2 * 1000,
                                          "Emissions abated|CO2|Maritime (Mt CO2/yr)"))
