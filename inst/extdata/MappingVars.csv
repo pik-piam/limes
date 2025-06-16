@@ -806,8 +806,8 @@ Primary Energy|Hydrogen [external];Primary Energy|Hydrogen [external];TWh/yr;PJ/
 Primary Energy|Hydrogen [electrolysis];Primary Energy|Hydrogen [electrolysis];TWh/yr;PJ/yr;3.6
 Primary Energy|Hydrogen;Primary Energy|Hydrogen;TWh/yr;PJ/yr;3.6
 Price|Primary Energy|Hydrogen [external];Price|Primary Energy|Hydrogen [external];Eur2010/GJ;Eur2023/GJ;1.26
-Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [electrolysis];Eur2010/MWh;Eur2023/GJ;1.26
-Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/MWh;Eur2023/GJ;1.26
+Price|Primary Energy|Hydrogen [electrolysis];Price|Primary Energy|Hydrogen [electrolysis];Eur2010/MWh;Eur2023/MWh;1.26
+Price|Primary Energy|Hydrogen;Price|Primary Energy|Hydrogen;Eur2010/MWh;Eur2023/MWh;1.26
 Primary Energy|Electricity|Hydrogen;Primary Energy|Electricity|Hydrogen;TWh/yr;PJ/yr;3.6
 Secondary Energy|Hydrogen|Electricity;Secondary Energy|Hydrogen|Electricity;TWh/yr;TWh/yr;1
 Final Energy|Hydrogen|Other sectors;Final Energy|Hydrogen|Other sectors;TWh/yr;TWh/yr;1
