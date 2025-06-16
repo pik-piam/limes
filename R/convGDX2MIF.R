@@ -38,7 +38,10 @@ convGDX2MIF <- function(gdx,gdx_ref=NULL,file=NULL,scenario="default", time=as.n
   output <- mbind(output,reportFuelCosts(gdx)[,time,])
 
   #adding electricity generation info to report output
-  output <- mbind(output,reportGeneration(gdx,output)[,time,]) #dependent on primary energy and fuel costs
+  output <- mbind(output,reportGeneration(gdx)[,time,])
+
+  #adding hydrogen data to the report output
+  output <- mbind(output,reportHydrogen(gdx,output)[,time,]) #dependent on primary energy and fuel costs
 
   #adding electricity prices info to report output
   output <- mbind(output,reportElectricityPrices(gdx)[,time,])

@@ -30,7 +30,6 @@ convGDX2MIF_tau <- function(gdx, file = NULL, scenario = "default", time = as.nu
 
   # adding electricity generation info to report output
   output <- mbind(output, reportGeneration(gdx,
-                                           output,
                                            reporting_tau = TRUE)[, time, ]
   )
   # adding demand
