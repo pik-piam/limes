@@ -48,15 +48,28 @@ reportIndustryModule <- function(gdx) {
       o_FuelCons_IndProc <- readGDX(gdx,name="o_FuelCons_IndProc",field="l",format="first_found")
       o_InputCons_IndProc <- readGDX(gdx,name="o_InputCons_IndProc",field="l",format="first_found")
       o_LCOP_IndProc <- readGDX(gdx,name="o_LCOP_IndProc",field="l",format="first_found")
-      o_ProdCostMarg_IndProc <- readGDX(gdx,name="o_ProdCostMarg_IndProc",field="l",format="first_found")
-      o_ProdCost_IndProc <- readGDX(gdx,name="o_ProdCost_IndProc",field="l",format="first_found")
-      o_ProdCost_IndProc_CAPEX <- readGDX(gdx,name="o_ProdCost_IndProc_CAPEX",field="l",format="first_found")
-      o_ProdCost_IndProc_Elec <- readGDX(gdx,name="o_ProdCost_IndProc_Elec",field="l",format="first_found")
-      o_ProdCost_IndProc_emi <- readGDX(gdx,name="o_ProdCost_IndProc_emi",field="l",format="first_found")
-      o_ProdCost_IndProc_FuelPECost <- readGDX(gdx,name="o_ProdCost_IndProc_FuelPECost",field="l",format="first_found")
-      o_ProdCost_IndProc_H2 <- readGDX(gdx,name="o_ProdCost_IndProc_H2",field="l",format="first_found")
-      o_ProdCost_IndProc_InputMat <- readGDX(gdx,name="o_ProdCost_IndProc_InputMat",field="l",format="first_found")
-      o_ProdCost_IndProc_OMCost <- readGDX(gdx,name="o_ProdCost_IndProc_OMCost",field="l",format="first_found")
+      o_ProdCostMarg_IndProc <- readGDX(gdx,name=c("o_UnitCostMarg_IndProc","o_ProdCostMarg_IndProc"),
+                                        field="l",format="first_found")
+      o_ProdCost_IndProc <- readGDX(gdx,name=c("o_UnitCost_IndProc","o_ProdCost_IndProc"),
+                                    field="l",format="first_found")
+      o_ProdCost_IndProc_CAPEX <- readGDX(gdx,name=c("o_UnitCostCAPEX_IndProc","o_ProdCost_IndProc_CAPEX"),
+                                          field="l",format="first_found")
+      o_ProdCost_IndProc_Elec <- readGDX(gdx,name=c("o_UnitCostElec_IndProc","o_ProdCost_IndProc_Elec"),
+                                         field="l",format="first_found")
+      o_ProdCost_IndProc_emi <- readGDX(gdx,name=c("o_UnitCostemi_IndProc","o_ProdCost_IndProc_emi"),
+                                        field="l",format="first_found")
+      o_ProdCost_IndProc_FuelPECost <- readGDX(gdx,name=c("o_UnitCostOMV_IndProc","o_ProdCost_IndProc_FuelPECost"),
+                                               field="l",format="first_found")
+      o_ProdCost_IndProc_H2 <- readGDX(gdx,name=c("o_UnitCostH2_IndProc","o_ProdCost_IndProc_H2"),
+                                       field="l",format="first_found")
+      o_ProdCost_IndProc_InputMat <- readGDX(gdx,name=c("o_UnitCostInputMat_IndProc","o_ProdCost_IndProc_InputMat"),
+                                             field="l",format="first_found")
+      o_UnitCostOMV_IndProc <- readGDX(gdx,name="o_UnitCostOMV_IndProc",
+                                           field="l",format="first_found")
+      o_UnitCostOMF_IndProc <- readGDX(gdx,name="o_UnitCostOMF_IndProc",
+                                           field="l",format="first_found")
+      o_ProdCost_IndProc_OMCost <- readGDX(gdx,name=c("o_UnitCostOM_IndProc","o_ProdCost_IndProc_OMCost"),
+                                           field="l",format="first_found")
 
 
       # create MagPie object of v_cap with iso3 regions
@@ -75,6 +88,8 @@ reportIndustryModule <- function(gdx) {
       o_ProdCost_IndProc_FuelPECost <- limesMapping(o_ProdCost_IndProc_FuelPECost)
       o_ProdCost_IndProc_H2 <- limesMapping(o_ProdCost_IndProc_H2)
       o_ProdCost_IndProc_InputMat <- limesMapping(o_ProdCost_IndProc_InputMat)
+      o_UnitCostOMV_IndProc <- limesMapping(o_UnitCostOMV_IndProc)
+      o_UnitCostOMF_IndProc <- limesMapping(o_UnitCostOMF_IndProc)
       o_ProdCost_IndProc_OMCost <- limesMapping(o_ProdCost_IndProc_OMCost)
 
       #compute factor to discount average marginal values
@@ -248,6 +263,22 @@ reportIndustryModule <- function(gdx) {
           dimSums(o_ProdCost_IndProc_InputMat[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]], dim = 3, na.rm = T) /
             dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
           paste0("Production costs|Component Material Input|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component OMV Cost
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_UnitCostOMV_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]],
+                  dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component OMV Cost|",var," (Eur2010/ton)")))
+      }
+      #Production cost: Component OMF Cost
+      for (var in names(varList_steel)){
+        .tmp2 <- mbind(.tmp2, setNames(
+          dimSums(o_UnitCostOMF_IndProc[, , varList_steel[[var]]] * v_Prod_Industry[, , varList_steel[[var]]],
+                  dim = 3, na.rm = T) /
+            dimSums(v_Prod_Industry[, , varList_steel[[var]]], dim = 3),
+          paste0("Production costs|Component OMF Cost|",var," (Eur2010/ton)")))
       }
       #Production cost: Component OM Cost
       for (var in names(varList_steel)){
