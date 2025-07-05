@@ -58,7 +58,7 @@ reportIndustryModule <- function(gdx) {
                                          field="l",format="first_found")
       o_ProdCost_IndProc_emi <- readGDX(gdx,name=c("o_UnitCostemi_IndProc","o_ProdCost_IndProc_emi"),
                                         field="l",format="first_found")
-      o_ProdCost_IndProc_FuelPECost <- readGDX(gdx,name=c("o_UnitCostOMV_IndProc","o_ProdCost_IndProc_FuelPECost"),
+      o_ProdCost_IndProc_FuelPECost <- readGDX(gdx,name=c("o_UnitCostFuelPE_IndProc","o_ProdCost_IndProc_FuelPECost"),
                                                field="l",format="first_found")
       o_ProdCost_IndProc_H2 <- readGDX(gdx,name=c("o_UnitCostH2_IndProc","o_ProdCost_IndProc_H2"),
                                        field="l",format="first_found")
