@@ -26,40 +26,40 @@ Price|Carbon|Net|Electricity;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|National Climate Target|Power Sector;Emissions|CO2|Energy|Supply|Electricity
 Price|Carbon|Net|Industry;Emissions|CO2|Industry
 Price|Carbon|National Climate Target|Industry;Emissions|CO2|Industry
-Load Factor|Electricity|Nuclear;Secondary Energy|Electricity|Nuclear
-Load Factor|Electricity|Coal;Secondary Energy|Electricity|Coal
-Load Factor|Electricity|Coal|w/o CCS;Secondary Energy|Electricity|Coal|w/o CCS
-Load Factor|Electricity|Coal|w/ CCS;Secondary Energy|Electricity|Coal|w/ CCS
-Load Factor|Electricity|Lignite;Secondary Energy|Electricity|Lignite
-Load Factor|Electricity|Lignite|w/o CCS;Secondary Energy|Electricity|Lignite|w/o CCS
-Load Factor|Electricity|Lignite|w/ CCS;Secondary Energy|Electricity|Lignite|w/ CCS
-Load Factor|Electricity|Hard Coal;Secondary Energy|Electricity|Hard Coal
-Load Factor|Electricity|Hard Coal|w/o CCS;Secondary Energy|Electricity|Hard Coal|w/o CCS
-Load Factor|Electricity|Hard Coal|w/ CCS;Secondary Energy|Electricity|Hard Coal|w/ CCS
-Load Factor|Electricity|Gas;Secondary Energy|Electricity|Gas
-Load Factor|Electricity|Gas|w/o CCS;Secondary Energy|Electricity|Gas|w/o CCS
-Load Factor|Electricity|Gas CC|w/o CCS;Secondary Energy|Electricity|Gas CC|w/o CCS
-Load Factor|Electricity|Gas|w/ CCS;Secondary Energy|Electricity|Gas|w/ CCS
-Load Factor|Electricity|Gas CC|w/ CCS;Secondary Energy|Electricity|Gas CC|w/ CCS
-Load Factor|Electricity|Oil;Secondary Energy|Electricity|Oil
-Load Factor|Electricity|Wind;Secondary Energy|Electricity|Wind
-Load Factor|Electricity|Wind|Onshore;Secondary Energy|Electricity|Wind|Onshore
-Load Factor|Electricity|Wind|Offshore;Secondary Energy|Electricity|Wind|Offshore
-Load Factor|Electricity|Solar;Secondary Energy|Electricity|Solar
-Load Factor|Electricity|Solar|PV;Secondary Energy|Electricity|Solar|PV
-Load Factor|Electricity|Solar|CSP;Secondary Energy|Electricity|Solar|CSP
-Load Factor|Electricity|Biomass;Secondary Energy|Electricity|Biomass
-Load Factor|Electricity|Biomass|w/o CCS;Secondary Energy|Electricity|Biomass|w/o CCS
-Load Factor|Electricity|Biomass|w/ CCS;Secondary Energy|Electricity|Biomass|w/ CCS
-Load Factor|Electricity|Hydro;Secondary Energy|Electricity|Hydro
-Load Factor|Electricity|Waste;Secondary Energy|Electricity|Waste
-Load Factor|Electricity|Hydrogen;Secondary Energy|Electricity|Hydrogen
-Load Factor|Electricity|Other;Secondary Energy|Electricity|Other
-Load Factor|Electricity|Hydrogen FC;Secondary Energy|Electricity|Hydrogen FC
-Load Factor|Electricity|Hydrogen OC;Secondary Energy|Electricity|Hydrogen OC
-Load Factor|Electricity|Hydrogen CC;Secondary Energy|Electricity|Hydrogen CC
-Load Factor|Electricity|Gas CC;Secondary Energy|Electricity|Gas CC
-Load Factor|Electricity|Gas OC;Secondary Energy|Electricity|Gas OC
+Load Factor|Electricity|Nuclear;Capacity|Electricity|Nuclear
+Load Factor|Electricity|Coal;Capacity|Electricity|Coal
+Load Factor|Electricity|Coal|w/o CCS;Capacity|Electricity|Coal|w/o CCS
+Load Factor|Electricity|Coal|w/ CCS;Capacity|Electricity|Coal|w/ CCS
+Load Factor|Electricity|Lignite;Capacity|Electricity|Lignite
+Load Factor|Electricity|Lignite|w/o CCS;Capacity|Electricity|Lignite|w/o CCS
+Load Factor|Electricity|Lignite|w/ CCS;Capacity|Electricity|Lignite|w/ CCS
+Load Factor|Electricity|Hard Coal;Capacity|Electricity|Hard Coal
+Load Factor|Electricity|Hard Coal|w/o CCS;Capacity|Electricity|Hard Coal|w/o CCS
+Load Factor|Electricity|Hard Coal|w/ CCS;Capacity|Electricity|Hard Coal|w/ CCS
+Load Factor|Electricity|Gas;Capacity|Electricity|Gas
+Load Factor|Electricity|Gas|w/o CCS;Capacity|Electricity|Gas|w/o CCS
+Load Factor|Electricity|Gas CC|w/o CCS;Capacity|Electricity|Gas CC|w/o CCS
+Load Factor|Electricity|Gas|w/ CCS;Capacity|Electricity|Gas|w/ CCS
+Load Factor|Electricity|Gas CC|w/ CCS;Capacity|Electricity|Gas CC|w/ CCS
+Load Factor|Electricity|Oil;Capacity|Electricity|Oil
+Load Factor|Electricity|Wind;Capacity|Electricity|Wind
+Load Factor|Electricity|Wind|Onshore;Capacity|Electricity|Wind|Onshore
+Load Factor|Electricity|Wind|Offshore;Capacity|Electricity|Wind|Offshore
+Load Factor|Electricity|Solar;Capacity|Electricity|Solar
+Load Factor|Electricity|Solar|PV;Capacity|Electricity|Solar|PV
+Load Factor|Electricity|Solar|CSP;Capacity|Electricity|Solar|CSP
+Load Factor|Electricity|Biomass;Capacity|Electricity|Biomass
+Load Factor|Electricity|Biomass|w/o CCS;Capacity|Electricity|Biomass|w/o CCS
+Load Factor|Electricity|Biomass|w/ CCS;Capacity|Electricity|Biomass|w/ CCS
+Load Factor|Electricity|Hydro;Capacity|Electricity|Hydro
+Load Factor|Electricity|Waste;Capacity|Electricity|Waste
+Load Factor|Electricity|Hydrogen;Capacity|Electricity|Hydrogen
+Load Factor|Electricity|Other;Capacity|Electricity|Other
+Load Factor|Electricity|Hydrogen FC;Capacity|Electricity|Hydrogen FC
+Load Factor|Electricity|Hydrogen OC;Capacity|Electricity|Hydrogen OC
+Load Factor|Electricity|Hydrogen CC;Capacity|Electricity|Hydrogen CC
+Load Factor|Electricity|Gas CC;Capacity|Electricity|Gas CC
+Load Factor|Electricity|Gas OC;Capacity|Electricity|Gas OC
 Secondary Energy|Electricity|Share of renewables in gross demand;Secondary Energy|Electricity|Gross Demand
 Secondary Energy|Electricity|Share of variable renewables in gross demand;Secondary Energy|Electricity|Gross Demand
 Secondary Energy|Electricity|Share of wind energy in gross demand;Secondary Energy|Electricity|Gross Demand
@@ -148,40 +148,40 @@ Price|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
 Price Full|Secondary Energy|Heat|District heating|1;Demand Load|Heating|Heat|1
 Price|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1
 Price Full|Secondary Energy|Heat|Decentral P2H|1;Demand Load|Heating|Decentral|Electricity|1
-Load Factor|Electricity|Nuclear|1;Load|Electricity|Nuclear
-Load Factor|Electricity|Coal|1;Load|Electricity|Coal|1
-Load Factor|Electricity|Coal|w/o CCS|1;Load|Electricity|Coal|w/o CCS|1
-Load Factor|Electricity|Coal|w/ CCS|1;Load|Electricity|Coal|w/ CCS|1
-Load Factor|Electricity|Lignite|1;Load|Electricity|Lignite|1
-Load Factor|Electricity|Lignite|w/o CCS|1;Load|Electricity|Lignite|w/o CCS|1
-Load Factor|Electricity|Lignite|w/ CCS|1;Load|Electricity|Lignite|w/ CCS|1
-Load Factor|Electricity|Hard Coal|1;Load|Electricity|Hard Coal|1
-Load Factor|Electricity|Hard Coal|w/o CCS|1;Load|Electricity|Hard Coal|w/o CCS|1
-Load Factor|Electricity|Hard Coal|w/ CCS|1;Load|Electricity|Hard Coal|w/ CCS|1
-Load Factor|Electricity|Gas|1;Load|Electricity|Gas|1
-Load Factor|Electricity|Gas|w/o CCS|1;Load|Electricity|Gas|w/o CCS|1
-Load Factor|Electricity|Gas CC|w/o CCS|1;Load|Electricity|Gas CC|w/o CCS|1
-Load Factor|Electricity|Gas|w/ CCS|1;Load|Electricity|Gas|w/ CCS|1
-Load Factor|Electricity|Gas CC|w/ CCS|1;Load|Electricity|Gas CC|w/ CCS|1
-Load Factor|Electricity|Oil|1;Load|Electricity|Oil|1
-Load Factor|Electricity|Wind|1;Load|Electricity|Wind|1
-Load Factor|Electricity|Wind|Onshore|1;Load|Electricity|Wind|Onshore|1
-Load Factor|Electricity|Wind|Offshore|1;Load|Electricity|Wind|Offshore|1
-Load Factor|Electricity|Solar|1;Load|Electricity|Solar|1
-Load Factor|Electricity|Solar|PV|1;Load|Electricity|Solar|PV|1
-Load Factor|Electricity|Solar|CSP|1;Load|Electricity|Solar|CSP|1
-Load Factor|Electricity|Biomass|1;Load|Electricity|Biomass|1
-Load Factor|Electricity|Biomass|w/o CCS|1;Load|Electricity|Biomass|w/o CCS|1
-Load Factor|Electricity|Biomass|w/ CCS|1;Load|Electricity|Biomass|w/ CCS|1
-Load Factor|Electricity|Hydro|1;Load|Electricity|Hydro|1
-Load Factor|Electricity|Waste|1;Load|Electricity|Waste|1
-Load Factor|Electricity|Hydrogen|1;Load|Electricity|Hydrogen|1
-Load Factor|Electricity|Other|1;Load|Electricity|Other|1
-Load Factor|Electricity|Hydrogen FC|1;Load|Electricity|Hydrogen FC|1
-Load Factor|Electricity|Hydrogen OC|1;Load|Electricity|Hydrogen OC|1
-Load Factor|Electricity|Hydrogen CC|1;Load|Electricity|Hydrogen CC|1
-Load Factor|Electricity|Gas CC|1;Load|Electricity|Gas CC|1
-Load Factor|Electricity|Gas OC|1;Load|Electricity|Gas OC|1
+Load Factor|Electricity|Nuclear|1;Capacity|Electricity|Nuclear
+Load Factor|Electricity|Coal|1;Capacity|Electricity|Coal
+Load Factor|Electricity|Coal|w/o CCS|1;Capacity|Electricity|Coal|w/o CCS
+Load Factor|Electricity|Coal|w/ CCS|1;Capacity|Electricity|Coal|w/ CCS
+Load Factor|Electricity|Lignite|1;Capacity|Electricity|Lignite
+Load Factor|Electricity|Lignite|w/o CCS|1;Capacity|Electricity|Lignite|w/o CCS
+Load Factor|Electricity|Lignite|w/ CCS|1;Capacity|Electricity|Lignite|w/ CCS
+Load Factor|Electricity|Hard Coal|1;Capacity|Electricity|Hard Coal
+Load Factor|Electricity|Hard Coal|w/o CCS|1;Capacity|Electricity|Hard Coal|w/o CCS
+Load Factor|Electricity|Hard Coal|w/ CCS|1;Capacity|Electricity|Hard Coal|w/ CCS
+Load Factor|Electricity|Gas|1;Capacity|Electricity|Gas
+Load Factor|Electricity|Gas|w/o CCS|1;Capacity|Electricity|Gas|w/o CCS
+Load Factor|Electricity|Gas CC|w/o CCS|1;Capacity|Electricity|Gas CC|w/o CCS
+Load Factor|Electricity|Gas|w/ CCS|1;Capacity|Electricity|Gas|w/ CCS
+Load Factor|Electricity|Gas CC|w/ CCS|1;Capacity|Electricity|Gas CC|w/ CCS
+Load Factor|Electricity|Oil|1;Capacity|Electricity|Oil
+Load Factor|Electricity|Wind|1;Capacity|Electricity|Wind
+Load Factor|Electricity|Wind|Onshore|1;Capacity|Electricity|Wind|Onshore
+Load Factor|Electricity|Wind|Offshore|1;Capacity|Electricity|Wind|Offshore
+Load Factor|Electricity|Solar|1;Capacity|Electricity|Solar
+Load Factor|Electricity|Solar|PV|1;Capacity|Electricity|Solar|PV
+Load Factor|Electricity|Solar|CSP|1;Capacity|Electricity|Solar|CSP
+Load Factor|Electricity|Biomass|1;Capacity|Electricity|Biomass
+Load Factor|Electricity|Biomass|w/o CCS|1;Capacity|Electricity|Biomass|w/o CCS
+Load Factor|Electricity|Biomass|w/ CCS|1;Capacity|Electricity|Biomass|w/ CCS
+Load Factor|Electricity|Hydro|1;Capacity|Electricity|Hydro
+Load Factor|Electricity|Waste|1;Capacity|Electricity|Waste
+Load Factor|Electricity|Hydrogen|1;Capacity|Electricity|Hydrogen
+Load Factor|Electricity|Other|1;Capacity|Electricity|Other
+Load Factor|Electricity|Hydrogen FC|1;Capacity|Electricity|Hydrogen FC
+Load Factor|Electricity|Hydrogen OC|1;Capacity|Electricity|Hydrogen OC
+Load Factor|Electricity|Hydrogen CC|1;Capacity|Electricity|Hydrogen CC
+Load Factor|Electricity|Gas CC|1;Capacity|Electricity|Gas CC
+Load Factor|Electricity|Gas OC|1;Capacity|Electricity|Gas OC
 Capital Costs|Carbon removal|DACCS|Liquid solvent;Capacity Additions|Carbon removal|DACCS|Liquid solvent
 Capital Costs|Carbon removal|DACCS|Solid sorbent;Capacity Additions|Carbon removal|DACCS|Solid sorbent
 Capital Costs|Carbon removal|DACCS|CaO ambient weathering;Capacity Additions|Carbon removal|DACCS|CaO ambient weathering
@@ -281,10 +281,10 @@ Production costs|Component Fossil fuel|Industry|Steel|Primary route;Production|I
 Production costs|Component Hydrogen|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
 Production costs|Component Material Input|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
 Production costs|Component OM Cost|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
-Capacity factor|Industry|Steel;Production|Industry|Steel
-Capacity factor|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Production|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
-Capacity factor|Industry|Steel|Electric Arc Furnace;Production|Industry|Steel|Electric Arc Furnace
-Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
-Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
-Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Production|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
-Capacity factor|Industry|Steel|Primary route;Production|Industry|Steel|Primary route
+Capacity factor|Industry|Steel;Capacity|Industry|Steel
+Capacity factor|Industry|Steel|Blast Furnace-Basic Oxygen Furnace;Capacity|Industry|Steel|Blast Furnace-Basic Oxygen Furnace
+Capacity factor|Industry|Steel|Electric Arc Furnace;Capacity|Industry|Steel|Electric Arc Furnace
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Natural gas
+Capacity factor|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen;Capacity|Industry|Steel|Direct Reduced Iron Electric Arc Furnace with Hydrogen
+Capacity factor|Industry|Steel|Primary route;Capacity|Industry|Steel|Primary route
