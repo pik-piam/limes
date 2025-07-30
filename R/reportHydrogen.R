@@ -297,27 +297,52 @@ reportHydrogen <- function(gdx, output = NULL) {
                        field = "m", format = "first_found", restore_zeros = FALSE,
                        react = 'silent') # [Geur/GWh]
       m_p2x <- limesMapping(m_p2x[, , "pehgen"])
-      m_p2x_tau <- m_p2x / p_taulength
 
-      ##Estimate prices per tau
-      #Discount and convert to EUR/MWh
-      ## Create magpie to save marginal value to compute required calculations
-      o_priceH2_tau <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1),
-                                  years = getYears(v_prodP2XSe), names = tau,
-                                  fill = NA, sort = FALSE, sets = NULL)
+      #Identify if m_p2x is tau-dependent
+      if(length(grep(".1",getItems(m_p2x, dim = 3))) > 0) { #this means the marginal contains tau
 
-      for (t2 in getYears(o_priceH2_tau)) {
-        if (t2 %in% getYears(m_p2x_tau)) {
-          o_priceH2_tau[, t2, ] <- m_p2x_tau[, t2, ] * 1e6 /
-            as.numeric(f_npv[getYears(o_priceH2_tau) %in% t2])
+        m_p2x_tau <- m_p2x / p_taulength
+
+        ##Estimate prices per tau
+        #Discount and convert to EUR/MWh
+        ## Create magpie to save marginal value to compute required calculations
+        o_priceH2_tau <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1),
+                                    years = getYears(v_prodP2XSe), names = tau,
+                                    fill = NA, sort = FALSE, sets = NULL)
+
+        for (t2 in getYears(o_priceH2_tau)) {
+          if (t2 %in% getYears(m_p2x_tau)) {
+            o_priceH2_tau[, t2, ] <- m_p2x_tau[, t2, ] * 1e6 /
+              as.numeric(f_npv[getYears(o_priceH2_tau) %in% t2])
+          }
         }
-      }
 
-      #Estimate price per year (undiscounted)
-      #Convert to EUR/MWh
-      o_priceH2_year <-
-        dimSums(o_priceH2_tau * p_taulength * v_prodP2XSe, dim = 3) /
-        dimSums(p_taulength * v_prodP2XSe, 3)
+        #Estimate price per year (undiscounted)
+        #Convert to EUR/MWh
+        o_priceH2_year <-
+          dimSums(o_priceH2_tau * p_taulength * v_prodP2XSe, dim = 3) /
+          dimSums(p_taulength * v_prodP2XSe, 3)
+
+      } else {
+
+        ##Estimate prices per year
+        #Discount and convert to EUR/MWh
+        ## Create magpie to save marginal value to compute required calculations
+        o_priceH2_year <- new.magpie(cells_and_regions = getItems(v_prodP2XSe, dim = 1),
+                                     years = getYears(v_prodP2XSe), names = NULL,
+                                     fill = NA, sort = FALSE, sets = NULL)
+
+        for (t2 in getYears(o_priceH2_year)) {
+          if (t2 %in% getYears(m_p2x)) {
+            o_priceH2_year[, t2, ] <- m_p2x[, t2, ] * 1e6 /
+              as.numeric(f_npv[getYears(o_priceH2_year) %in% t2]) # [Geur 2010/GWh]
+          }
+        }
+
+        #To avoid reporting prices when there is no production
+
+      } #end if checking if marginal contains tau
+
 
     } #end of c_LIMESversion >= 2.41
 
