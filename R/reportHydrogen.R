@@ -197,18 +197,26 @@ reportHydrogen <- function(gdx, output = NULL) {
 
       #net imports from internal market
       v_NetImpInMarket_XSe <- readGDX(gdx, name = c("v_NetImpInMarket_XSe"),
-                               field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
-      v_NetImpInMarket_XSe <- limesMapping(v_NetImpInMarket_XSe)
-      #net imports from external market
-      v_ImpAbroad_XSe <- readGDX(gdx, name = c("v_ImpAbroad_XSe"),
-                                 field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
-      v_ImpAbroad_XSe <- limesMapping(v_ImpAbroad_XSe)
+                               field = "l", format = "first_found", restore_zeros = FALSE,
+                               react = 'silent')[, , "pehgen"] # [GWh]
 
-      #report
-      tmp1 <- mbind(tmp1, setNames((v_NetImpInMarket_XSe + v_ImpAbroad_XSe) / 1000,
-                                   "Net imports|Hydrogen (TWh/yr)"))
-      tmp1 <- mbind(tmp1, setNames(pmax(v_NetImpInMarket_XSe + v_ImpAbroad_XSe, 0) / 1000,
-                                   "Primary Energy|Hydrogen [external] (TWh/yr)"))
+      #Check wether variable exists
+      if(!is.null(v_NetImpInMarket_XSe)) {
+
+        #magpie variable for internal exchange
+        v_NetImpInMarket_XSe <- limesMapping(v_NetImpInMarket_XSe)
+
+        #net imports from external market
+        v_ImpAbroad_XSe <- readGDX(gdx, name = c("v_ImpAbroad_XSe"),
+                                   field = "l", format = "first_found", restore_zeros = FALSE)[, , "pehgen"] # [GWh]
+        v_ImpAbroad_XSe <- limesMapping(v_ImpAbroad_XSe)
+
+        #report
+        tmp1 <- mbind(tmp1, setNames((v_NetImpInMarket_XSe + v_ImpAbroad_XSe) / 1000,
+                                     "Net imports|Hydrogen (TWh/yr)"))
+        tmp1 <- mbind(tmp1, setNames(pmax(v_NetImpInMarket_XSe + v_ImpAbroad_XSe, 0) / 1000,
+                                     "Primary Energy|Hydrogen [external] (TWh/yr)"))
+      }
 
     } #end if c_LIMESversion >= 2.41
 
@@ -299,7 +307,7 @@ reportHydrogen <- function(gdx, output = NULL) {
       m_p2x <- limesMapping(m_p2x[, , "pehgen"])
 
       #Identify if m_p2x is tau-dependent
-      if(length(grep(".1",getItems(m_p2x, dim = 3))) > 0) { #this means the marginal contains tau
+      if(length(grep("1.",getItems(m_p2x, dim = 3))) > 0) { #this means the marginal contains tau
 
         m_p2x_tau <- m_p2x / p_taulength
 
